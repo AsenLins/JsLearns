@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Js作用域学习</title>
+  </head>
+  <body>
+<xmp theme="united" style="display:none;">
+<!--
+ - <a href="http://baidu.com">Js的编译过程</a>
+ - <a href="http://baidu.com">Js的作用域</a>
+ - <a href="">Js的块作用域</a>
+ - <a href="">Js的代码块</a>
+-->
+ ### 引擎，编译器，作用域
+ - 引擎：负责整个程序的编译与代码执行过程。
+ - 编译器：用于词法分析以及生成引擎可识别可运行的代码。
+ - 作用域：提供存储变量的规则，以及确定当前代码是否有访问指定变量的权限。
+
+
+ 编译运行的过程,假设以下Js代码：
+ ```
+ {
+   var a；
+   a=2;
+ }
+
+ 编译器编译生成代码->引擎执行代码，通过作用域协作，找到全局作用域声明的变量a,然后再赋值变量a的值为2（LHS）
+ ```
+
+
+
+
+ ### 引擎执行的查找方式：查询赋值对象（LHS）与查询赋值对象的值（RHS）
+ ```
+ var a;
+ /*LHS查询*/
+ a=10;
+
+ /*RHS查询*/
+ console.log(a);
+
+ ```
+ 查找“被”赋值对象通常是LHS查询，而查找赋值对象（值或对象）通常是RHS查询。
+
+ - 当LHS查询找不到变量对象时，在非严格模式下会自动声明一个全局变量,如果查询对象与原对象类型不符会报一个异常：TypeError
+
+ - 当RHS查询找不到对象时，会报一个异常：ReferenceError
+
+
+
+
+
+
+ ### Js的作用域：
+ Js的作用域是用于存储变量的一套规则,每当编译的时候，引擎会在作用域中找到对应的变量,然后声明或者赋值,而作用域是层层嵌套的，最内层的作用域会在他的外层查找指定变量，直到找到为止，若找不到，则查找停止，报异常。
+ ```
+function(){
+  var b=123;
+}
+/*找不到b*/
+console.log(b);
+ ```
+
+ Js没有块级作用域。
+ ```
+ for(var index=0;index<5;index++){
+
+ }
+ /*输出4*/
+ console.log(index);
+ ```
+但可通过ECMScript6的新语法或特定的语法创造块级作用域：
+```
+if(true){
+  /*let 关键字*/
+  let a=123;
+  console.log(a);
+}
+
+/*找不到a*/
+console.log(a);
+
+if(true){
+  /*const 关键字 */
+  const b=123;
+  console.log(b);
+}
+/*找不到b*/
+console.log(b);
+
+
+/*try catch也可以创建块作用域。*/
+try{
+
+
+}
+catch(error){
+
+}
+
+
+
+```
+
+
+
+
+函数作用域：
+```
+function TestFunc(){
+  var a=123;
+  function MyFunc(){
+    /*往外层作用域找到变量a*/
+    var b=a;
+  }
+  /*b不存在，因为是RHS查询，所以会错误ReferenceError*/
+  console.log(b);
+}
+```
+
+Js的匿名与具名函数/函数表达式
+
+```
+/*具名函数*/
+function MyFunc(){
+  console.log("hellow world");
+}
+
+/*这里面的function是匿名函数，同时也是一个函数表达式*/
+setTimeout(function(){
+
+  console.log("time out");
+},1000);
+
+/*函数表达式，加括号代表立即执行*/
+(function(){
+  console.log("i am function");
+})();
+
+/*函数表达式的第二种写法*/
+(function(){
+  console.log("i am function2");
+}());
+
+/*可以传参数*/
+(function(){
+  console.log("i am function");
+})(window);
+
+小结：
+以这种函数表达式运行的函数不会造成全局污染，外部方法也无法访问到内部，只能自身能访问。
+函数声明必须是function开头,不然这就是一个函数表达式。
+```
+
+
+
+#### 函数与声明“提升”
+```
+/*输出i am MyFunc*/
+MyFunc("i am MyFunc");
+
+funtion MyFunc(){
+  console.log("i am MyFunc");
+}
+
+/*这里输出undefined*/
+conosole.log(a);
+var a=2;
+
+function MyFunc2(){
+  /*输出undefined*/
+  console.log(b);
+  var b=3;
+}
+
+
+```
+函数提升（var 与 function）声明的时候，编译器会首先定义这些变量（无论是在全局作用域还是），然后再做继续的操作，若有多个同名的函数声明提升，则最后的会覆盖原来的。
+
+
+</xmp>
+<script src="../Script/strapdown/strapdownjs.js"></script>
+<script>
+
+try {
+  console.log(a);
+} catch (e) {
+  console.log(e);
+}
+try {
+console.log(b);
+} catch (e) {
+console.log(e}
+</script>
+</html>
