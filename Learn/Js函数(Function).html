@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <xmp theme="united" style="display:none;">
+
+
+
+    </xmp>
+    <script src="../Script/strapdown/strapdownjs.js"></script>
+
+    <script>
+
+    function MyTest2(){
+       this.a=3;
+
+    }
+
+    function MyTest(Func){
+      Func.apply(MyTest2,[1]);
+    }
+
+
+    MyTest(function(a){
+      console.log(arguments);
+      console.log(this.a);
+    });
+
+    </script>
+  </body>
+  </html>

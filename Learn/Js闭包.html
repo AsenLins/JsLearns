@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Js闭包</title>
+  </head>
+  <body>
+    <xmp theme="united" style="display:none;">
+
+#### 闭包是计算机领域的专业名词，只要符合指定特性的都是闭包，Js的闭包的特性是：
+> 在函数内能保存当前函数作用域的访问，并且可供外部调用时，就形成了闭包，即使在函数作用域外调用。
+
+Js的闭包与作用域是密不可分的：
+```
+function MyTest(){
+ var a=3;
+
+ function DoSomeThing(){
+    console.log(a);
+ }
+
+ /*输出3*/
+ DoSomeThing();
+}
+```
+以上代码严格来说，这不是闭包，只是利用了作用域RHS查询而已，但闭包恰恰是利用作用域的这些特质。
+
+```
+function MyTest(){
+  var b=5;
+
+  function Response(){
+    console.log(b);
+  }
+
+  return Reponse;
+}
+
+var Test=MyTest();
+
+/*输出5*/
+Test.Response();
+
+```
+以上代码就可以很清楚的看到闭包的特质，函数内部保存着外部作用域的引用，当外部调用时，依然可以通过内部函数的作用域找到的指定值或函数。
+```
+function MyTest(){
+  var c=6;
+  function InTest(){
+    console.log(c);
+  }
+
+  /*输出6*/
+  Test(InTest);
+}
+
+function Test(Func){
+  Func();
+
+}
+
+```
+函数如果以参数的形式传递，都会保存当前作用域的引用，这就是闭包效果。
+
+```
+/*循环与闭包*/
+for(var i=0;i<10;i++){
+  (function(){
+      /*依次输出1-10*/
+      setTimeout(function(){
+          console.log(i);
+
+      },1000);
+  })(i);
+}
+```
+以上代码通过IIFE函数会创建一个独立的作用域，每个i和settimeout相当于在一个独立的作用域中执行,setTimeout里面调用函数生成了闭包，解决了引用同一个变量的问题。
+
+更简化的代码：
+
+```
+for(let a=0;a<10;a++){
+  setTimeout(function(){
+      /*一次输出1-10*/
+      console.log(a);
+  });
+}
+```
+
+
+
+## Js模块模式（使用闭包）
+一般模块
+```
+function MyTest(b){
+   function Test(){
+     console.log(b);
+   }
+
+   retrun {
+     Test:Test
+   };
+}
+
+var obj=MyTest();
+var obj2 MyTest();
+
+/*输出 i am obj*/
+obj.Test("i am obj");
+
+/*输出 i am obj2*/
+obj2.Test("i am obj2");
+
+```
+
+单列模块
+
+```
+/*单例模块*/
+var MyTest2=(function(){
+  function Test(){
+
+    console.log("MyTest2");
+
+  }
+  return{
+    Test:Test
+  };
+
+
+})();
+
+MyTest2.Test();
+
+```
+
+现代模块
+```
+
+
+```
+
+
+
+
+
+    </xmp>
+    <script src="../Script/strapdown/strapdownjs.js"></script>
+
+    <script>
+    var MyModules=(function(){
+        var Modules={};
+        function define(name,deps,impl){
+            for(var i=0;i<deps.length;i++){
+               deps[i]=Modules[deps[i]];
+            }
+
+            Modules[name]=impl.apply(impl,deps)
+        }
+
+        function get(name) {
+          return Modules[name];
+        }
+
+        return{
+          define:define,
+          get:get
+        };
+    })();
+
+
+    MyModules.define("DoFunc",[],function(){
+      function Kill(a){
+        console.log("I kill "+ a);
+      }
+
+      return{
+        Kill:Kill
+      };
+    });
+
+
+    MyModules.define("TestFunc",["DoFunc"],function(DoFunc){
+      function DoSomeThing(a){
+         console.log(a);
+         DoFunc.Kill(a);
+      }
+      return {
+        DoSomeThing:DoSomeThing
+
+      };
+    });
+    
+    var Test=MyModules.get("TestFunc");
+    Test.DoSomeThing("I am good man");
+
+
+
+
+    </script>
+  </body>
+  </html>
