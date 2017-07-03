@@ -134,11 +134,62 @@ MyTest2.Test();
 
 ```
 
-现代模块
+现代模块（使用了上方法apply（可以是实现函数的动态作用域）,call）
 ```
+var MyModules=(function(){
+    var Modules={};
+    function define(name,deps,impl){
+        for(var i=0;i<deps.length;i++){
+           deps[i]=Modules[deps[i]];
+        }
+
+        Modules[name]=impl.apply(impl,deps)
+    }
+
+    function get(name) {
+      return Modules[name];
+    }
+
+    return{
+      define:define,
+      get:get
+    };
+})();
 
 
+MyModules.define("DoFunc",[],function(){
+  function Kill(a){
+    console.log("I kill "+ a);
+  }
+
+  return{
+    Kill:Kill
+  };
+});
+
+
+MyModules.define("TestFunc",["DoFunc"],function(DoFunc){
+  function DoSomeThing(a){
+     console.log(a);
+     DoFunc.Kill(a);
+  }
+  return {
+    DoSomeThing:DoSomeThing
+
+  };
+});
+
+var Test=MyModules.get("TestFunc");
+/*输出 I am good man
+
+*/
+Test.DoSomeThing("I am good man");
+
 ```
+以上模块模式可以定义多个独立模块，并且可以加载别的模块进来，其核心就是运用了作用域和闭包，以及函数内部方法apply，
+apply主要是可以定义当前函数可以在哪个对象的作用域中在执行,apply配合this可以实现动态作用域。
+
+#### 小结：只要函数能记住并且能够访问当前函数的作用域，即使是在函数外部，就形成了闭包。
 
 
 
@@ -190,7 +241,7 @@ MyTest2.Test();
 
       };
     });
-    
+
     var Test=MyModules.get("TestFunc");
     Test.DoSomeThing("I am good man");
 
