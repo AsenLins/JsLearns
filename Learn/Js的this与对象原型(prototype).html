@@ -2,15 +2,122 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Js的this</title>
   </head>
   <body>
     <xmp theme="united" style="display:none;">
+## this
+this不基于词法作用域,是运行时绑定的作用域对象,默认指向全局作用域对象。
+
+## this的绑定规则
+1.默认绑定：
+
+```
+var a=20;
+function MyTest(){
+  var a=10;
+  console.log(this.a);
+}
+
+/*输出20*/
+MyTest();
+```
+
+2.隐式绑定:
+
+
+```
+/*
+当调用的函数是在一个上下文对象中调用时，this的隐式指向这个上下文对象。
+*/
+
+function MyTest2(){
+ console.log(this.c);
+}
+
+var obj={
+  c:100,
+  MyTest:MyTest2
+};
+
+/*输出100*/
+obj.MyTest2();
+
+
+```
+
+
+
+
+隐式绑定的丢失：
+
+```
+/*
+当调用DoFunc时，其实只是直接调用MyTest2的引用函数，this还是指向全局作用域,只有在有上下文对象中调用时，this的作用域对象才会改变
+*/
+
+function MyTest2(){
+  console.log(this.c);
+}
+var obj={
+  c:100,
+  MyTest2:MyTest2
+};
+
+function DoFunc(Func){
+  Func();
+
+}
+
+/*输出undefined*/
+DoFunc(obj.MyTest2);
+```
+
+3.显示绑定：
+使用函数内部方法apply或call可以修改this的作用域对象。
+
+```
+```
+
+
+
+
 
     </xmp>
     <script src="../Script/strapdown/strapdownjs.js"></script>
 
     <script>
+
+      var obj={
+        c:10,
+        dc:dc
+      }
+      console.log(obj);
+      obj.dc();
+      function MyTest2(){
+          var c=100;
+
+
+          function MyTestSon() {
+              console.log(this.c)
+          }
+
+          return{
+            MyTestSon:dc
+
+          };
+      }
+
+      function dc(){
+        console.log(this.c);
+
+      }
+      MyTest2.c="123";
+
+      var test=new MyTest2();
+      console.log(test);
+      test.MyTestSon();
+
       function MyTest () {
         MyTest.count=0;
         console.log(this);
