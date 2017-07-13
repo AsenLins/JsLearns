@@ -74,15 +74,156 @@ DoFunc(obj.MyTest2);
 ```
 
 3.显示绑定：
-- 使用函数内部方法apply或call可以修改this的作用域对象。
-- 使用函数的bind方法可以硬绑定this指向的作用域
-- new 函数
+- 使用函数内部方法apply或call可以修改this的作用域对象
+```
+function MyTest(){
+  console.log(this.a);
+}
+
+var obj={
+  a:10
+};
+
+var obj2={
+  a:20
+};
+
+MyTest.apply(obj);
+MyTest.call(obj2);
+
+```
+4.硬绑定
+```
+var obj={
+  a:10
+};
+
+var obj2={
+  a:20
+};
+
+function Func(){
+  console.log(this.a);
+}
+
+function MyTest(){
+  Func.apply(obj);
+}
+
+MyTest.call(window);
+
+Function MyTest2(){
+  console.log(this.a);
+}
+
+/*使用内置函数bind硬绑定this作用域*/
+var BindFunc=Func.bind(obj2);
+
+/*输出20*/
+BindFunc();
+
+/*输出10*/
+MyTest2();
+
 ```
 
+5.new绑定
+
+每当使用new去调用函数（构造函数）,会实例一个新对象，并且把this绑定到这个新对象中，如果构造函数没有指定返回对象，则默认返回这个新对象。
+
+```
+function MyFunction(){
+  this.a=100;
+}
+
+var obj=new MyFunction();
+/*输出100*/
+console.log(obj.a);
+```
+
+## this绑定优先级
+
+1. new绑定
+2. 硬绑定（bind或实现类似语法）
+3. 显示绑定（call,apply）
+4. 隐式绑定(上下文对象)
+5. 默认绑定(window)
+
+## this忽略绑定
+
+当this指向null时，会忽略该绑定，并且会还原为默认绑定。
+
+```
+var a=10;
+function Func(){
+  console.log(this.a);
+}
+
+/*输出10*/
+Func.apply(null,10);
+```
+
+## this更安全绑定方法（DMZ）
+
+为了防止污染全局对象，使用一个空对象去实现柯里化是一个不错的选择。
+
+```
+var obj=Object.create(null);
+
+function Func(param1){
+  console.log(param1);
+}
+
+/*输出1*/
+Func.bind(obj,1);
+
 ```
 
 
 
+## 柯里化
+是把接受多个参数的函数变换成接受一个单一参数(最初函数的第一个参数)的函数，并且返回接受余下的参数且返回结果的新函数。
+```
+function Func(param1,param2){
+  this.val=param1+param2;
+}
+
+var TheFunc=Func.bind(1);
+
+var Obj=new TheFunc(2);
+
+/*输出3*/
+console.log(Obj.val);
+```
+
+
+
+
+
+
+## 学习疑问
+多个优先级一起的时候问题
+```
+function Func(param1,param2){
+  /*可以理解为：arguments[0]+arguments[1]*/
+  this.val=param1+param2;
+}
+
+/*这里已经生成了一个this指向null,并且arguments[0]=param1的函数*/
+var FuncBind=Func.bind(null,"param1");
+
+/*会把参数放进arguments中*/
+var FuncObj=new FuncBind("param2");
+
+/*输出param1param2*/
+console.log(FuncObj.val);
+```
+Js的函数参数是可以任意增加,并不是形参定义什么，就必须传什么，参数都放在arguments中，并且以数组形式存储，第一个传进的参数在最前。
+
+
+## 需另外学习的东西
+- bind实现
+- 柯里化
 
 
     </xmp>
@@ -128,7 +269,22 @@ DoFunc(obj.MyTest2);
       }
       MyTest.count=MyTest.count+1;
       MyTest();
-      console.log(MyTest)
+      console.log(MyTest);
+
+      function MyTest3() {
+          console.log(this.a);
+      }
+
+      function MyTest4(p1,p2){
+        console.log(arguments)
+         this.val=p1+p2;
+
+      }
+      var MyTestBind=MyTest4.bind(null,"p1","p2");
+      console.log(MyTestBind);
+      var obj=new MyTestBind("p3","p4","p5","p6");
+      console.log(obj);
+
     </script>
   </body>
   </html>
