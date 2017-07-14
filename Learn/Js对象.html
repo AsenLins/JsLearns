@@ -6,11 +6,116 @@
   </head>
   <body>
     <xmp theme="united" style="display:none;">
+对象是Js的基础，函数，数组等是对象的子类型。
+
+## Js的语言类型（基本类型）
+- string
+- number
+- boolean
+- null
+- undefined
+- object
+
+ typeof 是用来判断当前的基本类型
+
+```
+var str="hello world";
+var num=1;
+/*输出string*/
+console.log(typeof str);
+
+/*输出number*/
+console.log(typeof num);
+
+```
+
+null类型陷进：
+typeof返回object,是因为js的对象在二进制前三位都是0，而null默认都是0，所以前3位肯定都是0，会被判定为是对象（object）.这是Js的一个Bug
+
+```
+
+console.log(typeof object);
+
+```
+
+
+## 内置对象
+
+- String
+- Number
+- Boolean
+- Function
+- Object
+- Array
+- Date
+- RegExp
+- Error
+
+instanceof判断类型是属于哪个实例(true or false)
+```
+var strObj=new String("hello world");
+console.log(strObj instanceof String);
+```
+
+Js引擎在特定情况会自动把基本类型的字面量转换为对象：
+```
+var strLength="Asen".length;
+/*输出4*/
+console.log(strLength);
+
+var numFix=123.1.toFixed(2);
+/*输出123.10*/
+console.log(numFix);
+
+var str="Asen";
+/*并不是String的对象*/
+console.log(str instanceof String);
+
+/*在特定时候会转换为String对象，输出4*/
+console.log(str.length);
+
+
+```
+
+null和undefined只有字面形式，没有构造形式。
+Array,Object,Date,RegExp，文字形式还是构造形式，都是对象，不是字面量，用构造形式创建可以添加一些额外的参数。
+Error会在抛出异常时自动创建
+
+## 对象内容的存储方式
+
+
 
     </xmp>
     <script src="../Script/strapdown/strapdownjs.js"></script>
 
     <script>
+      var str="hello world";
+      var num=3;
+      console.log(typeof str);
+      console.log(typeof num);
+
+      var strObj=new String("hello world");
+      /*输出字符串对象*/
+      console.log(strObj);
+
+      /*输出true*/
+      console.log(strObj instanceof String);
+
+      var strLength="Asen".length;
+      /*输出4*/
+      console.log(strLength);
+
+      var numFix=123.1.toFixed(2);
+      /*输出123.00*/
+      console.log(numFix);
+
+      var str_1="Asen";
+      /*并不是String的对象*/
+      console.log(str_1 instanceof String);
+
+      /*在特定时候会转换为String对象，输出4*/
+      console.log(str_1.length);
+
 
     </script>
   </body>
