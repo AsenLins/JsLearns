@@ -1,14 +1,21 @@
 {
-  "ecmaVersion": 6,
+  "ecmaVersion": "5",
   "libs": [
     "browser",
-    "jquery"
+    "jquery",
+    "chai",
+    "underscore"
   ],
-  "loadEagerly": [],
+  "loadEagerly": [
+    "*.html"
+  ],
   "dontLoad": [
     "node_module/**"
   ],
   "plugins": {
-    "doc_comment": true
+    "doc_comment": true,
+    "complete_strings": {
+      "maxLength": 15
+    }
   }
 }

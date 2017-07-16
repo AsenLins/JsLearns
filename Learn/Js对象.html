@@ -33,7 +33,6 @@ null类型陷进：
 typeof返回object,是因为js的对象在二进制前三位都是0，而null默认都是0，所以前3位肯定都是0，会被判定为是对象（object）.这是Js的一个Bug
 
 ```
-
 console.log(typeof object);
 
 ```
@@ -122,7 +121,7 @@ console.log(obj["dc!3"]);
 
 Js的函数是不属于任何一个对象，函数的运行取决于当前运行的上下文对象。
 
-···
+```
 function Func(){
   console.log("Asen");
 }
@@ -139,12 +138,13 @@ console.log(Func);
 console.log(FuncObj);
 console.log(obj.FuncAttr);
 
-···
+```
 
 
 ## 数组对象
 - 数组也是一个对象。
 - 给数组添加属性的时候，要留意键值对的值名称。
+
 ```
 var objArray=["1",2];
 
@@ -174,40 +174,10 @@ Object.defineProperty(Obj,a,{
 
 ```
 
-
+asd
     </xmp>
     <script src="../Script/strapdown/strapdownjs.js"></script>
+    <script src="LearnScripts/Js对象.js"></script>
 
-    <script>
-      var str="hello world";
-      var num=3;
-      console.log(typeof str);
-      console.log(typeof num);
-
-      var strObj=new String("hello world");
-      /*输出字符串对象*/
-      console.log(strObj);
-
-      /*输出true*/
-      console.log(strObj instanceof String);
-
-      var strLength="Asen".length;
-      /*输出4*/
-      console.log(strLength);
-
-      var numFix=123.1.toFixed(2);
-      /*输出123.00*/
-      console.log(numFix);
-
-      var str_1="Asen";
-      /*并不是String的对象*/
-      console.log(str_1 instanceof String);
-
-      /*在特定时候会转换为String对象，输出4*/
-      console.log(str_1.length);
-
-      var testObj={};
-
-    </script>
   </body>
   </html>
