@@ -174,7 +174,19 @@ Object.defineProperty(Obj,a,{
 
 ```
 
-asd
+##　对象的get与set
+- Js的get首先会在当前对象查找，若没找到会通过原型链查找，若没找到，则抛出异常。
+- Js的set,会判断这个对象是否有这个属性，然后判断属性的描述符writable是否为true,都满足则设置这个属性值。
+```
+var obj={
+  a:10
+};
+
+/*Js的get首先会在当前对象查找，若没找到会通过原型链查找，若没找到，则抛出异常。*/
+console.log(obj.a);
+```
+
+
     </xmp>
     <script src="../Script/strapdown/strapdownjs.js"></script>
     <script src="LearnScripts/Js对象.js"></script>
