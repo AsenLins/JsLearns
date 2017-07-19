@@ -80,7 +80,38 @@ null和undefined只有字面形式，没有构造形式。
 Array,Object,Date,RegExp，文字形式还是构造形式，都是对象，不是字面量，用构造形式创建可以添加一些额外的参数。
 Error会在抛出异常时自动创建
 
+
+## 对象的创建方式：
+- 构造形式创建，对象的构造函数会指向实例的函数，并且具有Object的原型对象。
+
+```
+function Func(){
+
+}
+var obj=new Func();
+
+```
+
+- 字面量形式创建,这种形式创建出来的对象是有Object的原型对象的，可以通过原型链找到原型内置方法。
+
+```
+var obj={};
+
+```
+
+- Object.create(prototype, descriptors)方式创建,这种方式可以创建没有原型对象的对象，并且可以直接定义属性以及属性描述符。
+
+```
+var obj=Object.create(null);
+
+/*这里会报错，因为原型对象为空*/
+obj.hasAttrObj("a");
+
+```
+
+
 ## 对象内容的存储方式
+- 无论是属性访问还是键值对访问，当找不到属性时，则会返回undefined
 
 属性访问方式
 - 属性名称必须是标准的标识符，不能有其他非法字符，如：！这些.
@@ -173,7 +204,69 @@ Object.defineProperty(Obj,a,{
 );
 
 ```
+## 对象的get与put
+- get的方法会先在自己的对象中查找是否存在属性，若没找到，则会通过原型链（prototype）继续查找，如果都还找到，则抛出异常。
 
+- put的方法会先在自己的对象中查找是否有这个属性，并且这个属性的writable必须是true,若找到也满足条件，则执行put操作，否则，则抛出异常。
+```
+var obj={
+  a:10
+
+};
+
+obj.a=20;
+```
+
+## 重写对象的内置setter与getter
+每个对象属性都有一个隐藏的setter个getter, 可以重新定义这两个函数，但切记不能与属性名称相同（因为重新定义新get，set也是新增一个指定的属性），不然会造成死循环。
+```
+var getSetObj={
+  /*重写a的getter,这里会生成一个属性a,属性a会调用get或者set*/
+  get a(){
+    /*这里不能是a,如果声明a的话会一直重复执行*/
+    return this._a_;
+  },
+  /*重写a的setter,这里会生成一个属性a,属性a会调用get或者set*/
+  set a(val){
+    /*这里不能是a,如果声明a的话会一直重复执行*/
+    this._a_=val*2;
+  }
+}
+```
+
+## 判断对象是否存在属性值Object.hasOwnProperty("name"),和in.
+
+- 在自身对象中判断是否存在该属性:
+
+```
+var hasAttrObj={
+  a:10,
+  b:20
+};
+/*判断属性a是否存在,输出：true*/
+console.log(hasAttrObj.hasOwnProperty("a"));
+/*判断属性c是否存在,输出：false*/
+console.log(hasAttrObj.hasOwnProperty("c"));
+
+```
+
+- 在自身对象以及原型链查找是否存在该属性:
+
+```
+var hasAttrObj={
+  a:10,
+  b:20
+}
+
+/*输出true*/
+console.log("a" in hasAttrObj);
+
+```
+
+
+
+
+<<<<<<< HEAD
 ##　对象的get与set
 - Js的get首先会在当前对象查找，若没找到会通过原型链查找，若没找到，则抛出异常。
 - Js的set,会判断这个对象是否有这个属性，然后判断属性的描述符writable是否为true,都满足则设置这个属性值。
@@ -187,6 +280,8 @@ console.log(obj.a);
 ```
 
 
+=======
+>>>>>>> a41069aee7806a597b614f8daadb3c3028668cbb
     </xmp>
     <script src="../Script/strapdown/strapdownjs.js"></script>
     <script src="LearnScripts/Js对象.js"></script>
