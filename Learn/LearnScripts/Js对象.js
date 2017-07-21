@@ -96,3 +96,29 @@ console.log("a" in hasAttrObj);
 console.log(hasAttrObj.hasOwnProperty("a"));
 /*判断属性c是否存在*/
 console.log(hasAttrObj.hasOwnProperty("c"));
+
+
+
+/*
+对象枚举
+*/
+console.log("============对象枚举============");
+var emunObj={};
+Object.defineProperty(emunObj,"b",{
+  enumerable:true
+});
+Object.defineProperty(emunObj,"a",{
+    enumerable:false
+});
+console.log(emunObj.propertyIsEnumerable("b"));
+console.log(emunObj.propertyIsEnumerable("a"));
+
+var forObj={
+  a:10,
+  b:20
+}
+
+for(var key in forObj){
+
+  console.log(key+":"+forObj[key]);
+}
