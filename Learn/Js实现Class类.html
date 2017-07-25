@@ -6,10 +6,49 @@
   </head>
   <body>
     <xmp theme="united" style="display:none;">
+## Js实现继承
+由于Js本来就不支持继承与多态,所以我们可以模仿继承。
+显式混入是把需混合的对象的属性添加到目标对象中，从而模仿继承，显示混入复制的函数都是引用。
+显式混入：
+```
+
+/*把不存在的属性或方法附加到目标对象中*/
+var mixFunc=function(mixObj,targetObj){
+  for(var key in mixObj){
+    if(!key in targetObj){
+      targetObj[key]=mixObj[key];
+    }
+  }
+}
+
+var mixObj={
+  a:10,
+  b:20，
+  func:function(param){
+    console.log(param);
+  },
+  funcTwo:function(){
+    this.func();
+  }
+}
+
+var targetObj={
+  c:10,
+  d:20
+}
+
+
+mixFunc(mixObj,targetObj);
+
+console.log(targetObj);
+
+```
+
+
 
 
     </xmp>
     <script src="../Script/strapdown/strapdownjs.js"></script>
-
+    <script src="LearnSCripts/Js实现Class.js"></script>
   </body>
   </html>
