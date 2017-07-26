@@ -188,7 +188,6 @@ objArray["1"]="3";
 ```
 
 ##　对象的属性描述符
-- value(属性的值)
 - writable(可写)
 - enumerable（可枚举）
 - configurable（可配置）
@@ -209,7 +208,6 @@ Object.defineProperty(Obj,a,{
 - get的方法会先在自己的对象中查找是否存在属性，若没找到，则会通过原型链（prototype）继续查找，如果都还找到，则抛出异常。
 
 - put的方法会先在自己的对象中查找是否有这个属性，并且这个属性的writable必须是true,若找到也满足条件，则执行put操作，否则，则抛出异常。
-
 ```
 var obj={
   a:10
@@ -255,7 +253,6 @@ console.log(hasAttrObj.hasOwnProperty("c"));
 - 在自身对象以及原型链查找是否存在该属性:
 
 ```
-
 var hasAttrObj={
   a:10,
   b:20
@@ -266,76 +263,10 @@ console.log("a" in hasAttrObj);
 
 ```
 
-## 对象枚举
-
-```
-var emunObj={};
-Object.defineProperty(emunObj,"b",{
-  enumerable:true
-});
-Object.defineProperty(emunObj,"a",{
-    enumerable:false
-});
-/*返回true*/
-console.log(emunObj.propertyIsEnumerable("b"));
-/*返回false*/
-console.log(emunObj.propertyIsEnumerable("a"));
-
-```
-
-for遍历数组下标
-
-```
-for(var i=0;i<10;i++){
-  console.log(i);
-}
-
-```
-
-for in 遍历对象所有可枚举属性（enumerable:true）
-```
-var obj={
-  a:10,
-  b:20
-}
-
-for(var key in obj){
-  console.log(obj[key]);
-}
-
-
-```
-
-其他的遍历方法：
-
-- forEach
-- every
-- some
-
-ES6的方法的新增方法：
-
-- for of
 
 
 
 
-
-<<<<<<< HEAD
-##　对象的get与set
-- Js的get首先会在当前对象查找，若没找到会通过原型链查找，若没找到，则抛出异常。
-- Js的set,会判断这个对象是否有这个属性，然后判断属性的描述符writable是否为true,都满足则设置这个属性值。
-```
-var obj={
-  a:10
-};
-
-/*Js的get首先会在当前对象查找，若没找到会通过原型链查找，若没找到，则抛出异常。*/
-console.log(obj.a);
-```
-
-
-=======
->>>>>>> a41069aee7806a597b614f8daadb3c3028668cbb
     </xmp>
     <script src="../Script/strapdown/strapdownjs.js"></script>
     <script src="LearnScripts/Js对象.js"></script>

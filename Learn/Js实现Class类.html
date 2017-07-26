@@ -28,7 +28,7 @@ var mixObj={
     console.log(param);
   },
   funcTwo:function(){
-    this.func();
+    this.func("i am Father funcTwo");
   }
 }
 
@@ -43,8 +43,62 @@ mixFunc(mixObj,targetObj);
 console.log(targetObj);
 
 ```
+寄生式继承：
+```
 
+/*寄生式继承*/
+function ObjCreate(){
+  this.a=10
+}
 
+ObjCreate.prototype.Func=function(){
+  console.log("i am good Father");
+}
+
+function Create(){
+  var Obj=new ObjCreate();
+  Obj.b=10;
+
+  /*保留原有函数的引用*/
+  var FuncBackup=Obj.Func;
+
+  Obj.Func=function(){
+     FuncBackup.call(this);
+     console.log("i am a son");
+  }
+  return Obj;
+}
+
+var PrototypeObj=new Create();
+console.log(PrototypeObj);
+PrototypeObj.Func();
+
+```
+
+隐式混入
+```
+HideObj={
+   Go:function(){
+     this.count=1,
+     this.name="Asen"
+   }
+}
+
+HideTestObj={
+ Go:function(){
+   HideObj.Go.call(this);
+ }
+}
+
+HideTestObj.Go();
+console.log(HideTestObj.count);
+```
+
+## JavaScript类
+- 在Js中的没有类的语法，但是可以模拟。
+- 类就意味的复制，无论是继承或者是多态，其实都是把父类的行为复制到子类当中。
+- Js不会像传统语言中的对象那样自动复制一个对象副本，他对于某些特殊的：如函数，或者对象，会保持着当前的引用，所以要特别注意。
+- 混合模式，显式混入，和寄生式继承都是为了解决模拟类的特性（继承，多态）而实现的。
 
 
     </xmp>

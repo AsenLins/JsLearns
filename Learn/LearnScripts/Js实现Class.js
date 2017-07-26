@@ -37,4 +37,44 @@ targetObj.funcTwo();
 
 
 /*寄生式继承*/
-var
+function ObjCreate(){
+  this.a=10
+}
+
+ObjCreate.prototype.Func=function(){
+  console.log("i am good Father");
+}
+
+function Create(){
+  var Obj=new ObjCreate();
+  Obj.b=10;
+
+  var FuncBackup=Obj.Func;
+
+  Obj.Func=function(){
+     FuncBackup.call(this);
+     console.log("i am a son");
+  }
+  return Obj;
+}
+
+var PrototypeObj=new Create();
+console.log(PrototypeObj);
+PrototypeObj.Func();
+
+/*隐式混入*/
+ HideObj={
+    Go:function(){
+      this.count=1,
+      this.name="Asen"
+    }
+}
+
+ HideTestObj={
+  Go:function(){
+    HideObj.Go.call(this);
+  }
+}
+
+HideTestObj.Go();
+console.log(HideTestObj.count);
