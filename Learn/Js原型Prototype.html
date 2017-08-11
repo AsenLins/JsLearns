@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>原型Prototype</title>
+  </head>
+  <body>
+    <xmp theme="united" style="display:none;">
+原型(prototype)是对象的一个属性，绝大多数对象都有会有原型对象(prototype)，这个原型对象最终会关联到Object.prototype,除了特殊情况：Object.create(null);
+
+#### 创建一个没有原型对象的对象
+```
+var obj=Object.create(null);
+console.log(obj);
+
+```
+
+#### 创建原型与目标关联的对象。
+```
+var obj={
+  a:10
+}
+
+var objCreate=Object.create(obj)
+
+/*输出10*/
+console.log(objCreate.a);
+
+```
+
+#### 原型对象与对象之间的陷进
+
+1. 屏蔽原型属性
+
+```
+var objAttr={
+  a:1
+};
+
+var objAttrTest=Object.create(objAttr);
+objAttrTest.a=20;
+/*输出20*/
+console.log(objAttrTest.a);
+
+```
+
+2. 隐式屏蔽
+
+```
+var hideObj={
+  a:20
+};
+var hideTest=Object.create(hideObj);
+
+```
+
+
+#### 原型与构造函数
+
+
+
+#### 原型链
+
+
+
+
+
+    </xmp>
+    <script src="../Script/strapdown/strapdownjs.js"></script>
+    <script src="LearnScripts/Js原型Prototype.js"></script>
+
+    </script>
+  </body>
+  </html>

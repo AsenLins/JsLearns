@@ -6,6 +6,99 @@
   </head>
   <body>
     <xmp theme="united" style="display:none;">
+## Js实现继承
+由于Js本来就不支持继承与多态,所以我们可以模仿继承。
+显式混入是把需混合的对象的属性添加到目标对象中，从而模仿继承，显示混入复制的函数都是引用。
+显式混入：
+```
+
+/*把不存在的属性或方法附加到目标对象中*/
+var mixFunc=function(mixObj,targetObj){
+  for(var key in mixObj){
+    if(!key in targetObj){
+      targetObj[key]=mixObj[key];
+    }
+  }
+}
+
+var mixObj={
+  a:10,
+  b:20，
+  func:function(param){
+    console.log(param);
+  },
+  funcTwo:function(){
+    this.func("i am Father funcTwo");
+  }
+}
+
+var targetObj={
+  c:10,
+  d:20
+}
+
+
+mixFunc(mixObj,targetObj);
+
+console.log(targetObj);
+
+```
+寄生式继承：
+```
+
+/*寄生式继承*/
+function ObjCreate(){
+  this.a=10
+}
+
+ObjCreate.prototype.Func=function(){
+  console.log("i am good Father");
+}
+
+function Create(){
+  var Obj=new ObjCreate();
+  Obj.b=10;
+
+  /*保留原有函数的引用*/
+  var FuncBackup=Obj.Func;
+
+  Obj.Func=function(){
+     FuncBackup.call(this);
+     console.log("i am a son");
+  }
+  return Obj;
+}
+
+var PrototypeObj=new Create();
+console.log(PrototypeObj);
+PrototypeObj.Func();
+
+```
+
+隐式混入
+```
+HideObj={
+   Go:function(){
+     this.count=1,
+     this.name="Asen"
+   }
+}
+
+HideTestObj={
+ Go:function(){
+   HideObj.Go.call(this);
+ }
+}
+
+HideTestObj.Go();
+console.log(HideTestObj.count);
+```
+
+## JavaScript类
+- 在Js中的没有类的语法，但是可以模拟。
+- 类就意味的复制，无论是继承或者是多态，其实都是把父类的行为复制到子类当中。
+- Js不会像传统语言中的对象那样自动复制一个对象副本，他对于某些特殊的：如函数，或者对象，会保持着当前的引用，所以要特别注意。
+- 混合模式，显式混入，和寄生式继承都是为了解决模拟类的特性（继承，多态）而实现的。
 
 ## 类理论与对象之间的关系
 在软件设计中，类是一种可选方式，是一种设计模式，是一种可选的代码抽象，并不是唯一的，有很多不同的编程范式，
