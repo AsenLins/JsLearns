@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*插件功能：
   1.可配置多个form
   2.可配置from提示容器，以及提示效果。
@@ -74,4 +75,24 @@
   }
 
   window.easyVerify=createVerify;
+=======
+(function(){
+
+
+  var easyVerify=function(option){
+    if(option==undefined){
+      throw "缺少必要参数对象option"
+    }
+    var froms=document.
+
+    var defaultOption={
+      formName:""
+    }
+
+
+  }
+
+  window.easyVerify=easyVerify;
+
+>>>>>>> 90c9ed71235b8bc7f71166048ed5cd69ed6db326
 })(window)
