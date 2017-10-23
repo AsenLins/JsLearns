@@ -4,7 +4,7 @@ var connect=require('gulp-connect');
 /*监测Js文件并且自动刷新浏览器*/
 gulp.task("jsListen",function(){
   console.log("开始监听Js文件，并自动刷新");
-  gulp.src("dist/*.js")
+  gulp.src("src/*.js")
       .pipe(connect.reload());
 });
 
@@ -22,7 +22,7 @@ gulp.task("connectServerStart",function(){
 });
 
 gulp.task("watch",function(){
-  gulp.watch("dist/*.js",["jsListen"]);
+  gulp.watch("src/*.js",["jsListen"]);
   gulp.watch("demo/*.html",["htmlListen"]);
 
 });

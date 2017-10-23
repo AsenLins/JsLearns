@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style type="text/css">
+    body{
+
+    }
+    </style>
+  </head>
+  <body>
+    <div style="position: relative;" id="AmimateDiv">我是div<div>
+    <script>
+      var easeAmimte={
+        liner:function(t, b, c, d){
+          return c*t/d + b;
+        },
+        easyIn:function(t, b, c, d){
+          return c * ( t /= d ) * t + b;
+        }
+      }
+
+      var Amimate=function(dom){
+          this.dom=dom;
+          this.startTime=0;
+          this.endTime=0;
+          this.startPos=0;
+          this.endPos=0;
+          this.styleName=null;
+          this.ease=null;
+          this.time=null;
+      }
+
+      Amimate.prototype.start=function(styleName,endPos,ease,time){
+          console.log("startGo");
+          this.startTime=+new Date;
+          this.styleName=styleName;
+          this.startPos=this.dom.getBoundingClientRect()[styleName];
+          this.endPos=endPos,
+          this.ease=easeAmimte[ease];
+          this.time=time;
+
+          var self=this;
+          var timeId=setInterval(function(){
+              if(self.step()==false){
+                clearInterval(timeId);
+              }
+          },19);
+
+      }
+
+      Amimate.prototype.step=function(){
+        console.log("stepGo");
+        var t=+new Date;
+        if(t>=this.startTime+this.time){
+          this.update(this.enPos);
+          return false;
+        }
+        var pos=this.ease(t - this.startTime, this.startPos,
+this.endPos - this.startPos, this.time);
+       this.update(pos);
+      }
+
+      Amimate.prototype.update=function(pos){
+        console.log("updateGo");
+
+        this.dom.style[this.styleName]=pos+"px";
+
+      }
+
+      var div=document.getElementById("AmimateDiv");
+      var AmimateObj=new Amimate(div);
+      AmimateObj.start("left",500,"liner",2000);
+
+
+
+    </script>
+  </body>
+  </html>

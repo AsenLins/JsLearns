@@ -6,10 +6,22 @@
   </head>
   <body>
 
-  <script src="../src/easyVerify.js"></script>
+  <script src="../src/easyVerify.js?v=1"></script>
   <script>
-    easyVerify();
-     console.log(easyVerify);
+    var obj=easyVerify(
+      {
+        formName:"#test",
+        tiggerObj:"#test",
+        onTigger:function(type){
+          console.log("显示状态值："+type);
+
+        }
+      }
+    );
+    console.log(obj);
+    obj.tigger();
+    //obj.tiggers(1);
+    console.log(easyVerify);
   </script>
   </body>
 

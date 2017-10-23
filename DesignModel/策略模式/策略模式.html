@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>策略模式</title>
+  </head>
+  <body>
+    <xmp theme="united" style="display:none;">
+## 定义一系列算法，并且把他们封装起来，并使他们可以互相转换。
+- 策略模式的优点：
+- 可消除分支。
+- 灵活可变。
+- 解耦。
+
+例子：
+```
+var MoneyComputeObj={
+    "A":function (money) {
+      return money*1;
+    },
+    "B":function(money){
+      return money*2;
+    },
+    "C":function(money){
+      return money*3;
+    }
+}
+
+function  MoneyCompute(money,level) {
+  return  MoneyComputeObj[level](money);
+}
+console.log("============计算分级金额===========");
+console.log(MoneyCompute(10,"A"));  //输出10
+console.log(MoneyCompute(10,"B"));  //输出20
+console.log(MoneyCompute(10,"C"));  //输出30
+
+```
+
+
+    </xmp>
+    <script src="../Script/strapdown/strapdownjs.js"></script>
+
+    <script>
+    /*计算金额的例子*/
+
+    var MoneyComputeObj={
+        "A":function (money) {
+          return money*1;
+        },
+        "B":function(money){
+          return money*2;
+        },
+        "C":function(money){
+          return money*3;
+        }
+    }
+
+    function  MoneyCompute(money,level) {
+      return  MoneyComputeObj[level](money);
+    }
+    console.log("============计算分级金额===========");
+    console.log(MoneyCompute(10,"A"));
+    console.log(MoneyCompute(10,"B"));
+    console.log(MoneyCompute(10,"C"));
+
+
+
+    </script>
+  </body>
+  </html>

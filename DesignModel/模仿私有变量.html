@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <xmp theme="united" style="display:none;">
+
+    </xmp>
+    <script src="../Script/strapdown/strapdownjs.js"></script>
+
+    <script>
+      var privateObj=(function(){
+        var _age=10;
+        var _name="Asen"
+
+        return {
+          setName(name){
+            this._name=name;
+          },
+          setAge(age){
+            this._age=age;
+          },
+          getName(){
+            return this._name;
+          },
+          getAge(){
+
+            return this._age;
+          }
+
+
+        }
+
+
+
+      })();
+
+      console.log(privateObj);
+      privateObj.setAge(10);
+      privateObj.setName("Asen");
+      console.log(privateObj.getAge());
+      console.log(privateObj.getName());
+
+    </script>
+  </body>
+  </html>

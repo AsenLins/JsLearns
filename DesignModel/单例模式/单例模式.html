@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Js单列模式</title>
+  </head>
+  <body>
+    <xmp theme="united" style="display:none;">
+
+## 单列模式：一个实例只有1个，并且提供一个全局访问点。
+```
+console.log("============传统模式（类语言）：一般单列===============");
+var SingleObj=function(){
+    this.name="Asen";
+    this.age=1;
+    this.instance=null;
+}
+
+SingleObj.prototype.setName=function(name){
+    this.name=name;
+}
+
+SingleObj.getInstance=function(){
+  if(this.instance==null){
+    this.instance=new SingleObj();
+  }
+  return this.instance;
+
+}
+
+console.log(typeof Signle);
+console.log(Signle  instanceof  Function);
+
+var s1=SingleObj.getInstance();
+var s2=SingleObj.getInstance();
+s1.setName("Asen1");
+s2.setName("Asen2");
+console.log(s1.name);
+console.log(s2.name);
+console.log(s1);
+console.log(s2);
+console.log("=======s1与s2是同一个对象吗========");
+console.log(s1===s2);
+
+
+console.log("============传统模式（类语言）：透明单列==============");
+/*透明单列*/
+var CreateDiv=(function(){
+  var instance=null;
+  var CreateDiv=function(name){
+    if(instance!=null){
+      return instance;
+    }
+    this.html=name;
+    this.init();
+    return instance=this;
+  }
+
+  CreateDiv.prototype.init=function(){
+    var div=document.createElement("div");
+    div.innerHTML=this.html;
+    document.body.appendChild(div);
+  }
+
+  return CreateDiv;
+
+})();
+
+
+var st1=new CreateDiv("Asen");
+var st2=new CreateDiv("Asen2");
+console.log(st1===st2);
+console.log(SingleObj.prototype);
+
+/*代理单列*/
+console.log("==============代理单列================");
+var proxyCreateDiv=function(name){
+  this.html=name;
+  this.init();
+}
+proxyCreateDiv.prototype.init=function(){
+  var div=document.createElement("div");
+  div.innerHTML=this.html;
+  document.body.appendChild(div);
+
+}
+
+var proxyCreate=(function(){
+  var instance=null;
+  var createDiv=function(name){
+    if(instance!=null){
+      return instance;
+    }
+    instance=new proxyCreateDiv(name);
+    return instance;
+  }
+  return createDiv;
+})();
+
+
+var pc1=proxyCreate("proxyAsen");
+var pc2=proxyCreate("proxyAsen2");
+console.log(pc1==pc2);
+
+console.log("==========惰性单列=============");
+/*惰性单列*/
+var lazySingleDiv=(function(){
+  var div;
+  return function(){
+    if(div==null){
+      div=document.createElement("div");
+      div.innerHTML="这是惰性单列";
+      div.style.display="none";
+      document.body.appendChild(div);
+      return div;
+    }
+    return div;
+  }
+})();
+var btn=document.getElementById("btn_load");
+btn.onclick=function(){
+  var div=lazySingleDiv();
+  console.log(div);
+  div.style.display="block";
+
+}
+
+
+/*通用惰性单列*/
+var publicLazy=(function(){
+  var instance=null;
+  return function(fn){
+
+    return instance||(instance=fn.apply(this,arguments));
+  }
+})();
+/*
+function createSpan() {
+  var span=document.createElement("span");
+  span.innerHTML="这是通用惰性加载的span";
+  document.body.appendChild(span);
+  console.log("这是传过来的参数："+arguments[1]);
+  console.log(arguments);
+  return span;
+}
+
+function  createP() {
+  var p=document.createElement("p");
+  p.innerHTML="这是通用惰性加载的p";
+  document.body.appendChild(span);
+  return p;
+}
+
+var publicLazySpan=publicLazy(createSpan,5);
+var publicLazySpan2=publicLazy(createSpan,6);
+var publicLayP=publicLazy(createP,7);
+console.log(publicLazySpan);
+*/
+function bindEvent() {
+    publicLazy(
+      function(){
+          document.getElementById("btn_load").onclick=function(){
+          alert("cool");
+          }
+        return true;
+      }
+   );
+}
+
+function  render() {
+  bindEvent();
+}
+render();
+render();
+render();
+
+```
+
+
+
+    </xmp>
+    <!--<input type="button" value="惰性加载div" id="btn_load" />-->
+   <script src="../Script/strapdown/strapdownjs.js"></script>
+    <script>
+
+
+
+
+
+    </script>
+  </body>
+  </html>
