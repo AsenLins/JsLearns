@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Stylesheet" type="text/css" href="Style/albumiconfont.css">
+    <link rel="Stylesheet" type="text/css" href="Style/albumDetail.css" />
+    <title>相册详情</title>
+  </head>
+  <body>
+    <div class="album">
+        <div class="album-num album-numbg">&nbsp;</div>
+        <div class="album-num">
+
+              <b id="album-num-index">18/78</b>
+
+        </div>
+
+        <div class="album-list">
+            <img src="http://localhost:5001/Project/%E5%BE%AE%E4%BF%A1%E4%BC%81%E4%B8%9A%E7%9B%B8%E5%86%8C/Img/Demo4.jpg" />
+        </div>
+
+        <div class="album-control" >
+            <div class="album-control-line"></div>
+            <div class="album-btn-prev" id="album-btn-prev">
+              <i class="iconfont icon-fanhui"></i> 上一张
+            </div>
+            <div class="album-btn-next" id="album-btn-next">
+             下一张  <i class="iconfont icon-fanhui"></i>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="album-tabPlane">
+      <div class="album-tab-title">
+        <div class="select">评论(0)</div>
+        <div class="unselect">赞(0)</div>
+      </div>
+
+      <div class="album-tab-content">
+        <div class="album-content-review" hidden>
+          <!--
+          <div class="album-content-item review">
+            <div class="item-content-pic">
+              <img  src="http://localhost:5001/Project/%E5%BE%AE%E4%BF%A1%E4%BC%81%E4%B8%9A%E7%9B%B8%E5%86%8C/Img/demopic.jpg" />
+            </div>
+            <div class="item-content">
+              <div>IT KIM 林根森</div>
+              <div>17-10-24-16：12：20</div>
+              <div>very good</div>
+            </div>
+          </div>
+          -->
+        </div>
+
+        <div class="album-content-good">
+          <!--
+          <div class="album-content-item good">
+            <div class="item-content-pic">
+              <img  src="http://localhost:5001/Project/%E5%BE%AE%E4%BF%A1%E4%BC%81%E4%B8%9A%E7%9B%B8%E5%86%8C/Img/demopic.jpg" />
+            </div>
+            <div class="item-content">
+              <div>IT KIM 林根森</div>
+              <div>17-10-24-16：12：20</div>
+
+            </div>
+          </div>
+          <div class="album-line"></div>
+         -->
+        </div>
+      </div>
+    </div>
+
+
+    <div class="album-review">
+
+    </div>
+
+    <div class="album-review-txt">
+      
+    </div>
+
+
+    <script id="template-review" type="text/template">
+      <div class="album-content-item review">
+        <div class="item-content-pic">
+          <img  src="$userpic$" />
+        </div>
+        <div class="item-content">
+          <div>$userName$</div>
+          <div>$userTime$</div>
+          <div>$userText$</div>
+        </div>
+      </div>
+      <div class="album-line"></div>
+    </script>
+
+    <script id="template-good" type="text/template">
+      <div class="album-content-item good">
+        <div class="item-content-pic del">
+          <i class="iconfont icon-sancu"></i>
+        </div>
+        <div class="item-content-pic">
+            <img  src="$pic$" />
+        </div>
+        <div class="item-content">
+          <div>$title$</div>
+          <div>$time$</div>
+        </div>
+      </div>
+      <div class="album-line"></div>
+    </script>
+
+  </body>
+  </html>

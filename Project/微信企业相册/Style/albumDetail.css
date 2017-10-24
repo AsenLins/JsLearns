@@ -1,0 +1,181 @@
+body{
+  padding: 0px;
+  margin: 0px;
+  font-family: 黑体;
+}
+.album{
+  position: relative;
+  top: 0px;
+}
+.album img{
+  max-width: 100%;
+}
+
+/*相册计数器*/
+.album-num{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 60px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 0.8em;
+  color: white;
+  z-index: 11;
+  text-align: center;
+
+}
+.album-numbg{
+  background-color: black;
+  opacity:0.6;
+  border-radius: 1px;
+}
+.album-numbg::after{
+  content: "";
+}
+
+.album-num lable{
+  position: relative;
+  left: 15px;
+
+}
+
+/*相册控制器*/
+.album-control{
+  position: relative;
+  top: 0px;
+  margin: 30px 15px 0px 15px;
+  background-color: #f9f9f9;
+  height: 60px;
+  line-height: 60px;
+}
+
+.album-control>div{
+  float:left;
+  font-size: 0.9em;
+}
+.album-btn-prev{
+    width: 45%;
+    padding-left: 5%;
+}
+.album-control-line{
+  height: 30px;
+  position: absolute;
+  left: 50%;
+  width: 1px;
+  top: 15px;
+  background-color: #dddddd;
+}
+.album-control i{
+  color: #ccccd0;
+  display: inline-block;
+  font-size: 1em;
+}
+.album-btn-prev i{
+  transform:rotate(180deg);
+}
+
+.album-btn-next i{
+
+}
+.album-btn-next{
+  width: 45%;
+  text-align: right;
+  padding-right: 5%;
+}
+.album-control::after{
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/*相册评论*/
+.album-tabPlane{
+  margin-top: 25px;
+  padding: 0px 15px 0px 15px;
+}
+
+.album-tab-content{
+  min-height: 250px;
+}
+
+.album-tab-title div{
+  float: left;
+  font-size: 0.7em;
+  margin-right: 10px;
+}
+.album-tab-title::after{
+  content: "";
+  clear: both;
+  display: block;
+
+}
+.album-tab-title .unselect{
+  color:#c1bdbd;
+}
+.album-tab-title .select{
+  color:#666666;
+  padding-bottom: 8px;
+  border-bottom:2px solid #666666;
+}
+
+.album-tab-title{
+  border-bottom: 1px solid #ededed;
+}
+
+.album-content-item{
+  margin-top: 15px;
+  position: relative;
+  top: 0px;
+
+
+}
+.album-content-item::after{
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.album-content-item>div{
+  float: left;
+}
+
+.item-content-pic{
+  position: absolute;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.item-content{
+  padding-left: 45px;
+  font-size: 0.8em;
+
+}
+.item-content div{
+  margin-bottom: 5px;
+}
+.item-content div:nth-child(2){
+  color: #999999;
+}
+.item-content-pic img{
+  max-width: 35px;
+
+  border-radius: 50px;
+  display: block;
+}
+.album-content-item .del{
+  right: 10px;
+
+}
+.album-content-item .del i{
+  color: #d8d8d8;
+}
+
+.album-line{
+    margin-top: 10px;
+    height: 1px;
+    border-bottom: 1px solid #ededed;
+}

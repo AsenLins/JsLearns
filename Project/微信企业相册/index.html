@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title>微信企业相册-首页</title>
+    <link rel="Stylesheet" type="text/css" href="Style/albumiconfont.css">
+    <link rel="Stylesheet" type="text/css" href="Style/albumIndex.css" />
+  </head>
+  <body>
+    <div class="album-searchtype-bg" hidden></div>
+    <div class="album-searchtype" hidden>
+
+      <div class="album-text">分类</div>
+      <div class="album-searchtype-itemplane">
+        <div data-typeid="" class="album-searchtype-item blue">全部</div>
+        <div data-typeid="" class="album-searchtype-item default">默认</div>
+      </div>
+    </div>
+
+    <div class="album-topbar">
+      <div id="btn-search"><i class="iconfont icon-liebiao default"></i></div>
+      <div>
+        <i class="iconfont icon-11"></i>
+        <input id="txt-plane" type="text" value="" placeholder="输入相册名称搜索" />
+      </div>
+    </div>
+
+    <div class="album-plane">
+      <!--
+      <a href="#">
+      <div class="album-item">
+        <div><h4>10月份全民大会第三季季会（下）</h4></div>
+        <div class="album-item-time">2017-10-12 12:13:39</div>
+        <div class="album-item-img">
+          <div style="background-image:url('http://localhost:5001/Project/%E5%BE%AE%E4%BF%A1%E4%BC%81%E4%B8%9A%E7%9B%B8%E5%86%8C/Img/Demo1.png'); "></div>
+          <div class="album-item-preview">
+            <div style="background-image:url('http://localhost:5001/Project/%E5%BE%AE%E4%BF%A1%E4%BC%81%E4%B8%9A%E7%9B%B8%E5%86%8C/Img/Demo4.png');"></div>
+            <div style="background-image:url('http://localhost:5001/Project/%E5%BE%AE%E4%BF%A1%E4%BC%81%E4%B8%9A%E7%9B%B8%E5%86%8C/Img/Demo3.png');"></div>
+          </div>
+        </div>
+        <div class="album-item-num">
+          <div></div>
+          <div>
+            67
+          </div>
+        </div>
+      </div>
+    </a>
+    -->
+    </div>
+
+<script id="template-album-item" type="text/template">
+  <a href="#" />
+  <div data-id="$albumId$" class="album-item">
+    <div><h4>$title$</h4></div>
+    <div class="album-item-time">$time$</div>
+    <div class="album-item-img">
+      <div style="background-image:url('$pic1$'); "></div>
+      <div class="album-item-preview">
+        <div style="background-image:url('$pic2$');"></div>
+        <div style="background-image:url('$pic3$');"></div>
+      </div>
+    </div>
+    <div class="album-item-num">
+      <div></div>
+      <div>
+        $albumNum$
+      </div>
+    </div>
+  </div>
+  </a>
+</script>
+
+<script id="template-alubumType-item" type="text/template">
+  <div data-typeid="$id$" class="album-searchtype-item default">$title$</div>
+</script>
+
+<script>
+
+
+</script>
+
+</body>
+
+</html>

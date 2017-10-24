@@ -1,0 +1,245 @@
+body{
+  padding:0px;
+  margin: 0px;
+  font-family:黑体;
+}
+
+/*顶部banner*/
+.album-topbar{
+  height: 48px;
+  width: 100%;
+  border-bottom:1px solid #e8e8e8;
+  background-color: #f5f5f5;
+  position: fixed;
+  top: 0px;
+  z-index: 11;
+}
+
+.album-topbar div{
+  float: left;
+  height: 48px;
+  line-height: 48px;
+  text-align: center;
+}
+
+.album-topbar::after{
+  content: "";
+  display: block;
+  clear: both;;
+}
+
+.album-topbar div:first-child {
+  width: 15%;
+}
+
+.album-topbar div:first-child i{
+  font-size:1.5em;
+}
+
+.album-topbar div:last-child{
+  width: 85%;
+  position: relative;
+  top: 0px;
+  text-align:left;
+}
+.album-topbar div:last-child i{
+  position: absolute;
+  top: 0px;
+  left: 3%;
+  color: #dddddd;
+  font-size: 1.3em;
+}
+
+.album-topbar  input[type=text]{
+  border-radius: 4px;
+  border: 0px;
+  background-color: white;
+  width: 82%;
+  height: 30px;
+  padding-left: 12%;
+  color:#bbbbbb;
+}
+
+.album-topbar .blue{
+  color:#60a0f4;
+}
+.album-topbar .default{
+  color:#bdc4cb;
+}
+
+/*搜索类型*/
+.album-searchtype-bg{
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  position:fixed;
+  top:0px;
+  left: 0px;
+  z-index: 10;
+  opacity:0.6;
+}
+.album-searchtype{
+  width: 92%;
+  height: auto;
+  position: fixed;
+  top: 48px;
+  background-color:white;
+  padding:0px 4% 0px 4%;
+  z-index: 11;
+}
+
+.album-text{
+  font-size: 0.9em;
+  color: #b5b5b5;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.album-searchtype-itemplane{
+  padding-bottom: 15px;
+}
+
+.album-searchtype-itemplane::after{
+  content: "";
+  display: block;
+  clear: both;
+}
+.album-searchtype-item{
+  font-size: 0.9em;
+  padding: 8px;
+  border: 1px solid #ededed;
+  width: auto;
+  float: left;
+  border-radius: 5px;
+  margin-right: 10px;
+  margin-bottom: 6px;
+}
+
+.album-searchtype-itemplane .blue{
+  background-color: #60a0f4;
+  color: white;
+}
+
+.album-searchtype-itemplane .default{
+  background-color: white;
+  color: black;
+}
+
+
+/*相册主体*/
+.album-plane{
+  position: relative;
+  top: 48px;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-bottom: 25px;
+
+}
+.album-plane a{
+  text-decoration: none;
+  color: black;
+  display: block;
+}
+.album-item{
+  margin-top: 20px;
+  border-radius: 10px;
+  position: relative;
+  top: 0px;
+
+}
+
+.album-item-time{
+  color: #999999;
+  font-size: 0.9em;
+  margin-bottom: 12px;
+
+}
+
+.album-item h4{
+  margin-bottom: 16px!important;
+}
+
+.album-item-img>div{
+  height: 186px;
+  float:left;
+}
+.album-plane::after{
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.album-item-img{
+  position: relative;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 186px;
+  overflow-y: hidden;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  box-shadow: -1px 8px 16px 1px #dddddd ;
+
+}
+
+.album-item-img>div:first-child{
+  background-size:cover;
+  background-position: center;
+  width: 100%;
+
+  position: absolute;
+  top: 0px;
+  left: -104px;
+
+
+
+
+}
+.album-item-img>div:last-child{
+  width: 103px;
+
+}
+.album-item-img>div:last-child div{
+  height: 93px;
+  width: 100%;
+  background-size:cover;
+  background-position: center;
+}
+.album-item-preview{
+  position: absolute;
+  right: 0px;
+}
+.album-item-preview>div:first-child{
+  border-top-right-radius: 5px;
+}
+
+.album-item-preview>div:last-child{
+  border-bottom-right-radius: 5px;
+  filter: blur(1px);
+}
+
+.album-item-num{
+  padding-bottom: 15px;
+}
+.album-item-num div
+{
+  position: absolute;
+  width: 103px;
+  height: 93px;
+  right: 0px;
+  bottom: 0px;
+}
+.album-item-num>div:first-child{
+
+  background-color:black;
+  opacity: 0.2;
+  border-bottom-right-radius: 5px;
+  bottom: 15px;
+}
+.album-item-num>div:last-child{
+  font-size: 2.6em;
+  line-height: 93px;
+  text-align: center;
+  color: white;
+  bottom: 15px;
+}

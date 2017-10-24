@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="Stylesheet" type="text/css" href="Style/albumiconfont.css">
+    <link rel="Stylesheet" type="text/css" href="Style/album.css" />
+    <title>相册</title>
+  </head>
+  <body>
+
+    <div class="album-banner" style=" ">
+      <div class="album-bg" style=" width:100%;  background-image:url('http://localhost:5001/Project/%E5%BE%AE%E4%BF%A1%E4%BC%81%E4%B8%9A%E7%9B%B8%E5%86%8C/Img/Demo1.png'); "></div>
+      <div class="album-mask"></div>
+      <div class="album-tip-plane">
+        <div>10月份全民大会第三季机会（下）</div>
+        <div>10月份全民大会第三季机会（下）</div>
+        <div>
+            <lable >---</lable>
+            62张照片
+            <lable >---</lable>
+        </div>
+      </div>
+    </div>
+
+    <div id="album_plane" class="album_waterPlane">
+      <!--
+      <a href="#" >
+      <div class="album_waterItem">
+        <img src="http://localhost:5001/Project/%E5%BE%AE%E4%BF%A1%E4%BC%81%E4%B8%9A%E7%9B%B8%E5%86%8C/Img/Demo1.png" />
+        <div class="album-reviewNum" >
+           <i class="iconfont icon-comment" ></i>
+           <lable>1</label>
+           <i class="iconfont icon-zan"></i>
+          <lable>0</label>
+        </div>
+      </div>
+     </a>
+    -->
+    </div>
+
+    <script id="template_waterAlbum" type="text/template">
+      <a href="#">
+      <div data-id="$id$" class="album_waterItem">
+        <img src="$img$" />
+        <div class="album-reviewNum" >
+           <i class="iconfont icon-comment" ></i>
+           <lable>$review_num$ </label>
+           <i class="iconfont icon-zan"></i>
+          <lable>$review_goodnum$</label>
+        </div>
+      </div>
+      </a>
+    </script>
+
+  </body>
+  </html>

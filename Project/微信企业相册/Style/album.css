@@ -1,0 +1,104 @@
+body{
+  padding: 0px;
+  margin: 0px;
+  font-family: 黑体;
+}
+.album-banner{
+
+
+}
+.album-bg{
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  height: 25%;
+  background-position:center;
+  background-size:cover;
+  filter: blur(2px);
+
+}
+
+.album-mask{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 25%;
+  background-color: black;
+  opacity:0.4;
+}
+
+.album-tip-plane{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 25%;
+  text-align: center;
+  color:white;
+  width:100%;
+  text-align: center;
+}
+.album-tip-plane div:nth-child(1) {
+  margin-top:8%;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px black;
+}
+.album-tip-plane div:nth-child(2){
+  margin-top:4.5%;
+  font-size:0.8em;
+  color: #f3f3f3;
+}
+
+.album-tip-plane div:nth-child(3){
+  margin-top:6%;
+  font-size:0.8em;
+  font-size: 微软雅黑;
+}
+.album-tip-plane lable{
+  letter-spacing: -1px;
+}
+.album-tip-plane lable:last-child{
+  position: relative;
+  left: -3px;
+}
+
+/*相册项*/
+.album_waterPlane{
+  position: absolute;
+  top: 25%;
+  column-count:2;
+  column-gap: 15px;
+  padding: 15px;
+}
+
+.album_waterPlane a{
+  display: block;
+  text-decoration: none;
+}
+
+.album_waterItem{
+
+   break-inside: avoid;
+   display: inline-block;
+}
+
+.album_waterItem img{
+ width: 100%;
+  border-radius: 5px;
+
+}
+
+.album-reviewNum{
+  height:30px;
+  color:#bbbbbb;
+  padding-top:5px;
+  padding-left:10px;
+}
+.album-reviewNum i{
+  font-size:0.8em;
+}
+.album-reviewNum lable{
+  position: relative;
+  left: -6px
+}
