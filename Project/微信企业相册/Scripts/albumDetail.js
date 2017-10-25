@@ -1,11 +1,4 @@
 
-
-
-
-
-
-
-
 (function(window,document,$){
   "use strict"
   var slide=function(){
@@ -27,16 +20,23 @@
     this.slideOption={
         dom:{
           slidePlane:".album-slide-plane",
-          albumNum:"#album-num-index"
+          albumList:".album-list",
+          albumNum:"#album-num-index",
+          prev:"#album-btn-prev",
+          next:"#album-btn-next"
         },
         data:null
     };
     this.slideDom={};
   };
-
+  slide.prototype._setImgInit=function(){
+      for(var index=0;index<this.img.list.length;index++){
+        this.appendImg(this.img.list[index],index);
+      }
+  };
   slide.prototype._setNeedChangeX=function(){
-      this.needChangeImgX=slide.screenWidth/4;
-  }
+      this.needChangeImgX=slide.screenWidth/6;
+  };
   slide.prototype._setEffect=function(){
     if(window.move!=undefined){
       this.moveEffect=window.move;
@@ -65,6 +65,7 @@
       this._setMaxMove();
       this._setNeedChangeX();
       this._slidePlaneInit();
+      this._setImgInit();
 
   };
 
@@ -72,31 +73,73 @@
       var planeWidth=this.img.list.length*this.screenWidth;
       this.slideDom.slidePlane.width(planeWidth);
   };
+  slide.prototype.appendImg=function(src,index){
+      slide.slideDom.slidePlane.append("<img  data-imgIndex="+index+" data-src="+src+" width='"+slide.screenWidth+"' src=''  />");
 
-  slide.prototype._loadImg=function(src,isAfter){
+  };
+
+  slide.prototype._loadImg=function(src,index){
     var loadImg=new Image();
     loadImg.src=src;
     loadImg.onload=function(){
-      if(isAfter){
-        slide.slideDom.slidePlane.append("<img width='"+slide.screenWidth+"' src='"+this.src+"'"+" />");
-      }
-      else{
-        console.log("loading");
-        console.log(slide.slideDom.slidePlane.first());
-        slide.slideDom.slidePlane.prepend("<img width='"+slide.screenWidth+"' src='"+this.src+"'"+" />");
-      }
+        var ImgObj= slide.slideDom.slidePlane.find("img[data-imgIndex='"+index+"']");
+        ImgObj.attr("data-height",this.height);
 
+        //slide.slideDom.slidePlane.append("<img width='"+slide.screenWidth+"' src='"+this.src+"'"+" />");
     }
   };
 
+   slide.prototype.setImgIndex=function(index){
+
+      var planeLeft=index*this.screenWidth;
+
+      var nextImg=slide.slideDom.slidePlane.find("img").eq(index+1);
+      var prevImg=slide.slideDom.slidePlane.find("img").eq(index-1);
+      var currentImg=slide.slideDom.slidePlane.find("img").eq(index);
+      var dataSrc=currentImg.attr("data-src");
+      this.img.index=index;
+      this._loadImg(currentImg.attr("data-src"), index);
+      currentImg.attr("src",dataSrc);
+      //currentImg.css("display","block");
+      slide.slideDom.slidePlane.css("transform","translate("+-planeLeft+"px,0px)");
+      var selector=slide.slideDom.slidePlane.selector+" img[data-index='"+index+"']";
+
+      if(prevImg!=undefined&&prevImg.attr("src")!=undefined){
+        prevImg.attr("src",prevImg.attr("data-src"));
+        this._loadImg(prevImg.attr("data-src"), index-1);
+      }
+      if(nextImg!=undefined&&nextImg.attr("src")!=undefined){
+        nextImg.attr("src",nextImg.attr("data-src"));
+        this._loadImg(nextImg.attr("data-src"), index+1);
+      }
+
+      this.updateNumCount();
+      setTimeout(function(){
+        slide.slideDom.albumList.height(currentImg.height());
+      },250);
+
+
+   }
+
   slide.prototype.next=function(){
+    if(slide.img.index+1>slide.img.list.length-1){
+      return;
+    }
     slide.img.index=slide.img.index+1;
+    this.setImgIndex(slide.img.index);
+
     var planeleft= slide.img.index*slide.screenWidth;
     slide.moveEffect(slide.slideDom.slidePlane.selector).x(-planeleft).end();
+
+
   };
 
   slide.prototype.prev=function(e){
+    if(slide.img.index-1<0){
+      return;
+    }
     slide.img.index=slide.img.index-1;
+    this.setImgIndex(slide.img.index);
     var planeleft= slide.img.index*slide.screenWidth;
     slide.moveEffect(slide.slideDom.slidePlane.selector).x(-planeleft).end();
   };
@@ -112,22 +155,34 @@
   }
 
 
-  slide.prototype.count=function(){
-
+  slide.prototype.updateNumCount=function(){
+      slide.slideDom.albumNum.text(slide.img.index+1+"/"+(slide.img.list.length));
   };
 
   var slide=new slide();
   //alert(slide.screenWidth);
+  /*
   slide._init([
     "http://localhost:5001/JsProject/Project/微信企业相册/Img/Demo4.jpg",
     "http://localhost:5001/JsProject/Project/微信企业相册/Img/demopic.jpg",
     "http://localhost:5001/JsProject/Project/微信企业相册/Img/demopic.jpg",
     "http://localhost:5001/JsProject/Project/微信企业相册/Img/demopic.jpg"
   ]);
-  slide._loadImg(slide.img.list[0],true);
-  slide._loadImg(slide.img.list[1],true);
-  slide._loadImg(slide.img.list[2],true);
-  slide._loadImg(slide.img.list[3],true);
+  */
+
+  slide._init([
+    "http://192.168.0.105:5005/Project/微信企业相册/Img/Demo4.jpg",
+    "http://192.168.0.105:5005/Project/微信企业相册/Img/demopic.jpg",
+    "http://192.168.0.105:5005/Project/微信企业相册/Img/demopic.jpg",
+    "http://192.168.0.105:5005/Project/微信企业相册/Img/Demo4.jpg"
+
+  ]);
+
+  slide.setImgIndex(1);
+  //slide._loadImg(slide.img.list[0]);
+  //slide._loadImg(slide.img.list[1]);
+  //slide._loadImg(slide.img.list[2]);
+  //slide._loadImg(slide.img.list[3]);
 
   //console.log(slide);
   //slide._loadImg(slide.img.list[0]);
@@ -150,11 +205,11 @@
 
       /*右滑*/
       if(slide.startX<=e.targetTouches[0].clientX){
-        planeleft=planeleft+3;
+        planeleft=planeleft+4;
       }
       /*左滑*/
       else{
-        planeleft=planeleft-3;
+        planeleft=planeleft-4;
       }
       /*超出最大滑动范围*/
       if(planeleft>slide.maxMoveLeft||planeleft<=-slide.maxMoveSlideRight){
@@ -195,6 +250,13 @@
       slide.reset();
     }
 
+  });
+
+  slide.slideDom.prev.on("click",function(){
+    slide.prev();
+  });
+  slide.slideDom.next.on("click",function(){
+    slide.next();
   });
 
 

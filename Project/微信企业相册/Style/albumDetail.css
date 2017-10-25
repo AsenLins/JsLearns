@@ -14,20 +14,27 @@ body{
 
 /*相册滑动*/
 .album-list{
-  position: relative;
+  position:relative;
   top: 0px;
   left: 0px;
   width: 100%;
+  height:1px;
+  transition: height 700ms;
   overflow: hidden;
 }
 .album-slide-plane{
   position:relative;
+  overflow: hidden;
+
+  z-index: 12;
   top: 0px;
   left: 0px;
+
 
 }
 .album-slide-plane img{
   float: left;
+
 }
 
 /*相册计数器*/
@@ -40,7 +47,7 @@ body{
   line-height: 30px;
   font-size: 0.8em;
   color: white;
-  z-index: 11;
+  z-index: 13;
   text-align: center;
 
 }
@@ -48,6 +55,7 @@ body{
   background-color: black;
   opacity:0.6;
   border-radius: 1px;
+
 }
 .album-numbg::after{
   content: "";
@@ -67,6 +75,7 @@ body{
   background-color: #f9f9f9;
   height: 60px;
   line-height: 60px;
+
 }
 
 .album-control>div{
