@@ -17,7 +17,12 @@
         </div>
 
         <div class="album-list">
-            <img src="http://localhost:5001/Project/%E5%BE%AE%E4%BF%A1%E4%BC%81%E4%B8%9A%E7%9B%B8%E5%86%8C/Img/Demo4.jpg" />
+            <div class="album-slide-plane">
+              <!--<img src="http://localhost:5001/JsProject/Project/微信企业相册/Img/Demo4.jpg" />
+              <img src="http://localhost:5001/JsProject/Project/微信企业相册/Img/Demo4.jpg" />
+              -->
+            </div>
+
         </div>
 
         <div class="album-control" >
@@ -39,7 +44,7 @@
       </div>
 
       <div class="album-tab-content">
-        <div class="album-content-review" hidden>
+        <div class="album-content-review" >
           <!--
           <div class="album-content-item review">
             <div class="item-content-pic">
@@ -51,7 +56,8 @@
               <div>very good</div>
             </div>
           </div>
-          -->
+          <div class="album-line"></div>
+        -->
         </div>
 
         <div class="album-content-good">
@@ -74,13 +80,21 @@
 
 
     <div class="album-review">
-       <input id="album-review-text" type="text" />
+       <i class="iconfont icon-xie inputbg" > </i>
+       <input id="album-review-text" type="text" placeholder="说点什么吧..." />
        <i class="iconfont icon-pinglun"></i>
-       <i class="iconfont icon-zan"></i>
+       <i class="iconfont icon-zan select"></i>
     </div>
 
-    <div class="album-review-input">
-
+    <div class="album-review-input" hidden>
+      <div contenteditable="true" class="text-reviewcontent">
+        说点什么吧...
+      </div>
+      <div class="album-review-post">
+        <lable>0/100</lable>
+        <input type="button" class="default" id="btn-cancelPostReview" value="取消" />
+        <input type="button" class="blue" id="btn-postReview" value="确认" />
+      </div>
     </div>
 
 
@@ -113,6 +127,14 @@
       </div>
       <div class="album-line"></div>
     </script>
+
+    <script src="../../Script/moveJs/move.min.js"></script>
+    <script src="../../Script/zepto/zepto.min.js"></script>
+    <script>
+
+    </script>
+    <script src="Scripts/albumDetail.js?v=3" > </script>
+
 
   </body>
   </html>

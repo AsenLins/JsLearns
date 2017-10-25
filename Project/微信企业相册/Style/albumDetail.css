@@ -11,6 +11,25 @@ body{
   max-width: 100%;
 }
 
+
+/*相册滑动*/
+.album-list{
+  position: relative;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  overflow: hidden;
+}
+.album-slide-plane{
+  position:relative;
+  top: 0px;
+  left: 0px;
+
+}
+.album-slide-plane img{
+  float: left;
+}
+
 /*相册计数器*/
 .album-num{
   position: absolute;
@@ -93,6 +112,7 @@ body{
 .album-tabPlane{
   margin-top: 25px;
   padding: 0px 15px 0px 15px;
+  margin-bottom: 40px;
 }
 
 .album-tab-content{
@@ -127,8 +147,6 @@ body{
   margin-top: 15px;
   position: relative;
   top: 0px;
-
-
 }
 .album-content-item::after{
   content: "";
@@ -195,7 +213,81 @@ body{
   height: 20px;
   border-radius: 8px;
   border: 0px;
+  width: 68%;
+  padding-left: 7%;
+  margin-left: 5%;
+  margin-right: 2%;
+  color:gray;
 }
 .album-review i{
   color:#9f9f9f;
+  margin-right: 1.5%;
+}
+
+.album-review .inputbg{
+  position:absolute;
+  top: 0px;
+  left: 7%;
+  margin: 0%;
+}
+.album-review .select{
+  color:#fb5353;
+}
+.album-review .default{
+  color:#9f9f9f;
+}
+
+/*评论输入面板*/
+.album-review-input{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  z-index: 11;
+}
+
+.album-review-input textarea{
+
+}
+
+.text-reviewcontent{
+  height: 140px;
+  border: 0px;
+  width: 100%;
+  text-align: left;
+  padding: 0px;
+  resize: none;
+  color: #bfbfbf;
+  padding: 8px;
+  font-size: 0.9em;
+}
+.album-review-post{
+
+  width: 96%;
+  height: 45px;
+  border-top:1px solid #ededed;
+  border-bottom: 1px solid #ededed;
+  text-align: right;
+  line-height: 45px;
+  color: #99999c;
+  padding-right: 4%;
+
+}
+.album-review-post input[type=button]{
+   border-radius: 3px;
+   width: 60px;
+   height: 30px;
+   margin-left:5px;
+
+}
+.album-review-post .blue{
+  background-color:#60a0f4;
+  color: white;
+  border: 0px;
+}
+.album-review-post .default{
+  background-color: white;
+  border:1px solid #dddddd;
 }
