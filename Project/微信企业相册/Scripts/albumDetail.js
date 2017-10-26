@@ -294,9 +294,11 @@
       this.ajaxObj=null;
   };
   http.prototype.useAjax=function(option){
+
       if(this.ajaxObj!=null){
          this.ajaxObj.abort();
       }
+
       this.ajaxObj=$.ajax(option);
   };
 
@@ -304,10 +306,10 @@
   var data=function(http){
       this.httpRequest=http;
       this.urlMap={
-        getPicDetailInit:"http://url1.com/t1",
-        getPicReviewAndGoodByPicIdUrl:"http://url2.com/t2",
-        getPicReviewByPage:"http://url3.com/t3",
-        getPicGoodByPage:"http://url4.com/t4"
+        getPicDetailInit:"DemoData/AlbumDetail.json",
+        getPicReviewAndGoodByPicIdUrl:"DemoData/LikeAndReview.json",
+        getPicReviewByPage:"DemoData/Review.json",
+        getPicLikeByPage:"DemoData/Like.json"
       };
   };
   data.prototype.dealParam=function(paramObj){
@@ -332,14 +334,14 @@
       url:url,
       type:type,
       data:param,
-      success:function(){
+      success:function(data){
         if(callBack!=undefined){
           callBack(data);
         }
       },
-      error:function(){
+      error:function(reqObj,mes,errObj){
         if(err!=undefined){
-          err();
+          err(reqObj,mes,errObj);
         }
       }
     });
@@ -358,45 +360,81 @@
   };
 
   data.prototype.getPicGoodByPage=function(param,callBack,err){
-    this._request(this.urlMap.getPicGoodByPage,"get",param,callBack,err);
+    this._request(this.urlMap.getPicLikeByPage,"get",param,callBack,err);
   };
 
   /*tab对象*/
   var tab=function(){
     this.current="review";
     this.dom={
+       tabTitle:$("#album-tab-title"),
+       tabPlane:$("#album-tabPlane")
+    };
 
-    }
+    function _bindEvent(that){
+      var self=that;
+      self.dom.tabTitle.find("div").on("click",function(){
+        self.setTab($(this).attr("data-type"));
+      });
+    };
+    _bindEvent(this);
+
+  }
+  tab.prototype.setNum=function(type,num){
+    console.log(type+":"+num);
+    this.dom.tabTitle.find("div[data-type='"+type+"'] lable").text("("+num+")");
   }
   tab.prototype.setTab=function(type){
-
+    this.dom.tabTitle.find("div").attr("class","unselect");
+    this.dom.tabTitle.find("div[data-type='"+type+"']").attr("class","select");
+    this.dom.tabPlane.find("div[data-planeId]").css("display","none");
+    this.dom.tabPlane.find("div[data-planeId='"+type+"']").css("display","block");
   };
 
 
   /*评论与赞业务对象*/
-  var review=function(template){
+  var review=function(template,tab){
       this.pageIndex=0;
       this.template=template;
+      this.tab=tab;
+      this.count=0;
+      this.templateMap={
+        templateReview:"#template-review"
+
+      };
       this.dom={
-        dataPlane:""
-      }
+        reviewContent:$("#album-content-review")
+      };
   };
   review.prototype.bindEvent=function(){
 
   };
 
-  review.prototype.setCount=function(){
-
+  review.prototype.setCount=function(count){
+    this.count=count;
+    this.tab.setNum("review",this.count);
   };
   review.prototype.setOneDataInReviewPlane=function(){
 
   };
-  review.prototype.setDataInRviewPlane=function(){
-
+  review.prototype.setDataInRviewPlane=function(dataObj){
+    var tempStr=this.template.getDataTemplate(this.templateMap.templateReview,dataObj);
+    this.dom.reviewContent.append(tempStr);
+    //console.log(tempStr);
   };
 
   review.prototype.getReviewDataByPage=function(dataObj){
-    //this.data.getPicReviewByPage();
+    var self=this;
+    dataObj.getPicReviewByPage({pageIndex:this.pageIndex},
+      function(data){
+        console.log("评论分页");
+        console.log(data);
+        self.setDataInRviewPlane(data.Reivew);
+        self.pageIndex++;
+      },
+      function(){
+
+      })
   };
 
   review.prototype.display=function(){
@@ -416,52 +454,79 @@
   };
 
   /*点赞对象*/
-  var good=function(template){
-    this.pageIndex=0;
+  var like=function(template,tab){
+    this.pageIndex=1;
     this.template=template;
-    this.dom={
-      dataPlane:""
+    this.tab=tab;
+    this.count=0;
+    this.templateMap={
+      templateLike:"#template-Like"
+
     }
-  };
-  good.prototype.setCount=function(){
+    this.dom={
+      likeContent:$("#album-content-like")
+    }
+
 
   };
-  good.prototype.bindEvent=function(){
+  like.prototype.setCount=function(count){
+    console.log(this.tab);
+    this.count=count;
+
+    this.tab.setNum("like",this.count);
+  };
+  like.prototype.bindEvent=function(){
 
   };
-  good.prototype.setOneDataInReviewPlane=function(){
+  like.prototype.setOneDataInReviewPlane=function(dataObj){
 
   };
 
-  good.prototype.setDataInRviewPlane=function(){
-
+  like.prototype.setDataInLikePlane=function(dataObj){
+    var tempStr=this.template.getDataTemplate(this.templateMap.templateLike,dataObj);
+    console.log(tempStr);
+    this.dom.likeContent.append(tempStr);
   };
 
-  good.prototype.getPicGoodByPage=function(dataObj){
+  like.prototype.getPicGoodByPage=function(data){
+
       //data.getPicReviewByPage();
   };
 
-  good.prototype.display=function(){
+  like.prototype.display=function(){
 
   };
 
-  good.prototype.empty=function(){
+  like.prototype.empty=function(){
 
   };
 
-  good.prototype.setViewStyle=function(){
+  like.prototype.setViewStyle=function(){
 
   };
 
-  review.prototype.postGood=function(){
+  like.prototype.postLike=function(){
 
   };
+
+  /*
+  var dc="obj[1]";
+  var patt1=new RegExp(/\[\w+\]/g);
+  var patt2=new RegExp(/\d/);
+  var dc2= patt1.exec("obj[1]");
+  var dc3= patt2.exec(dc2);
+  console.log("这个值是："+dc2);
+  console.log("这个二值是："+dc3);
+  */
+  //console.log("这个值是"+matchs.replace(/\$/g, ""));
 
   /*模板渲染对象*/
   var template=function(){
-
+      this.GetObjMath= new RegExp(/\[\w+\]/g);
+      this.GetObjNum=new RegExp(/\d/);
   };
 
+  /*调用模板入口函数*/
   template.prototype.getDataTemplate=function(templateSelector,dataObj){
       var templateHtml="";
       var dataArray=[];
@@ -473,23 +538,67 @@
       }
       for(var index=0;index<dataArray.length;index++){
         var temp=$(templateSelector).html();
-        templateHtml+=templateHtml+this._getTemplateStrByObj(temp,dataArray[index]);
+        templateHtml=templateHtml+this._getTemplateStrByObj(temp,dataArray[index]);
       }
       return templateHtml;
   };
+
+  /*模板处理方法*/
   template.prototype._getTemplateStrByObj=function(tempstr,obj){
-    return tempstr.replace(/\$\w+\$/g, function(matchs) {
-        var returns = obj[matchs.replace(/\$/g, "")];
+    var self=this;
+    return tempstr.replace(/\$\S+\$/g, function(matchs) {
+        var matchVal=matchs.replace(/\$/g, "");
+        var returns;
+        if(matchVal.indexOf(".")>-1){
+          returns=self._processMultiObj(matchVal,obj);
+        }
+        else{
+          returns = obj[matchVal];
+        }
         return (returns + "") == "undefined"? "": returns;
     });
   }
 
-  var templateObj=new template();
+  /*多级对象嵌套处理方法*/
+  template.prototype._processMultiObj=function(objStr,obj){
+     var objStrArray=objStr.split('.');
+     var currentObj=obj;
+     for(var index=0;index<objStrArray.length;index++){
+        var objName;
+        if(objStrArray[index].indexOf("[")>-1){
+          var tempIndex=this.GetObjMath.exec(objStrArray[index]);
+          tempIndex=parseInt(this.GetObjNum.exec(tempIndex));
+          var tempArrayName=objStrArray[index].replace(/\[\w+\]/g,"");
+          if(currentObj[tempArrayName]==undefined||currentObj[tempArrayName].lenght==0){
+            return "";
+          }
+          currentObj=currentObj[tempArrayName][tempIndex];
+        }
+        else{
+          if(currentObj==undefined||currentObj==null){
+            return "";
+          }
+          currentObj=currentObj[objStrArray[index]];
+        }
+     }
+     return currentObj
+  }
+
+
+
+
+
+  //var templateObj=new template();
+  /*
   var templateStr=templateObj.getDataTemplate("#template-review",
   [{
     userpic:"123",
     userName:"林先生",
-    userText:"good"
+    userText:"good",
+    user:{
+      name:"我是内嵌的名字哦",
+      age:18
+    }
   },
   {
     userpic:"266",
@@ -499,6 +608,7 @@
   );
   console.log("======template is ======");
   console.log(templateStr);
+  */
 
 
   /*【公共方法】设置指定节点进对象*/
@@ -506,47 +616,67 @@
     if(initDomObj==undefined||initDomObj==null){
       return ;
     }
-    console.log("=====初始化Zepto或Jquery节点=====");
+    //console.log("=====初始化Zepto或Jquery节点=====");
     for(var name in initDomObj){
       var domName=initDomObj[name];
       initTarget[name]=$(domName);
     }
-    console.log(initTarget);
+    //console.log(initTarget);
   }
 
   /*页面业务逻辑对象（入口函数）*/
   var albumDetail=function(){
+    var tabObj=new tab();
+    var templateObj=new template();
+    var httpObj=new http();
+    var dataObj=new data(httpObj);
     var slideObj=new slide();
+    var reviewObj=new review(templateObj,tabObj);
+    var likeObj=new like(templateObj,tabObj);
 
+    /*页面初始化方法*/
+    dataObj.getPicInitData({picId:"aaa"},
+      function(data){
+        console.log(data);
+        console.log(data.photoDetails.PhotoList);
+        var picList=data.photoDetails.PhotoList;
+        var likeData=data.photoDetails.Like;
+        var reviewData=data.photoDetails.Reivew;
+
+        slideObj._init(picList.list);
+        slideObj.setImgIndex(picList.currentIndex);
+
+        reviewObj.setDataInRviewPlane(reviewData.list);
+        reviewObj.setCount(reviewData.count);
+
+        likeObj.setDataInLikePlane(likeData.list);
+        likeObj.setCount(likeData.count);
+
+        reviewObj.getReviewDataByPage(dataObj);
+
+      },
+      function(){
+
+      }
+    );
+    /*
     slideObj._init([
       {url:"http://localhost:5001/JsProject/Project/微信企业相册/Img/Demo4.jpg",id:1},
       {url:"http://localhost:5001/JsProject/Project/微信企业相册/Img/demopic.jpg",id:2},
       {url:"http://localhost:5001/JsProject/Project/微信企业相册/Img/demopic.jpg",id:3},
       {url:"http://localhost:5001/JsProject/Project/微信企业相册/Img/Demo4.jpg",id:4}
     ]);
+    */
 
-    slideObj.setImgIndex(1);
+
     slideObj.nextBind(function(arg,Id){
         console.log("下一个的相册索引是："+Id);
+
     });
     slideObj.prevBind(function(arg,Id){
         console.log("上一个的相册索引是："+Id);
     });
 
-      var httpObj=new http();
-
-      var dataObj=new data(httpObj);
-      dataObj.getPicInitData(null,
-        function(data){
-
-        },
-        function(){
-
-        }
-      );
-
-      var reviewObj=new review();
-      var goodObj=new good();
   }
 
   /*调用入口函数*/

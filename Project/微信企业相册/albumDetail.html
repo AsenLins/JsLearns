@@ -37,14 +37,14 @@
 
     </div>
 
-    <div class="album-tabPlane">
-      <div class="album-tab-title">
-        <div class="select">评论(0)</div>
-        <div class="unselect">赞(0)</div>
+    <div id="album-tabPlane" class="album-tabPlane">
+      <div id="album-tab-title" class="album-tab-title">
+        <div data-type="review" class="select">评论<lable>(0)</lale></div>
+        <div data-type="like" class="unselect">赞<lable>(0)</lable></div>
       </div>
 
       <div class="album-tab-content">
-        <div class="album-content-review" >
+        <div data-planeId="review" id="album-content-review" class="album-content-review" >
           <!--
           <div class="album-content-item review">
             <div class="item-content-pic">
@@ -60,7 +60,7 @@
         -->
         </div>
 
-        <div class="album-content-good">
+        <div data-planeId="like"  id="album-content-like" class="album-content-good" hidden>
           <!--
           <div class="album-content-item good">
             <div class="item-content-pic">
@@ -100,29 +100,31 @@
 
     <script id="template-review" type="text/template">
       <div class="album-content-item review">
+        <div class="item-content-pic del" style="display:none;" >
+          <i class="iconfont icon-sancu"></i>
+        </div>
+
         <div class="item-content-pic">
-          <img  src="$userpic$" />
+          <img  src="$user.avatar$" />
         </div>
         <div class="item-content">
-          <div>$userName$</div>
-          <div>$userTime$</div>
-          <div>$userText$</div>
+          <div>$user.name$</div>
+          <div>$CreateTime$</div>
+          <div>$Content$</div>
         </div>
       </div>
       <div class="album-line"></div>
     </script>
 
-    <script id="template-good" type="text/template">
+    <script id="template-Like" type="text/template">
       <div class="album-content-item good">
-        <div class="item-content-pic del">
-          <i class="iconfont icon-sancu"></i>
-        </div>
+
         <div class="item-content-pic">
-            <img  src="$pic$" />
+            <img  src="$user.avatar$" />
         </div>
         <div class="item-content">
-          <div>$title$</div>
-          <div>$time$</div>
+          <div>$user.name$</div>
+          <div>$CreateTime$</div>
         </div>
       </div>
       <div class="album-line"></div>
