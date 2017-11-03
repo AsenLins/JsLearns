@@ -13,7 +13,8 @@
               {
                   "pic": "http://hq.centanet.com/CentalineHQImage/AlbumImages/f2f15a71-26eb-4669-9f48-adba432d362f.jpg"
               }
-          ]
+          ],
+          "Count":6
       },
       {
           "Id": "492bff8b-7340-4cc0-917c-3b05fb86faa1",
@@ -28,8 +29,43 @@
               {
                   "pic": "http://hq.centanet.com/CentalineHQImage/AlbumImages/a846530a-20d5-4ac0-8aaa-7cd12864d889.jpg"
               }
-          ]
+          ],
+          "Count":6
+      },
+      {
+          "Id": "492bff8b-7340-4cc0-917c-3b05fb86faa1",
+          "Title": "测试",
+          "Memo": "测试",
+          "CreateAt": "2017-10-26T17:25:24.883",
+          "ImgPath": "http://hq.centanet.com/CentalineHQImage/AlbumImages/9b631e4b-6464-461c-9e9c-ccc30a6dfb47.jpg",
+          "SmallPicList": [
+              {
+                  "pic": "http://hq.centanet.com/CentalineHQImage/AlbumImages/9b631e4b-6464-461c-9e9c-ccc30a6dfb47.jpg"
+              },
+              {
+                  "pic": "http://hq.centanet.com/CentalineHQImage/AlbumImages/a846530a-20d5-4ac0-8aaa-7cd12864d889.jpg"
+              }
+          ],
+          "Count":6
+      },
+      {
+          "Id": "492bff8b-7340-4cc0-917c-3b05fb86faa1",
+          "Title": "测试",
+          "Memo": "测试",
+          "CreateAt": "2017-10-26T17:25:24.883",
+          "ImgPath": "http://hq.centanet.com/CentalineHQImage/AlbumImages/9b631e4b-6464-461c-9e9c-ccc30a6dfb47.jpg",
+          "SmallPicList": [
+              {
+                  "pic": "http://hq.centanet.com/CentalineHQImage/AlbumImages/9b631e4b-6464-461c-9e9c-ccc30a6dfb47.jpg"
+              },
+              {
+                  "pic": "http://hq.centanet.com/CentalineHQImage/AlbumImages/a846530a-20d5-4ac0-8aaa-7cd12864d889.jpg"
+              }
+          ],
+          "Count":6
       }
+
+
   ]
 
 }

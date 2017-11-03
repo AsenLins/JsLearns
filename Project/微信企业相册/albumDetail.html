@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <link rel="Stylesheet" type="text/css" href="Style/albumiconfont.css">
-    <link rel="Stylesheet" type="text/css" href="Style/albumDetail.css?v=1" />
+    <link rel="Stylesheet" type="text/css" href="Style/albumDetail.css?v=3" />
     <title>相册详情</title>
   </head>
   <body>
@@ -82,16 +82,16 @@
     <div class="album-review">
        <i class="iconfont icon-xie inputbg" > </i>
        <input id="album-review-text" type="text" placeholder="说点什么吧..." />
-       <i class="iconfont icon-pinglun"></i>
-       <i class="iconfont icon-zan select"></i>
+       <i id="btn-review" class="iconfont icon-pinglun"></i>
+       <i id="btn-like" class="iconfont icon-zan"></i>
     </div>
 
-    <div class="album-review-input" hidden>
-      <div contenteditable="true" class="text-reviewcontent">
+    <div id="album-review-input" class="album-review-input" hidden>
+      <div id="text-reviewcontent" contenteditable="true" class="text-reviewcontent">
         说点什么吧...
       </div>
       <div class="album-review-post">
-        <lable>0/100</lable>
+        <lable hidden>0/100</lable>
         <input type="button" class="default" id="btn-cancelPostReview" value="取消" />
         <input type="button" class="blue" id="btn-postReview" value="确认" />
       </div>
@@ -99,9 +99,9 @@
 
 
     <script id="template-review" type="text/template">
-      <div class="album-content-item review">
-        <div class="item-content-pic del" style="display:none;" >
-          <i class="iconfont icon-sancu"></i>
+      <div data-userId="$user.id$" data-Id="$id$" class="album-content-item review">
+        <div  class="item-content-pic del"  >
+
         </div>
 
         <div class="item-content-pic">
@@ -117,7 +117,7 @@
     </script>
 
     <script id="template-Like" type="text/template">
-      <div class="album-content-item good">
+      <div data-Id="$id$" class="album-content-item good">
 
         <div class="item-content-pic">
             <img  src="$user.avatar$" />
@@ -132,8 +132,9 @@
 
     <script src="../../Script/moveJs/move.min.js"></script>
     <script src="../../Script/zepto/zepto.min.js"></script>
-    <script src="Scripts/albumDetail.js?v=4" > </script>
-    <script></script>
+    <script src="Scripts/albumDetail.js?v=7" > </script>
+
+
     <!--
 <div id="mydiv" style="  position: absolute; width:100px; top:0px; height:300px; background-color:blue;">1</div>
     <script>
