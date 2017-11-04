@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>正则</title>
+  </head>
+  <body>
+
+
+    <script>
+
+      /*
+      正则表达式是一种匹配字符串的模式方法。
+      正则表达式是由项和操作符组成。
+      可使用两种方式声明正则表达式：字面量声明丶以及构造对象，声明正则表达式。
+
+      */
+
+
+      /*
+      [字面量正则]
+      */
+      var param=/apple/;
+
+
+      /*
+      [构造对象建立正则]
+      */
+      var objParam=new RegExp("apple");
+
+
+      /*
+      正则表达式标志：
+      i:匹配任意大小写字符。
+      g:匹配所有实例。
+      m:可跨多行。
+      [注意]：标志要放在字面量的最后，或构造对象的第二个参数
+      */
+      console.log("匹配标识i,g,m");
+      console.log("=====/apple/======");
+      var regI=/apple/i;
+      var regG=/apple/g;
+      var regM=/apple/m;
+      console.log(regI.test("Apple"));
+      console.log(regG.test("apple orange"));
+      console.log(regM.test("apple orange blue"));
+
+      /*
+      匹配字符组
+      */
+      console.log("匹配字符组");
+      console.log("=====/[abc]/======");
+      var regArray=/[abc]/;
+      console.log(regArray.test("a"));
+      console.log(regArray.test("b"));
+      console.log(regArray.test("f"));
+
+      console.log("=====/[^ac]/======");
+      var regUnArray=/[^ac]/;
+      console.log(regUnArray.test("a"));
+      console.log(regUnArray.test("b"));
+
+      console.log("=====/[0-5]/======");
+      var regNumArray=/[0-5]/;
+      console.log(regNumArray.test(1));
+      console.log(regNumArray.test("my name 1 is good"));
+      console.log(regNumArray.test(6));
+
+      /*匹配$,*,<等特殊字符*/
+      console.log("匹配$,*,<等特殊字符");
+      var regSpecial=/\$/;
+      console.log(regSpecial.test("*sam"));
+      console.log(regSpecial.test("$sam"));
+
+      /*使用exec匹配字符出现的位置*/
+      console.log("使用exec匹配字符出现的位置");
+      //注意：g标识全局匹配，而i标识是不分大小写匹配，可组合使用(不分前后顺序)：ig。
+      var regExec=/apple/g;
+      var regExecStr="orange,red,Apple,i love the apple is me";
+      var regExecMatch=regExec.exec(regExecStr);
+      console.log(regExecMatch);
+
+      /*字符串方法使用正则*/
+      console.log("字符串方法使用正则");
+      /*match匹配字符出现位置*/
+      console.log("字符串方法match");
+      var regMatch=/orange/;
+      var regMatchStr="red,orange,blue";
+      console.log(regMatchStr.match(regMatch));
+
+      /*replace方法使用正则替换字符*/
+      console.log("字符串方法replace");
+      var regReplace=/red/ig;
+      var regReplaceStr="orange,Red,Apple,red,red";
+      regReplaceStr=regReplaceStr.replace(regReplace,function(matchStr){
+        return "replaceRed"
+      });
+      console.log(regReplaceStr);
+
+      /*split使用正则分割数组*/
+      console.log("split使用正则分割数组");
+      var regSplit=/\$/;
+      var regSplitStr="a$b$c$d";
+      var regArray=regSplitStr.split(regSplit);
+      console.log(regArray);
+
+      /*正则匹配多个字符串*/
+      var regMoreReg1=/[cf]at/ig;
+      var regMoreStr1="is the cat but is verry fat";
+      console.log(regMoreStr1+"匹配cat和fat");
+      console.log(regMoreStr1.match(regMoreReg1));
+
+      console.log("a1,a2,a3,a4,a5匹配前两组字符");
+      var regMoreStr2="a1,a2,a3,a4,a5";
+      var regMoreReg2=/a[0-2]/;
+      console.log(regMoreStr2.match(regMoreReg2));
+
+      /*正则字符组快捷匹配写法*/
+      console.log("正则字符组快捷匹配写法");
+      console.log("\\d匹配任意单个数字");
+      var regSimple1Str="133-433-511-443";
+      var regSimple1=/\d\d\d-\d\d\d/ig;
+      console.log(regSimple1Str.match(regSimple1));
+
+      /*正则匹配重复出现的字符*/
+      console.log("正则匹配重复出现的字符");
+
+      var regRepeat1=/Ke?n/;
+      console.log("?匹配出现过0次或1次字符");
+      console.log("匹配字符0次或者1次出现n的字符");
+      console.log(regRepeat1.test("Kn"));
+      console.log(regRepeat1.test("Kenn"));
+      console.log("Ken Is good man".match(regRepeat1));
+
+      console.log("*匹配出现过0次或多次的字符");
+      console.log("匹配字符0次或者多次出现ns的字符");
+      var regRepeat2=/\wns*/;
+      console.log(regRepeat2.test("ponspons"));
+      console.log(regRepeat2.test("po1ns"));
+
+      console.log("{n}匹配出现指定次数的字符");
+      var regRepeat3=/ap{3}/;
+      console.log(regRepeat3.test("appples"));
+      console.log(regRepeat3.test("apples"));
+
+      /*字符表达式分组(xxxx)*/
+      console.log("字符表达式分组(xxxx)");
+      var regGroupStr="HaHaHaHaaaaaaaaaaaaa";
+      var regGroup=/Ha+(Ha+)+/i;
+      console.log(regGroupStr.match(regGroup));
+
+      /*正则的边界模式 \b*/
+      console.log("正则的边界模式\b");
+      var regbBorder=/\bcat\b/;
+      console.log(regbBorder.test("i am a cat"));
+      console.log(regbBorder.test("i am a tomcat"));
+
+
+      /*正则的选择结构 |*/
+      console.log("正则的选择结构|");
+      var regSelect=/a|b/;
+      console.log(regSelect.test("a"));
+      console.log(regSelect.test("c"));
+
+      /*首部与尾部*/
+      console.log("正则的首部与尾部");
+      console.log("/^asen/匹配asen开头的字符串");
+      var regHead=/^asen/;
+      console.log(regHead.test("asenlins"));
+      console.log(regHead.test("linsasen"));
+
+      console.log("/asen$/匹配已asen结尾的字符串");
+      var regLast=/asen$/;
+      console.log(regLast.test("linsasen"));
+      console.log(regLast.test("asenlins"));
+
+
+      var regAll=/^asen$/
+      console.log("^/asen$/匹配asen");
+      console.log(regAll.test("asen"));
+      console.log(regAll.test("asens"));
+
+      /*向后引用*/
+      //注意：正则表达式分组是指：每个()里的匹配的字符。
+      console.log("向后引用");
+      var regBack=/^([abc])\1/;
+      console.log(regBack.test("aa"));
+      console.log(regBack.test("ab"));
+
+      console.log("$n 在字符串replace方法中的特殊用法");
+      var regBackReplaceStr="12345 56789"
+      var regBackReplace=/(\d{5}) (\d{5})/;
+      regBackReplaceStr=regBackReplaceStr.replace(regBackReplace,"$2 $1");
+      console.log(regBackReplaceStr);
+
+
+
+    </script>
+  </body>
+  </html>

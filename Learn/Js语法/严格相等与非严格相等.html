@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>严格相等与非严格相等</title>
+  </head>
+  <body>
+
+    <script>
+
+
+      /*
+      [不严格对等]
+      不严格对等会转换类型，再进行对比。
+      */
+      console.log("a=='3'");
+      var a=3;
+      if(a=="3"){
+        console.log("等于");
+      }
+      else{
+        console.log("不等于");
+      }
+
+      console.log("a==''");
+      //[注意：不严格对等会转换类型，以下就相当于转换为Number类型]
+      if(0==""){
+        console.log("等于");
+      }
+      else{
+        console.log("不等于");
+      }
+      var c=new Number("");
+
+
+      /*
+      [严格对等]
+      严格对等不会进行转换类型，直接对比
+      */
+      console.log("a==='3'");
+      if(a==="3"){
+        console.log("等于");
+      }
+      else{
+        console.log("不等于");
+      }
+
+      console.log("a===''");
+      if(0===""){
+        console.log("等于");
+      }
+      else{
+        console.log("不等于");
+      }
+
+      /*
+      小结：
+      尽量使用严格对等，因为非严格对等会转换类型，会增加性能开销，而且非严格对等的对比有时候出现意外的结果。
+      */
+
+    </script>
+  </body>
+  </html>
