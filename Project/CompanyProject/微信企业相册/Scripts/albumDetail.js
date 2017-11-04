@@ -307,9 +307,12 @@
       this.httpRequest=http;
       this.urlMap={
         getPicDetailInit:"DemoData/AlbumDetail.json",
-        getPicReviewAndGoodByPicIdUrl:"DemoData/LikeAndReview.json",
+        getPicReviewAndGoodByPicId:"DemoData/LikeAndReview.json",
         getPicReviewByPage:"DemoData/Review.json",
-        getPicLikeByPage:"DemoData/Like.json"
+        getPicLikeByPage:"DemoData/Like.json",
+        postLike:"DemoData/Like.json",
+        postReview:"DemoData/Review.json",
+        postReviewDel:"DemoData/Review.json"
       };
   };
   data.prototype.dealParam=function(paramObj){
@@ -352,7 +355,7 @@
   };
 
   data.prototype.getReviewAndGoodByPicId=function(param,callBack,err){
-    this._request(this.urlMap.getReviewAndGoodByPicId,"get",param,callBack,err);
+    this._request(this.urlMap.getPicReviewAndGoodByPicId,"get",param,callBack,err);
   };
 
   data.prototype.getPicReviewByPage=function(param,callBack,err){
@@ -362,6 +365,17 @@
   data.prototype.getPicGoodByPage=function(param,callBack,err){
     this._request(this.urlMap.getPicLikeByPage,"get",param,callBack,err);
   };
+
+  data.prototype.postLike=function(param,callBack,err){
+    this._request(this.urlMap.postLike,"get",param,callBack,err);
+  };
+
+  data.prototype.postReview=function(param,callBack,err){
+    this._request(this.urlMap.postReview,"get",param,callBack,err);
+  };
+  data.prototype.postDelReview=function(param,callBack,err){
+    this._request(this.urlMap.postReviewDel,"get",param,callBack,err);
+  }
 
   /*tab对象*/
   var tab=function(){
@@ -380,6 +394,7 @@
     _bindEvent(this);
 
   }
+
   tab.prototype.setNum=function(type,num){
     console.log(type+":"+num);
     this.dom.tabTitle.find("div[data-type='"+type+"'] lable").text("("+num+")");
@@ -389,125 +404,264 @@
     this.dom.tabTitle.find("div[data-type='"+type+"']").attr("class","select");
     this.dom.tabPlane.find("div[data-planeId]").css("display","none");
     this.dom.tabPlane.find("div[data-planeId='"+type+"']").css("display","block");
+    this.current=type;
   };
 
 
   /*评论与赞业务对象*/
-  var review=function(template,tab){
+  var review=function(template,tab,data){
       this.pageIndex=0;
       this.template=template;
       this.tab=tab;
       this.count=0;
+      this.currentPicId="";
+      this.dataObj=data;
+      this.currentUserId="",
       this.templateMap={
         templateReview:"#template-review"
-
       };
       this.dom={
-        reviewContent:$("#album-content-review")
+        reviewContent:$("#album-content-review"),
+        tiggerInputPlane:$("#album-review-text"),
+        inputPlane:$("#album-review-input"),
+        inputContent:$("#text-reviewcontent"),
+        btnCancelReview:$("#btn-cancelPostReview"),
+        btnPosteview:$("#btn-postReview"),
+        btnReview:$("#btn-review")
       };
-  };
-  review.prototype.bindEvent=function(){
+
+      function _bindEvent(that){
+        var self=that;
+        //alert("开始绑定");
+        self.dom.btnReview.on("click",function(){
+          self.dom.inputContent.empty().text("说点什么吧...");
+          self.inputDisplay(true);
+        });
+
+        self.dom.inputContent.on("click",function(){
+          self.dom.inputContent.empty();
+        });
+        self.dom.tiggerInputPlane.on("click",function(){
+          self.dom.inputContent.empty().text("说点什么吧...");
+          self.inputDisplay(true);
+        });
+
+        self.dom.btnCancelReview.on("click",function(){
+          self.inputDisplay(false);
+        });
+        self.dom.btnPosteview.on("click",function(){
+          self.postReview({});
+        });
+        self.dom.reviewContent.on("click",".del",function(){
+          var delId=$(this).parent().attr("data-Id");
+          var delResult=confirm("是否确认删除这条评论?");
+          if(delResult){
+            alert("开始删除");
+            self.dataObj.postDelReview({userId:this.currentUserId,id:delId},
+            function(data){
+              alert("删除成功!");
+              self.removeByIndex(443);
+              //console.log();
+            },
+            function(){
+
+            });
+          }
+          else{
+
+          }
+        });
+      }
+      _bindEvent(this);
 
   };
+
 
   review.prototype.setCount=function(count){
     this.count=count;
     this.tab.setNum("review",this.count);
   };
-  review.prototype.setOneDataInReviewPlane=function(){
-
+  review.prototype.removeByIndex=function(reviewId){
+    this.dom.reviewContent.find("div[data-Id='"+reviewId+"']").next().remove();
+    this.dom.reviewContent.find("div[data-Id='"+reviewId+"']").remove();
   };
-  review.prototype.setDataInRviewPlane=function(dataObj){
-    var tempStr=this.template.getDataTemplate(this.templateMap.templateReview,dataObj);
+  review.prototype.setOneDataInReviewPlane=function(data){
+      var tempStr=this.template.getDataTemplate(this.templateMap.templateReview,data);
+      this.dom.reviewContent.prepend(tempStr);
+      this.showDel();
+  };
+  review.prototype.setDataInRviewPlane=function(data){
+    var tempStr=this.template.getDataTemplate(this.templateMap.templateReview,data);
     this.dom.reviewContent.append(tempStr);
+    this.showDel();
     //console.log(tempStr);
   };
 
-  review.prototype.getReviewDataByPage=function(dataObj){
+  review.prototype.getReviewDataByPage=function(){
     var self=this;
-    dataObj.getPicReviewByPage({pageIndex:this.pageIndex},
+    this.dataObj.getPicReviewByPage({PicId:this.currentPicId,pageIndex:this.pageIndex},
       function(data){
         console.log("评论分页");
         console.log(data);
         self.setDataInRviewPlane(data.Reivew);
         self.pageIndex++;
+        self.showDel();
       },
       function(){
 
-      })
-  };
-
-  review.prototype.display=function(){
-
-  };
-
-  review.prototype.empty=function(){
-
+      });
   };
 
   review.prototype.setViewStyle=function(){
 
   };
+  review.prototype.inputDisplay=function(showHide){
+    if(showHide){
+      this.dom.inputPlane.css("display","block");
+    }
+    else{
+      this.dom.inputPlane.css("display","none");
+    }
 
-  review.prototype.postReview=function(){
+  }
+  review.prototype.postReview=function(param){
+    var self=this;
+    this.dataObj.postReview(param,
+      function(data){
+        var inputText=self.dom.inputContent.text();
+        var obj={
+          id:"443",
+          CreateTime:"2016-3-3 10:3",
+          Content:inputText,
+          user:{
+            avatar:"http://shp.qpic.cn/bizmp/j9Y9icaeLJ2OYbdRNTjeZgyLqtFwVFOUCRQmM1wnIK70bGrtiakKpBMQ/",
+            name:"Stanley Poon"
+          }
+        };
+        self.count++;
+        self.tab.setNum("review",self.count);
+        self.setOneDataInReviewPlane(obj);
+        self.inputDisplay(false);
+        alert("成功");
+      },
+      function(){
 
+      });
+  };
+
+  review.prototype.showDel=function(){
+    var self=this;
+    this.dom.reviewContent.find("div").each(function(n,obj){
+        var userId=$(this).attr("data-userId");
+        if(userId==self.currentPicId){
+
+          if($(obj).find(".del i").size()==0){
+              $(obj).find(".del").append("<i class='iconfont icon-sancu'></i>");
+          }
+          //$(obj).find(".del").css("display","block");
+
+        }
+    });
   };
 
   /*点赞对象*/
-  var like=function(template,tab){
+  var like=function(template,tab,data){
     this.pageIndex=1;
     this.template=template;
     this.tab=tab;
     this.count=0;
+<<<<<<< HEAD:Project/微信企业相册/Scripts/albumDetail.js
     this.move=window.move;
+=======
+    this.currentPicId="";
+    this.likeState=false;
+    this.dataObj=data;
+    this.currentUserId="",
+>>>>>>> ab0b732142d7b383611382604adb1a2f9b204e00:Project/CompanyProject/微信企业相册/Scripts/albumDetail.js
     this.templateMap={
       templateLike:"#template-Like"
-
     }
     this.dom={
       likeContent:$("#album-content-like"),
       btnLike:$("#btn-like")
     }
 
+    function _bindEvent(that){
+      var self=that;
+      self.dom.btnLike.on("click",function(){
+        self.postLike({});
+      });
+    }
+    _bindEvent(this);
 
   };
   like.prototype.setCount=function(count){
     console.log(this.tab);
     this.count=count;
-
     this.tab.setNum("like",this.count);
   };
-  like.prototype.bindEvent=function(){
 
-  };
-  like.prototype.setOneDataInReviewPlane=function(dataObj){
-
+  like.prototype.removeByIndex=function(likeId){
+    this.dom.likeContent.find("div[data-Id='"+likeId+"']").remove();
   };
 
-  like.prototype.setDataInLikePlane=function(dataObj){
-    var tempStr=this.template.getDataTemplate(this.templateMap.templateLike,dataObj);
+  like.prototype.setOneDataInReviewPlane=function(data){
+    var tempStr=this.template.getDataTemplate(this.templateMap.templateLike,data);
+    this.dom.likeContent.prepend(tempStr);
+  };
+
+  like.prototype.setDataInLikePlane=function(data){
+    var tempStr=this.template.getDataTemplate(this.templateMap.templateLike,data);
     console.log(tempStr);
     this.dom.likeContent.append(tempStr);
   };
 
-  like.prototype.getPicGoodByPage=function(data){
+  like.prototype.getPicGoodByPage=function(){
+    var self=this;
+    this.dataObj.getPicReviewByPage({PicId:this.currentPicId,pageIndex:this.pageIndex},
+      function(data){
+        console.log("点赞分页");
+        console.log(data);
+        self.setDataInLikePlane(data.Reivew);
+        self.pageIndex++;
+      },
+      function(){
 
+      })
       //data.getPicReviewByPage();
   };
+  like.prototype.setLikeState=function(states){
+    if(states){
+      this.dom.btnLike.attr("class","iconfont icon-zan select");
+    }
+    else{
+      this.dom.btnLike.attr("class","iconfont icon-zan")
+    }
+    this.likeState=states;
+  }
 
-  like.prototype.display=function(){
+  like.prototype.postLike=function(param){
+    var self=this;
+    this.dataObj.postLike(param,
+      function(data){
+        self.setLikeState(true);
+        var obj={
+          id:"443",
+          CreateTime:"2016-3-3 10:3",
+          user:{
+            avatar:"http://shp.qpic.cn/bizmp/j9Y9icaeLJ2OYbdRNTjeZgyLqtFwVFOUCRQmM1wnIK70bGrtiakKpBMQ/",
+            name:"Stanley Poon"
+          }
+        };
 
-  };
+        self.count++;
+        self.tab.setNum("like",self.count);
+        self.setOneDataInReviewPlane(obj);
+      }
+      ,
+      function(){
 
-  like.prototype.empty=function(){
-
-  };
-
-  like.prototype.setViewStyle=function(){
-
-  };
-
-  like.prototype.postLike=function(){
+      });
 
   };
 
@@ -596,8 +750,8 @@
      for(var index=0;index<objStrArray.length;index++){
         var objName;
         if(objStrArray[index].indexOf("[")>-1){
-          var tempIndex=this.GetObjMath.exec(objStrArray[index]);
-          tempIndex=parseInt(this.GetObjNum.exec(tempIndex));
+          var tempIndex= new RegExp(/\[\w+\]/g).exec(objStrArray[index].toString());
+          tempIndex=parseInt(new RegExp(/\d/).exec(tempIndex));
           var tempArrayName=objStrArray[index].replace(/\[\w+\]/g,"");
           if(currentObj[tempArrayName]==undefined||currentObj[tempArrayName].lenght==0){
             return "";
@@ -698,9 +852,6 @@
     }
   }
 
-
-
-
   //var templateObj=new template();
   /*
   var templateStr=templateObj.getDataTemplate("#template-review",
@@ -744,9 +895,10 @@
     var httpObj=new http();
     var dataObj=new data(httpObj);
     var slideObj=new slide();
-    var reviewObj=new review(templateObj,tabObj);
-    var likeObj=new like(templateObj,tabObj);
-
+    var reviewObj=new review(templateObj,tabObj,dataObj);
+    var likeObj=new like(templateObj,tabObj,dataObj);
+    var $window = $(window);
+    var $document = $(document);
     /*页面初始化方法*/
     dataObj.getPicInitData({picId:"aaa"},
       function(data){
@@ -765,7 +917,7 @@
         likeObj.setDataInLikePlane(likeData.list);
         likeObj.setCount(likeData.count);
 
-        reviewObj.getReviewDataByPage(dataObj);
+
 
       },
       function(){
@@ -783,13 +935,50 @@
 
 
     slideObj.nextBind(function(arg,Id){
+        pageEvent(arg,Id);
+
         console.log("下一个的相册索引是："+Id);
 
     });
     slideObj.prevBind(function(arg,Id){
+      pageEvent(arg,Id);
         console.log("上一个的相册索引是："+Id);
     });
 
+
+    $window.scroll(function () {
+        if ($window.scrollTop() + $window.height() >= $document.height()) {
+              if(tabObj.current=="review"){
+                reviewObj.getReviewDataByPage(dataObj);
+              }
+              else{
+                likeObj.getPicGoodByPage(dataObj);
+              }
+        }
+    });
+
+    /*分页逻辑*/
+    function pageEvent(arg,Id){
+      likeObj.dom.likeContent.empty();
+      likeObj.pageIndex=1;
+      likeObj.currentPicId=Id;
+      tabObj.setNum("review",0);
+      reviewObj.dom.reviewContent.empty();
+      reviewObj.pageIndex=1;
+      reviewObj.pageIndex=Id;
+      tabObj.setNum("like",0);
+      dataObj.getReviewAndGoodByPicId({PicId:Id},
+      function(data){
+        console.log(data);
+        reviewObj.setDataInRviewPlane(data.Review.list);
+        likeObj.setDataInLikePlane(data.Like.list);
+        tabObj.setNum("review",data.Review.count);
+        tabObj.setNum("like",data.Like.count);
+      },
+      function(){
+
+      });
+    }
   }
 
   /*调用入口函数*/

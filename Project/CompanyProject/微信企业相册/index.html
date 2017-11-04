@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <title>微信企业相册-首页</title>
     <link rel="Stylesheet" type="text/css" href="Style/albumiconfont.css">
-    <link rel="Stylesheet" type="text/css" href="Style/albumIndex.css" />
+    <link rel="Stylesheet" type="text/css" href="Style/albumIndex.css?v=1" />
   </head>
   <body>
     <div class="album-searchtype-bg" hidden></div>
+    <!--
     <div class="album-searchtype" hidden>
 
       <div class="album-text">分类</div>
@@ -17,16 +18,17 @@
         <div data-typeid="" class="album-searchtype-item default">默认</div>
       </div>
     </div>
+   -->
 
     <div class="album-topbar">
-      <div id="btn-search"><i class="iconfont icon-liebiao default"></i></div>
+      <!--<div id="btn-search"><i class="iconfont icon-liebiao default"></i></div>-->
       <div>
         <i class="iconfont icon-11"></i>
         <input id="txt-plane" type="text" value="" placeholder="输入相册名称搜索" />
       </div>
     </div>
 
-    <div class="album-plane">
+    <div id="album-plan" class="album-plane">
       <!--
       <a href="#">
       <div class="album-item">
@@ -53,13 +55,13 @@
 <script id="template-album-item" type="text/template">
   <a href="#" />
   <div data-id="$albumId$" class="album-item">
-    <div><h4>$title$</h4></div>
+    <div><h4>$Title$</h4></div>
     <div class="album-item-time">$time$</div>
     <div class="album-item-img">
-      <div style="background-image:url('$pic1$'); "></div>
+      <div style="background-image:url('$ImgPath$'); "></div>
       <div class="album-item-preview">
-        <div style="background-image:url('$pic2$');"></div>
-        <div style="background-image:url('$pic3$');"></div>
+        <div style="background-image:url('$SmallPicList[0].pic$');"></div>
+        <div style="background-image:url('$SmallPicList[1].pic$');"></div>
       </div>
     </div>
     <div class="album-item-num">
@@ -75,6 +77,11 @@
 <script id="template-alubumType-item" type="text/template">
   <div data-typeid="$id$" class="album-searchtype-item default">$title$</div>
 </script>
+
+
+<script src="../../Script/moveJs/move.min.js"></script>
+<script src="../../Script/zepto/zepto.min.js"></script>
+<script src="Scripts/index.js?v=11" > </script>
 
 <script>
 
