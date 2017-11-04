@@ -300,3 +300,102 @@ body{
   background-color: white;
   border:1px solid #dddddd;
 }
+
+
+/*提示框*/
+.album-alert{
+  position:fixed;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  font-size: 0.8em;
+  /*display: -webkit-box; */
+  display: none;
+  -webkit-box-pack:center;
+  -webkit-box-align:center;
+  -webkit-box-orient: vertical;
+  text-align: center;
+  z-index: 17;
+}
+.album-alert-text{
+  color: white;
+  padding: 12px 30px 12px 30px;
+  background: rgba(52, 52, 52, .8);
+  border-radius: 4px;
+}
+
+/*警示框*/
+.album-confirm{
+
+  position:fixed;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  font-size: 0.8em;
+  /*display: -webkit-box;*/
+  display: none;
+  -webkit-box-pack:center;
+  -webkit-box-align:center;
+  -webkit-box-orient: vertical;
+  text-align: center;
+  background: rgba(52, 52, 52, .8);
+  z-index: 16;
+
+}
+.album-confirm-plane{
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+}
+.album-confirm-plane>div:first-child{
+  padding:  0px 45px  0px 45px;
+  height: 125px;
+  line-height: 125px;
+  text-align: center;
+}
+.album-confirm-plane>div:last-child{
+  border-top:1px solid #cccccc;
+}
+.album-confirm-plane>div:last-child::after{
+  content: "";
+  display: block;
+  clear: both;
+}
+.album-confirm-plane>div:last-child div{
+  padding: 15px 0px 15px 0px;
+  float: left;
+  width: 49.5%;
+}
+.album-confirm-plane>div:last-child div:first-child{
+  border-right: 1px solid #cccccc;
+}
+.album-confirm-plane .red{
+  color:#fd5454;
+}
+
+/*点赞提示*/
+.album-like-alert{
+  position:fixed;
+  right: 5%;
+  bottom: 55px;
+  height: 30px;
+  width: 26px;
+  border-radius: 50px;
+  background: rgba(52, 52, 52, .8);
+  color: white;
+  text-align: center;
+  line-height: 30px;
+
+  font-size: 0.7em;
+}
+.album-like-down{
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 8px solid black;
+  opacity:0.6;
+  position: relative;
+  left: 9px;
+  top: -0.55px;
+}

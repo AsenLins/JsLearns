@@ -80,10 +80,13 @@
 
 
     <div class="album-review">
-       <i class="iconfont icon-xie inputbg" > </i>
+
+       <i class="iconfont icon-xie inputbg" >
+
+       </i>
        <input id="album-review-text" type="text" placeholder="说点什么吧..." />
        <i class="iconfont icon-pinglun"></i>
-       <i class="iconfont icon-zan select"></i>
+       <i id="btn-like" style="position:relative; top:0px; display:inline-block;"  class="iconfont icon-zan "></i>
     </div>
 
     <div class="album-review-input" hidden>
@@ -96,6 +99,24 @@
         <input type="button" class="blue" id="btn-postReview" value="确认" />
       </div>
     </div>
+
+
+    <div id="album-alert" class="album-alert" >
+        <div class="album-alert-text" >删除成功</div>
+    </div>
+
+     <div id="album-confirm" class="album-confirm">
+       <div class="album-confirm-plane">
+         <div>确认要删除这条评论吗?</div>
+         <div>
+           <div id="btn-confirm-cancel">取消</div>
+           <div id="btn-confirm-sure" class="red">确认</div>
+         </div>
+       </div>
+     </div>
+
+
+
 
 
     <script id="template-review" type="text/template">

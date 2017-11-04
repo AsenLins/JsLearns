@@ -4,38 +4,36 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <title>测试相册</title>
-
-    <style type="text/css">
-
-      .myImg img{
-        max-width: 50%;
-        float:left;
-      }
-      body{
-        padding:0px;
-        margin: 0px;
-      }
-      #test-img{
-        position: relative;
-        left: 0px;
-
-      }
-
+    <style>
+    .slideShine{
+         background:#871317 -webkit-linear-gradient(left,#561214,#febaf7 50%,#ff0 90%,#561214) no-repeat 0 0;
+         background-size:20% 100%;
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+         font-size: 36px;
+         text-align: center;
+         font-weight: bold;
+         text-decoration: underline;
+    }
+    .slideShine {-webkit-animation: slideShine 4s linear infinite;animation: slideShine 4s linear infinite;}
+    @-webkit-keyframes slideShine {
+         0% {
+              background-position: 0 0;
+            }
+         100% {
+              background-position: 100% 100%;
+          }
+     }
+     @keyframes slideShine {
+          0% {background-position: 0 0; }
+         100% {background-position: 100% 100%; }
+     }
     </style>
-  </head>
-  <body>
 
-    <div id="imgPlane" class="myImg">
+    <body>
 
-      <img id="test-img" src="Img/demo4.jpg" />
-      <img id="test-img" src="Img/demo4.jpg" />
-
-    </div>
-    <script src="../../Script/zepto/zepto.min.js" ></script>
-    <script src="Scripts/test.js"></script>
-    <script>
+  <p class="slideShine" >→css3文字渐变动画效果 ></p>
 
 
-    </script>
   </body>
   </html>

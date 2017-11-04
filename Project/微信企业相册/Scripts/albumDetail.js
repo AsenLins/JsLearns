@@ -459,12 +459,14 @@
     this.template=template;
     this.tab=tab;
     this.count=0;
+    this.move=window.move;
     this.templateMap={
       templateLike:"#template-Like"
 
     }
     this.dom={
-      likeContent:$("#album-content-like")
+      likeContent:$("#album-content-like"),
+      btnLike:$("#btn-like")
     }
 
 
@@ -508,6 +510,34 @@
   like.prototype.postLike=function(){
 
   };
+
+  like.prototype.like=function(){
+    var btnLike=this.dom.btnLike;
+    var self=this;
+    btnLike.css("color","#fd5454");
+    this.move(btnLike.selector).scale(2).duration('0.2s').end(function(){
+      setTimeout(
+        function(){
+          self.move(btnLike.selector).scale(1).end();
+        },1)
+    });
+  };
+
+  like.prototype.unlike=function(){
+    var btnLike=this.dom.btnLike;
+    var self=this;
+    btnLike.css("color","#9f9f9f");
+    this.move(btnLike.selector).rotate(30).duration('0.2s').end(function(){
+      setTimeout(function(){
+        self.move(btnLike.selector).rotate(-2).duration('0.2s').end();
+      },1);
+    });
+  };
+
+
+ var Likeob=new like();
+ Likeob.unlike();
+
 
   /*
   var dc="obj[1]";
@@ -584,6 +614,89 @@
      return currentObj
   }
 
+  var albumAlert=function(){
+      this.dom={
+        alertPlane:$("#album-alert")
+      };
+      this.status=false;
+      this.move=window.move;
+
+  };
+  albumAlert.prototype.show=function(){
+    if(this.status){
+      return;
+    }
+    this.status=true;
+    var self=this;
+    var alertPlane=this.dom.alertPlane;
+    alertPlane.css({"display":"-webkit-box","opacity":"0"});
+    setTimeout(function(){
+        self.move(alertPlane.selector).set("opacity",1)
+        .end(function(){
+          self.move(alertPlane.selector).delay(1000).set("opacity",0).end(function(){
+            setTimeout(function(){
+              alertPlane.css({"display":"none","opacity":"0"});
+              this.state=false;
+            },100);
+          });
+        });
+    },100);
+  };
+
+  var albumConfirm=function(){
+    this.dom={
+      albumConfirm:$("#album-confirm"),
+      btnCancel:$("#btn-confirm-cancel"),
+      btnSure:$("#btn-confirm-sure")
+
+    };
+    this.sureEvent=[];
+    this.cancelEvent=[];
+    this.move=window.move;
+    var self=this;
+    function _bindEvent(){
+      self.dom.btnCancel.on("click",function(){
+        for(var index=0;index<self.cancelEvent.length;index++){
+          self.cancelEvent[index].call(self,arguments);
+        }
+      });
+      self.dom.btnSure.on("click",function(){
+        for(var index=0;index<self.sureEvent.length;index++){
+          self.sureEvent[index].call(self,arguments);
+        }
+      });
+    }
+
+    _bindEvent();
+  };
+
+  albumConfirm.prototype.show=function(){
+    var albumConfirm=this.dom.albumConfirm;
+    albumConfirm.css({"display":"-webkit-box","opacity":"0"});
+    setTimeout(function(){
+        this.move(albumConfirm.selector).set("opacity","1").end();
+    },100);
+
+  };
+  albumConfirm.prototype.hide=function(){
+    var albumConfirm=this.dom.albumConfirm;
+    var self=this;
+    this.move(albumConfirm.selector).set("opacity","0").end(function(){
+          setTimeout(function(){
+            albumConfirm.css({"display":"none","opacity":"0"});
+          },100);
+    });
+  };
+  albumConfirm.prototype.bindSureEvent=function(fn){
+    if(fn!=undefined){
+      this.sureEvent.push(fn);
+    }
+  }
+  albumConfirm.prototype.bindCancelEvent=function(fn){
+    if(fn!=undefined){
+      this.cancelEvent.push(fn);
+    }
+  }
 
 
 
@@ -681,6 +794,20 @@
 
   /*调用入口函数*/
   $(function(){
+    /*
+    var albumAlertObj=new albumAlert();
+        albumAlertObj.show();
+    var albumConfirmObj=new albumConfirm();
+    albumConfirmObj.bindCancelEvent(function(){
+      albumConfirmObj.hide();
+    });
+    albumConfirmObj.bindSureEvent(function(){
+
+    });
+    albumConfirmObj.show();
+    */
+
+
     window.albumDetail=new albumDetail();
   });
 
