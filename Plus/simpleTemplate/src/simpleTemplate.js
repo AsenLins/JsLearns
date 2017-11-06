@@ -17,30 +17,54 @@
   templateFactory.prototype.get=function(templateStr,data){
     this._each(data,null);
   }
-  templateFactory.prototype._eachArray=function(arrayData){
+  templateFactory.prototype._eachArray=function(dataArray,name){
+      var itemName=name;
+      for(var index=0;index<dataArray.length;index++){
+        itemName=itemName+"["+index+"]="+dataArray[index];
+        if(dataArray[index] instanceof Array){
 
-  }
-  templateFactory.prototype._eachObj=function(objectData){
+        }
+        else if(dataArray[index] instanceof Object){
 
-  }
+        }
+        else{
+
+          
+        }
+      }
+
+  };
+  templateFactory.prototype._eachObj=function(obj,name){
+
+  };
   /*数据data迭代器*/
-  templateFactory.prototype._each=function(currentData){
-    var keyName="";
-    if(currentData instanceof Array){
-      this._eachArray(currentData);
-    }
-    else if(currentData instanceof Object){
-      this._eachObj(currentData);
-    }
-    /*
-    switch(currentData){
-      case:
-    }
-    */
-    /*
+  templateFactory.prototype._each=function(currentData,itemName){
+    var keyName=itemName;
     for(var key in currentData){
       if(currentData[key] instanceof Array){
-        this._each(currentData[key],key+".");
+        this._eachArray(currentData,key);
+      }
+      else if(currentData[key] instanceof Object){
+        this._eachObj(currentData,key);
+      }
+      else{
+        console.log(currentData[key]);
+      }
+
+    }
+
+
+
+    /*
+
+    for(var key in currentData){
+
+      if(itemName===null){
+        console.log("为空："+key);
+        keyName=key;
+      }
+      if(currentData[key] instanceof Array){
+        this._each(currentData[key],keyName+".");
       }
       if(currentData[key] instanceof Object){
         for(var objKey in currentData[key]){
@@ -50,13 +74,16 @@
            else{
                 console.log(currentData[key][objKey]);
            }
+
         }
       }
       else{
+        console.log("344444"+keyName);
         console.log(currentData[key]);
       }
     }
     */
+
   }
   //templateFactory.prototype._
   var testdata={
@@ -97,7 +124,7 @@
   }
 
   var testFactor=new templateFactory();
-  testFactor.get("{{item.name}}",testdata2.phonelist);
+  testFactor.get("{{item.name}}",testdata);
 
   //window.tpfactory=new templateFactory();
 
