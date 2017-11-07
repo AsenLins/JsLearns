@@ -3,11 +3,124 @@
   <head>
     <meta charset="utf-8">
     <title>收入报告</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/income.css?v=4" />
+    <link rel="stylesheet" href="css/iconfont.css?v=4" />
   </head>
   <body>
+    <div id="ct-plane" >
+    <div class="ct-nav">
+      <img src="img/logo.png" />
+      <img id="ct-menubtn" class="ct-menubtn" src="img/gd.png" />
+    </div>
+    <div class="ct-out" style="">
 
-    <script>
-    
-    </script>
+
+    <div class="ct-moneyPlane">
+      <div class="ct-money ct-money-first">
+        <div class="ct-month">7月</div>
+        <img src="img/jb.png" /> 48,512,12
+      </div>
+      <div class="ct-money ct-money-two">
+        <div class="ct-month">8月</div>
+        <img src="img/jb.png" /> 48,512,12
+      </div>
+      <div class="ct-money ct-money-three">
+        <div class="ct-month">9月</div>
+        <img src="img/jb.png" /> 48,512,12
+      </div>
+    </div>
+
+
+  <div class="ct-text-plane" style="">
+    感謝澳門及橫琴同事們的勇往直前與辛勤付出,正因為大家的熱情努力,本司才可在2017年底三季度創造XX佳績！努力付出的同事,大家所期待的更是豐厚的回報,據統計本司本季度平均收入為67,787.83!期望各位同事在第四季創造更好業績，收取優厚佣金！
+  </div>
+
+  <div class="ct-button" style="position:relative; top:0px; z-index:11;">
+    <div class="ct-button-first" >第三季平均收入：67,787,83</div>
+    <div class="ct-button-two" >2017年平均收入:50,218,91</div>
+  </div>
+</div>
+<div id="ct-height" style=" background-color:white;"></div>
+ <div class="ct-jiao">
+   <img src="img/jiao.jpg" />
+ </div>
+
+
+ </div>
+
+
+ <!--菜单-->
+ <div class="ct-nav-right">
+           <ul>
+             <li class="select">首页</li>
+             <li><a href="#">公告管理</a></li>
+             <li><a href="#">文档中心</a></li>
+             <li><a href="#">工资条查看</a></li>
+             <li><a href="#">员工入职培训</a></li>
+             <li><a href="#">其他公告</a></li>
+             <li><a href="#">个人中心</a></li>
+           </ul>
+ </div>
+
+
+
+ <div id="ct-loading" class="ct-loading" style="">
+   <i id="ct-btn-return" class="iconfont icon-disclosureindicator"></i>
+   <img  src="img/top.png" />
+   <div class="form-plane">
+     <div class="form-input">
+       <i class="iconfont icon-icontouxiang"></i>
+       <input type="text" >
+     </div>
+     <div class="form-input">
+       <i  style="position:relative;top:5px;" class="iconfont icon-suoshixinkaisuo"></i>
+       <input type="text" >
+     </div>
+     <div class="btn-loading" >
+        登录
+     </div>
+   </div>
+
+   <div class="ct-loading-bottom" >
+     登錄中原後台管理
+   </div>
+ </div>
+
+
+<script src="script/zepto/zepto.min.js"></script>
+<script src="script/move/move.min.js" ></script>
+<script>
+  $(function(){
+    $("#ct-menubtn").on("tap",function(){
+      move("#ct-plane").x(-(($(window).width()/2)+1)).end();
+    });
+    $(document).on("swipeLeft",function(){
+          move("#ct-plane").x(-(($(window).width()/2)+1)).end();
+    });
+    $(document).on("swipeRight",function(){
+          move("#ct-plane").x(0).end();
+    });
+    $(".ct-nav-right li").on("tap",function(){
+      $("#ct-loading").css("display","block");
+      setTimeout(function(){
+        move("#ct-loading").set("opacity","1").end();
+      },100);
+
+    });
+
+    $("#ct-btn-return").on("tap",function(){
+      move("#ct-loading").set("opacity","0").end(function(){
+          $("#ct-loading").css("display","none");
+      });
+
+    });
+
+  });
+
+</script>
+
+
+
   </body>
   </html>
