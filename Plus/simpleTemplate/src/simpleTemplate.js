@@ -21,7 +21,9 @@
 
   }
   templateFactory.prototype._eachObj=function(objectData){
+    for(var key in objectData){
 
+    }
   }
   /*数据data迭代器*/
   templateFactory.prototype._each=function(currentData){
