@@ -4,40 +4,57 @@
     <meta charset="utf-8">
     <title>收入报告</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/income.css?v=5" />
+    <link rel="stylesheet" href="css/income.css?v=7" />
     <link rel="stylesheet" href="css/iconfont.css?v=4" />
   </head>
   <body>
 
-    <div class="ct-nav">
-      <img src="img/logo.png" />
-      <img id="ct-menubtn" class="ct-menubtn" src="img/gd.png" />
-    </div>
+
 
 
     <div id="ct-plane" >
-
+      <div class="ct-nav">
+        <img src="img/logo.png" />
+        <img id="ct-menubtn" class="ct-menubtn" src="img/gd.png" />
+      </div>
     <div class="ct-out" style="">
-      <div class="ct-bg" style=" position:absolute; height:100%; width:100%; top:0px; left:0px;">
-        <img src="img/b1.jpg"  style=" max-width:100%; position:absolute;top:0px; left:0px;" />
-        <img src="img/b2.png"  style="max-width:100%; position:absolute;top:120px; left:0px;" />
+      <div class="ct-bg" >
+        <img class="ct-bgfirst" src="img/b1.jpg"  />
+        <img class="ct-bgtwo" src="img/b2.png"  />
       </div>
-      <!--
-    <div class="ct-moneyPlane">
-      <div class="ct-money ct-money-first">
-        <div class="ct-month">7月</div>
-        <img src="img/jb.png" /> 48,512,12
+
+      <div class="ct-mplane">
+        <div class="ct-mout">
+          <div class="ct-mout-moeny" >
+          <div class="ct-mout-data">
+            <div class="ct-mout-month">7月</div>
+            <img src="img/jb.png" width="11" /> 48,512,12
+          </div>
+          </div>
+          <img src="img/j1.png"   />
+        </div>
+
+        <div class="ct-mout">
+          <div class="ct-mout-moeny" >
+          <div class="ct-mout-data">
+            <div class="ct-mout-month">8月</div>
+            <img src="img/jb.png" width="11" /> 48,512,12
+          </div>
+          </div>
+          <img src="img/j2.png"  />
+        </div>
+
+        <div class="ct-mout">
+          <div class="ct-mout-moeny" >
+          <div class="ct-mout-data">
+            <div class="ct-mout-month">9月</div>
+            <img src="img/jb.png" width="11" /> 48,512,12
+          </div>
+          </div>
+          <img src="img/j3.png"  />
+        </div>
       </div>
-      <div class="ct-money ct-money-two">
-        <div class="ct-month">8月</div>
-        <img src="img/jb.png" /> 48,512,12
-      </div>
-      <div class="ct-money ct-money-three">
-        <div class="ct-month">9月</div>
-        <img src="img/jb.png" /> 48,512,12
-      </div>
-    </div>
-  -->
+
 
 
 
@@ -45,21 +62,24 @@
     感謝澳門及橫琴同事們的勇往直前與辛勤付出,正因為大家的熱情努力,本司才可在2017年底三季度創造XX佳績！努力付出的同事,大家所期待的更是豐厚的回報,據統計本司本季度平均收入為67,787.83!期望各位同事在第四季創造更好業績，收取優厚佣金！
   </div>
 
-  <div class="ct-button" style="position:relative; top:0px; z-index:11;">
+  <div class="ct-button" style="position:relative; top:0px; z-index:12;">
     <div class="ct-button-first" >第三季平均收入：67,787,83</div>
     <div class="ct-button-two" >2017年平均收入:50,218,91</div>
   </div>
+
+  <div class="ct-jiao">
+    <img src="img/jiao.jpg" />
+  </div>
+
 </div>
+
 <div id="ct-height" style=" background-color:white;"></div>
- <div class="ct-jiao">
-   <img src="img/jiao.jpg" />
- </div>
+
+
 
 
  </div>
 
-
- <!--菜单-->
  <div class="ct-nav-right">
            <ul>
              <li class="select">首页</li>
@@ -72,6 +92,7 @@
            </ul>
  </div>
 
+ <!--菜单-->
 
 
  <div id="ct-loading" class="ct-loading" style="">
@@ -101,23 +122,43 @@
 <script src="script/move/move.min.js" ></script>
 <script>
   $(function(){
-    $("#ct-menubtn").on("tap",function(){
-      move("#ct-plane").x(-(($(window).width()/2)+1)).end();
+    $("#ct-menubtn").on("click",function(){
+      var x=MoveX();
+      if($(this).attr("isShow")===undefined){
+         $(this).attr("isShow",true);
+          move("#ct-plane").x(-x).end();
+      }
+      else{
+        move("#ct-plane").x(0).end();
+         $(this).removeAttr("isShow");
+      }
+
+
     });
     $(document).on("swipeLeft",function(){
-          move("#ct-plane").x(-(($(window).width()/2)+1)).end();
+          var x=MoveX();
+          if($(this).attr("isShow")===undefined){
+             $(this).attr("isShow",true);
+              move("#ct-plane").x(-x).end();
+          }
+          else{
+            move("#ct-plane").x(0).end();
+             $(this).removeAttr("isShow");
+          }
     });
     $(document).on("swipeRight",function(){
           move("#ct-plane").x(0).end();
     });
-    $(".ct-nav-right li").on("tap",function(){
+    $(".ct-nav-right li").on("click",function(){
       $("#ct-loading").css("display","block");
       setTimeout(function(){
-        move("#ct-loading").set("opacity","1").end();
+        move("#ct-loading").set("opacity","1").end(function(){
+          $(".ct-nav-right").css("display","none");
+        });
       },100);
       toast.show({text:"改操作需要登錄，請先登錄！",position:"center"});
     });
-    $("#btn-loading").on("tap",function(){
+    $("#btn-loading").on("click",function(){
       //input-name input-password
       if($("#input-name").val()===""||$("#input-password").val()===""){
         toast.show({text:"用戶名和密碼不能為空."});
@@ -126,14 +167,29 @@
         toast.show({text:"用戶名或密碼不正確，請稍後再試."});
       }
     });
-    $("#ct-btn-return").on("tap",function(){
+    $("#ct-btn-return").on("click",function(){
+     $(".ct-nav-right").css("display","block");
       move("#ct-loading").set("opacity","0").end(function(){
           $("#ct-loading").css("display","none");
+
       });
 
     });
 
+    Init();
   });
+  function Init(){
+    if($(window).width()>=720){
+      $(".ct-nav-right").css({"margin-left":"auto","margin-right":"auto","left":"360px"});
+    }
+  }
+  function MoveX() {
+      var moveX=(($(window).width()/2)+1);
+      if($(window).width()>=720){
+        moveX=350;
+      }
+      return moveX;
+  }
 
 </script>
 
