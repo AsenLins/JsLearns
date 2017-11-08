@@ -120,7 +120,7 @@ body{
 }
 .ct-jiao{
   position:fixed;
-  bottom: 55px;
+  bottom:0px;
   right: 0px;
   width: 120px;
   height: 60px;
