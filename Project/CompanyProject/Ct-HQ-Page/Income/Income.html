@@ -71,13 +71,13 @@
    <div class="form-plane">
      <div class="form-input">
        <i class="iconfont icon-icontouxiang"></i>
-       <input type="text" >
+       <input id="input-name" type="text" >
      </div>
      <div class="form-input">
        <i  style="position:relative;top:5px;" class="iconfont icon-suoshixinkaisuo"></i>
-       <input type="text" >
+       <input  id="input-password" type="password" >
      </div>
-     <div class="btn-loading" >
+     <div id="btn-loading" class="btn-loading" >
         登录
      </div>
    </div>
@@ -87,7 +87,7 @@
    </div>
  </div>
 
-
+<script src="script/toast.js" ></script>
 <script src="script/zepto/zepto.min.js"></script>
 <script src="script/move/move.min.js" ></script>
 <script>
@@ -106,9 +106,17 @@
       setTimeout(function(){
         move("#ct-loading").set("opacity","1").end();
       },100);
-
+      toast.show({text:"改操作需要登錄，請先登錄！",position:"center"});
     });
-
+    $("#btn-loading").on("tap",function(){
+      //input-name input-password
+      if($("#input-name").val()===""||$("#input-password").val()===""){
+        toast.show({text:"用戶名和密碼不能為空."});
+      }
+      else{
+        toast.show({text:"用戶名或密碼不正確，請稍後再試."});
+      }
+    });
     $("#ct-btn-return").on("tap",function(){
       move("#ct-loading").set("opacity","0").end(function(){
           $("#ct-loading").css("display","none");
