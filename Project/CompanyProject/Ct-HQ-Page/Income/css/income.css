@@ -368,12 +368,13 @@ body{
   text-align: center;
   margin-left: 16px;
   width: 70%;
-
 }
+
 .ct-mout-moeny{
   display:inline-block;
   color: white;
 }
+
 @media (min-height: 720px){
   .ct-mplane{
       margin-bottom: 55%;
