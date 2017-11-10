@@ -1,0 +1,92 @@
+/*基础样式*/
+html,
+body {
+  height: 100%;
+  font-size: 12px;
+  font-family: SimHei;
+  color: #656565;
+  background-color: white;
+  padding: 0px;
+  margin: 0px;
+}
+img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+a {
+  color: #656565;
+}
+nav,
+section,
+footer,
+header,
+article {
+  padding: 0px;
+  margin: 0px;
+}
+section {
+  margin-left: auto;
+  margin-top: auto;
+}
+.small {
+  color: #989898;
+}
+.big {
+  color: #f0332f;
+}
+/*
+通用样式
+*/
+* {
+  box-sizing: border-box;
+}
+ul {
+  list-style-type: none;
+  margin: 0px;
+}
+a {
+  text-decoration: none;
+}
+input[type="button"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+/*
+页面结构样式
+*/
+/*顶部标题栏*/
+.layout-nav {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/*容器样式*/
+/*页脚样式*/
+/*
+导航栏菜单元素
+*/
+/*导航栏Pc版公用变量*/
+/*导航栏m版公用变量*/
+.nav {
+  background-color: rgba(52, 52, 52, 0.5);
+  height: 86px;
+}
+.nav a {
+  display: inline-block;
+  color: white;
+  line-height: 86px;
+  font-size: 14px;
+  margin-right: 60px;
+  transition: all 300ms;
+}
+.nav a:focus {
+  text-shadow: 0px 0px 2px #ffffff;
+}
+.nav a:hover {
+  text-shadow: 0px 0px 2px #ffffff;
+}
+.nav i {
+  vertical-align: text-top;
+}

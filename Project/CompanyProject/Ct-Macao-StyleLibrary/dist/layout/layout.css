@@ -1,0 +1,13 @@
+/*
+页面结构样式
+*/
+/*顶部标题栏*/
+.layout-nav {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/*容器样式*/
+/*页脚样式*/

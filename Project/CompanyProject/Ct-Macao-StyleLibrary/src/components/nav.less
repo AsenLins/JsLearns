@@ -1,0 +1,39 @@
+/*
+导航栏菜单元素
+*/
+
+/*导航栏Pc版公用变量*/
+@nav-height:86px;
+@nav-bgColor:rgba(52, 52, 52, 0.5);
+@nav-tiggerColor:#ffffff;
+
+/*导航栏m版公用变量*/
+@nav-m-height:@nav-height/2;
+
+
+.nav{
+  background-color: @nav-bgColor;
+  height: @nav-height;
+
+  a{
+    display: inline-block;
+    color: white;
+    line-height: @nav-height;
+    font-size: 14px;
+    margin-right: 60px;
+    transition: all 300ms;
+  }
+
+  a:focus{
+    text-shadow: 0px 0px 2px @nav-tiggerColor;
+  }
+
+  a:hover{
+    text-shadow: 0px 0px 2px @nav-tiggerColor;
+  }
+
+  i{
+    vertical-align: text-top;
+  }
+
+}
