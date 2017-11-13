@@ -1,31 +1,91 @@
+@import "../mixins/common.less";
+@import "../variables.less";
 /*
 页面结构样式
 */
 
-/*顶部标题栏*/
-.layout-nav{
-  position: relative;
+.layout-header{
+
+  position:absolute;
   top: 0px;
   left: 0px;
-  margin-left: auto;
-  margin-right: auto;
-  min-width: 1024px;
-  div:first-child{
+  //background-color: @layout-header-bgColor;
+  width: 100%;
+  padding-left: 4%;
+  padding-right:4%;
+  height:@layout-header-height;
+  z-index: 11;
+  //transition: all 400ms;
+}
 
+.logo{
+  height:@layout-header-height;
+  line-height: @layout-header-height;
+  position: absolute;
+  top: 0px;
+  transition: all 400ms;
+  img{
+    max-height: 70%;
   }
+}
 
-  div:last-child{
 
-  }
-
+.layout-header{
+  .clearFloat();
 }
 
 /*容器样式*/
 .layout-container{
+  position: relative;
+  top: 0px;
+  left: 0px;
+  width: @layout-width;
+
+  .row::after{
+    .clearFloat();
+  }
+
+  .row>div{
+    float:left;
+  }
+  .row .col-1{
+    width: @layout-width;
+  }
+
+  .row .col-2{
+    width: @layout-width / 2;
+  }
+
+  .row .col-3{
+    width: @layout-width / 3;
+  }
+
+  .row .col-4{
+    width: @layout-width / 4;
+  }
+
+  .row .col-5{
+    width: @layout-width / 5;
+  }
+  .row .col-6{
+    width: @layout-width / 6;
+  }
 
 }
 
 /*页脚样式*/
 .layout-footer{
+
+}
+
+
+@media screen and (max-width: @mediavar-maxWidth) {
+  .layout-header,.logo{
+    height: @layout-header-height / 2;
+  }
+
+  .logo{
+    line-height: @layout-header-height / 2;
+  }
 
 }

@@ -1,0 +1,19 @@
+/*公用全局变量*/
+/*
+layout 公共变量
+*/
+/*header*/
+/*container*/
+/*footer*/
+.searchPlane {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  box-shadow: 1px -8px 25px 2px gray;
+  padding: 16px 0px 16px 0px;
+}
+@media screen and (max-width: 1024px) {
+  .searchPlane {
+    display: none;
+  }
+}

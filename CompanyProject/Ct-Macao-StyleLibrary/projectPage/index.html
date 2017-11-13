@@ -2,21 +2,74 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>首页</title>
-    <link rel="stylesheet" href="../dist/page/index.css" />
+    <link rel="stylesheet" href="css/iconfont.css?v=6" />
+    <link rel="stylesheet" href="../dist/page/index.css?v=11" />
   </head>
   <body>
-    <!--导航栏-->
-    <nav class="layout-nav">
-    <ul class="nav">
-      <a href="http://baidu.com">楼盘推荐</a>
-      <a href="http://baidu.com">数据分析</a>
-      <a href="http://baidu.com">市场分析</a>
-      <a href="http://baidu.com">网上搵楼</a>
-      <a href="http://baidu.com">关于中原</a>
-      <a href="http://baidu.com">训练学院</a>
-    </ul>
-  </nav>
+
+  <!--导航栏-->
+  <section class="layout-header">
+
+    <div class="logo"><img src="img/logo.png"  /></div>
+
+    <div class="nav-button">
+      <i class="iconfont icon-caidan" ></i>
+    </div>
+
+    <nav>
+      <ul class="nav nav-group">
+        <a href="http://baidu.com">
+          楼盘推荐
+          <ul style="position:absolute; top:0px; left:0px; width:100%;">
+            <li>菜单一</li>
+            <li>菜单二</li>
+            <li>菜单三</li>
+          </ul>
+        </a>
+        <a href="http://baidu.com">楼盘推荐</a>
+        <a href="http://baidu.com">数据分析</a>
+        <a href="http://baidu.com">市场分析</a>
+        <a href="http://baidu.com">网上搵楼</a>
+        <a href="http://baidu.com">关于中原</a>
+        <a href="http://baidu.com">训练学院</a>
+      </ul>
+    </nav>
+
+  </section>
+
+
+  <section class="bgPlane" style="background-image:url('img/banner.jpg');" >
+    <div class="iconList-group">
+      <div class="iconList">
+        <a href="">
+          <i class="iconfont icon-loupan icon-big"></i>
+          <div>笋盘推荐</div>
+        </a>
+        <a href="">
+          <i class="iconfont icon-jiaodianrenwu icon-big"></i>
+          <div>焦点一手</div>
+        </a>
+        <a href="">
+          <i class="iconfont icon-shuju icon-big"></i>
+          <div>数据分析</div>
+        </a>
+        <a href="">
+          <i class="iconfont icon-shichangqingkuang icon-big">
+          </i>
+          <div>市场分析</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="searchPlane" >
+    <div class="form-group">
+      <input class="txt searchInput big" maxlength="25" type="input" placeholder="請輸入澳門/氹仔/路環或街道名稱" />
+      <button class="btn search"><i class="iconfont icon-11"></i></button>
+    <div>
+  </section>
 
   <!---->
   <section>
@@ -25,7 +78,7 @@
 
   <section>
 
- </section
+ </section>
 
   </body>
   </html>

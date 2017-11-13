@@ -1,0 +1,49 @@
+@import "../variables.less";
+
+@iconitem-group-height:100px;
+@iconList-width:800px;
+.iconList-group{
+  position:absolute;
+  bottom: 0px;
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+
+}
+
+.iconList{
+  position: relative;
+  top:3px;
+  display: inline-block;
+  background-color: white;
+  overflow: hidden;
+  border-bottom: 1px solid #f9f9f9;
+  padding: 10px 0px 10px 0px;
+
+  a{
+    transition: color 500ms;
+    cursor: pointer;
+    display:inline-block;
+    padding: 0px 70px 0px 70px;
+    font-size: 1.3em;
+    div{
+      margin-top: 5px;
+    }
+  }
+
+  a:hover{
+    color: #ef342f;
+  }
+
+  i{
+
+  }
+
+}
+
+@media screen and (max-width: @mediavar-maxWidth) {
+  .iconList-group
+  {
+    display: none;
+  }
+}

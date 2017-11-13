@@ -1,0 +1,22 @@
+/*公用全局变量*/
+/*
+layout 公共变量
+*/
+/*header*/
+/*container*/
+/*footer*/
+.icon {
+  color: #6a6a6a;
+}
+.icon-big {
+  font-size: 64px;
+}
+.icon-normal {
+  font-size: 1em;
+}
+.icon-small {
+  font-size: 0.8em;
+}
+.icon.select-red {
+  color: #f0352e;
+}

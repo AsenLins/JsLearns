@@ -1,13 +1,78 @@
+/*公用全局变量*/
+/*
+layout 公共变量
+*/
+/*header*/
+/*container*/
+/*footer*/
 /*
 页面结构样式
 */
-/*顶部标题栏*/
-.layout-nav {
+.layout-header {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  padding-left: 4%;
+  padding-right: 4%;
+  height: 80px;
+  z-index: 11;
+}
+.logo {
+  height: 80px;
+  line-height: 80px;
+  position: absolute;
+  top: 0px;
+  transition: all 400ms;
+}
+.logo img {
+  max-height: 70%;
+}
+.layout-header {
+  content: "";
+  display: block;
+  clear: both;
+}
+/*容器样式*/
+.layout-container {
   position: relative;
   top: 0px;
   left: 0px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
 }
-/*容器样式*/
+.layout-container .row::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.layout-container .row > div {
+  float: left;
+}
+.layout-container .row .col-1 {
+  width: 100%;
+}
+.layout-container .row .col-2 {
+  width: 50%;
+}
+.layout-container .row .col-3 {
+  width: 33.33333333%;
+}
+.layout-container .row .col-4 {
+  width: 25%;
+}
+.layout-container .row .col-5 {
+  width: 20%;
+}
+.layout-container .row .col-6 {
+  width: 16.66666667%;
+}
 /*页脚样式*/
+@media screen and (max-width: 1024px) {
+  .layout-header,
+  .logo {
+    height: 40px;
+  }
+  .logo {
+    line-height: 40px;
+  }
+}

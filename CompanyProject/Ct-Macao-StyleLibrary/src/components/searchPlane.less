@@ -1,0 +1,15 @@
+@import "../variables.less";
+
+.searchPlane{
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  box-shadow: 1px -8px 25px 2px gray;
+  padding: 16px 0px 16px 0px;
+}
+
+@media screen and (max-width: @mediavar-maxWidth) {
+  .searchPlane{
+    display: none;
+  }
+}

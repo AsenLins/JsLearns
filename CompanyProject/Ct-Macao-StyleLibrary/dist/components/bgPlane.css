@@ -1,0 +1,21 @@
+/*公用全局变量*/
+/*
+layout 公共变量
+*/
+/*header*/
+/*container*/
+/*footer*/
+.bgPlane {
+  height: 60%;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-clip: border-box;
+  position: relative;
+  top: 0px;
+}
+@media screen and (max-width: 1024px) {
+  .bgPlane {
+    height: 40%;
+  }
+}

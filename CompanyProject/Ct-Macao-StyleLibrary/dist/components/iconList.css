@@ -1,0 +1,41 @@
+/*公用全局变量*/
+/*
+layout 公共变量
+*/
+/*header*/
+/*container*/
+/*footer*/
+.iconList-group {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+}
+.iconList {
+  position: relative;
+  top: 3px;
+  display: inline-block;
+  background-color: white;
+  overflow: hidden;
+  border-bottom: 1px solid #f9f9f9;
+  padding: 10px 0px 10px 0px;
+}
+.iconList a {
+  transition: color 500ms;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0px 70px 0px 70px;
+  font-size: 1.3em;
+}
+.iconList a div {
+  margin-top: 5px;
+}
+.iconList a:hover {
+  color: #ef342f;
+}
+@media screen and (max-width: 1024px) {
+  .iconList-group {
+    display: none;
+  }
+}

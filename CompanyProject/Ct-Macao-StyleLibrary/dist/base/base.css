@@ -10,6 +10,7 @@ body {
   margin: 0px;
 }
 img {
+  border: 0px;
   max-width: 100%;
   vertical-align: middle;
 }
@@ -33,4 +34,9 @@ section {
 }
 .big {
   color: #f0332f;
+}
+ul li {
+  margin: 0px;
+  padding: 0px;
+  display: inline-block;
 }
