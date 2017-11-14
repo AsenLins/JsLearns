@@ -1,0 +1,39 @@
+/*公用全局变量*/
+/*
+layout 公共变量
+*/
+/*header*/
+/*container*/
+/*footer*/
+/*标题容器*/
+.tipPlane {
+  position: relative;
+  top: 0px;
+}
+.tipPlane .btn {
+  position: absolute;
+  right: 0px;
+  bottom: 32px;
+}
+@media screen and (max-width: 1024px) {
+  .tipPlane {
+    border-bottom: 1px solid #f1f1f1;
+  }
+  .tipPlane .btn {
+    position: absolute;
+    right: 2%;
+    top: 0px;
+    border: 0px;
+    bottom: auto;
+    color: #f6f6f6;
+  }
+  .tipPlane .btn i {
+    position: absolute;
+    top: -10px;
+    color: #b4b4b4;
+    font-size: 3em;
+  }
+  .tipPlane h4 {
+    display: none;
+  }
+}

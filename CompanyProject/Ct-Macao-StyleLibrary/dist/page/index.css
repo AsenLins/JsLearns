@@ -5,7 +5,7 @@ body {
   font-size: 12px;
   font-family: SimHei;
   color: #656565;
-  background-color: white;
+  background-color: #f6f6f6;
   padding: 0px;
   margin: 0px;
 }
@@ -35,6 +35,20 @@ section {
 .big {
   color: #f0332f;
 }
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 微软雅黑;
+}
+h1 {
+  color: #333333;
+}
+h4 {
+  color: #b4b4b4;
+  font-style: 14px;
+}
 ul li {
   margin: 0px;
   padding: 0px;
@@ -62,7 +76,7 @@ button {
 页面结构样式
 */
 .layout-header {
-  position: absolute;
+  position: fixed;
   top: 0px;
   left: 0px;
   width: 100%;
@@ -70,6 +84,7 @@ button {
   padding-right: 4%;
   height: 80px;
   z-index: 11;
+  transition: all 350ms;
 }
 .logo {
   height: 80px;
@@ -80,6 +95,15 @@ button {
 }
 .logo img {
   max-height: 70%;
+}
+.layout.scroll,
+.layout-container,
+.layout-footer {
+  position: relative;
+  top: 0px;
+}
+.layout-scroll {
+  overflow-x: scroll;
 }
 .layout-header {
   content: "";
@@ -92,6 +116,11 @@ button {
   top: 0px;
   left: 0px;
   width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1024px;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 .layout-container .row::after {
   content: "";
@@ -128,6 +157,10 @@ button {
   .logo {
     line-height: 40px;
   }
+  .layout-container {
+    width: 100%;
+    margin: 0;
+  }
 }
 /*公用全局变量*/
 /*
@@ -153,7 +186,7 @@ layout 公共变量
   font-size: 14px;
   padding-right: 30px;
   padding-left: 30px;
-  transition: all 300ms;
+  transition: all 200ms;
 }
 .nav a:focus {
   text-shadow: 0px 0px 6px #ffffff;
@@ -161,18 +194,104 @@ layout 公共变量
 .nav a:hover {
   text-shadow: 0px 0px 6px #ffffff;
 }
+.nav li:hover ul {
+  opacity: 1;
+  transform: translate(0, 0px);
+}
 .nav i {
   vertical-align: text-top;
+  position: absolute;
+  top: -3px;
+  right: 18px;
+  width: 10px;
+  height: 20px;
+  font-size: 1.6em;
+}
+/*子菜单*/
+.nav-Submenu {
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+  text-align: center;
+}
+.nav-Submenu a {
+  color: gray;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  line-height: 45px;
+  border-bottom: 1px solid #eeeeee;
+  font-size: 12px;
+}
+.nav-Submenu li {
+  display: block;
+  position: relative;
+  top: 0px;
 }
 .nav-group {
   float: right;
   height: 80px;
+}
+.nav-group .nav-Submenu {
+  position: absolute;
+  top: 80px;
+  left: 0px;
+  background-color: white;
+}
+.nav-group .nav-Submenu a:hover {
+  border-bottom: 5px solid #ef342d;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.nav-group > li {
+  position: relative;
+  top: 0px;
+  padding: 0px;
+  margin: 0px;
 }
 .nav-button {
   display: none;
 }
 .nav-button i {
   font-size: 2.3em;
+}
+@media screen and (min-width: 1024px) and (max-width: 4000px) {
+  .nav-group .nav-Submenu::after {
+    content: "-";
+    width: 16px;
+    height: 7px;
+    background-color: #f9463f;
+    margin-left: auto;
+    margin-right: auto;
+    display: list-item;
+    color: white;
+    padding-left: 1px;
+    padding-bottom: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+  .nav-group .nav-Submenu::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #fff;
+    position: absolute;
+    top: -7px;
+    left: 50px;
+    margin-top: auto;
+    margin-right: auto;
+  }
+  .nav-group .nav-Submenu {
+    box-shadow: 0px 6px 25px -3px black;
+    transition: all 200ms;
+    transform: translate(0, -20px);
+    opacity: 0;
+    border-radius: 5px;
+  }
+  .nav-Submenu li:last-child a {
+    border: 0px;
+  }
 }
 @media screen and (max-width: 1024px) {
   .nav-button {
@@ -184,8 +303,38 @@ layout 公共变量
     color: white;
     padding-right: 2%;
   }
-  .nav {
+  .nav-group {
+    position: fixed;
+    right: 0px;
+    height: 100%;
+    width: 50%;
+    top: 40px;
+    background-color: rgba(255, 255, 255, 0.96);
+    padding: 0px;
+    box-shadow: 8px 10px 35px 1px black;
     display: none;
+  }
+  .nav li {
+    display: block;
+  }
+  .nav > li > a {
+    line-height: 40px;
+    color: gray;
+    border-bottom: 1px solid #eeeeee;
+    padding: 0px;
+    width: 100%;
+    padding-left: 6%;
+    border-left: 4px solid #dddddd;
+  }
+  .nav-group .nav-Submenu {
+    display: none;
+    position: relative;
+    top: 0px;
+    background-color: transparent;
+  }
+  .nav-group .nav-Submenu a {
+    width: 100%;
+    border-color: #eeeeee;
   }
 }
 .bgPlane {
@@ -234,6 +383,8 @@ layout 公共变量
   padding: 10px 0px 10px 0px;
 }
 .iconList a {
+  position: relative;
+  top: 0px;
   transition: color 500ms;
   cursor: pointer;
   display: inline-block;
@@ -246,6 +397,14 @@ layout 公共变量
 .iconList a:hover {
   color: #ef342f;
 }
+.iconList .line {
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  height: 70px;
+  width: 1px;
+  border-left: 1px solid #dddddd;
+}
 @media screen and (max-width: 1024px) {
   .iconList-group {
     display: none;
@@ -257,21 +416,19 @@ layout 公共变量
   width: 100%;
   box-shadow: 1px -8px 25px 2px gray;
   padding: 16px 0px 16px 0px;
-}
-@media screen and (max-width: 1024px) {
-  .searchPlane {
-    display: none;
-  }
+  background-color: white;
 }
 /*
 
 */
-.form-group .btn.search {
+/*大按钮padding样式*/
+.btn.search {
   background: -webkit-linear-gradient(#ef423b, #e70415);
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
   position: relative;
-  left: -6px;
+  border: 0px;
+  left: -7px;
   top: 7px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
@@ -280,51 +437,109 @@ layout 公共变量
   padding: 7px 30px 7px 30px;
   box-shadow: 2px 7px 10px -6px #e81420;
 }
-.form-group .btn.search i {
+.btn.search i {
   transition: all 200ms;
   font-size: 2.5em;
 }
-.form-group .btn.search:hover {
+.btn.search:hover {
   text-shadow: 0px 0px 6px white;
 }
-.form-group .txt.searchInput {
+.txt.searchInput {
   background-color: #e1e1e1;
   border: 0px;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
   color: #999999;
-  width: 560px;
+  width: 32%;
   font-family: 微软雅黑;
   transition: all 500ms;
 }
-.form-group .txt.searchInput:focus {
+.txt.searchInput:focus {
   box-shadow: 0px 0px 25px 3px #e7e6e6;
 }
-.form-group .txt {
+.txt {
   outline: none;
 }
-.form-group .txt.big {
+.txt.big {
   height: 50px;
   line-height: 50px;
   padding-left: 40px;
 }
-.form-group .btn {
+.btn {
   background-color: white;
-  border-radius: 4px;
-  border: 0px;
+  border-radius: 3px;
+  border: 1px solid #eeeeee;
   cursor: pointer;
+  outline: none;
 }
-.form-group .btn.big {
-  padding: 7px 20px 7px 20px;
+.btn.big {
+  padding: 14px 20px 14px 20px;
 }
-.form-group .btn.small {
+.btn.small {
   padding: 6px 7px 6px 7px;
+  font-size: 12px;
 }
-.form-group .btn-default {
+.btn-default {
   border-color: #ebebeb;
   color: black;
 }
-.form-group .btn-red {
-  border-color: #e08686;
-  background-color: #da5654;
+.btn-opacity {
+  background-color: transparent;
+}
+.btn-red {
+  border: 2px solid #e08686;
+  color: #e08686;
+  font-family: 微软雅黑;
+}
+.btn:active {
+  background-color: #e23a43;
+  color: white;
+}
+@media screen and (max-width: 1024px) {
+  .btn.search {
+    padding: 7px 10px 7px 10px;
+    font-size: 0.6em;
+    top: 2px;
+  }
+  .txt.searchInput {
+    height: 33.33333333px;
+    line-height: 33.33333333px;
+    padding: 10px;
+    width: 56%;
+  }
+  .btn.big {
+    padding: 6px 10px 7px 9px;
+  }
+}
+/*标题容器*/
+.tipPlane {
+  position: relative;
+  top: 0px;
+}
+.tipPlane .btn {
+  position: absolute;
+  right: 0px;
+  bottom: 32px;
+}
+@media screen and (max-width: 1024px) {
+  .tipPlane {
+    border-bottom: 1px solid #f1f1f1;
+  }
+  .tipPlane .btn {
+    position: absolute;
+    right: 2%;
+    top: 0px;
+    border: 0px;
+    bottom: auto;
+    color: #f6f6f6;
+  }
+  .tipPlane .btn i {
+    position: absolute;
+    top: -10px;
+    color: #b4b4b4;
+    font-size: 3em;
+  }
+  .tipPlane h4 {
+    display: none;
+  }
 }

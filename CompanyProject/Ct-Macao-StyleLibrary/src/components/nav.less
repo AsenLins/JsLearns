@@ -7,8 +7,11 @@
 @nav-height: @layout-header-height;
 @nav-tiggerColor:#ffffff;
 
+@nav-subMenu-lineheight:45px;
+
 /*导航栏m版公用变量*/
 @nav-m-height:@nav-height/2;
+
 
 
 .nav{
@@ -26,36 +29,139 @@
     //margin-right: 60px;
     padding-right: 30px;
     padding-left: 30px;
-    transition: all 300ms;
+    transition: all 200ms;
     //background-color: gray;
   }
 
   a:focus{
     text-shadow: 0px 0px 6px @nav-tiggerColor;
-
   }
 
   a:hover{
     text-shadow: 0px 0px 6px @nav-tiggerColor;
   }
 
+  li:hover ul{
+    opacity: 1;
+    transform:translate(0,0px);
+  }
+
   i{
     vertical-align: text-top;
+    position: absolute;
+    top: -3px;
+    right: 18px;
+    width: 10px;
+    height: 20px;
+    font-size: 1.6em;
   }
 
 }
 
-.nav-group{
+/*子菜单*/
+.nav-Submenu{
+  padding:0px;
+  margin:0px;
+  width:100%;
+  text-align:center;
+}
 
+.nav-Submenu a{
+  color:gray;
+  padding-top:0px;
+  padding-bottom: 0px;
+  line-height:@nav-subMenu-lineheight;
+  border-bottom: 1px solid #eeeeee;
+  font-size: 12px;
+}
+
+.nav-Submenu li{
+  display:block;
+  position: relative;
+  top: 0px;
+}
+
+
+
+.nav-group{
   float: right;
   height: @nav-height;
+}
+
+.nav-group .nav-Submenu{
+  position:absolute;
+  top:@nav-height;
+  left:0px;
+  background-color: white;
+
+
+
+
+}
+
+.nav-group .nav-Submenu a:hover{
+  border-bottom: 5px solid #ef342d;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.nav-group>li{
+  position: relative;
+  top: 0px;
+  padding: 0px;
+  margin: 0px;
 }
 
 .nav-button{
   display: none;
 }
+
 .nav-button i{
       font-size: 2.3em;
+}
+
+
+@media screen and (min-width:@mediavar-maxWidth) and (max-width:4000px){
+
+  .nav-group .nav-Submenu::after{
+      content: "-";
+      width: 16px;
+      height: 7px;
+      background-color: #f9463f;
+      margin-left: auto;
+      margin-right: auto;
+      display: list-item;
+      color: white;
+      padding-left: 1px;
+      padding-bottom: 4px;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+  }
+
+  .nav-group .nav-Submenu::before{
+    content: "";
+    width:0;
+    height:0;
+    border-left:8px solid transparent;
+    border-right:8px solid transparent;
+    border-bottom:8px solid #fff;
+    position: absolute;
+    top: -7px;
+    left: 50px;
+    margin-top: auto;
+    margin-right: auto;
+  }
+
+  .nav-group .nav-Submenu{
+      box-shadow: 0px 6px 25px -3px black;
+      transition: all 200ms;
+      transform:translate(0,-20px);
+      opacity:0;
+      border-radius: 5px;
+  }
+  .nav-Submenu li:last-child a{
+    border: 0px;
+  }
 }
 
 @media screen and (max-width: @mediavar-maxWidth) {
@@ -68,11 +174,49 @@
       right: 0px;
       color: white;
       padding-right: 2%;
-
-
     }
 
-    .nav{
-      display:none;
+    .nav-group
+    {
+      position:fixed;
+      right: 0px;
+      //height: 100%;
+      height: 100%;
+      width: 50%;
+      //overflow-y: scroll;
+      top:@nav-m-height;
+      background-color:rgba(255, 255, 255, 0.96);
+      padding: 0px;
+      box-shadow: 8px 10px 35px 1px black;
+      display: none;
+      //rgba(52, 52, 52, 0.8);
+    }
+
+    .nav li{
+      display: block;
+
+      //display:none;
+    }
+    .nav>li>a{
+      line-height: @nav-m-height;
+      color: gray;
+      border-bottom: 1px solid #eeeeee;
+      padding: 0px;
+      width: 100%;
+      padding-left: 6%;
+      border-left: 4px solid #dddddd;
+      //margin-bottom: 5px;
+
+    }
+    .nav-group .nav-Submenu{
+        display: none;
+        position: relative;
+        top: 0px;
+        background-color:transparent;
+    }
+    .nav-group .nav-Submenu a{
+      width: 100%;
+      border-color: #eeeeee;
+
     }
 }

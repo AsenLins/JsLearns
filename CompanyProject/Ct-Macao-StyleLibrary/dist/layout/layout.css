@@ -9,7 +9,7 @@ layout 公共变量
 页面结构样式
 */
 .layout-header {
-  position: absolute;
+  position: fixed;
   top: 0px;
   left: 0px;
   width: 100%;
@@ -17,6 +17,7 @@ layout 公共变量
   padding-right: 4%;
   height: 80px;
   z-index: 11;
+  transition: all 350ms;
 }
 .logo {
   height: 80px;
@@ -27,6 +28,15 @@ layout 公共变量
 }
 .logo img {
   max-height: 70%;
+}
+.layout.scroll,
+.layout-container,
+.layout-footer {
+  position: relative;
+  top: 0px;
+}
+.layout-scroll {
+  overflow-x: scroll;
 }
 .layout-header {
   content: "";
@@ -39,6 +49,11 @@ layout 公共变量
   top: 0px;
   left: 0px;
   width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1024px;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 .layout-container .row::after {
   content: "";
@@ -74,5 +89,9 @@ layout 公共变量
   }
   .logo {
     line-height: 40px;
+  }
+  .layout-container {
+    width: 100%;
+    margin: 0;
   }
 }

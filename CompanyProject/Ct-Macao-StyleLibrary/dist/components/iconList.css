@@ -22,6 +22,8 @@ layout 公共变量
   padding: 10px 0px 10px 0px;
 }
 .iconList a {
+  position: relative;
+  top: 0px;
   transition: color 500ms;
   cursor: pointer;
   display: inline-block;
@@ -33,6 +35,14 @@ layout 公共变量
 }
 .iconList a:hover {
   color: #ef342f;
+}
+.iconList .line {
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  height: 70px;
+  width: 1px;
+  border-left: 1px solid #dddddd;
 }
 @media screen and (max-width: 1024px) {
   .iconList-group {

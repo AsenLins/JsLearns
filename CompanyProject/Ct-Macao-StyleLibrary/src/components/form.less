@@ -1,23 +1,37 @@
+@import "../variables.less";
 /*
 
 */
 
 
 @txt-bigHeight:50px;
-@form-radius:4px;
+
+@btn-radius:3px;
+
+@btn-color-gray:#eeeeee;
+@btn-color-red:#e08686;
+
+
+/*大按钮padding样式*/
+@nav-btn-big-pLeftRight:20px;
+@nav-btn-big-PTopBottom:14px;
+
 .form-group{
 
 
+
+}
 
 
   .btn.search{
     //background-color: #e70916;
     //background: -webkit-radial-gradient(#f5514e 25%, #e70415 50%, #f13f35 40%); /* Safari 5.1 - 6.0 */
     background: -webkit-linear-gradient(#ef423b, #e70415);
-    border-top-right-radius: @form-radius;
-    border-bottom-right-radius: @form-radius;
+    border-top-right-radius: @btn-radius;
+    border-bottom-right-radius: @btn-radius;
     position: relative;
-    left: -6px;
+    border: 0px;
+    left: -7px;
     top:7px;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
@@ -39,10 +53,10 @@
   .txt.searchInput{
     background-color: #e1e1e1;
     border: 0px;
-    border-top-left-radius: @form-radius;
-    border-bottom-left-radius:@form-radius;
+    border-top-left-radius: @btn-radius;
+    border-bottom-left-radius:@btn-radius;
     color:#999999;
-    width: 560px;
+    width: 32%;
     font-family: 微软雅黑;
     transition: all 500ms;
   }
@@ -52,7 +66,6 @@
   }
 
   .txt{
-
     outline: none;
   }
 
@@ -73,13 +86,14 @@
 
   .btn{
     background-color: white;
-    border-radius: @form-radius;
-    border: 0px;
+    border-radius: @btn-radius;
+    border: 1px solid #eeeeee;
     cursor: pointer;
+    outline: none;
   }
 
   .btn.big{
-    padding: 7px 20px 7px 20px;
+    padding: @nav-btn-big-PTopBottom @nav-btn-big-pLeftRight @nav-btn-big-PTopBottom  @nav-btn-big-pLeftRight;
   }
 
   .btn.normal{
@@ -88,6 +102,7 @@
 
   .btn.small{
     padding: 6px 7px 6px 7px;
+    font-size: 12px;
   }
 
   .btn-default{
@@ -95,11 +110,36 @@
     color: black;
   }
 
+  .btn-opacity{
+    background-color: transparent;
+  }
+
   .btn-red{
-    border-color:#e08686;
-    background-color: #da5654;
+    border:2px solid @btn-color-red;
+    color:@btn-color-red;
+    font-family:微软雅黑;
+  }
+
+  .btn:active{
+    background-color: #e23a43;
+    color: white;
+
   }
 
 
-
+@media screen and (max-width: @mediavar-maxWidth) {
+    .btn.search{
+      padding: 7px 10px 7px 10px;
+      font-size: 0.6em;
+      top: 2px;
+    }
+    .txt.searchInput{
+      height:  @txt-bigHeight/1.5;
+      line-height:  @txt-bigHeight/1.5;
+      padding: 10px;
+      width: 56%;
+    }
+    .btn.big{
+      padding: @nav-btn-big-PTopBottom/2-1  @nav-btn-big-pLeftRight / 2  @nav-btn-big-PTopBottom/2  @nav-btn-big-pLeftRight /2-1;
+    }
 }
