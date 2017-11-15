@@ -102,13 +102,14 @@ button {
   position: relative;
   top: 0px;
 }
-.layout-scroll {
-  overflow-x: scroll;
-}
 .layout-header {
   content: "";
   display: block;
   clear: both;
+}
+.layout-content {
+  margin-top: 64px;
+  margin-bottom: 64px;
 }
 /*容器样式*/
 .layout-container {
@@ -118,9 +119,6 @@ button {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  max-width: 1024px;
-  padding-left: 5%;
-  padding-right: 5%;
 }
 .layout-container .row::after {
   content: "";
@@ -149,7 +147,7 @@ button {
   width: 16.66666667%;
 }
 /*页脚样式*/
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1300px) {
   .layout-header,
   .logo {
     height: 40px;
@@ -160,6 +158,14 @@ button {
   .layout-container {
     width: 100%;
     margin: 0;
+  }
+  .layout-scroll {
+    overflow-x: scroll;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  .layout-content {
+    margin: 0px;
   }
 }
 /*公用全局变量*/
@@ -254,7 +260,7 @@ layout 公共变量
 .nav-button i {
   font-size: 2.3em;
 }
-@media screen and (min-width: 1024px) and (max-width: 4000px) {
+@media screen and (min-width: 1300px) and (max-width: 4000px) {
   .nav-group .nav-Submenu::after {
     content: "-";
     width: 16px;
@@ -293,7 +299,7 @@ layout 公共变量
     border: 0px;
   }
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1300px) {
   .nav-button {
     display: block;
     height: 40px;
@@ -338,7 +344,6 @@ layout 公共变量
   }
 }
 .bgPlane {
-  height: 60%;
   overflow: hidden;
   background-size: cover;
   background-position: center;
@@ -346,9 +351,19 @@ layout 公共变量
   position: relative;
   top: 0px;
 }
-@media screen and (max-width: 1024px) {
-  .bgPlane {
+.bgPlane.big {
+  height: 60%;
+}
+.bgPlane.maxBig {
+  height: 65%;
+}
+@media screen and (max-width: 1300px) {
+  .bgPlane.big {
     height: 40%;
+  }
+  .bgPlane.maxBig {
+    min-height: 290px;
+    height: 45%;
   }
 }
 .icon {
@@ -405,7 +420,7 @@ layout 公共变量
   width: 1px;
   border-left: 1px solid #dddddd;
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1300px) {
   .iconList-group {
     display: none;
   }
@@ -475,27 +490,37 @@ layout 公共变量
 .btn.big {
   padding: 14px 20px 14px 20px;
 }
+.btn.normal {
+  padding: 8px 15px 8px 15px;
+  letter-spacing: 4px;
+}
 .btn.small {
-  padding: 6px 7px 6px 7px;
+  padding: 6px 5px 8px 10px;
   font-size: 12px;
 }
 .btn-default {
   border-color: #ebebeb;
   color: black;
 }
-.btn-opacity {
-  background-color: transparent;
+.btn-gray {
+  background-color: gray;
+  color: white;
 }
 .btn-red {
   border: 2px solid #e08686;
   color: #e08686;
   font-family: 微软雅黑;
 }
+.btn-Gradient-red {
+  background: -webkit-linear-gradient(#ef423b, #e70b17);
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
 .btn:active {
   background-color: #e23a43;
   color: white;
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1300px) {
   .btn.search {
     padding: 7px 10px 7px 10px;
     font-size: 0.6em;
@@ -510,20 +535,46 @@ layout 公共变量
   .btn.big {
     padding: 6px 10px 7px 9px;
   }
+  .btn-opacity {
+    background-color: transparent;
+  }
+  .btn-opacity:active {
+    background-color: transparent;
+  }
 }
 /*标题容器*/
 .tipPlane {
   position: relative;
   top: 0px;
+  width: 100%;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .tipPlane .btn {
   position: absolute;
-  right: 0px;
-  bottom: 32px;
+  right: 3px;
+  bottom: 0px;
 }
-@media screen and (max-width: 1024px) {
+.tipPlane b {
+  color: #d71418;
+}
+.tipPlane h1 {
+  letter-spacing: 3px;
+}
+.tipPlane.center {
+  margin-top: 55px;
+  text-align: center;
+}
+.tipPlane.center h1 {
+  color: white;
+}
+@media screen and (max-width: 1300px) {
   .tipPlane {
     border-bottom: 1px solid #f1f1f1;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-bottom: 15px;
   }
   .tipPlane .btn {
     position: absolute;
@@ -538,8 +589,86 @@ layout 公共变量
     top: -10px;
     color: #b4b4b4;
     font-size: 3em;
+    right: 0px;
   }
   .tipPlane h4 {
     display: none;
+  }
+  .tipPlane.center {
+    margin-top: 25px;
+    border: 0px;
+  }
+}
+.imgList-group {
+  width: 100%;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.imgList-group::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.imgList-item {
+  background-color: white;
+  margin-right: 22px;
+  float: left;
+  box-shadow: 3px 4px 6px -1px #ededed;
+  margin-bottom: 20px;
+}
+.imgList-item img {
+  max-height: 250px;
+}
+.imgList-item h4 {
+  margin: 0px;
+  height: 60px;
+  margin-top: 20px;
+  margin-left: 16px;
+  margin-right: 16px;
+  padding: 0px;
+}
+.imgList-item a {
+  display: block;
+  transition: all 300ms;
+}
+.imgList-item a:hover {
+  box-shadow: 3px 4px 12px 5px #e5e4e4;
+}
+@media screen and (min-width: 1300px) and (max-width: 4000px) {
+  .imgList-item:last-child {
+    margin: 0px;
+  }
+}
+@media screen and (max-width: 1300px) {
+  .imgList-group {
+    display: flex;
+    align-content: space-between;
+  }
+  .imgList-group::after {
+    content: "";
+    width: 30px;
+  }
+  .imgList-item {
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+}
+.plane-OneHand {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.btn-group .btn {
+  position: relative;
+  left: 0px;
+}
+@media screen and (max-width: 1300px) {
+  .plane-OneHand {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f1f1f1;
+  }
+  .plane-indexPlane {
+    margin-top: 20px;
   }
 }

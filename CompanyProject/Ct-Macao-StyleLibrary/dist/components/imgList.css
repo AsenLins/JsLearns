@@ -1,0 +1,62 @@
+/*公用全局变量*/
+/*
+layout 公共变量
+*/
+/*header*/
+/*container*/
+/*footer*/
+.imgList-group {
+  width: 100%;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.imgList-group::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.imgList-item {
+  background-color: white;
+  margin-right: 22px;
+  float: left;
+  box-shadow: 3px 4px 6px -1px #ededed;
+  margin-bottom: 20px;
+}
+.imgList-item img {
+  max-height: 250px;
+}
+.imgList-item h4 {
+  margin: 0px;
+  height: 60px;
+  margin-top: 20px;
+  margin-left: 16px;
+  margin-right: 16px;
+  padding: 0px;
+}
+.imgList-item a {
+  display: block;
+  transition: all 300ms;
+}
+.imgList-item a:hover {
+  box-shadow: 3px 4px 12px 5px #e5e4e4;
+}
+@media screen and (min-width: 1300px) and (max-width: 4000px) {
+  .imgList-item:last-child {
+    margin: 0px;
+  }
+}
+@media screen and (max-width: 1300px) {
+  .imgList-group {
+    display: flex;
+    align-content: space-between;
+  }
+  .imgList-group::after {
+    content: "";
+    width: 30px;
+  }
+  .imgList-item {
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+}

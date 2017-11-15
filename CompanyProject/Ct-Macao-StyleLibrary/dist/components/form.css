@@ -62,27 +62,37 @@ layout 公共变量
 .btn.big {
   padding: 14px 20px 14px 20px;
 }
+.btn.normal {
+  padding: 8px 15px 8px 15px;
+  letter-spacing: 4px;
+}
 .btn.small {
-  padding: 6px 7px 6px 7px;
+  padding: 6px 5px 8px 10px;
   font-size: 12px;
 }
 .btn-default {
   border-color: #ebebeb;
   color: black;
 }
-.btn-opacity {
-  background-color: transparent;
+.btn-gray {
+  background-color: gray;
+  color: white;
 }
 .btn-red {
   border: 2px solid #e08686;
   color: #e08686;
   font-family: 微软雅黑;
 }
+.btn-Gradient-red {
+  background: -webkit-linear-gradient(#ef423b, #e70b17);
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
 .btn:active {
   background-color: #e23a43;
   color: white;
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1300px) {
   .btn.search {
     padding: 7px 10px 7px 10px;
     font-size: 0.6em;
@@ -96,5 +106,11 @@ layout 公共变量
   }
   .btn.big {
     padding: 6px 10px 7px 9px;
+  }
+  .btn-opacity {
+    background-color: transparent;
+  }
+  .btn-opacity:active {
+    background-color: transparent;
   }
 }

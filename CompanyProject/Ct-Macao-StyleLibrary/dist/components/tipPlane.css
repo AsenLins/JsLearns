@@ -9,15 +9,35 @@ layout 公共变量
 .tipPlane {
   position: relative;
   top: 0px;
+  width: 100%;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .tipPlane .btn {
   position: absolute;
-  right: 0px;
-  bottom: 32px;
+  right: 3px;
+  bottom: 0px;
 }
-@media screen and (max-width: 1024px) {
+.tipPlane b {
+  color: #d71418;
+}
+.tipPlane h1 {
+  letter-spacing: 3px;
+}
+.tipPlane.center {
+  margin-top: 55px;
+  text-align: center;
+}
+.tipPlane.center h1 {
+  color: white;
+}
+@media screen and (max-width: 1300px) {
   .tipPlane {
     border-bottom: 1px solid #f1f1f1;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-bottom: 15px;
   }
   .tipPlane .btn {
     position: absolute;
@@ -32,8 +52,13 @@ layout 公共变量
     top: -10px;
     color: #b4b4b4;
     font-size: 3em;
+    right: 0px;
   }
   .tipPlane h4 {
     display: none;
+  }
+  .tipPlane.center {
+    margin-top: 25px;
+    border: 0px;
   }
 }

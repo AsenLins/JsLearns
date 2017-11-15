@@ -44,7 +44,7 @@ layout 公共变量
   width: 1px;
   border-left: 1px solid #dddddd;
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1300px) {
   .iconList-group {
     display: none;
   }

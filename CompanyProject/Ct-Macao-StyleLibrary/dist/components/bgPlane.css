@@ -6,7 +6,6 @@ layout 公共变量
 /*container*/
 /*footer*/
 .bgPlane {
-  height: 60%;
   overflow: hidden;
   background-size: cover;
   background-position: center;
@@ -14,8 +13,18 @@ layout 公共变量
   position: relative;
   top: 0px;
 }
-@media screen and (max-width: 1024px) {
-  .bgPlane {
+.bgPlane.big {
+  height: 60%;
+}
+.bgPlane.maxBig {
+  height: 65%;
+}
+@media screen and (max-width: 1300px) {
+  .bgPlane.big {
     height: 40%;
+  }
+  .bgPlane.maxBig {
+    min-height: 290px;
+    height: 45%;
   }
 }

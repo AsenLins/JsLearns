@@ -1,11 +1,8 @@
 @import "../variables.less";
 
-
-
-
 .bgPlane{
   //height:75%;
-  height:60%;
+
   overflow: hidden;
   background-size: cover;
   background-position:center;
@@ -13,11 +10,24 @@
   position: relative;
   top: 0px;
 }
+.bgPlane.big{
+  height:60%;
+}
+.bgPlane.maxBig{
+  height:65%;
+
+}
 
 
 
 @media screen and (max-width: @mediavar-maxWidth){
-  .bgPlane{
-    height: 40%;
+  .bgPlane.big{
+    height:40%;
   }
+
+  .bgPlane.maxBig{
+    min-height: 290px;
+    height:45%;
+  }
+
 }

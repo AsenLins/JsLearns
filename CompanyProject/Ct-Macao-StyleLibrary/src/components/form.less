@@ -97,11 +97,12 @@
   }
 
   .btn.normal{
-
+      padding: 8px 15px 8px 15px;
+      letter-spacing: 4px;
   }
 
   .btn.small{
-    padding: 6px 7px 6px 7px;
+    padding: 6px 5px 8px 10px;
     font-size: 12px;
   }
 
@@ -109,10 +110,13 @@
     border-color: #ebebeb;
     color: black;
   }
+  .btn-gray{
+    background-color: gray;
 
-  .btn-opacity{
-    background-color: transparent;
+    color: white;
   }
+
+
 
   .btn-red{
     border:2px solid @btn-color-red;
@@ -120,11 +124,21 @@
     font-family:微软雅黑;
   }
 
+  .btn-Gradient-red{
+    background: -webkit-linear-gradient(#ef423b, #e70b17);
+    border-top-right-radius: @btn-radius;
+    border-bottom-right-radius: @btn-radius;
+  }
+
   .btn:active{
     background-color: #e23a43;
     color: white;
-
   }
+
+
+
+
+
 
 
 @media screen and (max-width: @mediavar-maxWidth) {
@@ -141,5 +155,11 @@
     }
     .btn.big{
       padding: @nav-btn-big-PTopBottom/2-1  @nav-btn-big-pLeftRight / 2  @nav-btn-big-PTopBottom/2  @nav-btn-big-pLeftRight /2-1;
+    }
+    .btn-opacity{
+      background-color: transparent;
+    }
+    .btn-opacity:active{
+      background-color:transparent;
     }
 }
