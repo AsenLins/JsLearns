@@ -92,7 +92,7 @@ layout 公共变量
   background-color: #e23a43;
   color: white;
 }
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1200px) {
   .btn.search {
     padding: 7px 10px 7px 10px;
     font-size: 0.6em;

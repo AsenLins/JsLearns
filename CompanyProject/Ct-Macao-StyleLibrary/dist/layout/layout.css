@@ -80,7 +80,7 @@ layout 公共变量
   width: 16.66666667%;
 }
 /*页脚样式*/
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1200px) {
   .layout-header,
   .logo {
     height: 40px;

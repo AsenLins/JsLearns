@@ -19,7 +19,7 @@ layout 公共变量
 .bgPlane.maxBig {
   height: 65%;
 }
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1200px) {
   .bgPlane.big {
     height: 40%;
   }

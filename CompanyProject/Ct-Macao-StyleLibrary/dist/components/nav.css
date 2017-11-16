@@ -90,7 +90,7 @@ layout 公共变量
 .nav-button i {
   font-size: 2.3em;
 }
-@media screen and (min-width: 1300px) and (max-width: 4000px) {
+@media screen and (min-width: 1200px) and (max-width: 4000px) {
   .nav-group .nav-Submenu::after {
     content: "-";
     width: 16px;
@@ -129,7 +129,7 @@ layout 公共变量
     border: 0px;
   }
 }
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1200px) {
   .nav-button {
     display: block;
     height: 40px;

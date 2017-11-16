@@ -3,7 +3,7 @@ html,
 body {
   height: 100%;
   font-size: 12px;
-  font-family: SimHei;
+  font-family: 微软雅黑;
   color: #656565;
   background-color: #f6f6f6;
   padding: 0px;
@@ -147,7 +147,7 @@ button {
   width: 16.66666667%;
 }
 /*页脚样式*/
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1200px) {
   .layout-header,
   .logo {
     height: 40px;
@@ -260,7 +260,7 @@ layout 公共变量
 .nav-button i {
   font-size: 2.3em;
 }
-@media screen and (min-width: 1300px) and (max-width: 4000px) {
+@media screen and (min-width: 1200px) and (max-width: 4000px) {
   .nav-group .nav-Submenu::after {
     content: "-";
     width: 16px;
@@ -299,7 +299,7 @@ layout 公共变量
     border: 0px;
   }
 }
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1200px) {
   .nav-button {
     display: block;
     height: 40px;
@@ -357,7 +357,7 @@ layout 公共变量
 .bgPlane.maxBig {
   height: 65%;
 }
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1200px) {
   .bgPlane.big {
     height: 40%;
   }
@@ -390,7 +390,7 @@ layout 公共变量
 }
 .iconList {
   position: relative;
-  top: 3px;
+  top: 4px;
   display: inline-block;
   background-color: white;
   overflow: hidden;
@@ -420,7 +420,7 @@ layout 公共变量
   width: 1px;
   border-left: 1px solid #dddddd;
 }
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1200px) {
   .iconList-group {
     display: none;
   }
@@ -520,7 +520,7 @@ layout 公共变量
   background-color: #e23a43;
   color: white;
 }
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1200px) {
   .btn.search {
     padding: 7px 10px 7px 10px;
     font-size: 0.6em;
@@ -547,7 +547,7 @@ layout 公共变量
   position: relative;
   top: 0px;
   width: 100%;
-  max-width: 1300px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -569,7 +569,7 @@ layout 公共变量
 .tipPlane.center h1 {
   color: white;
 }
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1200px) {
   .tipPlane {
     border-bottom: 1px solid #f1f1f1;
     padding-left: 5%;
@@ -601,7 +601,7 @@ layout 公共变量
 }
 .imgList-group {
   width: 100%;
-  max-width: 1300px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -618,7 +618,7 @@ layout 公共变量
   margin-bottom: 20px;
 }
 .imgList-item img {
-  max-height: 250px;
+  max-height: 230px;
 }
 .imgList-item h4 {
   margin: 0px;
@@ -635,12 +635,12 @@ layout 公共变量
 .imgList-item a:hover {
   box-shadow: 3px 4px 12px 5px #e5e4e4;
 }
-@media screen and (min-width: 1300px) and (max-width: 4000px) {
+@media screen and (min-width: 1200px) and (max-width: 4000px) {
   .imgList-item:last-child {
     margin: 0px;
   }
 }
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1200px) {
   .imgList-group {
     display: flex;
     align-content: space-between;
@@ -658,17 +658,385 @@ layout 公共变量
   margin-top: 50px;
   margin-bottom: 50px;
 }
-.btn-group .btn {
-  position: relative;
-  left: 0px;
+.plane-OneHand .tipPlane {
+  margin-bottom: 20px;
+  background-color: #f6f6f6;
 }
-@media screen and (max-width: 1300px) {
+.btn-group {
+  position: absolute;
+  top: 25px;
+  right: 22%;
+}
+.btn-Gradient-red {
+  color: white;
+}
+.plane-prettyPlate {
+  position: relative;
+  top: 0px;
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.plane-prettyPlate-content {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  max-width: 1200px;
+  padding: 0px;
+  background-color: white;
+  padding: 5% 5% 5% 5%;
+}
+.plane-prettyPlate-content::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.plane-prettyPlate-item {
+  position: relative;
+  top: 0px;
+  border: 1px solid #e8e8e8;
+  float: left;
+  width: 30%;
+  margin-left: 1.54%;
+  margin-right: 1.51%;
+  display: block;
+}
+.plane-prettyPlate-content img {
+  max-width: 100%;
+}
+.plane-prettyPlate-item .content-tip p {
+  color: #666666;
+  padding: 0px 5% 0px 5%;
+}
+.plane-prettyPlate-item .content-tip p:first-child {
+  font-size: 1.4em;
+}
+.plane-prettyPlate-item .content-tip {
+  border-bottom: 1px solid #e8e8e8;
+}
+.plane-prettyPlate-item .content-floor p {
+  float: left;
+  width: 45%;
+}
+.plane-prettyPlate-item .content-floor p:nth-child(1) {
+  margin-left: 5%;
+  color: #f0352e;
+  font-size: 1.4em;
+}
+.plane-prettyPlate-item .content-floor p:nth-child(2) {
+  text-align: right;
+  margin-right: 5%;
+  color: #9f9f9f;
+  font-size: 1em;
+  margin-top: 1.8em;
+}
+.h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0px;
+  margin: 0px;
+}
+/*市场分析*/
+.analysis-plane {
+  padding-top: 42px;
+  padding-bottom: 42px;
+  background-color: white;
+}
+.analysis-plane .tipPlane {
+  margin-bottom: 30px;
+}
+.analysis-plane p {
+  margin: 0px;
+}
+.analysis-body-content {
+  background-color: #f4f4f4;
+}
+.analysis-body-content p:first-child {
+  font-size: 1.3em;
+  color: #333333;
+  padding: 4% 4% 2% 4%;
+}
+.analysis-body-content p:last-child {
+  text-indent: 1.6em;
+  padding: 1% 2% 5% 4%;
+}
+.analysis-main {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 0px;
+}
+.analysis-main img {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.analysis-main {
+  clear: both;
+  display: block;
+  content: "";
+  border-bottom: 4px solid #ef342d;
+}
+.analysis-main > div {
+  float: left;
+}
+.analysis-main > div:first-child {
+  width: 56%;
+}
+.analysis-main-body a {
+  display: block;
+}
+.analysis-main::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.analysis-main-list {
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  width: 44%;
+  padding-left: 1%;
+  left: 56%;
+}
+.analysis-main-list a {
+  display: block;
+  height: 33%;
+  margin-top: 0.3%;
+}
+.analysis-main-list > a div {
+  width: 100%;
+  display: inline-block;
+  height: 100%;
+  background-color: #f4f4f4;
+  padding: 4% 6% 4% 6%;
+}
+.analysis-main-list > a div dt:nth-child(1) {
+  font-size: 1.8em;
+  margin-bottom: 0.6em;
+  font-weight: bold;
+}
+.analysis-main-list > a div dt:nth-child(2) {
+  font-size: 1.5em;
+  margin-bottom: 0.6em;
+  color: #323232;
+  font-weight: bold;
+}
+.analysis-main-list > a div dt:nth-child(3) {
+  text-indent: 1.5em;
+  font-size: 1.1em;
+  line-height: 22px;
+}
+.analysis-main-list > a:nth-child(2) div {
+  background-color: #333333;
+  color: #d6d6d6;
+}
+.analysis-main-list > a:nth-child(2) div dt:nth-child(2) {
+  color: #d6d6d6;
+}
+/*市场分析End*/
+/*联系我们*/
+.contact-plane {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.wechat-content {
+  position: relative;
+  top: 0px;
+  width: 80%;
+}
+.wechat-content img {
+  max-width: 144px;
+  margin-top: 1em;
+  position: absolute;
+  top: 0px;
+}
+.wechat-img {
+  position: relative;
+  top: 0px;
+  width: 85%;
+}
+.wechat-content img:last-child {
+  right: 0px;
+}
+.contact-tip {
+  border-bottom: 1px solid #e3e3e3;
+  padding-bottom: 14px;
+  width: 85%;
+  font-size: 1.4em;
+  color: #333333;
+  font-weight: bold;
+}
+.contact-tip small {
+  font-size: 0.6em;
+  padding-left: 3%;
+}
+.contact-plane > div {
+  float: left;
+  width: 33.33%;
+}
+.contact-plane::after {
+  display: block;
+  content: "";
+  clear: both;
+}
+.contact-plane i {
+  position: absolute;
+  top: -0.1em;
+  left: -29px;
+  font-size: 2em;
+}
+.contact-map {
+  position: relative;
+  top: 0px;
+  left: 25px;
+}
+.contact-plane dt {
+  margin-top: 1em;
+}
+@media screen and (max-width: 1200px) {
+  /*焦点一手-m版*/
   .plane-OneHand {
     margin-top: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     border-bottom: 1px solid #f1f1f1;
+    background-color: white;
   }
+  /*中原指数-m版*/
   .plane-indexPlane {
     margin-top: 20px;
+  }
+  .btn-group {
+    display: none;
+  }
+  /*楼盘推介-m版*/
+  .plane-prettyPlate-item {
+    width: 100%;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 0px;
+  }
+  .plane-prettyPlate .tipPlane {
+    margin-bottom: 0px;
+  }
+  .plane-prettyPlate {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    border: 0px;
+  }
+  .plane-prettyPlate-content {
+    margin-top: 0px;
+  }
+  .plane-prettyPlate .tipPlane h1 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+  .plane-prettyPlate-item:first-child {
+    margin-top: 0px;
+  }
+  .plane-prettyPlate-item img {
+    float: left;
+    width: 45%;
+    display: block;
+  }
+  .plane-prettyPlate-item .content-tip > p {
+    float: left;
+    width: 48%;
+    display: block;
+    margin-left: 2%;
+    margin-top: 0px;
+  }
+  .plane-prettyPlate-item .content-tip {
+    border: 0px;
+  }
+  .plane-prettyPlate-item .content-tip::after {
+    clear: both;
+    display: block;
+    content: "";
+  }
+  .plane-prettyPlate-item {
+    border-bottom: 1px solid #eeeeee;
+    padding-bottom: 10.1%;
+    margin-bottom: 1em;
+  }
+  .plane-prettyPlate-item .content-floor {
+    display: block;
+    width: 48%;
+    margin-left: 50%;
+    position: absolute;
+    bottom: 5px;
+  }
+  .plane-prettyPlate-item .content-floor p {
+    padding: 0px;
+    margin: 0px;
+    margin-top: 5px;
+    margin-bottom: 9px;
+  }
+  .plane-prettyPlate-item .content-floor p:nth-child(1) {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .plane-prettyPlate-item .content-floor p:nth-child(2) {
+    margin-top: 1.2em;
+    margin-bottom: 9px;
+  }
+  /*市场分析-m版*/
+  .analysis-plane {
+    padding-top: 0px;
+  }
+  .analysis-main {
+    padding-top: 10px;
+  }
+  .analysis-plane .tipPlane {
+    margin-bottom: 0px;
+    background-color: #f6f6f6;
+  }
+  .analysis-main > div:first-child {
+    float: none;
+    width: 95%;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .analysis-main {
+    border-bottom: 0px;
+  }
+  .analysis-main-list a {
+    padding: 0px;
+    width: 100%;
+    margin-top: 1%;
+  }
+  .analysis-main-list {
+    width: 100%;
+    padding: 0;
+    padding: 2%;
+    position: relative;
+    left: 0px!important;
+    top: 0px;
+    float: none;
+  }
+  .analysis-main-list > a div {
+    padding: 1% 6% 1% 6%;
+  }
+  .analysis-main-list > a div dt:nth-child(1) {
+    font-size: 1.2em;
+  }
+  .analysis-main-list > a div dt:nth-child(2) {
+    font-size: 1em;
+  }
+  .analysis-main-list > a div dt:nth-child(3) {
+    display: none;
+  }
+  /*联系我们m-版*/
+  .contact-plane {
+    display: none;
   }
 }

@@ -7,7 +7,7 @@ layout 公共变量
 /*footer*/
 .imgList-group {
   width: 100%;
-  max-width: 1300px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -24,7 +24,7 @@ layout 公共变量
   margin-bottom: 20px;
 }
 .imgList-item img {
-  max-height: 250px;
+  max-height: 230px;
 }
 .imgList-item h4 {
   margin: 0px;
@@ -41,12 +41,12 @@ layout 公共变量
 .imgList-item a:hover {
   box-shadow: 3px 4px 12px 5px #e5e4e4;
 }
-@media screen and (min-width: 1300px) and (max-width: 4000px) {
+@media screen and (min-width: 1200px) and (max-width: 4000px) {
   .imgList-item:last-child {
     margin: 0px;
   }
 }
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1200px) {
   .imgList-group {
     display: flex;
     align-content: space-between;

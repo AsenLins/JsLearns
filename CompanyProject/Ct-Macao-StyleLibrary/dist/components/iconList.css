@@ -14,7 +14,7 @@ layout 公共变量
 }
 .iconList {
   position: relative;
-  top: 3px;
+  top: 4px;
   display: inline-block;
   background-color: white;
   overflow: hidden;
@@ -44,7 +44,7 @@ layout 公共变量
   width: 1px;
   border-left: 1px solid #dddddd;
 }
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1200px) {
   .iconList-group {
     display: none;
   }

@@ -10,7 +10,7 @@ layout 公共变量
   position: relative;
   top: 0px;
   width: 100%;
-  max-width: 1300px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -32,7 +32,7 @@ layout 公共变量
 .tipPlane.center h1 {
   color: white;
 }
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1200px) {
   .tipPlane {
     border-bottom: 1px solid #f1f1f1;
     padding-left: 5%;
