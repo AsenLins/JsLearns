@@ -1,0 +1,114 @@
+/*基础样式*/
+html,
+body {
+  height: 100%;
+  font-size: 12px;
+  font-family: 微软雅黑;
+  color: #656565;
+  background-color: #f6f6f6;
+  padding: 0px;
+  margin: 0px;
+}
+img {
+  border: 0px;
+  max-width: 100%;
+  vertical-align: middle;
+}
+a {
+  color: #656565;
+}
+nav,
+section,
+footer,
+header,
+article {
+  padding: 0px;
+  margin: 0px;
+}
+section {
+  margin-left: auto;
+  margin-top: auto;
+}
+.small {
+  color: #989898;
+}
+.big {
+  color: #f0332f;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 微软雅黑;
+}
+h1 {
+  color: #333333;
+}
+h4 {
+  color: #b4b4b4;
+  font-style: 14px;
+}
+ul li {
+  margin: 0px;
+  padding: 0px;
+  display: inline-block;
+}
+/*
+通用样式
+*/
+* {
+  box-sizing: border-box;
+}
+ul {
+  list-style-type: none;
+  margin: 0px;
+}
+a {
+  text-decoration: none;
+}
+input[type="button"],
+button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+/*公用全局变量*/
+/*
+layout 公共变量
+*/
+/*header*/
+/*container*/
+/*footer*/
+.layout-header {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  padding-left: 4%;
+  padding-right: 4%;
+  height: 80px;
+  z-index: 11;
+  transition: all 350ms;
+  content: "";
+  display: block;
+  clear: both;
+}
+.logo {
+  height: 80px;
+  line-height: 80px;
+  position: absolute;
+  top: 0px;
+  transition: all 400ms;
+}
+.logo img {
+  max-height: 70%;
+}
+@media screen and (max-width: 1200px) {
+  .layout-header,
+  .logo {
+    height: 40px;
+  }
+  .logo {
+    line-height: 40px;
+  }
+}

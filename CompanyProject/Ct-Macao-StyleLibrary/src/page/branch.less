@@ -1,0 +1,289 @@
+/*分行網絡*/
+@import "masterPage.less";
+@import "../components/nav.less";
+@import "../components/bgPlane.less";
+
+
+/*頁面結構*/
+a{
+  -webkit-tap-highlight-color:transparent;
+  tap-highlight-color:transparent;
+}
+body{
+  /*
+  display: flex;
+  width: 100%;
+  flex-direction:column;
+  height: 100%;
+  */
+  //display: flex;
+  //min-height: 100vh;
+  //flex-direction: column;
+
+}
+.layout-header{
+  //flex: 0 0 auto;
+}
+.layout-content{
+  height: auto;
+  //lex:1;
+  //flex: 1 0 100%;
+  //height: 100%;
+}
+.layout-footer{
+  //flex: 0 0 auto;
+}
+
+img{
+  max-width: 100%;
+}
+.base-box{
+  padding:0 calc(~"50% - 600px");
+}
+
+
+.plane{
+  position: relative;
+  top: 0;
+  width: 100%;
+}
+
+.animate-change{
+  transition: all 200ms;
+}
+
+/*背景*/
+.plane.background-banner{
+  background-size: cover;
+  background-position: center;
+  height: 40%;
+}
+
+/*子菜單*/
+.nav-menu-group{
+  background-color:rgba(52, 52, 52, 0.6);
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space:nowrap;
+}
+
+.nav-menu-group.bottom{
+  width: 100%;
+  position:absolute;
+  bottom: 0;
+}
+
+.nav-menu{
+  font-size: 1.2em;
+  line-height: 3;
+  padding:0 calc(~"50% - 600px");
+}
+
+.nav-menu a{
+  padding: 0 3% 0 3%;
+  color: white;
+  display: inline-block;
+  transition: background-color 150ms;
+}
+
+.nav-menu a:hover,.nav-menu a:active{
+    background-color:rgba(52, 52, 52, 0.7);
+}
+
+/*tab面板*/
+.tab-group{
+  margin:1.5em 0em 1.5em 0em;
+}
+
+.tab{
+  overflow-x:auto;
+  width: 100%;
+  display: flex;
+  white-space:nowrap;
+  font-size: 1.2em;
+  line-height: 3;
+  border: 1px solid #eaeaea;
+}
+.tab a{
+  padding: 0 5%;
+  flex-grow:1;
+  flex-shrink:1;
+  text-align: center;
+  border-right: 1px solid #eaeaea;
+  transition: all 300ms;
+}
+.tab a:last-child{
+  border-right-width:0;
+}
+
+.tab a:hover,.tab a:active,.tab .active{
+  background-color:white;
+  color:#b80000;
+  text-shadow: 0px 0px 0px #b80000;
+}
+@media screen and (max-width: @mediavar-maxWidth) {
+  .tab-group{
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+  }
+
+}
+
+/*圖文列表*/
+.map-list-group{
+  display: flex;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.map-list-group>a{
+  margin-top: 1.4em;
+
+}
+.map-list-group>a:hover{
+  transform: scale(1.03,1.03);
+  box-shadow: 0px 5px 40px -5px gray;
+}
+.map-list-group>a:first-child{
+  margin-top: 0;
+}
+.map-list-item{
+  width: 100%;
+  box-shadow: 0px 5px 20px -6px gray;
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-direction:row;
+  align-items: center;
+}
+.map-list-img{
+  width: 32%;
+}
+
+.map-list-details p>i{
+  color: #bd0d0d;
+  font-size: 1.3em;
+}
+
+.map-list-details{
+  position: relative;
+  top: 0px;
+  width: 66%;
+  padding-left: 2%;
+  display: flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  background-color: #f7f7f7;
+
+}
+
+.map-list-details>p:nth-child(2){
+  font-size: 1.5em;
+  color: #403f3f;
+  font-weight: 600;
+}
+
+.js-map{
+  position: absolute;
+  right: 2%;
+  top:-8%;
+  font-weight: bold;
+  font-size: 1.8em;
+  color: #bd0d0d;
+  z-index: 12;
+}
+
+
+@media screen and (max-width:@phone-maxWidth) {
+  .map-list-group{
+    margin:0 2.5% 0 2.5%;
+    width: 95%;
+  }
+
+  .map-list-img{
+    text-align: center;
+  }
+
+  .map-list-item{
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .map-list-item > div {
+    width: 100%;
+
+  }
+
+  .map-list-details p {
+      padding: 0 2.5%;
+  }
+
+  .js-map{
+    top: 0.9em;
+    right:4%;
+  }
+
+}
+
+/*分頁*/
+.page-group{
+  text-align: center;
+  margin-top: 2.5em;
+}
+
+.page-list{
+  border: 1px solid #e5e5e5;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3em;
+}
+.page-list a{
+  display:inline-block;
+  padding: 0 0.9em;
+  font-size: 1.4em;
+  line-height: 2.2;
+  color: gray;
+  border-right:1px solid  #e5e5e5;
+
+}
+.page-list a:hover,.page-list a:active,.page-list a.active{
+  background-color:#b80000;
+  color:white;
+}
+.page-list a:last-child{
+  border-right-width: 0px;
+}
+.page-list-phone{
+  border-top: 1px solid #d1d1d1;
+  background-color: white;
+  margin-top: 4em;
+  display: none;
+
+}
+.page-list-phone a{
+  width: 49.4%;
+  display: inline-block;
+  font-size: 1.4em;
+  line-height: 2.5;
+  text-align: center;
+
+}
+.page-list-phone a:first-child{
+  border-right: 1px solid #d1d1d1;
+  background-color: #b80000;
+  color: white;
+}
+.page-list-phone a:hover,
+.page-list-phone a:focus,
+.page-list-phone a:active{
+  background-color: #f15252;
+  color: white;
+}
+@media screen and (max-width:@phone-maxWidth) {
+  .page-list-phone{
+    display: block;
+  }
+  .page-list{
+    display: none;
+  }
+}

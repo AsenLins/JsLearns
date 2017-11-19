@@ -1,0 +1,40 @@
+/*公用全局变量*/
+/*
+layout 公共变量
+*/
+/*header*/
+/*container*/
+/*footer*/
+.layout-header {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  padding-left: 4%;
+  padding-right: 4%;
+  height: 80px;
+  z-index: 11;
+  transition: all 350ms;
+  content: "";
+  display: block;
+  clear: both;
+}
+.logo {
+  height: 80px;
+  line-height: 80px;
+  position: absolute;
+  top: 0px;
+  transition: all 400ms;
+}
+.logo img {
+  max-height: 70%;
+}
+@media screen and (max-width: 1200px) {
+  .layout-header,
+  .logo {
+    height: 40px;
+  }
+  .logo {
+    line-height: 40px;
+  }
+}

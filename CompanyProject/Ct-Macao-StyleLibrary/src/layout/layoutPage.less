@@ -1,0 +1,37 @@
+@import "../mixins/common.less";
+@import "../variables.less";
+.layout-header{
+  position:fixed;
+  top: 0px;
+  left: 0px;
+  //background-color: @layout-header-bgColor;
+  width: 100%;
+  padding-left: 4%;
+  padding-right:4%;
+  height:@layout-header-height;
+  z-index: 11;
+  transition: all 350ms;
+  .clearFloat();
+}
+
+.logo{
+  height:@layout-header-height;
+  line-height: @layout-header-height;
+  position: absolute;
+  top: 0px;
+  transition: all 400ms;
+  img{
+    max-height: 70%;
+  }
+}
+
+
+@media screen and (max-width: @mediavar-maxWidth) {
+  .layout-header,.logo{
+    height: @layout-header-height / 2;
+  }
+
+  .logo{
+    line-height: @layout-header-height / 2;
+  }
+}
