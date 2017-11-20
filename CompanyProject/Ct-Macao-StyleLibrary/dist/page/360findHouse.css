@@ -1,4 +1,4 @@
-/*網上搵樓*/
+/*360找房*/
 /*基础样式*/
 html,
 body {
@@ -310,9 +310,6 @@ a {
 .base-box {
   padding: 0 calc(50% - 600px);
 }
-.layout-content {
-  height: auto;
-}
 .plane {
   position: relative;
   top: 0;
@@ -324,7 +321,7 @@ a {
   background-position: center;
   height: 40%;
 }
-/*子菜單*/
+/*子選項*/
 .nav-tools-group {
   background-color: rgba(52, 52, 52, 0.6);
   overflow-x: auto;
@@ -418,149 +415,62 @@ a {
     margin-top: 0.5em;
   }
 }
-/*詳細查詢條件*/
-.filter-group {
-  border: 1px solid #d1d1d1;
-  margin: 2.5em 0 2.5em 0;
-}
-.filter-row {
-  position: relative;
-  top: 0px;
-  border-bottom: 1px dotted #d3d3d3;
-}
-.filter-row:last-child {
-  border-bottom-width: 0px;
-}
-.filter-row > div {
-  display: inline-block;
-  font-size: 1.2em;
-  line-height: 3.5;
-  top: 0px;
-}
-.fiter-row-tip {
-  width: 8%;
-  text-align: center;
-  background-color: #f3f1f2;
-  border-right: 1px solid #e9e9e9;
-}
-.fioter-row-list {
-  width: 91%;
-  line-height: 0;
-  white-space: nowrap;
-  overflow-x: auto;
-  position: absolute;
-  top: 0px;
-}
-.fioter-row-list > div {
-  padding: 0 1em;
-  display: inline-block;
-}
-@media screen and (max-width: 1024px) {
-  .filter-group {
-    border-left-width: 0px;
-    border-right-width: 0px;
-    margin: 0;
-  }
-  .fiter-row-tip {
-    width: 15%;
-  }
-  .fioter-row-list {
-    width: 84%;
-  }
-  .filter-row > div {
-    line-height: 2.3;
-  }
-  .filter-row {
-    border: 0px;
-  }
-}
-/*数据项*/
-.data-list-group {
-  border: 1px solid #d1d1d1;
-  overflow: hidden;
-}
-.data-list-item {
+.videolist-group {
+  height: 30%;
   display: flex;
   flex-direction: row;
-  padding: 1.8%;
+  flex-wrap: wrap;
+}
+.videolist-item {
+  border: 1px solid #d1d1d1;
+  background-color: #ffffff;
+  color: #b80103;
+  transition: all 350ms;
+  margin: auto 0.5%;
+  margin-top: 2.4em;
+}
+.videolist-item:hover {
+  transform: scale(1.01, 1.01);
+  box-shadow: 0px 6px 25px -5px gray;
+}
+.videolist-item-img {
+  text-align: center;
+}
+.videolist-item-tip {
   border-bottom: 1px dotted #d3d3d3;
+  padding: 3.5%;
+  color: #696969;
+  background-color: white;
 }
-.data-list-item {
-  transition: all 200ms;
-}
-.data-list-item:hover,
-.data-list-item:active {
-  transform: scale(1.02, 1.02);
-}
-.data-item-img {
-  flex-grow: 0;
-  text-align: center;
-}
-.data-item-content {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  margin-left: 1.5%;
-}
-.data-item-detail {
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 5%;
-}
-.data-item-des {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.data-item-des p {
-  color: #767676;
-  font-size: 1.2em;
-  line-height: 0.6em;
-}
-.data-item-des p:nth-child(1) {
-  color: #383838;
-  font-size: 1.5em;
-  font-weight: bold;
-}
-.data-item-price {
-  align-self: center;
-  text-align: center;
-}
-.data-item-pone {
-  font-size: 1.2em;
-  line-height: 2.2;
-  color: #b80000;
-  background-color: #fde0e4;
-}
-.data-item-pone i {
-  position: relative;
-  top: .1em;
-  padding: 0% 1.5% 0% 1.5%;
+.videolist-item-tip p {
   font-size: 1.6em;
+  line-height: 0.5em;
+  margin-top: 0.6em;
 }
-.data-item-price p {
-  color: #b60000;
-  line-height: 0.4em;
+.videolist-item-tip label {
+  font-size: 1.2em;
+}
+.videolist-item-control {
+  text-align: center;
+  font-size: 1.3em;
+  line-height: 3.5;
+  transition: all 250ms;
+  background-color: transparent;
   font-weight: bold;
 }
-.data-item-price p:first-child {
-  font-size: 2em;
+.videolist-item:hover .videolist-item-control {
+  background-color: #b60001;
+  color: white;
+  transform: rotate3d(0, 1, 0, 360deg);
 }
 @media screen and (max-width: 1024px) {
-  .data-list-item {
+  .videolist-group {
     flex-direction: column;
-    padding: 4%;
+    padding: 0 2%;
+    justify-content: center;
   }
-  .data-item-content {
-    margin: 0;
-  }
-  .data-item-des p {
-    line-height: 0;
-  }
-  .data-list-group {
-    margin-top: 0.5em;
+  .videolist-item {
+    margin-top: 0.8em;
   }
 }
 /*分頁*/
@@ -624,15 +534,3 @@ a {
     display: none;
   }
 }
-/*
-.nav-menu a{
-  padding: 0 3% 0 3%;
-  color: white;
-  display: inline-block;
-  transition: background-color 150ms;
-}
-
-.nav-menu a:hover,.nav-menu a:active{
-    background-color:rgba(52, 52, 52, 0.7);
-}
-*/
