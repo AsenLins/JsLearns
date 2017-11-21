@@ -1,4 +1,4 @@
-/*訓練學院*/
+/*聯繫我們*/
 /*基础样式*/
 html,
 body {
@@ -304,12 +304,24 @@ layout 公共变量
     height: 45%;
   }
 }
-body,
-html {
-  background-color: white;
-}
+/*頁面結構*/
 a {
-  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+}
+body {
+  /*
+  display: flex;
+  width: 100%;
+  flex-direction:column;
+  height: 100%;
+  */
+}
+.layout-content {
+  height: auto;
+}
+img {
+  max-width: 100%;
 }
 .base-box {
   padding: 0 calc(50% - 600px);
@@ -323,243 +335,206 @@ a {
 .plane.background-banner {
   background-size: cover;
   background-position: center;
-  height: 50%;
+  height: 40%;
 }
-/*測試題模態窗口*/
-.test-group {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+/*子菜單*/
+.nav-menu-group {
+  background-color: rgba(52, 52, 52, 0.6);
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
 }
-.test-window {
-  width: 76%;
-  padding: 0 2%;
-  background-color: white;
-  border-radius: 1em;
-  border: 8px solid rgba(52, 52, 52, 0.6);
-  text-align: center;
-  max-width: 816px;
-  margin: 0  auto;
+.nav-menu-group.bottom {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
 }
-.test-group > p {
-  line-height: 1.5em;
-  color: #000002;
-}
-.test-group label {
-  position: relative;
-  left: 3em;
-}
-.test-count p {
-  padding-right: 3em;
-}
-.test-btn {
-  font-size: 1.6em;
-  background-color: #ff7e00;
-  line-height: 2;
-  display: block;
-  width: 85%;
-  margin: 0.8em auto;
-  color: white;
-  border-radius: .2em;
-  margin-bottom: 2em;
-  margin-top: 1.5em;
-}
-.test-tip {
-  color: #b80000;
-  font-size: 1.6em;
-  font-weight: bold;
+.nav-menu {
+  font-size: 1.2em;
   line-height: 3;
+  padding: 0 calc(50% - 600px);
 }
-@media screen and (max-width: 320px) {
-  .test-tip {
-    line-height: 1;
-    font-size: 1em;
-  }
-  .test-group p {
-    line-height: 1;
-    margin: 0.8em;
-  }
-  .test-btn {
-    margin-top: 0.2em;
-    margin-bottom: 0.2em;
-  }
+.nav-menu a {
+  padding: 0 3% 0 3%;
+  color: white;
+  display: inline-block;
+  transition: background-color 150ms;
 }
-@media screen and (min-width: 321px) and (max-width: 1024px) {
-  .test-window {
-    width: 90%;
-  }
-  .test-tip {
-    line-height: 1;
-  }
-  .test-group p {
-    line-height: 1.4;
-    margin: 1em;
-  }
-  .test-btn {
-    margin-top: 0.4em;
-    margin-bottom: 0.4em;
-  }
+.nav-menu a:hover,
+.nav-menu a:active {
+  background-color: rgba(52, 52, 52, 0.7);
 }
-/*學園文章*/
-.tip-group {
-  color: #b90100;
-  font-size: 1.6em;
-  font-weight: bold;
-  border-bottom: 1px dotted #d3d3d3;
-  margin-top: 2em;
-  margin-bottom: 0.8em;
-  padding-bottom: 0.8em;
+/*關於我們詳情內容*/
+.contact-content-group {
+  padding-top: 3em;
+  padding-bottom: 6em;
+  text-align: center;
+  line-height: 3;
+  position: relative;
+  top: 0px;
   overflow: hidden;
 }
-.train-article-group {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.contact-content-group p {
+  width: 84%;
+  margin: 0 auto;
+  padding: 3em auto;
+  text-indent: 2em;
+  font-size: 1.1em;
 }
-.train-article-item {
+.contact-jobtab-group,
+.contact-content-group {
+  background-color: white;
+}
+.contact-content-group .nav-menu-group {
+  background-color: transparent;
+  border-top: 1px solid #eeeeee;
+}
+.contact-content-group .nav-menu a {
+  color: #666666;
+}
+.contact-content-group .bottom {
+  left: 0;
+}
+.contact-content-group .nav-menu a:hover {
+  background-color: #d4151a;
+  color: white;
+}
+.contact-content-group .nav-menu-group {
+  box-shadow: 0px 4px 25px -10px gray;
+}
+@media screen and (max-width: 1024px) {
+  .contact-content-group p {
+    width: 94%;
+    line-height: 2.2;
+  }
+  .contact-content-group {
+    padding-top: 1.5em;
+    padding-bottom: 5.5em;
+    text-align: left;
+  }
+}
+/*職位詳情*/
+.contact-job-group {
+  border: 2px solid #b80000;
   display: flex;
   flex-direction: row;
-  background-color: #f7f7f7;
-  box-shadow: 1px 2px 16px -10px gray;
-  transition: all 200ms;
-  margin-top: 1em;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  border-radius: .4em;
+  margin: 4em auto;
+}
+.contact-job-group > div {
+  flex: 1;
+  width: 50%;
+}
+.contact-job-content {
+  font-size: 1.3em;
+}
+.contact-job-content .contact-job-tip {
+  padding-left: 6.1%;
+}
+.contact-job-content i {
+  color: #c43837;
+  font-weight: bold;
+  font-size: 1.4em;
+  padding-right: 0.4em;
+}
+.contact-job-content > p {
+  padding-left: 12%;
+}
+@media screen and (max-width: 1024px) {
+  .contact-job-group {
+    border-radius: 0px;
+    border-color: #eeeeee;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top: 0px;
+    margin: 0;
+    margin-top: 0.3em;
+    flex-direction: column;
+    background-color: white;
+  }
+  .contact-job-content {
+    font-size: 1.2em;
+  }
+  .contact-job-content .contact-job-tip {
+    padding-right: 6%;
+  }
+  .contact-job-group > div {
+    width: 100%;
+  }
+  .contact-job-content > p {
+    padding: auto 2%;
+  }
+  .contact-job-img {
+    display: none;
+  }
+}
+.contact-icon-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   flex: 1;
 }
-.train-article-item:hover {
-  transform: scale(1.02, 1.02);
-  box-shadow: 0px 0px 30px -10px gray;
+/*圖標項*/
+.contact-icon-tip {
+  border-bottom: 1px solid #efebe8;
+  padding-left: 1em;
+  padding-bottom: 1em;
 }
-.train-article-item:hover .train-article-btn {
-  background-color: #b80000;
-  color: white;
-}
-.train-article-img {
-  width: 30%;
-}
-.train-article-content {
-  width: 68%;
-  padding: 0 2%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.train-article-des {
-  text-indent: 2em;
-}
-.train-article-time {
-  color: #aaaaaa;
-  display: table-cell;
-  vertical-align: middle;
-}
-.train-article-time i {
-  font-size: 2.6em;
-  padding: 0px;
-  margin: 0px;
-}
-.train-article-tip {
-  color: #323232;
-  font-size: 1.4em;
-  margin: 0;
-}
-.train-article-btn {
-  margin-top: 1em;
-  padding: 0 2%;
-  font-size: 1.1em;
-  line-height: 2;
-  text-align: center;
-  display: block;
-  border: 2px solid #b90000;
-  color: #b80000;
-  letter-spacing: .2em;
-  width: 15%;
-  transition: all 200ms;
-}
-@media screen and (max-width: 1024px) {
-  .train-article-group {
-    padding: 2%;
-  }
-  .train-article-item {
-    flex-direction: column;
-  }
-  .train-article-img {
-    width: 100%;
-    text-align: center;
-  }
-  .train-article-content {
-    width: 100%;
-    padding: 0 4%;
-    margin-top: 0.6em;
-  }
-  .train-article-btn {
-    display: none;
-  }
-  .tip-group {
-    margin-bottom: 0px;
-    margin-top: 1em;
-    padding-left: 0.8em;
-  }
-  .train-article-item:first-child {
-    margin: 0px;
-  }
-}
-/*分頁*/
-.page-group {
-  text-align: center;
-  margin-top: 2.5em;
-}
-.page-list {
-  border: 1px solid #e5e5e5;
-  display: inline-block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 3em;
-}
-.page-list a {
-  display: inline-block;
-  padding: 0 0.9em;
-  font-size: 1.4em;
-  line-height: 2.2;
-  color: gray;
-  border-right: 1px solid  #e5e5e5;
-}
-.page-list a:hover,
-.page-list a:active,
-.page-list a.active {
-  background-color: #b80000;
-  color: white;
-}
-.page-list a:last-child {
-  border-right-width: 0px;
-}
-.page-list-phone {
-  border-top: 1px solid #d1d1d1;
+.contact-icon-group {
+  padding-top: 2.5em;
+  padding-bottom: 2.5em;
   background-color: white;
-  margin-top: 4em;
-  display: none;
 }
-.page-list-phone a {
-  width: 49%;
-  display: inline-block;
-  font-size: 1.4em;
-  line-height: 2.5;
-  text-align: center;
+.contact-icon-list {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2em;
+  justify-content: space-between;
 }
-.page-list-phone a:first-child {
-  border-right: 1px solid #d1d1d1;
-  background-color: #b80000;
-  color: white;
+.contact-icon-list > div {
+  margin: auto  1%;
 }
-.page-list-phone a:hover,
-.page-list-phone a:focus,
-.page-list-phone a:active {
-  background-color: #f15252;
-  color: white;
+.contact-icon-list p {
+  letter-spacing: 0.1em;
+}
+.contact-icon-item label {
+  font-size: 2.5em;
+  color: #b80000;
+  margin-left: 0.5em;
+}
+.contact-icon-item i {
+  font-size: 6em;
+  color: #b80000;
+}
+.contact-icon-item p {
+  align-self: flex-start;
+  display: flex;
+}
+.icon-num {
+  flex-grow: 0;
+  color: #f4f2f3;
 }
 @media screen and (max-width: 1024px) {
-  .page-list-phone {
-    display: block;
+  .contact-icon-list {
+    flex-direction: column;
+    padding: 5%;
+    padding-top: 0;
+    padding-bottom: 0;
   }
-  .page-list {
-    display: none;
+  .contact-icon-list > div {
+    margin: auto  1%;
+  }
+  .contact-icon-group {
+    padding-top: 1em;
+  }
+  .contact-icon-item i {
+    font-size: 3em;
+  }
+  .contact-icon-item label {
+    font-size: 1.5em;
   }
 }

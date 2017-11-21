@@ -1,0 +1,284 @@
+/*聯繫我們*/
+@import "masterPage.less";
+@import "../components/nav.less";
+@import "../components/bgPlane.less";
+
+
+/*頁面結構*/
+a{
+  -webkit-tap-highlight-color:transparent;
+  tap-highlight-color:transparent;
+}
+body{
+  /*
+  display: flex;
+  width: 100%;
+  flex-direction:column;
+  height: 100%;
+  */
+  //display: flex;
+  //min-height: 100vh;
+  //flex-direction: column;
+
+
+}
+.layout-header{
+  //flex: 0 0 auto;
+}
+.layout-content{
+  height: auto;
+  //lex:1;
+  //flex: 1 0 100%;
+  //height: 100%;
+}
+.layout-footer{
+  //flex: 0 0 auto;
+}
+
+img{
+  max-width: 100%;
+}
+.base-box{
+  padding:0 calc(~"50% - 600px");
+}
+
+.plane{
+  position: relative;
+  top: 0;
+  width: 100%;
+}
+
+/*背景*/
+.plane.background-banner{
+  background-size: cover;
+  background-position: center;
+  height: 40%;
+}
+
+/*子菜單*/
+.nav-menu-group{
+  background-color:rgba(52, 52, 52, 0.6);
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space:nowrap;
+}
+
+.nav-menu-group.bottom{
+  width: 100%;
+  position:absolute;
+  bottom: 0;
+}
+
+.nav-menu{
+  font-size: 1.2em;
+  line-height: 3;
+  padding:0 calc(~"50% - 600px");
+}
+
+.nav-menu a{
+  padding: 0 3% 0 3%;
+  color: white;
+  display: inline-block;
+  transition: background-color 150ms;
+}
+
+.nav-menu a:hover,.nav-menu a:active{
+    background-color:rgba(52, 52, 52, 0.7);
+}
+
+/*關於我們詳情內容*/
+.contact-content-group{
+  //padding: 6em auto;
+  padding-top: 3em;
+  padding-bottom: 6em;
+  text-align: center;
+  line-height: 3;
+  position: relative;
+  top: 0px;
+  overflow: hidden;
+
+}
+.contact-content-group p{
+    width: 84%;
+    margin: 0 auto;
+    padding: 3em auto;
+    text-indent: 2em;
+    font-size: 1.1em;
+}
+
+
+.contact-jobtab-group,
+.contact-content-group{
+  background-color: white;
+}
+.contact-content-group .nav-menu-group{
+  background-color: transparent;
+  border-top: 1px solid #eeeeee;
+}
+.contact-content-group .nav-menu a{
+    color: #666666;
+}
+.contact-content-group .bottom{
+   left: 0;
+}
+.contact-content-group .nav-menu a:hover{
+  background-color: #d4151a;
+  color: white;
+}
+.contact-content-group .nav-menu-group{
+  box-shadow: 0px 4px 25px -10px gray;
+}
+
+@media screen and (max-width:@phone-maxWidth) {
+
+  .contact-content-group p{
+    width: 94%;
+    line-height: 2.2;
+
+  }
+
+  .contact-content-group{
+    padding-top: 1.5em;
+    padding-bottom: 5.5em;
+    text-align: left;
+  }
+}
+
+/*職位詳情*/
+.contact-job-group{
+  border: 2px solid #b80000;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  border-radius: .4em;
+  margin: 4em auto;
+}
+.contact-job-group>div{
+  flex: 1;
+    width: 50%;
+}
+.contact-job-content{
+  font-size: 1.3em;
+}
+
+.contact-job-content .contact-job-tip{
+  padding-left: 6.1%;
+}
+.contact-job-content i{
+  color: #c43837;
+  font-weight: bold;
+  font-size: 1.4em;
+  padding-right: 0.4em;
+}
+.contact-job-content>p{
+  padding-left: 12%;
+}
+
+@media screen and (max-width:@phone-maxWidth) {
+  .contact-job-group
+  {
+    border-radius: 0px;
+    border-color: #eeeeee;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top:0px;
+
+    margin: 0;
+    margin-top: 0.3em;
+    flex-direction: column;
+    background-color: white;
+  }
+  .contact-job-content{
+    font-size: 1.2em;
+  }
+  .contact-job-content .contact-job-tip{
+    padding-right: 6%;
+  }
+  .contact-job-group>div{
+    width: 100%;
+  }
+  .contact-job-content>p{
+    padding:auto 2%;
+  }
+  .contact-job-img{
+    display: none;
+  }
+
+}
+
+.contact-icon-item{
+  display: flex;
+  flex-direction:row;
+  justify-content:flex-start;
+  align-items:center;
+
+
+  flex: 1;
+}
+/*圖標項*/
+.contact-icon-tip{
+
+  border-bottom: 1px solid #efebe8;
+  padding-left:1em;
+  padding-bottom: 1em;
+}
+.contact-icon-group{
+  padding-top: 2.5em;
+  padding-bottom: 2.5em;
+  background-color: white;
+
+}
+.contact-icon-list{
+  display: flex;
+  flex-direction: row;
+  margin-top: 2em;
+  justify-content: space-between;
+
+}
+.contact-icon-list >div {
+  margin: auto  1%;
+}
+.contact-icon-list p{
+  letter-spacing: 0.1em;
+}
+.contact-icon-item label{
+  font-size: 2.5em;
+  color: #b80000;
+  margin-left: 0.5em;
+}
+.contact-icon-item  i{
+  font-size: 6em;
+  color: #b80000;
+}
+.contact-icon-item  p{
+  align-self: flex-start;
+  display: flex;
+}
+
+.icon-num{
+  flex-grow: 0;
+  color: #f4f2f3;
+
+}
+@media screen and (max-width:@phone-maxWidth) {
+  .contact-icon-list{
+    flex-direction: column;
+    padding: 5%;
+    padding-top: 0;
+    padding-bottom:0;
+  }
+  .contact-icon-list >div {
+    margin: auto  1%;
+  }
+  .contact-icon-group{
+    padding-top: 1em;
+  }
+  .contact-icon-item i{
+    font-size: 3em;
+  }
+  .contact-icon-item label{
+    font-size: 1.5em;
+  }
+}

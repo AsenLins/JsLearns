@@ -1,13 +1,43 @@
-/*訓練學院*/
+/*公司動態*/
 @import "masterPage.less";
 @import "../components/nav.less";
 @import "../components/bgPlane.less";
-
 body,html{
   background-color: white;
 }
+/*頁面結構*/
 a{
-  cursor: pointer;
+  -webkit-tap-highlight-color:transparent;
+  tap-highlight-color:transparent;
+}
+body{
+  /*
+  display: flex;
+  width: 100%;
+  flex-direction:column;
+  height: 100%;
+  */
+  //display: flex;
+  //min-height: 100vh;
+  //flex-direction: column;
+
+
+}
+.layout-header{
+  //flex: 0 0 auto;
+}
+.layout-content{
+  height: auto;
+  //lex:1;
+  //flex: 1 0 100%;
+  //height: 100%;
+}
+.layout-footer{
+  //flex: 0 0 auto;
+}
+
+img{
+  max-width: 100%;
 }
 .base-box{
   padding:0 calc(~"50% - 600px");
@@ -23,112 +53,77 @@ a{
 .plane.background-banner{
   background-size: cover;
   background-position: center;
-  height: 50%;
+  height: 40%;
 }
 
-
-
-/*測試題模態窗口*/
-
-.test-group{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+/*子菜單*/
+.nav-menu-group{
+  background-color:rgba(52, 52, 52, 0.6);
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space:nowrap;
 }
 
-.test-window{
-    width: 76%;
-    padding: 0 2%;
-    background-color: white;
-    border-radius: 1em;
-    border: 8px solid rgba(52, 52, 52, 0.6);
-    text-align: center;
-    max-width: 816px;
-    margin: 0  auto;
+.nav-menu-group.bottom{
+  width: 100%;
+  position:absolute;
+  bottom: 0;
 }
 
-.test-group>p{
-  line-height: 1.5em;
-  color:#000002;
-}
-
-.test-group label{
-  position: relative;
-  left: 3em;
-}
-
-.test-count p{
-  padding-right: 3em;
-}
-
-.test-btn{
-  font-size: 1.6em;
-  background-color: #ff7e00;
-  line-height: 2;
-  display: block;
-  width: 85%;
-  margin: 0.8em auto;
-  color: white;
-  border-radius: .2em;
-  margin-bottom: 2em;
-  margin-top: 1.5em;
-}
-.test-tip{
-  color: #b80000;
-  font-size: 1.6em;
-  font-weight: bold;
+.nav-menu{
+  font-size: 1.2em;
   line-height: 3;
-
-}
-@media screen and(max-width:320px)  {
-  .test-tip{
-      line-height: 1;
-      font-size: 1em;
-  }
-  .test-group p{
-      line-height: 1;
-      margin: 0.8em;
-  }
-  .test-btn{
-    margin-top :0.2em;
-    margin-bottom: 0.2em;
-  }
+  padding:0 calc(~"50% - 600px");
 }
 
-@media screen and (min-width:321px) and (max-width:@phone-maxWidth) {
-  .test-window{
-    width: 90%;
-  }
-  .test-tip{
-      line-height: 1;
-      //font-size: 1em;
-  }
-  .test-group p{
-      line-height: 1.4;
-      margin: 1em;
-  }
+.nav-menu a{
+  padding: 0 3% 0 3%;
+  color: white;
+  display: inline-block;
+  transition: background-color 150ms;
+}
 
-  .test-btn{
-    margin-top :0.4em;
-    margin-bottom: 0.4em;
-  }
-
+.nav-menu a:hover,.nav-menu a:active{
+    background-color:rgba(52, 52, 52, 0.7);
 }
 
 
-/*學園文章*/
-.tip-group{
-  color: #b90100;
+/*动态内容页*/
+.company-content-group{
+  padding: 3%;
+  padding-top: 0.5%;
+  margin:3em auto;
+  margin-bottom: 0px;
+  box-shadow: 0px 0px 25px -10px gray;
+}
+
+.company-tip{
+  text-align: center;
   font-size: 1.6em;
-  font-weight: bold;
-  border-bottom: 1px dotted #d3d3d3;
-  margin-top:2em;
-  margin-bottom: 0.8em;
-  padding-bottom: 0.8em;
-  overflow: hidden;
-
+  color: #333333;
 }
-.tip-group i{
+
+.company-tip p:first-child{
+  font-weight: bold;
+}
+
+.company-content img{
+  margin: 0 auto;
+  width: 100%;
+}
+
+.company-content p{
+  text-indent: 3em;
+  line-height: 2.2em;
+}
+@media screen and (max-width:@phone-maxWidth) {
+  .company-content-group{
+    margin: 1em auto;
+  }
+  .company-tip p{
+    margin: 0.8em auto;
+
+  }
 
 }
 
@@ -143,7 +138,7 @@ a{
   display: flex;
   flex-direction: row;
   background-color: #f7f7f7;
-  box-shadow: 1px 2px 16px -10px gray;
+  box-shadow: 1px 2px 16px -6px gray;
   transition: all 200ms;
   margin-top: 1em;
   flex: 1;
@@ -182,6 +177,8 @@ a{
   font-size: 2.6em;
   padding: 0px;
   margin: 0px;
+  position: relative;
+  top: 8px;
 }
 .train-article-tip{
   color: #323232;
@@ -204,7 +201,7 @@ a{
 
 @media screen and (max-width:@phone-maxWidth) {
   .train-article-group{
-      padding: 2%;
+      padding: 5%;
   }
   .train-article-item{
     flex-direction: column;
@@ -231,9 +228,18 @@ a{
     margin: 0px;
     //padding-top: 1em;
   }
+  .train-article-item{
+    margin-top: 2em;
+  }
+  .train-article-time{
+    margin:0px;
+    text-align: right;
+  }
 
 
 }
+
+
 /*分頁*/
 .page-group{
   text-align: center;
