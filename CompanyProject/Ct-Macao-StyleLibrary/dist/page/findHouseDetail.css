@@ -1,4 +1,3 @@
-/*聯繫我們*/
 /*基础样式*/
 html,
 body {
@@ -313,15 +312,6 @@ a {
 body,
 html {
   overflow-x: hidden;
-  /*
-  display: flex;
-  width: 100%;
-  flex-direction:column;
-  height: 100%;
-  */
-}
-.layout-content {
-  height: auto;
 }
 img {
   max-width: 100%;
@@ -340,234 +330,124 @@ img {
   background-position: center;
   height: 40%;
 }
-/*圖片標題與內容*/
-.tip-content-plane {
-  background-color: white;
-  padding-top: 4em;
-  padding-bottom: 4em;
+/*詳情簡介信息*/
+.detail-group {
+  display: flex;
+  flex-direction: row;
+  margin: 5%;
+  justify-content: space-between;
+  transition: all 200ms;
 }
-.tip-group {
+.detail-group strong {
+  color: #b80000;
+}
+.detail-imgList {
+  flex-basis: 64%;
+}
+.detail-des {
+  border: 1px solid #e0e0e0;
+  flex-basis: 35%;
+  display: flex;
+  flex-direction: column;
+}
+.detail-des_tip {
+  text-align: center;
+  font-size: 1.6em;
+  color: #b80000;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  font-weight: bold;
+}
+.detail-des_avgprice {
+  margin: 0 2%;
+  font-size: 1.35em;
+  padding: 0% 10% 5% 10%;
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 5%;
+}
+.detail-des_planePrice {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #eeeeee;
+  margin: 0 2%;
+  font-size: 1.35em;
+  padding: 0% 10% 5% 10%;
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 5%;
 }
-.tip-plane {
-  width: 38%;
-  padding-right: 2em;
-  padding-left: 2em;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.detail-des_planePrice p {
+  margin: 0;
 }
-.tip-text {
-  width: 100%;
-  text-align: center;
-  font-size: 2.2em;
-  line-height: 2.5;
-  margin-bottom: 0;
-  border-bottom: 1px dashed #979797;
-  letter-spacing: 0.2em;
+.detail_des_type {
+  margin: 0 2%;
+  font-size: 1.35em;
+  padding: 0% 10% 5% 10%;
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 5%;
 }
-.tip-img {
-  width: 62%;
-}
-.tip-name {
-  text-align: center;
-  font-size: 1.4em;
-  letter-spacing: 0.2em;
-}
-.content-group {
-  margin-top: 3em;
-}
-.content-group P {
-  font-size: 1.2em;
-  text-indent: 2.2em;
-  line-height: 1.8em;
-}
-@media screen and (max-width: 1024px) {
-  .tip-content-plane {
-    padding-top: 0;
-    padding-bottom: 0.2em;
-  }
-  .tip-group {
-    flex-direction: column-reverse;
-    margin: 4%;
-  }
-  .tip-img {
-    width: 100%;
-  }
-  .tip-plane {
-    width: 100%;
-  }
-  .tip-text {
-    font-size: 1.3em;
-    margin-top: 0.5em;
-  }
-  .tip-name {
-    font-size: 1.1em;
-  }
-  .content-group {
-    padding: 5%;
-    padding-top: 0.4%;
-    margin: 0;
-  }
-}
-/*tab選項與內容*/
-.market-list-group {
-  background-color: white;
-}
-/*tab選項*/
-.tip-content-plane {
-  background-color: white;
-}
-.market-tab-group {
+.detail-des_sales {
   display: flex;
   flex-direction: row;
-  border-bottom: 1px solid #f0f0f0;
-  margin-bottom: 30px;
-  padding-bottom: 1.5em;
 }
-.market-tab-item {
-  position: relative;
-  top: 0px;
-  margin-right: 4%;
-  margin-top: 2.5em;
-  transition: all 200ms;
-  cursor: pointer;
-}
-.market-tab-item hr {
-  width: 30px;
-  margin-left: 0;
-  opacity: 0;
-}
-.market-tab-item:hover hr {
-  opacity: 1;
-}
-.market-tab-item:hover {
-  color: #000000;
-}
-/*
-.market-tab-item:hover::after{
-  content:"";
-  position: absolute;
-  top: -0.8em;
-  left: 0;
-  height: 1px;
-  border-bottom:1px solid #ababab;
-  width: 40%;
-}
-*/
-.market-tab-item.active {
-  color: #000000;
-}
-@media screen and (max-width: 1024px) {
-  .market-tab-group {
-    margin-left: 4%;
-    margin-right: 4%;
-  }
-  .market-list-group {
-    margin-top: 1em;
-  }
-  .market-tab-item {
-    margin-top: 0;
-  }
-}
-/*市場分析列表*/
-.market-item {
-  position: relative;
-  top: 0px;
-  transition: all 300ms;
-  padding-bottom: 2em;
-  margin-bottom: 2em;
-  border-bottom: 1px solid #f0f0f0;
-}
-.market-item:hover {
-  transform: scale(1.02, 1.02);
-}
-.market-item:hover .market-itemTime-plane {
-  transform: translateX(100px);
-}
-.market-itemTime-plane {
-  transition: all 300ms;
-}
-.market-itemTime {
-  color: #b9b9b9;
-}
-.market-itemTime_timeTip {
-  font-size: 2em;
-}
-.market-itemLine {
-  height: 1px;
-  width: 3%;
-  margin-left: 2%;
-  margin-right: 2%;
-  margin-top: 3.3em;
-}
-.market-itemContent {
+.detail_des_salesPlane {
+  display: flex;
   flex: 1;
-  margin-left: 2%;
-  margin-right: 2%;
+  flex-direction: column;
+  align-self: center;
+  position: relative;
+  top: 2.5em;
+  padding-right: 4%;
+}
+.detail-des_img {
+  margin-left: 8%;
+}
+.detail_des_sales_name {
+  margin: 0px;
+  position: relative;
+  top: 1em;
+  left: 0.5em;
+}
+.detail-des_sales_number {
+  margin: 0px;
+}
+.detail-des_sales img {
+  flex-grow: 0;
+}
+.detail-des_sales_number {
+  position: relative;
+  left: 0.5em;
+}
+.detail-des_phone {
+  position: relative;
+  top: 0px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.detail-des_phone p {
   position: relative;
   top: 0px;
 }
-.market-itemContent {
-  color: #666666;
-}
-.market-itemContent_tip {
-  margin-top: 1.5em;
-  font-size: 1.4em;
-}
-.market-itemTime-icon {
-  margin-left: 0.7em;
-}
-.market-item {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-}
-.market-itemContent_des {
-  font-size: 1.2em;
-}
-.market-itemImg {
+.detail-des_phone p {
   align-self: flex-end;
+  text-align: center;
+  line-height: 2.5;
+  background-color: #666666;
+  width: 100%;
+  margin: 0;
+  color: white;
+  font-size: 1.4em;
+  transition: all 200ms;
 }
-@media screen and (max-width: 1024px) {
-  .market-item {
-    flex-direction: column-reverse;
-    padding-left: 5%;
-    padding-right: 5%;
-  }
-  .market-item > div {
-    width: 100%;
-  }
-  .market-itemLine {
-    display: none;
-  }
-  .market-itemImg img {
-    width: 100%;
-  }
-  .market-itemTime {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0.2em auto;
-  }
-  .market-itemTime_timeTip {
-    margin: 0;
-    text-align: right;
-    font-size: 1.6em;
-  }
-  .market-itemTime-plane {
-    opacity: 0;
-  }
-  .market-item:hover .market-itemTime-plane {
-    transform: translateX(16em);
-    opacity: 1;
-  }
-  .market-item:hover {
-    overflow-x: hidden;
-  }
+.detail-des_phone i {
+  font-size: 1.5em;
+  color: white;
+  position: relative;
+  top: 0.1em;
+}
+.detail-group:hover .detail-des_phone p {
+  background-color: #d6161a;
+  color: white;
 }

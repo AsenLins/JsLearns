@@ -1,0 +1,186 @@
+@import "masterPage.less";
+@import "../components/nav.less";
+@import "../components/bgPlane.less";
+
+
+/*頁面結構*/
+a{
+  -webkit-tap-highlight-color:transparent;
+  tap-highlight-color:transparent;
+  cursor: pointer;
+}
+
+body,html{
+  overflow-x: hidden;
+}
+
+img{
+  max-width: 100%;
+}
+
+.base-box{
+  padding:0 calc(~"50% - 600px");
+}
+
+.plane{
+  position: relative;
+  top: 0;
+  width: 100%;
+}
+
+/*背景*/
+.plane.background-banner{
+  background-size: cover;
+  background-position: center;
+  height: 40%;
+}
+
+
+/*詳情簡介信息*/
+.detail-group{
+  display: flex;
+  flex-direction: row;
+  margin: 5%;
+  justify-content: space-between;
+  transition:all 200ms;
+}
+.detail-group strong{
+  color: #b80000;
+}
+.detail-imgList{
+  flex-basis: 64%;
+}
+.detail-des{
+  border:1px solid #e0e0e0;
+  flex-basis: 35%;
+  display: flex;
+  flex-direction: column;
+  //margin: auto 2em;
+}
+.detail-des_tip{
+  text-align: center;
+  font-size: 1.6em;
+  color: #b80000;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  font-weight: bold;
+}
+.detail-des_avgprice{
+  margin: 0 2%;
+  font-size: 1.35em;
+  padding: 0% 10% 5% 10%;
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 5%;
+}
+
+.detail-des_planePrice{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 2%;
+  font-size: 1.35em;
+  padding: 0% 10% 5% 10%;
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 5%;
+}
+
+.detail-des_planePrice p{
+  margin: 0;
+}
+
+.detail-des_price{
+
+}
+
+.detail-des_area{
+
+}
+
+.detail_des_type{
+  margin: 0 2%;
+  font-size: 1.35em;
+  padding: 0% 10% 5% 10%;
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 5%;
+}
+
+.detail-des_sales{
+  display: flex;
+  flex-direction: row;
+}
+
+.detail_des_salesPlane{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-self: center;
+  position: relative;
+  top: 2.5em;
+  padding-right: 4%;
+}
+
+.detail-des_img{
+  margin-left:8%;
+}
+.detail_des_sales_name{
+  margin: 0px;
+  position: relative;
+  top: 1em;
+  left: 0.5em;
+}
+.detail-des_sales_number{
+  margin: 0px;
+}
+.detail-des_sales img{
+
+  flex-grow: 0;
+}
+
+.detail_des_sales_name{
+
+}
+
+.detail-des_sales_number{
+  position: relative;
+  left: 0.5em;
+}
+
+.detail-des_phone{
+  position: relative;
+  top: 0px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.detail-des_phone p{
+  position: relative;
+  top: 0px;
+}
+.detail-des_phone p{
+  align-self: flex-end;
+  text-align: center;
+  line-height: 2.5;
+  background-color: #666666;
+  width: 100%;
+  margin: 0;
+  color: white;
+  font-size: 1.4em;
+  transition: all 200ms;
+}
+.detail-des_phone i{
+  font-size: 1.5em;
+  color: white;
+  position:relative;
+  top:0.1em;
+}
+
+.detail-group:hover .detail-des_phone p{
+  background-color: #d6161a;
+  color: white;
+}
+
+.detial-des_phone_icon{
+
+}

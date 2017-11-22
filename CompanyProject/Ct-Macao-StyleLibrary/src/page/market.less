@@ -8,8 +8,10 @@
 a{
   -webkit-tap-highlight-color:transparent;
   tap-highlight-color:transparent;
+  cursor: pointer;
 }
-body{
+body,html{
+  overflow-x: hidden;
   /*
   display: flex;
   width: 100%;
@@ -53,4 +55,285 @@ img{
   background-size: cover;
   background-position: center;
   height: 40%;
+}
+
+
+/*圖片標題與內容*/
+.tip-content-plane{
+  background-color: white;
+  padding-top: 4em;
+  padding-bottom: 4em;
+}
+.tip-group{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  align-items: center;
+
+  //padding-top: 4em;
+  background-color: #eeeeee;
+}
+.tip-plane{
+  width: 38%;
+  padding-right: 2em;
+  padding-left:2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  //flex: 1;
+}
+.tip-text{
+  width: 100%;
+  text-align: center;
+  font-size: 2.2em;
+  line-height: 2.5;
+  margin-bottom: 0;
+  border-bottom: 1px dashed #979797;
+  letter-spacing: 0.2em;
+}
+
+.tip-img{
+  width: 62%;
+  //flex: 1;
+}
+
+.tip-name{
+  text-align: center;
+  font-size: 1.4em;
+    letter-spacing: 0.2em;
+}
+.content-group{
+  margin-top: 3em;
+}
+.content-group P{
+  font-size: 1.2em;
+  text-indent: 2.2em;
+  line-height: 1.8em;
+}
+@media screen and (max-width:@phone-maxWidth) {
+    .tip-content-plane{
+      padding-top: 0;
+      padding-bottom: 0.2em;
+    }
+
+    .tip-group{
+      flex-direction:column-reverse;
+      margin: 4%;
+    }
+    .tip-img{
+      width: 100%;
+    }
+    .tip-plane{
+      width: 100%;
+    }
+    .tip-text{
+      font-size: 1.3em;
+      margin-top: 0.5em;
+    }
+    .tip-name{
+      font-size: 1.1em;
+    }
+    .content-group{
+      padding: 5%;
+      padding-top: 0.4%;
+      margin: 0;
+    }
+
+}
+
+/*tab選項與內容*/
+.market-list-group{
+  background-color: white;
+
+
+}
+
+
+/*tab選項*/
+.tip-content-plane{
+  background-color: white;
+
+}
+.market-tab-group{
+    display:flex;
+    flex-direction: row;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 30px;
+    padding-bottom: 1.5em;
+
+  //  padding-left: 4%;
+    //padding-right: 4%;
+}
+.market-tab-item:first-child{
+
+
+}
+
+.market-tab-item{
+  position: relative;
+  top: 0px;
+  margin-right: 4%;
+  margin-top:2.5em;
+  transition: all 200ms;
+  cursor: pointer;
+
+}
+.market-tab-item hr{
+  width:30px;
+  margin-left: 0;
+  opacity: 0;
+}
+.market-tab-item:hover hr{
+  opacity: 1;
+}
+.market-tab-item:hover{
+  color: #000000;
+}
+
+/*
+.market-tab-item:hover::after{
+  content:"";
+  position: absolute;
+  top: -0.8em;
+  left: 0;
+  height: 1px;
+  border-bottom:1px solid #ababab;
+  width: 40%;
+}
+*/
+
+.market-tab-group{
+
+}
+
+
+.market-tab-item.active{
+  color: #000000;
+}
+
+@media screen and (max-width:@phone-maxWidth) {
+  .market-tab-group{
+    margin-left: 4%;
+    margin-right: 4%;
+  }
+  .market-list-group{
+    margin-top: 1em;
+  }
+  .market-tab-item{
+    margin-top:0;
+  }
+
+}
+
+/*市場分析列表*/
+.market-item{
+  position: relative;
+  top: 0px;
+  transition: all 300ms;
+  padding-bottom: 2em;
+  margin-bottom: 2em;
+  border-bottom:  1px solid #f0f0f0;
+
+}
+
+.market-item:hover{
+  transform: scale(1.02,1.02);
+}
+.market-item:hover .market-itemTime-plane{
+  transform:translateX(100px);
+
+}
+.market-itemTime-plane{
+  transition: all 300ms;
+}
+
+.market-itemTime{
+  color: #b9b9b9;
+}
+.market-itemTime_timeTip{
+  font-size: 2em;
+}
+
+.market-itemLine{
+  height: 1px;
+  width: 3%;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 3.3em;
+}
+
+.market-itemContent{
+  flex: 1;
+  margin-left: 2%;
+  margin-right: 2%;
+  position: relative;
+  top: 0px;
+}
+
+.market-itemContent{
+  color: #666666;
+}
+.market-itemContent_tip{
+  margin-top: 1.5em;
+  font-size: 1.4em;
+
+}
+.market-itemTime-icon{
+  margin-left: 0.7em;
+}
+
+.market-item{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.market-itemContent_des{
+  font-size: 1.2em;
+}
+.market-itemImg{
+  align-self: flex-end;
+}
+
+@media screen and (max-width:@phone-maxWidth) {
+  .market-item{
+    flex-direction:column-reverse;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .market-item>div{
+    width: 100%;
+  }
+
+  .market-itemLine{
+    display: none;
+  }
+
+  .market-itemImg img{
+    width: 100%;
+  }
+  .market-itemTime{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.2em auto;
+  }
+  .market-itemTime_timeTip{
+    margin:0;
+    text-align:right;
+    font-size: 1.6em;
+  }
+  .market-itemTime-plane{
+    opacity: 0;
+  }
+  .market-item:hover .market-itemTime-plane{
+    transform: translateX(16em);
+    opacity: 1;
+  }
+  .market-item:hover{
+    overflow-x:hidden;
+  }
+
 }
