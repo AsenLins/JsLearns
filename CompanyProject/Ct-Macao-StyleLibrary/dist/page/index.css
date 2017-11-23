@@ -444,7 +444,7 @@ layout 公共变量
   position: relative;
   border: 0px;
   left: -7px;
-  top: 7px;
+  top: 6px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
   color: white;
@@ -524,7 +524,7 @@ layout 公共变量
   .btn.search {
     padding: 7px 10px 7px 10px;
     font-size: 0.6em;
-    top: 2px;
+    top: 1px;
   }
   .txt.searchInput {
     height: 33.33333333px;

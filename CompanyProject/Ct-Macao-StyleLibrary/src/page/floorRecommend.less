@@ -1,0 +1,215 @@
+@import "masterPage.less";
+@import "../components/nav.less";
+@import "../components/bgPlane.less";
+
+/*頁面結構*/
+a{
+  -webkit-tap-highlight-color:transparent;
+  tap-highlight-color:transparent;
+  cursor: pointer;
+}
+
+body,html{
+  overflow-x: hidden;
+  background-color: white;
+}
+
+img{
+  max-width: 100%;
+}
+
+.base-box{
+  padding:0 calc(~"50% - 600px");
+}
+
+.plane{
+  position: relative;
+  top: 0;
+  width: 100%;
+}
+
+/*背景*/
+.plane.background-banner{
+  background-size: cover;
+  background-position: center;
+  height: 40%;
+}
+
+
+
+/*篩選*/
+.floor-filter-group{
+  display: flex;
+  flex-direction:row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  margin-top: 2em;
+  width: 100%;
+}
+
+.floor-type-list{
+  font-size: 1.1em;
+  line-height: 2;
+  white-space: nowrap;
+  width: 80%;
+  display:block;
+}
+
+.floor-type-list li{
+   padding-right: 6%;
+   padding-left: 6%;
+   position: relative;
+   top: 0px;
+   border-right: 1px solid #eaeaea;
+}
+
+.floor-type-list li:last-child{
+  border-right: 0px;
+}
+
+.floor-type-list a{
+    transition: all 200ms;
+    padding-left: 15%;
+    padding-right: 15%;
+    display: inline-block;
+    border-radius: 5px;
+    line-height: 3;
+}
+.floor-type-list a:hover,.floor-type-list a:visited{
+
+  background-color: #f45247;
+  color: white;
+}
+.floor-type-list a.active{
+  background-color: #f45247;
+  color: white;
+}
+
+.floor-type-label{
+
+  font-size: 1.8em;
+  color: #444444;
+}
+
+@media screen and (max-width:@phone-maxWidth)
+{
+  .floor-filter-group{
+    margin-top: 0.5em;
+    flex-direction: column;
+  }
+  .floor-type-label{
+    margin-bottom: 0.5em;
+  }
+  .floor-type-list li{
+    padding-right: 0%;
+    padding-left: 0%;
+  }
+  .floor-type-list{
+      width: 100%;
+      padding: 0%;
+      padding-left: 0;
+      //overflow-x: auto;
+
+  }
+
+}
+
+/*樓盤數據表格*/
+
+.data-table{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border:  1px solid #dedcdd;
+  border-radius: 5px;
+  margin-top: 1.5em;
+}
+.data-table_th{
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #dedcdd;
+  font-weight: bold;
+}
+.data-table_column{
+  flex: 1;
+  line-height: 2;
+  padding-top:1em;
+  padding-bottom: 1em;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+.data-table_row{
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  transition: all 200ms;
+}
+
+.data-table_row:nth-child(odd){
+  background-color: #fafafa;
+}
+.data-table_data .data-table_row:hover{
+  transform: scale(1.05,1.05);
+  border: 1px solid #f45247;
+  background-color: #fafafa;
+  color: black;
+  //font-weight: bold;
+}
+
+.makeAuto-small{
+
+  flex-grow: 2;
+}
+.makeAuto-big{
+  flex-grow: 3;
+}
+
+.data-table>div{
+  flex: 1;
+}
+
+@media screen and (max-width:@phone-maxWidth){
+  .data-table
+  {
+    flex-direction:row;
+
+    white-space: nowrap;
+
+  }
+  .data-table .data-table_th
+
+  {
+    display: flex;
+    flex: 0;
+    flex-direction:column;
+
+  }
+ .data-table_data{
+   display: flex;
+   flex-direction:row;
+   overflow-x: auto;
+
+ }
+
+ .data-table_row{
+   display: flex;
+   flex-direction:column;
+   height: 100%;
+   flex: 0;
+   flex-grow: 0;
+   flex-wrap: nowrap;
+   width: 40%;
+
+   //flex-wrap:wrap;
+ }
+ .data-table_column{
+   white-space:nowrap;
+   overflow:hidden;
+   text-overflow:ellipsis;
+   height: auto;
+ }
+
+
+
+}

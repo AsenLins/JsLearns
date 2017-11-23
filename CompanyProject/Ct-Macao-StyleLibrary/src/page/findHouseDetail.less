@@ -40,28 +40,31 @@ img{
 .detail-group{
   display: flex;
   flex-direction: row;
-  margin: 5%;
+  //margin: 5%;
   justify-content: space-between;
   transition:all 200ms;
+  margin-top: 5%;
+
 }
 .detail-group strong{
   color: #b80000;
 }
 .detail-imgList{
-  flex-basis: 64%;
+  flex-basis: 64.7%;
 }
 .detail-des{
   border:1px solid #e0e0e0;
   flex-basis: 35%;
   display: flex;
   flex-direction: column;
+  background-color: white;
   //margin: auto 2em;
 }
 .detail-des_tip{
   text-align: center;
   font-size: 1.6em;
   color: #b80000;
-  padding-top: 5%;
+  padding-top: 14%;
   padding-bottom: 5%;
   font-weight: bold;
 }
@@ -162,12 +165,13 @@ img{
   align-self: flex-end;
   text-align: center;
   line-height: 2.5;
-  background-color: #666666;
+  background-color: #d6161a;
   width: 100%;
   margin: 0;
   color: white;
   font-size: 1.4em;
   transition: all 200ms;
+  box-shadow: 0px 2px 10px -3px gray;
 }
 .detail-des_phone i{
   font-size: 1.5em;
@@ -177,10 +181,209 @@ img{
 }
 
 .detail-group:hover .detail-des_phone p{
-  background-color: #d6161a;
+  background-color: #f75048;
   color: white;
 }
 
 .detial-des_phone_icon{
 
+}
+@media screen and (max-width:@phone-maxWidth)
+{
+  .detail-group{
+    flex-direction: column;
+  }
+  .detail-group>div{
+    width: 100%;
+  }
+  .detail-imgList{
+    text-align:center;
+  }
+  .detail-des_tip{
+    margin: 0;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    font-size: 1.3em;
+  }
+  .detail-des_avgprice,
+  .detail-des_planePrice,
+  .detail_des_type
+
+  {
+      padding-top: 1%;
+      position:relative;
+      top: -1.2em;
+      font-size: 1.2em;
+  }
+  .detail_des_type{
+    margin-bottom: 0;
+  }
+  .detail-des_sales img{
+      width: 75%;
+  }
+  .detail_des_salesPlane{
+      top:0;
+      padding-right: 0%;
+      position: relative;
+      left: -2em;
+      top: -1em;
+  }
+  .detail-des_sales{
+    margin-bottom: 1em;
+  }
+
+  .detail-des_phone p{
+    line-height: 2;
+
+  }
+}
+
+
+
+/*樓盤詳情，房貸參考，地圖*/
+.detail-floorDesAndMap-group{
+  box-shadow: 3px 0px 25px -12px gray;
+  border: 1px solid #e0e0e0;
+  margin-top: 2em;
+}
+
+.detail-floorDes-group{
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+//  border:1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  align-items: center;
+  position: relative;
+
+  //margin-bottom: 2em;
+
+}
+
+.detail-floorDes-group>div{
+  flex: 1;
+}
+.floorDes-chart{
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.floorDes-plane{
+  padding: 3.5%;
+  border-right: 1px solid #e0e0e0;
+  font-size:1.3em;
+  color: #000000;
+}
+.floorDes-plane label{
+  color: #999999;
+}
+
+.floorDes-tip{
+  background-color: #e45b49;
+  line-height: 2;
+  color: white;
+  font-size: 1.1em;
+  padding-left: 1.5%;
+  display: inline-block;
+  padding-right: 3em;
+}
+
+.floorDes-plane-right{
+  display: flex;
+  flex-direction: column;
+  white-space:nowrap;
+  padding-top: 1%;
+  border-right: 0;
+}
+.floorDes-plane-right p,
+.floorDes-plane-right h3
+{
+  width: 60%;
+  margin-left: 40%;
+}
+
+.floorDes-round.green::before{
+  content: "";
+  width: 10px;
+  height:10px;
+  display: inline-block;
+  border-radius: 50px;
+  background-color: #0dcdc0;
+}
+
+.floorDes-round.gray::before{
+  content: "";
+  width: 10px;
+  height:10px;
+  display: inline-block;
+  border-radius: 50px;
+  background-color: #d8dbe1;
+}
+
+.floorDes-round.red::before{
+  content: "";
+  width: 10px;
+  height:10px;
+  display: inline-block;
+  border-radius: 50px;
+  background-color: #e45b49;
+}
+
+.floorDes-plane-right h3{
+  margin-top: 0;
+}
+
+@media screen and (max-width:@phone-maxWidth)
+{
+  .detail-floorDes-group{
+    flex-direction: column;
+  }
+  .detail-floorDes-group>div{
+    width: 100%;
+    //margin-bottom: 4em;
+    //margin-top: 4em;
+    //border-bottom: 1px solid #eaeaea;
+    padding-bottom: 8em;
+  }
+  .detail-floorDes-group>div:last-child{
+    margin-top: 7em;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .floorDes-plane{
+    margin-top: 0;
+  }
+  .floorDes-plane-right p,
+  .floorDes-plane-right h3
+  {
+    width: 100%;
+    margin-left: 0;
+
+  }
+  .floorDes-chart{
+      top: 6em;
+  }
+  .floorDes-tip{
+    margin-top: 0;
+    margin-bottom: 0;
+    display:block;
+  }
+  .detail-floorDes-group h3{
+    margin-top: 0;
+    margin-bottom:0.5em;
+    text-align: center;
+  }
+
+}
+
+
+/*地圖*/
+.map-group{
+  padding: 3.5%;
+  background-color: white;
 }
