@@ -47,13 +47,19 @@ img{
   margin-top: 2em;
   width: 100%;
 }
+.floor-type-group{
+  flex: 1;
+  display: inline-block;
+  text-align: right;
 
+}
 .floor-type-list{
   font-size: 1.1em;
   line-height: 2;
   white-space: nowrap;
-  width: 80%;
-  display:block;
+  display: inline-block;
+  width: 65%;
+
 }
 
 .floor-type-list li{
@@ -70,11 +76,13 @@ img{
 
 .floor-type-list a{
     transition: all 200ms;
-    padding-left: 15%;
-    padding-right: 15%;
-    display: inline-block;
+    padding-left: 3em;
+    padding-right: 3em;
+
     border-radius: 5px;
     line-height: 3;
+    display: block;
+
 }
 .floor-type-list a:hover,.floor-type-list a:visited{
 
@@ -112,11 +120,21 @@ img{
       //overflow-x: auto;
 
   }
+  .floor-type-group{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
 
+  .floor-type-list a{
+    padding-left: 0.7em;
+    padding-right: 0.7em;
+  }
 }
 
 /*樓盤數據表格*/
-
+/*
 .data-table{
   display: flex;
   flex-direction: column;
@@ -154,7 +172,7 @@ img{
   border: 1px solid #f45247;
   background-color: #fafafa;
   color: black;
-  //font-weight: bold;
+
 }
 
 .makeAuto-small{
@@ -170,6 +188,14 @@ img{
 }
 
 @media screen and (max-width:@phone-maxWidth){
+  .data-table_column{
+
+    flex-basis: 160px;
+  }
+  .data-table_th{
+    overflow-x:auto;
+  }
+
   .data-table
   {
     flex-direction:row;
@@ -189,7 +215,6 @@ img{
    display: flex;
    flex-direction:row;
    overflow-x: auto;
-
  }
 
  .data-table_row{
@@ -201,7 +226,7 @@ img{
    flex-wrap: nowrap;
    width: 40%;
 
-   //flex-wrap:wrap;
+
  }
  .data-table_column{
    white-space:nowrap;
@@ -210,6 +235,53 @@ img{
    height: auto;
  }
 
+}
+*/
+.data-table {
+
+  border: 1px solid #e3e3e3;
+  border-radius: 5px;
+  width: 100%;
+  text-align: center;
+  line-height: 3;
+  font-size: 1.2em;
+  padding: 0;
+  margin-top: 1em;
+  border-spacing: 0px;
+}
+.data-table tr{
+  border-color: #fafafa;
+  padding: 0px;
+  margin: 0px;
+}
+.data-table tr:nth-child(odd){
+  background-color: #fafafa;
+}
+
+@media screen and (max-width:@phone-maxWidth)
+{
+  .data-table-group{
+    overflow-x: scroll;
+  }
+
+  .data-table{
+    width: 100%;
+    line-height: 1.4;
+    border-radius: 0;
+  }
+
+  .data-table th{
+    min-width:80px;
+    line-height: 2;
+  }
+
+  .data-title{
+      overflow-x:auto;
+  }
+
+  .data-table{
+    overflow-x:auto;
+  }
 
 
 }

@@ -1,0 +1,161 @@
+@import "masterPage.less";
+@import "../components/nav.less";
+@import "../components/bgPlane.less";
+
+/*頁面結構*/
+a{
+  -webkit-tap-highlight-color:transparent;
+  tap-highlight-color:transparent;
+  cursor: pointer;
+}
+
+body,html{
+  overflow-x: hidden;
+
+}
+
+img{
+  max-width: 100%;
+}
+
+.base-box{
+  padding:0 calc(~"50% - 600px");
+}
+
+.plane{
+  position: relative;
+  top: 0;
+  width: 100%;
+}
+
+/*背景*/
+.plane.background-banner{
+  background-size: cover;
+  background-position: center;
+  height: 40%;
+}
+
+
+
+/*測試題*/
+.testQA-group{
+  font-size: 1.2em;
+  color: #19233c;
+}
+.testQA-group h1{
+  text-align: center;
+}
+
+.testQA-tip label:first-child{
+  color: #383838;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+.testQA-tip label:last-child{
+  color: #cfd0d2;
+  font-size: 1.4em;
+}
+
+.testQA-progressBar-group{
+  border-radius: 10px;
+  border: 1px solid #e6e7ec;
+  height:1.5em;
+  width: 100%;
+  background-color: white;
+}
+.testQA-progressBar{
+  height: 100%;
+  background-color:#c8c8c8;
+  width: 30%;
+  border-radius: 10px;
+  transition: all 200ms;
+}
+.testQA-btn-next{
+
+}
+.testQA-content{
+  padding: 2%;
+  margin-top: 1.5em;
+  background-color: white;
+  border: 1px solid #e6e5eb;
+  border-radius: 8px;
+}
+.testQA-control{
+  margin-top: 6em;
+  margin-bottom: 4em;
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
+.testQA-btn-next{
+  border: 1px solid #e5e6eb;
+  color: #f65952;
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  border-radius: 5px;
+  display: inline-block;
+  margin-bottom: 1em;
+}
+
+.testQA-control:first-child{
+
+}
+
+.testQA-btn-post{
+  display:inline-block;
+  line-height: 2.5;
+  font-size: 1.3em;
+  padding-left: 6%;
+  padding-right: 6%;
+  color: white;
+  border-radius: 40px;
+  background-color: #f65952;
+}
+
+.testQA-checkbox{
+  border-radius: 50px;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #adacb1;
+  display: inline-block;
+  position: relative;
+  top: 1px;
+}
+.testQA-checkbox{
+  background-color: transparent;
+  //opacity: 0;
+}
+.testQA-checkbox:checked::before ~ .testQA-checkboxPlane{
+  background-color: green;
+  width: 13px;
+  height: 13px;
+}
+.testQA-btn-next,
+.testQA-btn-post{
+  transition: all 200ms;
+}
+.testQA-btn-post:active,
+.testQA-btn-next:active{
+  background-color:#ad1108!important;
+  transform: scale(0.92,0.92);
+}
+.testQA-btn-next:hover,
+.testQA-btn-post:hover{
+  background-color:#e71f19;
+  color: white;
+}
+@media screen and (max-width:@phone-maxWidth){
+  .testQA-group{
+    font-size: 1em;
+    padding: 2%;
+    padding-left: 3%;
+    padding-right:4%;
+  }
+  .testQA-control{
+    margin-top: 2em;
+    margin-bottom: 1em;
+  }
+}
