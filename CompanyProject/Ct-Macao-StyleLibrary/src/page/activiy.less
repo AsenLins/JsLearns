@@ -1,0 +1,120 @@
+@import "masterPage.less";
+@import "../components/nav.less";
+@import "../components/bgPlane.less";
+
+/*頁面結構*/
+a{
+  -webkit-tap-highlight-color:transparent;
+  tap-highlight-color:transparent;
+  cursor: pointer;
+}
+
+body,html{
+  overflow-x: hidden;
+  //background-color: white;
+}
+
+img{
+  max-width: 100%;
+}
+
+.base-box{
+  padding:0 calc(~"50% - 600px");
+}
+
+.plane{
+  position: relative;
+  top: 0;
+  width: 100%;
+}
+
+/*背景*/
+.plane.background-banner{
+  background-size: cover;
+  background-position: center;
+  height: 40%;
+}
+
+
+
+/*活动内容:*/
+.activity-group{
+  background-color: #98d6ff;
+  padding-top: 2em;
+  //display: flex;
+  //flex-direction:row;
+  column-count:2;
+  column-gap: 15px;
+}
+.activity-item{
+
+  padding: 1%;
+}
+.activity-item{
+  display:block;
+   break-inside: avoid;
+  background-color: white;
+  //margin: 1.5% 1%;
+}
+.activity-content{
+  text-indent: 2em;
+}
+.activity-content p{
+  color: #383838;
+}
+.activity-time{
+  text-align: right;
+}
+
+@media screen and (max-width:@phone-maxWidth) {
+  .activity-group{
+      column-count:1;
+      padding: 2%;
+
+  }
+  .activity-item{
+    margin-top: 2%;
+  }
+
+}
+
+
+/*底部按钮*/
+
+.radius-bottom-group{
+  position: relative;
+  height: 60%;
+  overflow: hidden;
+  margin-bottom: 2em;
+}
+.radius-bottom{
+  position:absolute;
+  width:115%;
+  top: -800%;
+  left: -7.5%;
+  height: 900%;
+  border-radius: 1000px;
+  background-color: #98d6ff;
+}
+
+
+.bottom-btn{
+  position:relative;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  top: 15em;
+  left: 0px;
+  width: 7em;
+  height: 7em;
+  z-index: 5;
+  border-radius: 50px;
+  text-align: center;
+  line-height: 7em;
+  box-shadow: 0px 0px 25px -6px gray;
+  cursor: pointer;
+}
+.bottom-btn i{
+  font-size: 2.8em;
+
+}

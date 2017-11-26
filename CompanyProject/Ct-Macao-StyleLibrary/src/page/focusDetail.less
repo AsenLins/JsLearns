@@ -1,0 +1,405 @@
+@import "masterPage.less";
+@import "../components/nav.less";
+@import "../components/bgPlane.less";
+
+/*頁面結構*/
+a{
+  -webkit-tap-highlight-color:transparent;
+  tap-highlight-color:transparent;
+  cursor: pointer;
+}
+
+body,html{
+  overflow-x: hidden;
+  //background-color: white;
+}
+
+img{
+  max-width: 100%;
+}
+
+.base-box{
+  padding:0 calc(~"50% - 600px");
+}
+
+.plane{
+  position: relative;
+  top: 0;
+  width: 100%;
+}
+
+/*背景*/
+.plane.background-banner{
+  background-size: cover;
+  background-position: center;
+  height: 40%;
+}
+
+
+/*詳情簡介信息*/
+.detail-plane{
+    box-shadow: 0px 0px 25px -7px gray;
+    background-color: white;
+    position: relative;
+    top: -10em;
+    padding: 1%;
+}
+.detail-group{
+  display: flex;
+  flex-direction: row;
+  //margin: 5%;
+  justify-content: space-between;
+  transition:all 200ms;
+  //margin-top: 5%;
+  position: relative;
+
+
+
+}
+.detail-group strong{
+  color: #b80000;
+}
+.detail-imgList{
+  flex-basis: 64.7%;
+}
+.detail-des{
+  border:1px solid #e0e0e0;
+  flex-basis: 35%;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  //margin: auto 2em;
+}
+.detail-des_tip{
+  text-align: center;
+  font-size: 1.6em;
+  color: #b80000;
+  padding-top: 14%;
+  padding-bottom: 5%;
+  font-weight: bold;
+}
+.detail-des_avgprice{
+  margin: 0 2%;
+  font-size: 1.35em;
+  padding: 0% 10% 5% 10%;
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 5%;
+}
+
+.detail-des_planePrice{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 2%;
+  font-size: 1.35em;
+  padding: 0% 10% 5% 10%;
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 5%;
+}
+
+.detail-des_planePrice p{
+  margin: 0;
+}
+
+.detail-des_price{
+
+}
+
+.detail-des_area{
+
+}
+
+.detail_des_type{
+  margin: 0 2%;
+  font-size: 1.1em;
+  padding: 0% 10% 2% 10%;
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 2%;
+}
+
+.detail-des_sales{
+  display: flex;
+  flex-direction: row;
+}
+
+.detail_des_salesPlane{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-self: center;
+  position: relative;
+  top: 2.5em;
+  padding-right: 4%;
+}
+
+.detail-des_img{
+  margin-left:8%;
+}
+.detail_des_sales_name{
+  margin: 0px;
+  position: relative;
+  top: 1em;
+  left: 0.5em;
+}
+.detail-des_sales_number{
+  margin: 0px;
+}
+.detail-des_sales img{
+
+  flex-grow: 0;
+}
+
+.detail_des_sales_name{
+
+}
+
+.detail-des_sales_number{
+  position: relative;
+  left: 0.5em;
+}
+
+.detail-des_phone{
+  position: relative;
+  top: 0px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.detail-des_phone p{
+  position: relative;
+  top: 0px;
+}
+.detail-des_phone p{
+  align-self: flex-end;
+  text-align: center;
+  line-height: 2.5;
+  background-color: #d6161a;
+  width: 100%;
+  margin: 0;
+  color: white;
+  font-size: 1.4em;
+  transition: all 200ms;
+  box-shadow: 0px 2px 10px -3px gray;
+}
+.detail-des_phone i{
+  font-size: 1.5em;
+  color: white;
+  position:relative;
+  top:0.1em;
+}
+
+.detail-group:hover .detail-des_phone p{
+  background-color: #f75048;
+  color: white;
+}
+
+.detial-des_phone_icon{
+
+}
+.detail-des_phone{
+  position: relative;
+  top: 0px;
+}
+.detial-des_phonegroup{
+  background-color: #d6161a;
+  color: white;
+  width: 100%;
+  height: 3em;
+  line-height: 3em;
+
+  display: inline;
+  text-align: center;
+  font-size: 1.8em;
+  padding-left: 11%;
+  bottom: 0;
+}
+.detial-des_phonegroup::after{
+  clear: both;
+  display:block;
+  content: "";
+
+}
+.detial-des_phonegroup>div{
+  float: left;
+}
+
+.detial-phone_num {
+  margin-top: 0.4em;
+  margin-left: 0.4em;
+}
+.detial-phone_num div{
+  font-size: 0.9em;
+  line-height: 1.2;
+}
+
+@media screen and (max-width:@phone-maxWidth)
+{
+  .detail-group{
+    flex-direction: column;
+  }
+  .detail-group>div{
+    width: 100%;
+  }
+  .detail-imgList{
+    text-align:center;
+  }
+  .detail-des_tip{
+    margin: 0;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    font-size: 1.3em;
+  }
+  .detail-des_avgprice,
+  .detail-des_planePrice,
+  .detail_des_type
+
+  {
+      padding-top: 1%;
+      position:relative;
+      top: -1.2em;
+      font-size: 1.2em;
+  }
+  .detail_des_type{
+    margin-bottom: 0;
+  }
+  .detail-des_sales img{
+      width: 75%;
+  }
+  .detail_des_salesPlane{
+      top:0;
+      padding-right: 0%;
+      position: relative;
+      left: -2em;
+      top: -1em;
+  }
+  .detail-des_sales{
+    margin-bottom: 1em;
+  }
+
+  .detail-des_phone p{
+    line-height: 2;
+
+  }
+  .detail-plane{
+    top: 0;
+  }
+}
+
+
+
+.detail-des_salesPoint{
+  margin-top: 2em;
+  background-color: #fff7f5;
+  padding: 1%;
+}
+.detail-des_salesTips{
+  color: white;
+  background-color: #ea4d2c;
+  padding:0.4em;
+  padding-left: 0.8em;
+  padding-right: 0.8em;
+}
+
+
+/*效果图菜单*/
+.detail-des_floor{
+
+
+
+}
+.detail-type_tip{
+    color: #666666;
+    height: 100%;
+}
+.detail-des_floorgroup{
+  border:1px solid #ececec;
+  border-left: 0px;
+  border-right: 0px;
+  position: relative;
+  top: -8em;
+}
+.detail-des_floor label{
+  color: #666666;
+  font-size: 1.4em;
+    line-height: 3;
+
+}
+.detail-des_type a{
+  border-right: 1px solid #e7e7e7;
+  padding-right: 0.6em;
+  padding-left: 0.6em;
+}
+.detail-des_type{
+  display: inline-block;
+  overflow-x: auto;
+  white-space:nowrap;
+  text-align: right;
+  width: 85%;
+  height: 100%;
+}
+
+@media screen and (max-width:@phone-maxWidth) {
+  .detail-type_tip{
+    display: block;
+  }
+  .detail-des_type{
+    display: block;
+    width: 100%;
+  }
+  .detail-des_floorgroup{
+    top: 0em;
+    padding: 2.5%;
+  }
+
+
+
+}
+
+
+/*楼层效果图*/
+.detail-img{
+  position: relative;
+  top: 0px;
+  float: left;
+  width: 32%;
+  margin-right: 1%;
+  margin-top: 1%;
+}
+.detail-img_list{
+  position: relative;
+  top: -5em;
+}
+.detail-img_list::after{
+  clear: both;
+  display: none;
+  content: "";
+}
+.detial-title{
+  position: absolute;
+  right: 0;
+  width: 70%;
+  bottom: 1em;
+  background-color:rgba(52, 52, 52, 0.8);
+  font-size: 1.2em;
+  line-height: 3.5;
+  padding-left: 1em;
+  color: white;
+}
+
+@media screen and (max-width:@phone-maxWidth) {
+  .detail-img_list{
+    top:0em;
+  }
+  .detail-img{
+    padding: 5%;
+    width: 100%;
+    margin: 0;
+  }
+  .detial-title{
+        right: 5%;
+          bottom: 3em;
+  }
+
+}
