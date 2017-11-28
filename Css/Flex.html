@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Flex使用总结[2017-11-28]</title>
+    <style type="text/css">
+
+      /*.example1-box*/
+      .example1-box{
+        display:inline-flex;
+        flex-flow: row;
+        border-radius: 5px;
+        background-color: #edefe9;
+
+        padding: 10px;
+        width: 300px;
+      }
+
+      .example1-item{
+        color: white;
+        width: auto;
+        background-color: #6ba6a3;
+        margin:0 5%;
+        padding:10px;
+        border-radius: 3px;
+      }
+
+      /*example2*/
+      .example2-box{
+        display:inline-flex;
+        flex-direction:column;
+        flex-wrap: wrap;
+        border-radius: 5px;
+        background-color: #edefe9;
+        padding: 10px;
+        justify-content:space-around;
+        align-items:center;
+        white-space:nowrap;
+
+      }
+      .example2-item{
+        color: white;
+        width: auto;
+        background-color: #6ba6a3;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding:10px;
+        border-radius: 3px;
+      }
+
+
+
+      /*
+      .example1-item:nth-child(1){
+        background-color:orange;
+      }
+      .example1-item:nth-child(2){
+        background-color:gray;
+      }
+      .example1-item:nth-child(3){
+        background-color:green;
+      }
+      */
+
+      /*.example2-box*/
+
+
+    </style>
+  </head>
+  <body>
+    <xmp theme="united" style="display:none;">
+### Flex使用总结:
+在Flex布局未出现之前，大多数的布局都是使用block,inline-block,float去实现的(clear或overflow)，Flex是Css3新增的一个**布局属性**,使用Flex可以更轻易常用布局以及一些复杂的布局，可以用更少的样式，实现更复杂的页面。
+
+### Flex原理以及局限：
+- Flex布局主要是通过一条主轴（x）和一条交叉轴（y）来对布局元素定位。
+
+- 在flex布局元素中的子元素可以使用子元素的**flex属性**。
+
+- Flex布局的子元素的外边距以及内边距会因自身或父元素的**Flex对齐属性**而受影响（justify-content,align-items,align-content,align-self）。
+
+- 未声明元素宽度时，使用padding或marrgin会超出元素自身宽度。
+
+- 会与white-space冲突。
+
+### Flex语法:
+声明为flex布局只需以下样式：
+```
+.box{
+  /*声明为Flex布局元素*/
+  display:flex;
+
+  /*声明排列方式为“行”排列,这也是默认排列*/
+  flex-direction:row;
+}
+
+```
+
+
+行排列(flex-direction:row )：
+<div class="example1-box">
+  <a class="example1-item">item-1</a>
+  <a class="example1-item">item-2</a>
+  <a class="example1-item">item-3</a>
+
+</div>
+
+
+列排列(flex-direction:column)：
+
+
+<div class="example2-box">
+  <div class="example2-item">item-1</div>
+  <div class="example2-item">item-2</div>
+  <div class="example2-item">item-3</div>
+</div>
+
+
+
+
+
+#### Flex盒子布局语法:
+- flex-grow: 元素占比。
+
+
+
+
+
+
+    </xmp>
+    <script src="../Script/strapdown/strapdownjs.js"></script>
+
+    <script>
+
+    </script>
+  </body>
+  </html>
