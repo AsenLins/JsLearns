@@ -1,0 +1,120 @@
+/*基础样式*/
+body,html{
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  font-size: 62.5%;
+}
+
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+img{
+  max-width: 100%;
+}
+h1,h2,h3,h4,h5,h6,
+p{
+
+}
+
+
+/*头部*/
+.header{
+
+}
+
+/*内容*/
+.content{
+  padding:auto 5%;
+  font-size: 14px;
+}
+
+/*底部*/
+.footer{
+
+}
+/*行*/
+.row{
+  display: table;
+  width: 100%;
+  word-break: break-all;
+  text-align: left;
+  vertical-align: top;
+}
+.row::after{
+  clear: both;
+  display: block;
+  content: "";
+}
+
+.row.center{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.row.scroll-x{
+  overflow: hidden;
+  overflow-x:auto;
+}
+
+.row.scroll-y{
+  overflow-y: auto;
+}
+
+.row .col:nth-child(even){
+  background-color:#333333;
+  color: white;
+
+}
+.row .col:nth-child(odd){
+  background-color: #eeeeee;
+}
+.item{
+  display: table-cell;
+  float: left;
+}
+.item-auto{
+  display:table-row;
+}
+
+/*列*/
+.col{
+  display:table-cell;
+  vertical-align:top;
+  table-layout: fixed;
+}
+.col.col-center{
+  text-align: center;
+  vertical-align: middle;
+
+}
+.col::after{
+  width: 10px;
+  height: 10px;
+  background-color: black;
+  display:inline-block;
+  margin-left: 20px;
+  content: " ";
+}
+
+.col.col-vt-middle{
+  vertical-align:middle;
+}
+.col.col-hz-center{
+  text-align: center;
+}
+
+
+/*设备类*/
+.dev{
+
+}
+
+@media screen and (max-width: 768px) {
+  .dev-phone .col{
+      display:table-row;
+  }
+}
