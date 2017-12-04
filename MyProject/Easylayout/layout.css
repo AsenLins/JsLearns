@@ -36,6 +36,59 @@ p{
 .footer{
 
 }
+
+/*table与cell布局*/
+.item-row{
+  position: relative;
+  top: 0px;
+  display: table;
+  width: 100%;
+  word-break: break-all;
+  text-align: left;
+  vertical-align: top;
+}
+.item-row.fixed{
+  table-layout: fixed;
+}
+
+.item-col{
+  display:table-cell;
+  vertical-align:top;
+}
+
+/*水平垂直居中*/
+.item-row.center>.item-col,
+.item-col.center{
+  text-align: center;
+  vertical-align: middle;
+}
+/*垂直居中*/
+.item-row.vt-middle>.item-col,
+.item-col.vt-middle{
+  vertical-align:middle;
+}
+/*水平居中*/
+.item-row.hz-center>.item-col,
+.item-col.hz-center{
+  text-align: center;
+}
+
+
+
+/*inline-block布局*/
+.item-group{
+
+}
+
+.item{
+
+}
+
+
+
+
+
+
 /*行*/
 .row{
   display: table;
@@ -44,40 +97,11 @@ p{
   text-align: left;
   vertical-align: top;
 }
-.row::after{
-  clear: both;
-  display: block;
-  content: "";
-}
+
 
 .row.center{
   margin-left: auto;
   margin-right: auto;
-}
-
-.row.scroll-x{
-  overflow: hidden;
-  overflow-x:auto;
-}
-
-.row.scroll-y{
-  overflow-y: auto;
-}
-
-.row .col:nth-child(even){
-  background-color:#333333;
-  color: white;
-
-}
-.row .col:nth-child(odd){
-  background-color: #eeeeee;
-}
-.item{
-  display: table-cell;
-  float: left;
-}
-.item-auto{
-  display:table-row;
 }
 
 /*列*/
@@ -85,27 +109,10 @@ p{
   display:table-cell;
   vertical-align:top;
   table-layout: fixed;
-}
-.col.col-center{
-  text-align: center;
-  vertical-align: middle;
-
-}
-.col::after{
-  width: 10px;
-  height: 10px;
-  background-color: black;
-  display:inline-block;
-  margin-left: 20px;
-  content: " ";
+  width: auto;
+  text-align: left;
 }
 
-.col.col-vt-middle{
-  vertical-align:middle;
-}
-.col.col-hz-center{
-  text-align: center;
-}
 
 
 /*设备类*/
