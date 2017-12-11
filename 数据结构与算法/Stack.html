@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Stack(栈的实现)</title>
+  </head>
+  <body>
+    <script>
+    /*后进先出*/
+    function Stack(){
+      this.data=[];
+    }
+    Stack.prototype.pop=function(){
+      this.data.pop();
+    }
+    Stack.prototype.isEmpty=function(){
+
+      if(this.data.length==0){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+
+    Stack.prototype.push=function(obj){
+      this.data.push(obj);
+    }
+
+    Stack.prototype.peek=function(){
+      return this.data[this.data.length-1];
+    }
+
+    Stack.prototype.clear=function(){
+      this.data=[];
+    }
+
+    Stack.prototype.size=function(){
+      return this.data.length;
+    }
+
+    var StackObj=new Stack();
+    StackObj.push("Asen");
+    StackObj.push("Kim");
+
+    console.log(StackObj.size());
+    console.log(StackObj.peek());
+
+    StackObj.pop();
+    console.log(StackObj.data);
+    console.log(StackObj.isEmpty());
+    StackObj.clear();
+    console.log(StackObj.data);
+
+
+
+
+
+
+    </script>
+  </body>
+  </html>

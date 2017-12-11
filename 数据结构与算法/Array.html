@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>数组</title>
+  </head>
+  <body>
+  <script type="text/javascript">
+      var MyArray=[];
+      /*push添加元素*/
+      MyArray.push(1);
+      MyArray.push(2);
+      MyArray.push(3,4,5);
+      MyArray.push(6,7,8,9,10);
+      console.log(MyArray);
+
+      /*unshift插入到首位*/
+      MyArray.unshift(6);
+
+      console.log("使用pop删除最后一个元素");
+      MyArray.pop();
+      console.log(MyArray);
+
+      /*shift删除第一个元素*/
+      console.log("shift删除第一个元素");
+      MyArray.shift();
+      console.log (MyArray);
+
+      /*splice从指定索引开始，删除数组*/
+      console.log("splice从指定索引开始，删除数组");
+      MyArray.splice(5,3);
+      console.log(MyArray);
+
+      /*concat合并数组，任意参数*/
+      console.log("concat合并数组，任意参数");
+      var NewMyArray=MyArray.concat(11,12,13,[14,15,16]);
+      console.log(NewMyArray);
+
+
+
+      /*sort排序对象元素*/
+      console.log("sort排序对象元素");
+      var ObjArray=[{
+          name:"asen",
+          age:12
+        },
+        {
+          name:"kim",
+          age:20
+       }];
+
+      var compareAsc=function(a,b){
+          if(a.age>b.age){
+            return 1;
+          }
+          if(a.age<b.age){
+            return -1;
+          }
+          return 0;
+      }
+      var compareDesc=function(a,b){
+        if(a.age>b.age){
+          return -1;
+        }
+        if(a.age<b.age){
+          return 1;
+        }
+        return 0;
+      }
+
+      var sortObjArray=ObjArray.sort(compareAsc);
+      var sortObjArrayDesc=ObjArray.sort(compareDesc);
+      console.log(sortObjArray);
+      console.log(sortObjArrayDesc);
+
+      /*sort字符串会按照ASCII来排序*/
+      console.log("sort字符串会按照ASCII来排序");
+      var strArray=["Apple","Dan","abort","Banner"];
+      var sortStrArray=strArray.sort();
+      console.log(sortStrArray);
+
+
+
+
+
+
+  </script>
+  </body>
+  </html>

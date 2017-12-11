@@ -47,6 +47,7 @@ p{
   text-align: left;
   vertical-align: top;
 }
+
 .item-row.fixed{
   table-layout: fixed;
 }
@@ -84,6 +85,7 @@ p{
 
 }
 
+/*QA:类名集合起来会不会比较好*/
 
 
 
