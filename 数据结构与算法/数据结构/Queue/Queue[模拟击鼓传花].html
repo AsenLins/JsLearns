@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>使用队列模拟击鼓传花游戏</title>
+  </head>
+  <body>
+
+
+
+    <script>
+
+    /*队列*/
+    function Queue() {
+      this.source=[];
+
+      /*队列尾部添加1个元素*/
+      this.enqueue=function(obj){
+        this.source.push(obj);
+      }
+      /*移除队列第一个元素*/
+      this.dequeue=function(){
+        return this.source.shift();
+      }
+
+      /*返回列中第一个元素*/
+      this.front=function(){
+        return this.source[0]
+      }
+
+      /*判断队列是否为空*/
+      this.isEmpty=function(){
+        if(this.source.length==0){
+          return true;
+        }
+        else{
+          return false;
+        }
+      }
+
+      /*判断队列大小*/
+      this.size=function(){
+        return this.source.length;
+      }
+
+      /*打印队列元素*/
+      this.print=function(){
+        console.log(this.source.toString());
+        //return source.toString();
+      }
+
+    }
+
+    /*
+   【循环队列】
+    击鼓传花游戏
+    给出一个停止数字，每当停止的时候，当前选手淘汰
+    */
+    function queenFlower(){
+      //var People=[];
+      var QueueObj=new Queue();
+      this.join=function(joinPeople) {
+        for(var index=0;index<joinPeople.length;index++){
+          QueueObj.enqueue(joinPeople[index]);
+        }
+
+      }
+      /*游戏开始，开始淘汰*/
+      this.play=function(count){
+        var winner="";
+        while(QueueObj.size()>1){
+          for(var index=0;index<count;index++){
+            QueueObj.enqueue(QueueObj.dequeue());
+          }
+          console.log(QueueObj.dequeue()+"已被淘汰");
+        }
+        /*得出胜利者*/
+        console.log("【恭喜】"+QueueObj.dequeue()+"获得胜利！");
+      }
+
+    }
+    var queenFlowerObj=new queenFlower();
+    queenFlowerObj.join(["Asen","Kim","loser","linq","Kay","Dog"]);
+    queenFlowerObj.play(3);
+
+    </script>
+  </body>
+  </html>

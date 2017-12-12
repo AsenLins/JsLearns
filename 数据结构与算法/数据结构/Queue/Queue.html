@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Queue队列</title>
+  </head>
+  <body>
+
+    <script>
+    /*队列*/
+    function Queue() {
+      this.source=[];
+      this.dc="123";
+      var dc="123";
+      /*队列尾部添加1个元素*/
+      this.enqueue=function(obj){
+        this.source.push(obj);
+      }
+      /*移除队列第一个元素*/
+      this.dequeue=function(){
+        return this.source.shift();
+      }
+
+      /*返回列中第一个元素*/
+      this.front=function(){
+        return this.source[0]
+      }
+
+      /*判断队列是否为空*/
+      this.isEmpty=function(){
+        if(this.source.length==0){
+          return true;
+        }
+        else{
+          return false;
+        }
+      }
+
+
+      /*优先队列*/
+
+      /*判断队列大小*/
+      this.size=function(){
+        return this.source.length;
+      }
+
+      /*打印队列元素*/
+      this.print=function(){
+        console.log(this.source.toString());
+        //return source.toString();
+      }
+
+    }
+
+    var QueueObj=new Queue();
+    console.log(QueueObj);
+    QueueObj.enqueue(1);
+    QueueObj.enqueue(2);
+
+    QueueObj.print();
+    QueueObj.dequeue();
+    QueueObj.print();
+    console.log(QueueObj.size());
+    console.log(QueueObj.isEmpty());
+    console.log(QueueObj.front());
+
+    </script>
+  </body>
+  </html>
