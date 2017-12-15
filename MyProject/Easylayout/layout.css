@@ -7,7 +7,7 @@ body,html{
 }
 
 *{
-  box-sizing: border-box;
+  box-sizing : border-box;
   padding: 0;
   margin: 0;
 }
@@ -15,105 +15,123 @@ body,html{
 img{
   max-width: 100%;
 }
+
 h1,h2,h3,h4,h5,h6,
 p{
 
 }
 
 
-/*头部*/
-.header{
+/*布局类*/
 
-}
-
-/*内容*/
-.content{
-  padding:auto 5%;
-  font-size: 14px;
-}
-
-/*底部*/
-.footer{
-
-}
-
-/*table与cell布局*/
-.item-row{
-  position: relative;
-  top: 0px;
-  display: table;
-  width: 100%;
-  word-break: break-all;
-  text-align: left;
-  vertical-align: top;
-}
-
-.item-row.fixed{
-  table-layout: fixed;
-}
-
-.item-col{
-  display:table-cell;
-  vertical-align:top;
-}
-
-/*水平垂直居中*/
-.item-row.center>.item-col,
-.item-col.center{
-  text-align: center;
-  vertical-align: middle;
-}
-/*垂直居中*/
-.item-row.vt-middle>.item-col,
-.item-col.vt-middle{
-  vertical-align:middle;
-}
-/*水平居中*/
-.item-row.hz-center>.item-col,
-.item-col.hz-center{
-  text-align: center;
-}
-
-
-
-/*inline-block布局*/
-.item-group{
-
-}
-
-.item{
-
-}
-
-/*QA:类名集合起来会不会比较好*/
-
-
-
-
-
-/*行*/
+/*容器行*/
 .row{
   display: table;
   width: 100%;
-  word-break: break-all;
-  text-align: left;
+  position: relative;
+  top: 0;
+  left: 0;
   vertical-align: top;
 }
 
-
-.row.center{
-  margin-left: auto;
-  margin-right: auto;
+/*栅栏布局内容列*/
+.col{
+  display: inline-block;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 12.5%;
 }
 
-/*列*/
-.col{
-  display:table-cell;
-  vertical-align:top;
-  table-layout: fixed;
-  width: auto;
+.col-8of1{
+  width: 12.5%;
+}
+
+.col-8of2{
+  width: 25%;
+}
+
+.col-8of3{
+  width: 37.5%;
+}
+
+.col-8of4{
+  width: 50%;
+}
+
+.col-8of5{
+  width: 62.5%;
+}
+
+.col-8of6{
+  width: 75%;
+}
+
+.col-8of7{
+  width: 87.5%;
+}
+
+.col-8of8{
+  width: 100%;
+}
+
+
+
+/*====================元素对齐=======================*/
+/*水平垂直居中*/
+.row.hv-center,
+.row.vh-center{
+  text-align: center;
+  vertical-align: middle;
+}
+
+/*横向对齐*/
+.col.h-center,
+.row.h-center{
+  text-align: center;
+}
+
+.col.h-left,
+.row.h-left{
   text-align: left;
 }
+
+.col.h-right,
+.row.h-right{
+  text-align: right;
+}
+
+/*垂直对齐*/
+.row.v-top>.col,
+.row.v-top:before,
+.row.v-top::before{
+  vertical-align: top;
+}
+
+.row.v-middle>.col,
+.row.v-middle:before,
+.row.v-middle::before{
+  vertical-align: middle;
+}
+
+.row.v-bottom>.col,
+.row.v-bottom:before,
+.row.v-bottom::before{
+  vertical-align: bottom;
+}
+
+.row.v-top:before,
+.row.v-middle:before,
+.row.v-bottom:before,
+.row.v-top::before,
+.row.v-middle::before,
+.row.v-bottom::before{
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: auto;
+}
+
 
 
 
