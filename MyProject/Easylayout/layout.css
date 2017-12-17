@@ -3,26 +3,111 @@ body,html{
   padding: 0;
   margin: 0;
   height: 100%;
+  width:100%;
   font-size: 62.5%;
 }
 
+body{
+  display: table;
+}
+
+/*默认元素基础样式*/
 *{
   box-sizing : border-box;
   padding: 0;
   margin: 0;
+  word-break: break-all;
 }
+
 
 img{
   max-width: 100%;
 }
 
-h1,h2,h3,h4,h5,h6,
-p{
+h1{
+  font-size: 3.6rem;
+}
+h2{
+  font-size: 3rem;
+}
+h3{
+  font-size: 2.7rem;
+}
+h4{
+  font-size: 2.1rem;
+}
+h5{
+  font-size: 1.8rem;
+}
+h6{
+  font-size: 1.6rem;
 
 }
 
 
-/*布局类*/
+a{
+  text-decoration: none;
+  color: gray;
+  outline: none;
+}
+
+
+textarea,
+button,
+input{
+   -webkit-tap-highlight-color: transparent;
+   -webkit-appearance:none;
+   outline: none;
+}
+
+/*【布局】*/
+.header,
+.footer-wrap,
+.container
+{
+  position: relative;
+  top: 0px;
+  left: 0px;
+  font-size: 1.4rem;
+}
+
+.container{
+  max-width:1200px;
+  margin:0 auto;
+}
+
+.container.scroll-y,
+.container.scroll-x{
+  overflow-y: auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+/*【布局】-属性*/
+.container.has-bg{
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-position: center;
+}
+
+.container.has-padding .col{
+  padding: 12px;
+}
+
+.header{
+  height: 64px;
+  width: 100%;
+}
+
+.header.has-Fixed{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
+
+.footer-wrap{
+   display: table-row;
+   height: 1px;
+}
 
 /*容器行*/
 .row{
@@ -41,6 +126,7 @@ p{
   top: 0;
   left: 0;
   width: 12.5%;
+  text-align: left;
 }
 
 .col-8of1{
@@ -74,7 +160,6 @@ p{
 .col-8of8{
   width: 100%;
 }
-
 
 
 /*====================元素对齐=======================*/
@@ -120,6 +205,17 @@ p{
   vertical-align: bottom;
 }
 
+.row.hv-center:before,
+.row.vh-center:before,
+.row.hv-center::before,
+.row.vh-center::before{
+  vertical-align: middle;
+}
+
+.row.hv-center:before,
+.row.vh-center:before,
+.row.hv-center::before,
+.row.vh-center::before,
 .row.v-top:before,
 .row.v-middle:before,
 .row.v-bottom:before,
@@ -132,6 +228,33 @@ p{
   width: auto;
 }
 
+
+/*图片类*/
+img-circle{
+  border-radius:100em;
+}
+
+/*全局属性*/
+.g-zoom-base{
+  z-index: 999;
+}
+.g-zoom-height{
+  z-index: 1000;
+}
+.g-zoom-alert{
+  z-index:1001;
+}
+.g-zoom-max{
+  z-index: 1003;
+}
+
+/*公用样式函数*/
+.clearFloat:after,
+.clearFloat::after{
+  content: "";
+  display: block;
+  clear: both;
+}
 
 
 
