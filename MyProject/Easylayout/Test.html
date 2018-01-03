@@ -2,60 +2,90 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Test</title>
+    <title>样式库</title>
+    <link href="layout.css?v=6" rel="stylesheet" />
     <style type="text/css">
+      .col{
+        /*min-height: 80px;*/
+        color: white;
+        background-color: #d44865;
+      }
+      .box-1{
+        height: 140px;
+        width: 500px;
+        margin-left:auto;
+        margin-right: auto;
+        border-radius: 5px;
+        background-color: #f7f7f7;
+      }
+      #test2::before{
 
-    body{
-      padding: 0;
-      margin: 0;
 
-    }
-
-    .header{
-      width: 100%;
-      display: inline-block;
-      text-align:center;
-      vertical-align: text-bottom;
-    
-
-
-    }
-    .header::after{
-
-    }
-
-    .orange{
-      float:left;
-
-      display: inline-block;
-      background-color: orange;
-      width: 300px;
-    }
-    .blue{
-      width: 300px;
-      display: inline-block;
-      height: 60px;
-      background-color: blue;
-    }
+      }
+      /*#d44865
+        #4ed5c7
+        #f7a67b
+        #f7f7f7
+      */
     </style>
-
-
-
   </head>
   <body>
-    <div class="header">
-      <div class="orange">Item 1</div>
-      <div class="blue">Item 2</div>
+
+
+    <div class="box-1 row  v-middle h-center">
+      <!--
+      <div class="col col-2of8 v-middle">
+            <div>item-1</div>
+      </div>
+
+      <div class="col col-2of8 v-top">
+            <div>item-2</div>
+      </div>
+
+      <div class="col col-2of8 v-bottom">
+            <div>item-3</div>
+      </div>
+     -->
+
+      <div class=" col col-2of8">
+            <p>4444</p>
+            <p>4444</p>
+            <p>4444</p>
+            <p>4444</p>
+      </div>
+
+      <div  class="test2 col col-2of8">
+            <div class="row v-bottom">
+              <div class="col">item-2</div>
+            </div>
+      </div>
+
+      <div  class="col col-2of8">
+            <div>item-3</div>
+      </div>
+
+      <!--
+      <div class="col col-2of8" style="">
+        item-2
+      </div>
+
+      <div class="col col-2of8" >
+        item-3
+      </div>
+
+      <div class="col col-2of8" >
+        item-4
+      </div>
+      -->
+
+
+
+
+
+
 
     </div>
 
-    <div class="content">
 
-
-    </div>
-
-    <div class="footer">
-
-    </div>
   </body>
   </html>

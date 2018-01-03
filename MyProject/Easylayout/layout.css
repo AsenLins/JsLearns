@@ -41,7 +41,6 @@ h5{
 }
 h6{
   font-size: 1.6rem;
-
 }
 
 
@@ -125,35 +124,36 @@ input{
   position: relative;
   top: 0;
   left: 0;
-  width: 12.5%;
-  text-align: left;
+  width: 100%;
+  /*text-align: left;*/
+
 }
 
-.col-8of1{
+.col-1of8{
   width: 12.5%;
 }
 
-.col-8of2{
+.col-2of8{
   width: 25%;
 }
 
-.col-8of3{
+.col-3of8{
   width: 37.5%;
 }
 
-.col-8of4{
+.col-4of8{
   width: 50%;
 }
 
-.col-8of5{
+.col-5of8{
   width: 62.5%;
 }
 
-.col-8of6{
+.col-6of8{
   width: 75%;
 }
 
-.col-8of7{
+.col-7of8{
   width: 87.5%;
 }
 
@@ -161,11 +161,25 @@ input{
   width: 100%;
 }
 
+.col-1of8,
+.col-2of8,
+.col-3of8,
+.col-4of8,
+.col-5of8,
+.col-6of8,
+.col-7of8,
+.col-8of8{
+  padding-left: 15px;
+  padding-right: 15px;
+}
 
 /*====================元素对齐=======================*/
 /*水平垂直居中*/
 .row.hv-center,
-.row.vh-center{
+.row.vh-center,
+.row.vh-center>.col,
+.row.vh-center>.col
+{
   text-align: center;
   vertical-align: middle;
 }
@@ -187,17 +201,20 @@ input{
 }
 
 /*垂直对齐*/
+
 .row.v-top>.col,
 .row.v-top:before,
 .row.v-top::before{
   vertical-align: top;
 }
 
+
 .row.v-middle>.col,
 .row.v-middle:before,
 .row.v-middle::before{
   vertical-align: middle;
 }
+
 
 .row.v-bottom>.col,
 .row.v-bottom:before,
@@ -209,9 +226,23 @@ input{
 .row.vh-center:before,
 .row.hv-center::before,
 .row.vh-center::before{
-  vertical-align: middle;
+  vertical-align:middle;
 }
 
+
+
+.row:before,
+.row::before{
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: auto;
+  vertical-align: top;
+}
+
+
+
+/*
 .row.hv-center:before,
 .row.vh-center:before,
 .row.hv-center::before,
@@ -227,6 +258,7 @@ input{
   height: 100%;
   width: auto;
 }
+*/
 
 
 /*图片类*/
