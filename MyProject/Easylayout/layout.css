@@ -13,7 +13,7 @@ body{
 
 /*默认元素基础样式*/
 *{
-  box-sizing : border-box;
+  box-sizing:border-box;
   padding: 0;
   margin: 0;
   word-break: break-all;
@@ -124,10 +124,9 @@ input{
   position: relative;
   top: 0;
   left: 0;
-  width: 100%;
   /*text-align: left;*/
-
 }
+
 
 .col-1of8{
   width: 12.5%;
@@ -161,17 +160,33 @@ input{
   width: 100%;
 }
 
-.col-1of8,
-.col-2of8,
-.col-3of8,
-.col-4of8,
-.col-5of8,
-.col-6of8,
-.col-7of8,
-.col-8of8{
-  padding-left: 15px;
-  padding-right: 15px;
+.col-offset-1of8{
+  margin-left: 12.5%;
 }
+.col-offset-2of8{
+  margin-left:  25%;
+}
+.col-offset-3of8{
+  margin-left: 37.5%;
+}
+.col-offset-4of8{
+  margin-left:  50%;
+}
+.col-offset-5of8{
+  margin-left:  62.5%;
+}
+.col-offset-6of8{
+  margin-left:  75%;
+}
+
+.col-offset-7of8{
+  margin-left:  87.5%;
+}
+
+.col-offset-8of8{
+  margin-left:  100%;
+}
+
 
 /*====================元素对齐=======================*/
 /*水平垂直居中*/
@@ -183,6 +198,8 @@ input{
   text-align: center;
   vertical-align: middle;
 }
+
+
 
 /*横向对齐*/
 .col.h-center,
@@ -201,20 +218,17 @@ input{
 }
 
 /*垂直对齐*/
-
 .row.v-top>.col,
 .row.v-top:before,
 .row.v-top::before{
   vertical-align: top;
 }
 
-
 .row.v-middle>.col,
 .row.v-middle:before,
 .row.v-middle::before{
   vertical-align: middle;
 }
-
 
 .row.v-bottom>.col,
 .row.v-bottom:before,
@@ -229,36 +243,16 @@ input{
   vertical-align:middle;
 }
 
-
-
 .row:before,
 .row::before{
   content: "";
   display: inline-block;
-  height: 100%;
-  width: auto;
   vertical-align: top;
-}
-
-
-
-/*
-.row.hv-center:before,
-.row.vh-center:before,
-.row.hv-center::before,
-.row.vh-center::before,
-.row.v-top:before,
-.row.v-middle:before,
-.row.v-bottom:before,
-.row.v-top::before,
-.row.v-middle::before,
-.row.v-bottom::before{
-  content: "";
-  display: inline-block;
   height: 100%;
-  width: auto;
+  width:auto;
+
 }
-*/
+
 
 
 /*图片类*/

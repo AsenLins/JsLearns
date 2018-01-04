@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>EasyLayout</title>
+    <link href="../layout.css?v=8" rel="stylesheet" />
+    <style type="text/css">
+      h4{
+        margin-top: 20px;
+        margin-bottom: 5px;
+
+        color:#3b3630;
+      }
+      body{
+        font-family:微软雅黑;
+      }
+      .wrap-center{
+          padding-bottom: 10px;
+      }
+      .box{
+        border-radius: 3px;
+        padding: 15px;
+      }
+      .box>div{
+        border-radius: 1px;
+        height: 60px;
+        line-height: 60px;
+        color: white;
+        margin-left: 15px;
+      }
+      .box>div:nth-child(1){background-color: #c83288;}
+      .box>div:nth-child(2){background-color: #de406e;}
+      .box>div:nth-child(3){background-color: #ff9f6e;}
+      .box>div:nth-child(4){background-color: #a6e8a1;}
+      .box>div:nth-child(1){background-color: #51c7bb;}
+      .box>div:nth-child(4){background-color: #138bb9;}
+      .box>div:nth-child(7){background-color: #ff9f6e;}
+      .box>div:nth-child(8){background-color: #de406e;}
+
+
+      .box-1{
+        width: 100%;
+        height: 140px;
+        background-color: #ffeed1;
+        border-radius: 5px;
+      }
+
+      .box-2{
+        width: 100%;
+        height: 140px;
+        background-color: #ffeed1;
+        border-radius: 5px;
+      }
+
+
+      .wrap-center{
+        margin-left:auto;
+        margin-right:auto;
+        width: 600px;
+      }
+
+    </style>
+  </head>
+  <body>
+
+
+
+    <div class="wrap wrap-center">
+      <h4>垂直-顶部对齐</h4>
+      <div class="box box-1 row">
+        <div class="col col-1of8 h-center ">col-1</div>
+        <div class="col col-1of8 h-center ">col-2</div>
+        <div class="col col-1of8 h-center ">col-3</div>
+        <div class="col col-1of8 h-center ">col-4</div>
+      </div>
+      <h4>垂直-居中对齐</h4>
+      <div class="box box-2 row  v-middle ">
+        <div class="col col-1of8 h-center ">col-1</div>
+        <div class="col col-1of8 h-center ">col-2</div>
+        <div class="col col-1of8 h-center ">col-3</div>
+        <div class="col col-1of8 h-center ">col-4</div>
+
+      </div>
+
+      <h4>垂直-底部对齐</h4>
+      <div class="box box-2 row  v-bottom ">
+        <div class="col col-1of8 h-center ">col-1</div>
+        <div class="col col-1of8 h-center ">col-2</div>
+        <div class="col col-1of8 h-center ">col-3</div>
+        <div class="col col-1of8 h-center ">col-4</div>
+
+      </div>
+
+      <h4>水平-左对齐</h4>
+      <div class="box box-2 row h-left  ">
+        <div class="col col-1of8 h-center ">col-1</div>
+        <div class="col col-1of8 h-center ">col-2</div>
+        <div class="col col-1of8 h-center ">col-3</div>
+        <div class="col col-1of8 h-center ">col-4</div>
+      </div>
+
+      <h4>水平-右对齐</h4>
+      <div class="box box-2 row h-right  ">
+        <div class="col col-1of8 h-center ">col-1</div>
+        <div class="col col-1of8 h-center ">col-2</div>
+        <div class="col col-1of8 h-center ">col-3</div>
+        <div class="col col-1of8 h-center ">col-4</div>
+      </div>
+
+      <h4>水平-居中对齐</h4>
+      <div class="box box-2 row h-center  ">
+        <div class="col col-1of8 h-center ">col-1</div>
+        <div class="col col-1of8 h-center ">col-2</div>
+        <div class="col col-1of8 h-center ">col-3</div>
+        <div class="col col-1of8 h-center ">col-4</div>
+      </div>
+
+      <h4>垂直水平居中</h4>
+      <div class="box box-2 row vh-center  ">
+        <div class="col col-1of8 h-center ">col-1</div>
+        <div class="col col-1of8 h-center ">col-2</div>
+        <div class="col col-1of8 h-center ">col-3</div>
+        <div class="col col-1of8 h-center ">col-4</div>
+      </div>
+
+    </div>
+
+
+    <!--<script src="../../../Script/strapdown/strapdownjs.js"></script>-->
+
+    <script>
+
+    </script>
+  </body>
+  </html>
