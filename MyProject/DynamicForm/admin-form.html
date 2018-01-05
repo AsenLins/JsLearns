@@ -1,0 +1,152 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Amaze UI Admin form Examples</title>
+  <meta name="description" content="表单生成">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="icon" type="image/png" href="ui/assets/i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="ui/assets/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" href="ui/assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="ui/assets/css/admin.css">
+
+
+  <style type="text/css">
+    a{
+      cursor: pointer;
+    }
+
+    html{
+      width: 100%;
+      height: 100%;
+    }
+
+    body{
+      background-image: url('content/projectImage/bg.png');
+
+    }
+    .admin-sidebar{
+      overflow: hidden;
+    }
+
+    .am-nav-tabs{
+      margin-top: 0.6em;
+      margin-left: 0.5em;
+    }
+
+    .am-topbar-customer{
+      /*
+      background-color: #ed2c33;
+      border-color:#da1b22;
+      color:#eee;
+      */
+    }
+
+    body{
+
+     /*
+      height: 100%;
+      width: 100%;
+      background:#eeeeee;
+                  background-image: linear-gradient(white 2px,transparent 0),
+                      linear-gradient(90deg, white 2px,transparent 0),
+                     linear-gradient(hsla(0,0%,100%,.3) 1px,transparent 0),
+                      linear-gradient(90deg,hsla(0,0%,100%,.3) 1px,transparent 0);
+                  background-size:75px 75px,75px 75px,15px 15px,15px 15px;
+      */
+    }
+
+  </style>
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<header class="am-topbar am-topbar-customer admin-header">
+  <div class="am-topbar-brand">
+    <strong>Auto Form</strong> <small>表单生成</small>
+  </div>
+</header>
+
+<div class="am-cf admin-main">
+  <!-- sidebar start -->
+  <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+    <div class="am-offcanvas-bar admin-offcanvas-bar">
+      <ul class="am-list admin-sidebar-list">
+
+        <li class="admin-parent">
+          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 表单控件 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+          <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+            <li><a class="am-cf"><span class="am-icon-check"></span> 输入框</a></li>
+            <li><a><span class="am-icon-puzzle-piece"></span> 单选框</a></li>
+            <li><a><span class="am-icon-th"></span> 复选框</a></li>
+            <li><a><span class="am-icon-calendar"></span>文件上传</a></li>
+            <li><a><span class="am-icon-bug"></span>下拉框</a></li>
+            <li><a><span class="am-icon-bug"></span>日期选择框</a></li>
+            <li><a><span class="am-icon-bug"></span>多行输入框</a></li>
+          </ul>
+        </li>
+
+        <div class="am-panel am-panel-default admin-sidebar-panel">
+          <div class="am-panel-bd">
+            <p><span class="am-icon-bookmark"></span> 使用方法</p>
+            <p>请拖动左方控件到右方面板中。</p>
+          </div>
+        </div>
+
+
+      </ul>
+
+    </div>
+  </div>
+  <!-- sidebar end -->
+
+<!-- content start -->
+<div class="admin-content">
+  <div class="admin-content-body">
+    <ul class="am-nav am-nav-tabs">
+      <li class="am-active"><a href="#">表单1</a></li>
+      <li class="am-active"><a href="#">表单2</a></li>
+    </ul>
+
+    <div class="am-tab-content">
+
+
+    </div>
+
+  </div>
+
+  <!--
+  <footer class="admin-content-footer">
+    <hr>
+    <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+  </footer>
+  -->
+</div>
+<!-- content end -->
+
+</div>
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+
+<footer>
+  <hr>
+  <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+</footer>
+
+
+
+
+<script src="ui/assets/js/jquery.min.js"></script>
+
+<script src="ui/assets/js/amazeui.min.js"></script>
+<script src="ui/assets/js/app.js"></script>
+</body>
+</html>
