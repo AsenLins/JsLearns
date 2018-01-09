@@ -11,10 +11,8 @@
 if(window.define){
   console.log("..");
   window.define({
-
   })
-}
-else{
+}else{
   console.log(window);
   console.log("require.js未加载");
 }

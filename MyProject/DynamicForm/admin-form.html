@@ -3,12 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Amaze UI Admin form Examples</title>
+  <title>Auto Form</title>
   <meta name="description" content="表单生成">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="renderer" content="webkit">
   <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <link rel="icon" type="image/png" href="ui/assets/i/favicon.png">
   <link rel="apple-touch-icon-precomposed" href="ui/assets/i/app-icon72x72@2x.png">
   <meta name="apple-mobile-web-app-title" content="Amaze UI" />
   <link rel="stylesheet" href="ui/assets/css/amazeui.min.css"/>
@@ -39,27 +38,12 @@
     }
 
     .am-topbar-customer{
-      /*
+
       background-color: #ed2c33;
       border-color:#da1b22;
       color:#eee;
-      */
+
     }
-
-    body{
-
-     /*
-      height: 100%;
-      width: 100%;
-      background:#eeeeee;
-                  background-image: linear-gradient(white 2px,transparent 0),
-                      linear-gradient(90deg, white 2px,transparent 0),
-                     linear-gradient(hsla(0,0%,100%,.3) 1px,transparent 0),
-                      linear-gradient(90deg,hsla(0,0%,100%,.3) 1px,transparent 0);
-                  background-size:75px 75px,75px 75px,15px 15px,15px 15px;
-      */
-    }
-
   </style>
 </head>
 <body>
@@ -74,14 +58,24 @@
   </div>
 </header>
 
-<div class="am-cf admin-main">
+<div id="test" class="am-cf admin-main">
+
+  {{message}}
   <!-- sidebar start -->
   <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
     <div class="am-offcanvas-bar admin-offcanvas-bar">
       <ul class="am-list admin-sidebar-list">
-
+        <!--
         <li class="admin-parent">
-          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 表单控件 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 布局 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+          <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+            <li><a class="am-cf"><span class="am-icon-check"></span> 行面板</a></li>
+            <li><a><span class="am-icon-puzzle-piece"></span> 列面板</a></li>
+          </ul>
+        </li>
+
+        <li >
+          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 表单 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
           <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
             <li><a class="am-cf"><span class="am-icon-check"></span> 输入框</a></li>
             <li><a><span class="am-icon-puzzle-piece"></span> 单选框</a></li>
@@ -92,6 +86,19 @@
             <li><a><span class="am-icon-bug"></span>多行输入框</a></li>
           </ul>
         </li>
+       -->
+
+      <li v-for="plane in formMap">
+          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span>
+              {{plane.title}}
+              <span class="am-icon-angle-right am-fr am-margin-right"></span>
+          </a>
+          <ul class="am-list am-collapse admin-sidebar-sub am-in">
+              <li v-on:click="testClick" v-for="menu in plane.controlMap"><a class="am-cf"><span class="am-icon-check"></span>
+                {{menu.title}}
+              </a></li>
+          </ul>
+      </li>
 
         <div class="am-panel am-panel-default admin-sidebar-panel">
           <div class="am-panel-bd">
@@ -116,8 +123,9 @@
     </ul>
 
     <div class="am-tab-content">
+      <div>
 
-
+      </div>
     </div>
 
   </div>
@@ -143,10 +151,107 @@
 
 
 
-
+<!--
 <script src="ui/assets/js/jquery.min.js"></script>
 
 <script src="ui/assets/js/amazeui.min.js"></script>
 <script src="ui/assets/js/app.js"></script>
+-->
+<script src="scripts/vue/vue.js"></script>
+<script src="scripts/requirejs/require.js"></script>
+
+<script type="text/javascript">
+var formMap={
+  layout:{
+    title:"表单",
+    icon:"",
+    enable:true,
+    controlMap:
+    {
+      "row":{
+        title:"行面板",
+        icon:"",
+        enable:true
+      },
+      "col":{
+        title:"列面板",
+        icon:"",
+        enable:true
+      }
+    }
+
+  },
+  formControl:
+  {
+    title:"表单",
+    icon:"",
+    enable:true,
+    controlMap:{
+      "input":{
+        title:"文本框",
+        icon:"",
+        enable:true
+      },
+      "radio":{
+        title:"单选框",
+        icon:"",
+        enable:true
+      },
+      "checkbox":{
+        title:"多选框",
+        icon:"",
+        enable:true
+      },
+      "select":{
+        title:"下拉框",
+        icon:"",
+        enable:true
+      },
+      "timepicket":{
+        title:"时间选择",
+        icon:"",
+        enable:true
+      },
+      "Multiline":{
+        title:"多行文本",
+        icon:"",
+        enable:true
+      },
+      "file":{
+        title:"文件上传",
+        icon:"",
+        enable:true
+      }
+    }
+  }
+
+
+}
+
+
+
+
+  var mydata=new Vue({
+    el:"#test",
+    data:{
+      message:"hello world",
+      formMap:formMap
+    },
+    methods:{
+      testClick:function(e){
+        console.log(this);
+        console.log(this.data);
+        this.title="123";
+        console.log("触发vue的点击事件",e);
+      }
+    }
+  });
+
+
+
+
+</script>
+
+
 </body>
 </html>
