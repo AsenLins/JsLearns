@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>着色器绘制一个点</title>
+  </head>
+  <body>
+
+    <canvas id="webgl_point"><canvas>
+
+    <script src="LearnDemo/lib/webgl-utils.js"></script>
+    <script src="LearnDemo/lib/webgl-debug.js"></script>
+    <script src="LearnDemo/lib/cuon-utils.js"></script>
+    <script>
+
+    function drawPoint() {
+      /**
+       * 顶点着色器语言
+       * @type {字符串}
+       */
+      var VSHADER_SOURCE =
+        'void main() {\n' +
+        '  gl_Position = vec4(0.0, 0.0, 0.0, 1.0);\n' + //设置初始位置
+        '  gl_PointSize = 10.0;\n' +                    //设置初始大小
+        '}\n';
+
+      /**
+       * 片元着色器语言
+       * @type {字符串}
+       */
+      var FSHADER_SOURCE =
+        'void main() {\n' +
+        '  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n' + //渲染颜色
+        '}\n';
+
+        /*获取canvas并且获取webgl上下文*/
+        var canvas=document.getElementById("webgl_point");
+        var gl=canvas.getContext("webgl");
+
+        /*初始化着色器，并且传入执行着色器执行函数*/
+        if(!initShaders(gl,VSHADER_SOURCE,FSHADER_SOURCE)){
+          console.log("着色器初始化失败");
+          return;
+        }
+
+        /*设置背景颜色值*/
+        gl.clearColor(0.5,0.5,0.5,1);
+
+        /*清空颜色缓冲区*/
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+        /*绘制一个点*/
+        gl.drawArrays(gl.POINTS, 0, 1);
+
+    }
+
+
+
+    drawPoint();
+
+
+
+
+
+
+
+
+
+
+    </script>
+  </body>
+  </html>

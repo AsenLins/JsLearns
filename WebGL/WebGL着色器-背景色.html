@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>WebGL入门</title>
+    <style type="text/css">
+      body{
+        margin: 0px;
+        padding: 0px;
+      }
+      #example{
+        /*background-color:gray;*/
+      }
+    </style>
+  </head>
+  <body onload="">
+    <canvas id="example" width="400" height="400" style="">
+      该浏览器不支持Canvas
+    </canvas>
+    <script>
+      var canvas=document.getElementById('example');
+
+      /*获取绘画2d上下文*/
+      //var canvas2d=canvas.getContext("2d");
+
+      //canvas2d.fillStyle = 'rgba(0, 0, 255, 1.0)'; // Set color to blue
+      //canvas2d.fillRect(120, 10, 150, 150);
+
+
+
+
+
+      /*获取绘画3d上下文
+      因为不同浏览器的webGL声明字符串有可能会不一样，但最终都是webgl，所以要注意.
+      "webgl", "experimental-webgl", "webkit-3d", "moz-webgl"
+      */
+      var gl=canvas.getContext("webgl",true);
+
+      /*
+      gl.clearColor
+      指定清空的背景颜色，需要配合gl.clear函数
+      参数是r,g,b,透明度*/
+      gl.clearColor(0.0,0.0,0.0,1.0);
+
+
+
+      /*
+      gl.clear
+      清空背景颜色
+      参数是:缓存区code，它支持下方3个值：
+      gl.COLOR_BUFFER_BIT:清空颜色缓存  （默认值：0.0,0.0,0.0,0.0）
+      gl.DEPTH_BUFFER_BIT:清空深度缓存区 (默认值：1.0)
+      gl.STENCIL_BUFFER_BIT:清空指定模板缓存区 （默认值：0）
+
+      一旦使用了clear函数指定了背景色，就无需再多次指定，除非需要换背景色
+      */
+      gl.clear(gl.COLOR_BUFFER_BIT);
+
+      gl.clearColor(0.3,0.83,0.83,1);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+
+
+
+
+    </script>
+
+  </body>
+  </html>
