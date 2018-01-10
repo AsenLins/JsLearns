@@ -1,0 +1,14 @@
+{
+  "layout":{
+
+  },
+  "formControl":{
+    "input":"<input type='@type'/>",
+    "radio":"<input type='radio' />",
+    "checkbox":"<input type='checkbox' />",
+    "select":"<select></select>",
+    "timepicket":"<input type='text' />",
+    "multiline":"<",
+    "file":"<input type='file' />"
+  }
+}

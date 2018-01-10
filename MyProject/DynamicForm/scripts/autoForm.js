@@ -86,7 +86,6 @@
    * vue
    * Create At 2018-1-9 Asen
    * @param  {对象} formMap [数据源]
-   * @return {[type]}         [description]
    */
   var drag=function(formMap){
 

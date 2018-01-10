@@ -44,6 +44,13 @@
       color:#eee;
 
     }
+    .admin-sidebar-list li div{
+      display: block;
+      padding: 1rem 0;
+      cursor:pointer;
+      color: #5c5c5c;
+      padding-left: 24px;
+    }
   </style>
 </head>
 <body>
@@ -59,7 +66,7 @@
 </header>
 
 <div id="test" class="am-cf admin-main">
-
+  <autoform-input></autoform-input>
   {{message}}
   <!-- sidebar start -->
   <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
@@ -89,14 +96,16 @@
        -->
 
       <li v-for="plane in formMap">
-          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span>
+          <a  class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span>
               {{plane.title}}
               <span class="am-icon-angle-right am-fr am-margin-right"></span>
           </a>
           <ul class="am-list am-collapse admin-sidebar-sub am-in">
-              <li v-on:click="testClick" v-for="menu in plane.controlMap"><a class="am-cf"><span class="am-icon-check"></span>
-                {{menu.title}}
-              </a></li>
+              <li draggable="false" ondragstart="dragStart(event)" v-on:click="testClick" v-for="menu in plane.controlMap">
+                <div class="am-cf"><span class="am-icon-check"></span>
+                  {{menu.title}}
+                </div>
+              </li>
           </ul>
       </li>
 
@@ -122,10 +131,8 @@
       <li class="am-active"><a href="#">表单2</a></li>
     </ul>
 
-    <div class="am-tab-content">
-      <div>
+    <div id="targetPlane" ondragover="dragOver(event)" ondrop="dragEvent(event)" class="am-tab-content" style="width:640px; background-color:#eeeeee; height:600px;">
 
-      </div>
     </div>
 
   </div>
@@ -141,7 +148,7 @@
 
 </div>
 
-<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+<a href="#"  class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 
 
 <footer>
@@ -149,7 +156,7 @@
   <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
 </footer>
 
-
+<input type="text" class="myClass" placeholder="测试" id="Testtext">
 
 <!--
 <script src="ui/assets/js/jquery.min.js"></script>
@@ -161,6 +168,33 @@
 <script src="scripts/requirejs/require.js"></script>
 
 <script type="text/javascript">
+
+var inputs=document.getElementById('Testtext');
+//inputs.attr
+for(var key in inputs){
+  console.log(key,inputs[key]);
+}
+
+console.log(document);
+
+function dragStart(e){
+  console.log("开始拖拽",e);
+  e.dataTransfer.setData("Text","hellow");
+}
+
+function dragOver(e) {
+
+  //console.clear();
+  //console.log("拖拽结束",e);
+  e.preventDefault();
+}
+
+function dragEvent(e) {
+  e.preventDefault();
+  console.log("元素被拖放：",e);
+
+}
+
 var formMap={
   layout:{
     title:"表单",
@@ -194,7 +228,8 @@ var formMap={
       },
       "radio":{
         title:"单选框",
-        icon:"",
+        icon:"3333",
+        html:"<div>dc</div>",
         enable:true
       },
       "checkbox":{
@@ -219,7 +254,8 @@ var formMap={
       },
       "file":{
         title:"文件上传",
-        icon:"",
+        icon:"4444",
+        html:"<div>99<div>",
         enable:true
       }
     }
@@ -231,7 +267,8 @@ var formMap={
 
 
 
-  var mydata=new Vue({
+
+  new Vue({
     el:"#test",
     data:{
       message:"hello world",
@@ -243,6 +280,10 @@ var formMap={
         console.log(this.data);
         this.title="123";
         console.log("触发vue的点击事件",e);
+        console.log(this.formMap["formControl"]["file"]);
+        console.log(this.formMap);
+        this.formMap["formControl"]["controlMap"]["file"]=this.formMap["formControl"]["controlMap"]["radio"];
+        this.formMap["formControl"]["controlMap"]["radio"]=this.formMap["formControl"]["controlMap"]["file"];
       }
     }
   });
