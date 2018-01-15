@@ -13,8 +13,9 @@
   <link rel="stylesheet" href="ui/assets/css/amazeui.min.css"/>
   <link rel="stylesheet" href="ui/assets/css/admin.css">
 
-
+  <link rel="stylesheet" href="css/iconfont.css?v=1" />
   <style type="text/css">
+    /*==========覆盖部分默认样式==========*/
     a{
       cursor: pointer;
     }
@@ -26,8 +27,9 @@
 
     body{
       background-image: url('content/projectImage/bg.png');
-
+      font-family: 微软雅黑;
     }
+
     .admin-sidebar{
       overflow: hidden;
     }
@@ -38,11 +40,9 @@
     }
 
     .am-topbar-customer{
-
       background-color: #ed2c33;
       border-color:#da1b22;
       color:#eee;
-
     }
     .admin-sidebar-list li div{
       display: block;
@@ -51,58 +51,168 @@
       color: #5c5c5c;
       padding-left: 24px;
     }
+
+    /*==========拖拽面板样式==========*/
+    .admin-content-body{
+      background-color: #fafafa;
+    }
+
+    /*==========面板Size类型样式==========*/
+    .formContent-default{
+      width: 414px;
+      height: 736px;
+      border-radius: 0px;
+      background-color: white;
+      box-shadow: 0px 0px 22px -8px black;
+      position:relative;
+      top: 2em;
+      left: 2em;
+      overflow:auto;
+      transition: all 0.5s;
+    }
+
+    .formLayoutType-select{
+      margin-right: 2em;
+    }
+
+    .form-tip-group{
+      display: table;
+      text-align:center;
+      font-size: 1.2em;
+      color: #dfdfdf;
+      height: 100%;
+      width: 100%;
+    }
+
+    .form-tip{
+      display:table-cell;
+      vertical-align:middle;
+      text-align:center;
+    }
+
+    .form-tip-border{
+      border: 1px dashed #eeeeee;
+      padding-top: 0.8em;
+      padding-bottom: 0.8em;
+      width:80%;
+      margin-left: 10%;
+    }
+
+    .icon-tuodong{
+      font-size: 1.0em;
+    }
+
+
+
+    /*面板类型选择*/
+    .formLayoutType-plane{
+      border-top:1px solid #ececec;
+      border-bottom:1px solid #cccccc;
+      height: 35px;
+      font-size: 0.7em;
+      margin-top: 0.3em;
+      padding-left: 2em;
+    }
+
+    .formLayoutType-plane>div{
+      display:inline-block;
+      height: 100%;
+      line-height: 35px;
+    }
+
+    .formLayoutType-select select{
+      margin-bottom: 0.35em;
+      font-weight: bold;
+      width: 125px;
+      text-align:center;
+      border:1px solid #e6e6e6;
+    }
+
+
+
+
+    /*========表单控件样式========*/
+    .am-form-custom{
+      padding: 1em;
+    }
+
+    .am-form-custom button,
+    .am-form-custom select,
+    .am-form-custom textarea,
+    .am-form-custom>div,
+    .am-form-custom input{
+      margin-bottom: 0.4em;
+      margin: 0 0.1em 0.4em 0.1em;
+      flex-grow: 1;
+      flex-shrink:1;
+      cursor: pointer;
+    }
+
+    .am-form-custom input{
+      flex-basis: 15%;
+    }
+
+    .am-form-custom label{
+      flex-grow: 0;
+      flex-shrink:0;
+      line-height: 35px;
+      margin: 0 0.4em;
+      color: #35495e;
+      font-size: 0.9em;
+      cursor: pointer;
+    }
+
+    /*========面板样式========*/
+
+    /*行排列*/
+    .am-form-custom .item-row{
+      display:flex;
+      flex-direction:row;
+      justify-content:start;
+      align-content:center;
+      flex-wrap: wrap;
+    }
+
+    /*列排列*/
+    .am-form-custom .item-colum{
+      display:flex;
+      flex-direction:column;
+    }
+
+    .am-form-custom .item-row,
+    .am-form-custom .item-colum{
+      margin-bottom: 1em;
+    }
+
+
+
+
+
   </style>
 </head>
 <body>
-<!--[if lte IE 9]>
-<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
-  以获得更好的体验！</p>
-<![endif]-->
 
 <header class="am-topbar am-topbar-customer admin-header">
   <div class="am-topbar-brand">
-    <strong>Auto Form</strong> <small>表单生成</small>
+    <strong>Auto Form</strong> <small>表单生成器</small>
   </div>
 </header>
 
-<div id="test" class="am-cf admin-main">
-  <autoform-input></autoform-input>
-  {{message}}
+<div id="autoForm" class="am-cf admin-main">
+
   <!-- sidebar start -->
   <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
     <div class="am-offcanvas-bar admin-offcanvas-bar">
       <ul class="am-list admin-sidebar-list">
-        <!--
-        <li class="admin-parent">
-          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 布局 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-          <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
-            <li><a class="am-cf"><span class="am-icon-check"></span> 行面板</a></li>
-            <li><a><span class="am-icon-puzzle-piece"></span> 列面板</a></li>
-          </ul>
-        </li>
-
-        <li >
-          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 表单 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-          <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
-            <li><a class="am-cf"><span class="am-icon-check"></span> 输入框</a></li>
-            <li><a><span class="am-icon-puzzle-piece"></span> 单选框</a></li>
-            <li><a><span class="am-icon-th"></span> 复选框</a></li>
-            <li><a><span class="am-icon-calendar"></span>文件上传</a></li>
-            <li><a><span class="am-icon-bug"></span>下拉框</a></li>
-            <li><a><span class="am-icon-bug"></span>日期选择框</a></li>
-            <li><a><span class="am-icon-bug"></span>多行输入框</a></li>
-          </ul>
-        </li>
-       -->
-
       <li v-for="plane in formMap">
-          <a  class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span>
+          <a  class="am-cf" data-am-collapse="{target: '#collapse-nav'}">
+            <span :class="plane.icon"></span>
               {{plane.title}}
-              <span class="am-icon-angle-right am-fr am-margin-right"></span>
+            <span class="am-icon-angle-right am-fr am-margin-right"></span>
           </a>
           <ul class="am-list am-collapse admin-sidebar-sub am-in">
-              <li draggable="false" ondragstart="dragStart(event)" v-on:click="testClick" v-for="menu in plane.controlMap">
-                <div class="am-cf"><span class="am-icon-check"></span>
+              <li draggable="true" ondragstart="dragStart(event)"  v-for="menu in plane.controlMap">
+                <div class="am-cf"><span :class="menu.icon"></span>
                   {{menu.title}}
                 </div>
               </li>
@@ -112,11 +222,10 @@
         <div class="am-panel am-panel-default admin-sidebar-panel">
           <div class="am-panel-bd">
             <p><span class="am-icon-bookmark"></span> 使用方法</p>
-            <p>请拖动左方控件到右方面板中。</p>
+            <p>1.请先添加面板控件。</p>
+            <p>2.再拖动表单控件。</p>
           </div>
         </div>
-
-
       </ul>
 
     </div>
@@ -126,25 +235,112 @@
 <!-- content start -->
 <div class="admin-content">
   <div class="admin-content-body">
-    <ul class="am-nav am-nav-tabs">
-      <li class="am-active"><a href="#">表单1</a></li>
-      <li class="am-active"><a href="#">表单2</a></li>
-    </ul>
 
-    <div id="targetPlane" ondragover="dragOver(event)" ondrop="dragEvent(event)" class="am-tab-content" style="width:640px; background-color:#eeeeee; height:600px;">
+    <div class="formLayoutType-plane" id="formLayoutType-plane">
+      <div class="formLayoutType-select">
+        <select v-model="layout.itemSelect" @change="layoutChange">
+          <option  v-for="(sizeItem,key) in layout.layoutItems" :value="key" >{{key}}</option>
+        </select>
+      </div>
+      <div class="formLayoutType-size">{{layout.currentSize.width}} * {{layout.currentSize.height}}</div>
+    </div>
+    <div id="js-formDragPlane" ondragover="dragOver(event)" ondrop="dragEvent(event)" :style="layoutStyle" class="formContent-default" >
 
+<form>
+ <div class="am-form-custom">
+   <div draggable="true" ondragstart="dragStart(event)" class="item-row">
+       <label draggable="true" ondragstart="dragStart(event)">密码邮件:</label>
+       <input  type="email"  class="am-form-field" placeholder="电子邮件" data-form-un="1516000411279.6406">
+       <label>-</label>
+       <input  type="email" class="am-form-field" placeholder="电子邮件" data-form-un="1516000411279.6406">
+       <label>-</label>
+       <input  type="email" class="am-form-field" placeholder="电子邮件" data-form-un="1516000411279.6406">
+   </div>
+
+   <div class="item-row">
+       <label>密码邮件:</label>
+       <input  type="email"  class="am-form-field" placeholder="电子邮件" data-form-un="1516000411279.6406">
+       <label>性别:</label>
+
+       <select>
+         <option value="">苹果</option>
+         <option value="">香蕉</option>
+         <option value="">橙子</option>
+       </select>
+   </div>
+
+   <div class="item-colum">
+
+   </div>
+
+   <div class="item-row">
+     <label>选择一样水果:</label>
+     <label><input type="checkbox"> 苹果</label>
+     <label><input type="checkbox"> 香蕉</label>
+     <label><input type="checkbox"> 橙子</label>
+     <label><input type="checkbox"> 橙子</label>
+     <label><input type="checkbox"> 橙子</label>
+   </div>
+
+ </div>
+
+
+</form>
+<!--
+<form class="am-form-custom am-form-inline" role="form">
+  <div class="am-form am-form-group">
+      <label for="doc-ipt-pwd-2" >密码</label>
+    <input type="email" class="am-form-field" placeholder="电子邮件" data-form-un="1516000411279.6406">
+  </div>&nbsp;
+  <div class="am-form-group">
+    <label for="doc-ipt-pwd-2" >密码</label>
+    <input type="password" class="am-form-field" placeholder="密码" data-form-pw="1516000411279.6406"></div>&nbsp;
+  <div class="am-checkbox">
+
+  <label>
+
+    <input type="checkbox"> 记住我</label></div>&nbsp;
+    <button type="submit" class="am-btn am-btn-default" data-form-sbm="1516000411279.6406" style="pointer-events: auto;">登录</button>
+  </form>
+
+<form class="am-form am-form-inline" role="form"><div class="am-form-group"><label for="doc-ipt-3" class="am-u-sm-2 am-form-label">电子邮件</label><div class="am-u-sm-10"><input type="email" id="doc-ipt-3" placeholder="输入你的电子邮件" data-form-un="1516000411278.0627"></div></div>
+  <div class="am-form-group">
+    <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">密码</label>
+    <div class="am-u-sm-10">
+      <input type="password" id="doc-ipt-pwd-2" placeholder="设置一个密码吧" data-form-pw="1516000411278.0627"></div>
+    </div><div class="am-form-group">
+      <div class="am-u-sm-offset-2 am-u-sm-10">
+        <div class="checkbox">
+          <label><input type="checkbox"> 记住十万年</label>
+        </div>
+      </div>
+    </div>
+    <div class="am-form-group">
+      <div class="am-u-sm-10 am-u-sm-offset-2">
+        <button type="submit" class="am-btn am-btn-default" data-form-sbm="1516000411278.0627" style="pointer-events: auto;">提交登入</button>
+      </div>
+    </div>
+  </form>
+-->
+
+      <div class="form-tip-group">
+        <div class="form-tip">
+          <div class="form-tip-border"> <span class="iconfont icon-tuodong"></span>
+          请从菜单拖拽面板控件到此
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
 
-  <!--
+
   <footer class="admin-content-footer">
     <hr>
-    <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+    <p class="am-padding-left">© 2018 表单生成器.</p>
   </footer>
-  -->
+
 </div>
-<!-- content end -->
 
 </div>
 
@@ -153,10 +349,10 @@
 
 <footer>
   <hr>
-  <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+  <p class="am-padding-left">© 2018 表单生成器.</p>
 </footer>
 
-<input type="text" class="myClass" placeholder="测试" id="Testtext">
+
 
 <!--
 <script src="ui/assets/js/jquery.min.js"></script>
@@ -169,13 +365,41 @@
 
 <script type="text/javascript">
 
-var inputs=document.getElementById('Testtext');
-//inputs.attr
-for(var key in inputs){
-  console.log(key,inputs[key]);
+
+var layout={
+  itemSelect:"iphone 6 Plus",
+  layoutStyle:{},
+  defaultDom:"",
+  currentSize:{
+    width:414,
+    height:736
+  },
+  layoutItems:{
+    "iphone 5":{
+      width:320,
+      height:560
+    },
+    "iphone 6":{
+      width:375,
+      height:667
+    },
+    "iphone 6 Plus":{
+      width:414,
+      height:736
+    },
+    "iPad":{
+      width:768,
+      height:1024
+    }
+  }
 }
 
-console.log(document);
+
+var drag=(function(){
+
+
+})(window);
+
 
 function dragStart(e){
   console.log("开始拖拽",e);
@@ -183,110 +407,210 @@ function dragStart(e){
 }
 
 function dragOver(e) {
-
-  //console.clear();
-  //console.log("拖拽结束",e);
+  console.clear();
+  console.log("拖拽结束",e);
   e.preventDefault();
 }
 
 function dragEvent(e) {
   e.preventDefault();
   console.log("元素被拖放：",e);
+}
 
+
+
+
+var formTemplate=function(option){
+    var errorMes={
+      "4001":"未知元素"
+    }
+    var _setAttr=function(option,dom){
+      if(option.attr===undefined){
+        return;
+      }
+      for(attrName in option.attr){
+        dom.setAttribute(attrName,option.attr[attrName]);
+      }
+    };
+
+    var createContext=function(option){
+      if(option.el===undefined){
+        throw errorMes["4001"];
+      }
+
+      var formDom=document.createElement(option.el);
+      _setAttr(option,formDom);
+      return formDom;
+    }
+
+    return{
+      create:createContext
+    }
+}
+
+
+var createDom=formTemplate();
+
+var  doms=createDom.create({
+  el:"input",
+
+  attr:{
+    type:"radio",
+  }
+});
+
+console.log(doms);
+//formTemplate.create({});
+
+var formTmpCreator={
+  "input":function(option){
+    var name=option.name;
+    var type=option.type;
+    var inputDom=document.createElement(input);
+  }
+
+}
+
+var forTmpCreatorContext={
+    createControl:function(option){
+
+    }
 }
 
 var formMap={
   layout:{
-    title:"表单",
-    icon:"",
+    title:"面板",
+    icon:"iconfont icon-novigo_layout",
     enable:true,
     controlMap:
     {
       "row":{
         title:"行面板",
-        icon:"",
+        icon:"iconfont icon-hang",
         enable:true
       },
       "col":{
         title:"列面板",
-        icon:"",
+        icon:"iconfont icon-lie",
         enable:true
       }
     }
-
   },
   formControl:
   {
     title:"表单",
-    icon:"",
+    icon:"iconfont icon-lingjianxiangqing",
     enable:true,
     controlMap:{
       "input":{
         title:"文本框",
-        icon:"",
+        el:"input",
+        attr:{
+          type:"text"
+        },
+        icon:"iconfont icon-lingjianxiangqing",
         enable:true
       },
       "radio":{
         title:"单选框",
-        icon:"3333",
-        html:"<div>dc</div>",
+        el:"input",
+        attr:{
+          type:"radio"
+        },
+        icon:"iconfont icon-danxuankuangxuanzhong",
         enable:true
       },
       "checkbox":{
         title:"多选框",
-        icon:"",
+        el:"input",
+        attr:{
+          type:"checkbox"
+        },
+        icon:"iconfont icon-icon192",
         enable:true
       },
       "select":{
         title:"下拉框",
-        icon:"",
+        el:"select",
+        icon:"iconfont icon-xialakuang",
         enable:true
       },
       "timepicket":{
         title:"时间选择",
-        icon:"",
+        el:"input",
+        icon:"iconfont icon-riqixuanze",
         enable:true
       },
-      "Multiline":{
+      "multiline":{
         title:"多行文本",
-        icon:"",
+        el:"textarea",
+        icon:"iconfont icon-kongjian-duohangshurukuang",
         enable:true
       },
       "file":{
         title:"文件上传",
-        icon:"4444",
-        html:"<div>99<div>",
+        el:"textarea",
+        attr:{
+          type:"file"
+        },
+        icon:"iconfont icon-uploadPic",
+        enable:true
+      },
+      "submit":{
+        title:"提交",
+        el:"input",
+        attr:{
+          type:"submit"
+        },
+        icon:"iconfont icon-anniu",
+        enable:true
+      },
+      "button":{
+        title:"按钮",
+        el:"input",
+        attr:{
+          type:"button"
+        },
+        icon:"iconfont icon-anniu",
         enable:true
       }
+
     }
   }
-
-
 }
 
-
-
-
-
   new Vue({
-    el:"#test",
+    el:"#autoForm",
     data:{
-      message:"hello world",
-      formMap:formMap
+      formMap:formMap,
+      layout:layout,
+      layoutStyle:{}
     },
     methods:{
-      testClick:function(e){
-        console.log(this);
-        console.log(this.data);
-        this.title="123";
-        console.log("触发vue的点击事件",e);
-        console.log(this.formMap["formControl"]["file"]);
-        console.log(this.formMap);
-        this.formMap["formControl"]["controlMap"]["file"]=this.formMap["formControl"]["controlMap"]["radio"];
-        this.formMap["formControl"]["controlMap"]["radio"]=this.formMap["formControl"]["controlMap"]["file"];
+      layoutChange:function(event){
+        var layoutVal=event.target.value;
+        var layoutObj=this.layout.layoutItems[layoutVal];
+        var dom_layout=  document.getElementById("js-formDragPlane");
+
+        this.layoutStyle={
+          width:layoutObj.width+"px",
+          height:layoutObj.height+"px"
+        };
+
+        _objMapTo(this.layout.currentSize,layoutObj);
+
       }
     }
   });
+
+
+
+  function _objMapTo(targetObj,mapObj) {
+    for(var key in  targetObj){
+      targetObj[key]=mapObj[key];
+    }
+    return targetObj;
+  }
 
 
 
