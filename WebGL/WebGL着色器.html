@@ -2,11 +2,28 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>WebGL着色器</title>
   </head>
   <body>
     <xmp theme="united" style="display:none;">
-      
+        ##着色器
+        WebGL主要是通过着色器来绘制图像的，着色器又包含两种，一种是顶点着色器，一种是片元着色器，
+        顶点着色器和片元着色器必须存在才可以绘图。
+
+        ##顶点着色器
+        顶点着色器是负责绘制目标元素的点与大小，顶点着色器是逐点操作。
+
+        ##片元着色器
+        片元着色器是负责绘制目标的颜色，光影，文理等，片元着色器是逐片元操作（像素）。
+
+        ##WebGL绘图流程
+        - Js程序初始化得到webGL程序。
+        - Js程序传递OpenGL Es的着色器代码(包含顶点与片元着色器代码)给浏览器的WebGL程序。
+        - WebGL着色器开始绘制图像。
+        - 输出到++颜色缓冲区++。
+        - 浏览器读取缓存区数据显示在浏览器。
+
+
     </xmp>
     <script src="../Script/strapdown/strapdownjs.js"></script>
 
