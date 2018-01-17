@@ -194,6 +194,8 @@
       top: 0px;
     }
 
+    .am-form-custom .item-colum::after,
+    .am-form-custom .item-colum::before,
     .am-form-custom .item-row::after,
     .am-form-custom .item-row::before{
       font-family:"iconfont" !important;
@@ -295,7 +297,7 @@
             <span class="am-icon-angle-right am-fr am-margin-right"></span>
           </a>
           <ul class="am-list am-collapse admin-sidebar-sub am-in">
-              <li draggable="true" ondragstart="dragStart(event)"  v-for="menu in plane.controlMap">
+              <li draggable="true" :data-type="menuType"  ondragstart="dropEventBus.dragStart(event)"  v-for="(menu,menuType) in plane.controlMap">
                 <div class="am-cf"><span :class="menu.icon"></span>
                   {{menu.title}}
                 </div>
@@ -337,7 +339,7 @@
     <div id="js-formDragPlane" ondragover="dropEventBus.dragOver(event)" ondrop="dropEventBus.dragEvent(event)" :style="layoutStyle" class="formContent-default" >
 
 <form class="am-form-custom">
-
+   <!--
    <div draggable="true" ondragstart="dropEventBus.dragStart(event)" class="item-row">
        <label draggable="true" ondragstart="dropEventBus.dragStart(event)">密码邮件:</label>
        <input  type="email"  class="am-form-field" placeholder="电子邮件" data-form-un="1516000411279.6406">
@@ -414,7 +416,7 @@
      <label><input type="checkbox"> 橙子</label>
      <label><input type="checkbox"> 橙子</label>
    </div>
-
+    -->
 
 
 
@@ -550,213 +552,6 @@
 <script type="text/javascript">
 
 
-/*
-var customScroll = new scrollbot("#js-formDragPlane");
-customScroll.setStyle({
-  'background':'#000',
-  'border-radius':'20px'
-},{
-  'background':'#fff',
-  'opacity':'.5'
-})
-*/
-
-var layout={
-  itemSelect:"iphone 6 Plus",
-  layoutStyle:{},
-  defaultDom:"",
-  currentSize:{
-    width:414,
-    height:736
-  },
-  layoutItems:{
-    "iphone 5":{
-      width:320,
-      height:560
-    },
-    "iphone 6":{
-      width:375,
-      height:667
-    },
-    "iphone 6 Plus":{
-      width:414,
-      height:736
-    },
-    "iPad":{
-      width:768,
-      height:1024
-    }
-  }
-}
-
-
-var dropEventBus={
-  dragStart:function(e){
-    console.log("开始拖拽",e);
-    e.dataTransfer.setData("Text","hellow");
-  },
-  dragOver:function(e){
-    console.clear();
-    console.log("拖拽中",e);
-    e.preventDefault();
-  },
-  dragEvent:function(e){
-    e.preventDefault();
-    console.log("拖拽结束",e);
-  }
-}
-
-
-/*动态表单上下文对象*/
-var formContext=(function(){
-
-
-
-
-
-})();
-
-
-
-/**
- * 表单生成工厂
- * 主要负责生成表单元素，以及
- * @return {[object]} [工厂方法]
- */
-var formCreatorFactory=(function(){
-
-    /*错误提示对象*/
-    var errorMes={
-      "4001":"未知元素",
-      "4101":"未能获取要被修改的dom元素"
-    }
-
-    /*设置对象的attr属性*/
-    var _setAttr=function(option,dom){
-      if(option.attr===undefined){
-        return;
-      }
-      for(attrName in option.attr){
-        dom.setAttribute(attrName,option.attr[attrName]);
-      }
-    };
-
-    /*设置拖拽事件*/
-    var _setDropEvent=function(dom){
-        dom.setAttribute("draggable",true);
-        dom.setAttribute("ondragstart","dragStart(event)");
-    }
-
-    /*设置控件的唯一ID*/
-    var _setOnlyId=function(dom){
-        dom.setAttribute("data-controlId","");
-    }
-
-
-    /*创建表单元素*/
-    var _create=function(option){
-      var wrapDom,formDom;
-      if(option.el===undefined){
-        throw errorMes["4001"];
-      }
-
-      formDom=document.createElement(option.el);
-      _setAttr(option,formDom);
-
-      if(option.wrap!==undefined){
-          wrapDom=document.createElement(option.wrap);
-          wrapDom.appendChild(formDom);
-          wrapDom.innerHTML=wrapDom.innerHTML+option.attr.type;
-          formDom=wrapDom;
-      }
-
-      _setDropEvent(formDom);
-      _setOnlyId(formDom);
-
-      return formDom;
-    }
-
-    /*获取需要改动的dom元素*/
-    var _getChangeDom=function(option){
-
-      var changeDom={
-        targetDom:document.getElementById(option.targetId)
-      };
-
-      if(option.newDom!==undefined){
-          changeDom.formDom=_create(option.newDom);
-      }
-
-      else if(option.controlId!==undefined){
-          changeDom.formDom=_create(option.newDom);
-      }
-
-      if(changeDom.formDom===undefined){
-        throw ["4101"];
-      }
-
-      return changeDom;
-    }
-
-    /*创建表单元素*/
-    var createContext=function(option){
-        return _create(option);
-    }
-
-    /*追加表单元素到目标元素之后*/
-    var appendContext=function(option){
-        var changeDom=_getChangeDom(option);
-        document.insertBefore(formDom,targetDom);
-    }
-
-    /*追加元素到目标元素之前*/
-    var beforeContext=function(option){
-        var changeDom=_getChangeDom(option);
-        document.insertAfter(changeDom.formData,changeDom.targetDom);
-    }
-
-    return{
-      create:createContext,
-      append:appendContext,
-      before:beforeContext
-    }
-
-})(window,document);
-
-
-/**
- * 表单属性工厂
- * @return {[object]} 属性对象
- */
-var formOptionFactory=(function(){
-    return{
-      update:null
-    };
-
-})();
-
-
-var dom=formCreatorFactory.create({
-  title:"单选框",
-  el:"input",
-  wrap:"label",
-  editAttr:{
-    dataAttrs:{
-
-    },
-    innerText:{
-
-    }
-  },
-  attr:{
-    type:"radio"
-  },
-  icon:"iconfont icon-danxuankuangxuanzhong",
-  enable:true
-});
-
-document.getElementById("js-formDragPlane").appendChild(dom);
-console.log(dom);
 
 
 var formMap={
@@ -882,31 +677,401 @@ var formMap={
   }
 }
 
-  new Vue({
-    el:"#autoForm",
-    data:{
-      formMap:formMap,
-      layout:layout,
-      layoutStyle:{}
+
+var vueFormMap=_cloneObj(formMap);
+
+
+/*
+var customScroll = new scrollbot("#js-formDragPlane");
+customScroll.setStyle({
+  'background':'#000',
+  'border-radius':'20px'
+},{
+  'background':'#fff',
+  'opacity':'.5'
+})
+*/
+
+var layout={
+  itemSelect:"iphone 6 Plus",
+  layoutStyle:{},
+  defaultDom:"",
+  currentSize:{
+    width:414,
+    height:736
+  },
+  layoutItems:{
+    "iphone 5":{
+      width:320,
+      height:560
     },
-    methods:{
-      layoutChange:function(event){
-        var layoutVal=event.target.value;
-        var layoutObj=this.layout.layoutItems[layoutVal];
+    "iphone 6":{
+      width:375,
+      height:667
+    },
+    "iphone 6 Plus":{
+      width:414,
+      height:736
+    },
+    "iPad":{
+      width:768,
+      height:1024
+    }
+  }
+}
 
-        this.layoutStyle={
-          width:layoutObj.width+"px",
-          height:layoutObj.height+"px"
-        };
 
-        _objMapTo(this.layout.currentSize,layoutObj);
+/**
+ * 拖拽事件广播（EventBus）
+ * @return {object} 拖拽事件广播对象
+ */
+var dropEventBus=(function(){
+    var ErrorMes={
+      "5001":"该事件已注册"
+    };
 
+    var dragEvent={
+      StartRegEvent:{},
+      OverRegEvent:{},
+      EndRegEvent:{}
+    };
+
+    function _regDragEvent(regName,eventName,fn) {
+      if(dragEvent[regName][eventName]!==undefined){
+        throw ErrorMes["5001"];
+        return;
+      }
+      dragEvent[regName][eventName]=fn;
+    }
+
+    function _unbindDragEvent(regName,eventName) {
+      delete dragEvent[regName][eventName];
+    }
+
+    function _runDragEvent(regName,event) {
+      var currentDragEvent=dragEvent[regName];
+      for(var eventName in currentDragEvent){
+        currentDragEvent[eventName].call(this,event);
       }
     }
-  });
+
+    function regStartEvent(eventName,fn){
+        _regDragEvent("StartRegEvent",eventName,fn);
+    }
+
+    function regOverEvent(eventName,fn) {
+        _regDragEvent("OverRegEvent",eventName,fn);
+    }
+
+    function regEndEvent(eventName,fn){
+        _regDragEvent("EndRegEvent",eventName,fn);
+    }
+
+    function unbindStartEvent(eventName) {
+        _unbindDragEvent("StartRegEvent",eventName);
+    }
+
+    function unbindOverEvent(eventName) {
+        _unbindDragEvent("OverRegEvent",eventName);
+    }
+
+    function unbindEndEvent(eventName) {
+        _unbindDragEvent("EndRegEvent",eventName);
+    }
+
+
+    return{
+      regStartEvent:regStartEvent,
+      regOverEvent:regOverEvent,
+      regEndEvent:regEndEvent,
+      unbindStartEvent:unbindStartEvent,
+      unbindOverEvent:unbindOverEvent,
+      unbindEndEvent:unbindEndEvent,
+
+      dragStart:function(e){
+
+        _runDragEvent("StartRegEvent",e);
+
+      },
+
+      dragOver:function(e){
+        _runDragEvent("OverRegEvent",e);
+        e.preventDefault();
+      },
+
+      dragEvent:function(e){
+        _runDragEvent("EndRegEvent",e);
+        e.preventDefault();
+      }
+
+    };
+
+})();
+
+
+/*
+{
+
+  dragStart:function(e){
+    console.log("开始拖拽",e);
+    e.dataTransfer.setData("Text","hellow");
+  },
+  dragOver:function(e){
+    console.clear();
+    console.log("拖拽中",e);
+    e.preventDefault();
+  },
+  dragEvent:function(e){
+    e.preventDefault();
+    console.log("拖拽结束",e);
+    var id=e.path[0].getAttribute("id");
+    var className=e.path[0].getAttribute("class");
+    console.log("id:",id,"class:",className);
+    //console.log(e.path[0],e);
+  }
+}
+*/
+
+/*动态表单上下文对象*/
+var formContext=(function(){
+
+    var dragVerify={
+      basePlane:['row','col']
+    };
+
+    dropEventBus.regStartEvent("contextDropStart",function(e){
+      var currentDragDom=e.srcElement;
+      var currentControlType=currentDragDom.dataset.type;
+      e.dataTransfer.setData("text",currentControlType);
+    });
+
+    dropEventBus.regOverEvent("contextDropOver",function(e){
+      //console.log("这是注册的contextDropOver");
+      //console.log(e);
+
+    });
+
+    dropEventBus.regEndEvent("contextDropEnd",function(e){
+      var currentDropDom=e.target;
+      var dragPlane=document.getElementById("js-formDragPlane");
+      /*如果拖入面板是plane*/
+      if(currentDropDom.id==="js-formDragPlane"){
+
+      }
+
+      var domType=e.dataTransfer.getData("text");
+
+      var formMapObj=_findObjVal(formMap,domType);
+
+      var formControlStr=formCreatorFactory.create(formMapObj);
+      console.log("添加的控件值",dragPlane);
+      dragPlane.innerHTML+=formControlStr.toString();
+      dragPlane.innerHTML+=formControlStr;
+
+      console.log(formControlStr);
+
+      console.log("这是注册的contextDropEnd");
+
+      //console.log(textId);
+      //console.log(e);
+
+    });
+
+})();
 
 
 
+/**
+ * 表单生成工厂
+ * 主要负责生成表单元素，以及
+ * @return {[object]} [工厂方法]
+ */
+var formCreatorFactory=(function(){
+
+    /*错误提示对象*/
+    var errorMes={
+      "4001":"未知元素",
+      "4101":"未能获取要被修改的dom元素"
+    }
+
+    /*设置对象的attr属性*/
+    var _setAttr=function(option,dom){
+      if(option.attr===undefined){
+        return;
+      }
+      for(attrName in option.attr){
+        dom.setAttribute(attrName,option.attr[attrName]);
+      }
+    };
+
+    /*设置拖拽事件*/
+    var _setDropEvent=function(dom){
+        dom.setAttribute("draggable",true);
+        dom.setAttribute("ondragstart","dragStart(event)");
+    }
+
+    /*设置控件的唯一ID*/
+    var _setOnlyId=function(dom){
+        dom.setAttribute("data-controlId","");
+    }
+
+
+    /*创建表单元素*/
+    var _create=function(option){
+      var wrapDom,formDom;
+      if(option.el===undefined){
+        throw errorMes["4001"];
+      }
+
+      formDom=document.createElement(option.el);
+      _setAttr(option,formDom);
+
+      if(option.wrap!==undefined){
+          wrapDom=document.createElement(option.wrap);
+          wrapDom.appendChild(formDom);
+          wrapDom.innerHTML=wrapDom.innerHTML+option.attr.type;
+          formDom=wrapDom;
+      }
+
+      _setDropEvent(formDom);
+      _setOnlyId(formDom);
+
+      return formDom;
+    }
+
+    /*获取需要改动的dom元素*/
+    var _getChangeDom=function(option){
+
+      var changeDom={
+        targetDom:document.getElementById(option.targetId)
+      };
+
+      if(option.newDom!==undefined){
+          changeDom.formDom=_create(option.newDom);
+      }
+
+      else if(option.controlId!==undefined){
+          changeDom.formDom=_create(option.newDom);
+      }
+
+      if(changeDom.formDom===undefined){
+        throw ["4101"];
+      }
+
+      return changeDom;
+    }
+
+    /*创建表单元素*/
+    var createContext=function(option){
+        return _create(option);
+    }
+
+    //var createContext=function()
+
+    /*追加表单元素到目标元素之后*/
+    var appendContext=function(option){
+        var changeDom=_getChangeDom(option);
+        document.insertBefore(formDom,targetDom);
+    }
+
+    /*追加元素到目标元素之前*/
+    var beforeContext=function(option){
+        var changeDom=_getChangeDom(option);
+        document.insertAfter(changeDom.formData,changeDom.targetDom);
+    }
+
+    return{
+      create:createContext,
+      append:appendContext,
+      before:beforeContext
+    }
+
+})(window,document);
+
+
+/**
+ * 表单属性工厂
+ * @return {[object]} 属性对象
+ */
+var formOptionFactory=(function(){
+    return{
+      update:null
+    };
+})();
+
+
+var dom=formCreatorFactory.create({
+  title:"单选框",
+  el:"input",
+  wrap:"label",
+  editAttr:{
+    dataAttrs:{
+
+    },
+    innerText:{
+
+    }
+  },
+  attr:{
+    type:"radio"
+  },
+  icon:"iconfont icon-danxuankuangxuanzhong",
+  enable:true
+});
+
+
+
+  /**
+   * 根据key值查找对象的值
+   * @param       {object} targetObj 目标对象
+   * @param       {object} keyName   查找的键值对
+   * @return      {object}           返回对应的值
+   */
+  function _findObjVal(targetObj,keyName) {
+    var _obj;
+    for(var key in targetObj){
+
+      if(key==keyName){
+        _obj=targetObj[key];
+        return _obj;
+      }
+
+      else if(typeof(targetObj[key])==="object"){
+        _obj=_findObjVal(targetObj[key],keyName);
+        if(_obj!==undefined){
+          return _obj;
+        }
+      }
+    }
+    return _obj;
+  }
+
+  /**
+   * 对象元素深拷贝（只支持值类型和对象类型，暂未支持兼容数组）。
+   * @param       {[object]} targetObj 拷贝对象
+   * @constructor
+   * @return      object           完成拷贝的新的对象
+   */
+  function _cloneObj(targetObj){
+    var _obj={};
+    for(var key in targetObj){
+      if(typeof(targetObj[key])==="object"){
+        _obj[key]=_cloneObj(targetObj[key]);
+      }
+      else{
+        _obj[key]=targetObj[key];
+      }
+    }
+    return _obj;
+  }
+
+  /**
+   * 映射对象值
+   * @param       {[object]} targetObj 映射目标
+   * @param       {[object]} mapObj    被映射对象
+   * @constructor
+   * @return      {[object]}           映射完成的对象
+   */
   function _objMapTo(targetObj,mapObj) {
     for(var key in  targetObj){
       targetObj[key]=mapObj[key];
@@ -915,6 +1080,30 @@ var formMap={
   }
 
 
+
+
+    new Vue({
+      el:"#autoForm",
+      data:{
+        formMap:vueFormMap,
+        layout:layout,
+        layoutStyle:{}
+      },
+      methods:{
+        layoutChange:function(event){
+          var layoutVal=event.target.value;
+          var layoutObj=this.layout.layoutItems[layoutVal];
+
+          this.layoutStyle={
+            width:layoutObj.width+"px",
+            height:layoutObj.height+"px"
+          };
+
+        _objMapTo(this.layout.currentSize,layoutObj);
+
+        }
+      }
+    });
 
 
 </script>
