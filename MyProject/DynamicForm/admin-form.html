@@ -142,6 +142,7 @@
     /*========表单控件样式========*/
     .am-form-custom{
       padding: 1em;
+      height: 100%;
     }
 
     .am-form-custom button,
@@ -338,7 +339,7 @@
 
     <div id="js-formDragPlane" ondragover="dropEventBus.dragOver(event)" ondrop="dropEventBus.dragEvent(event)" :style="layoutStyle" class="formContent-default" >
 
-<form class="am-form-custom">
+<form id="js-form" data-level="0" class="am-form-custom">
    <!--
    <div draggable="true" ondragstart="dropEventBus.dragStart(event)" class="item-row">
        <label draggable="true" ondragstart="dropEventBus.dragStart(event)">密码邮件:</label>
@@ -514,7 +515,6 @@
         <h4>自定义属性</h4>
         <hr></hr>
         -->
-
     </div>
   </div>
 
@@ -567,9 +567,11 @@ var formMap={
         attr:{
           class:"item-row"
         },
+        dataAttrs:{
+          level:1
+        },
         icon:"iconfont icon-hang",
         enable:true,
-        level:1
       },
       "col":{
         title:"列面板",
@@ -577,9 +579,11 @@ var formMap={
         attr:{
           class:"item-colum",
         },
+        dataAttrs:{
+          level:1
+        },
         icon:"iconfont icon-lie",
         enable:true,
-        level:1
       }
     }
   },
@@ -589,94 +593,131 @@ var formMap={
     icon:"iconfont icon-lingjianxiangqing",
     enable:true,
     controlMap:{
+      "label":{
+        title:"描述",
+        el:"label",
+        dataAttrs:{
+          level:2
+        },
+        icon:"iconfont icon-lingjianxiangqing",
+        enable:true,
+      },
       "input":{
         title:"文本框",
         el:"input",
         attr:{
           type:"text"
         },
+        dataAttrs:{
+          level:2
+        },
         icon:"iconfont icon-lingjianxiangqing",
         enable:true,
-        level:2
+
       },
       "radio":{
         title:"单选框",
         el:"input",
         wrap:"label",
         attr:{
-          type:"radio"
+          type:"radio",
+        },
+        dataAttrs:{
+          level:2
         },
         icon:"iconfont icon-danxuankuangxuanzhong",
         enable:true,
-        level:2
+
       },
       "checkbox":{
         title:"多选框",
         el:"input",
         wrap:"label",
         attr:{
-          type:"checkbox"
+          type:"checkbox",
+        },
+        dataAttrs:{
+          level:2
         },
         icon:"iconfont icon-icon192",
         enable:true,
-        level:2
+
       },
       "select":{
         title:"下拉框",
         el:"select",
         icon:"iconfont icon-xialakuang",
         enable:true,
-        level:2
+        dataAttrs:{
+          level:2
+        }
       },
+      /*
       "timepicket":{
         title:"时间选择",
         el:"input",
         icon:"iconfont icon-riqixuanze",
         enable:true,
-        level:2
+        dataAttrs:{
+          level:2
+        }
+
       },
+      */
       "multiline":{
         title:"多行文本",
         el:"textarea",
         icon:"iconfont icon-kongjian-duohangshurukuang",
         enable:true,
-        level:2
+        dataAttrs:{
+          level:2
+        }
+
       },
       "file":{
         title:"文件上传",
         el:"textarea",
         attr:{
-          type:"file"
+          type:"file",
+        },
+        dataAttrs:{
+          level:2
         },
         icon:"iconfont icon-uploadPic",
         enable:true,
-        level:2
+
+
       },
       "submit":{
         title:"提交",
         el:"input",
         attr:{
-          type:"submit"
+          type:"submit",
+        },
+        dataAttrs:{
+          level:2
         },
         icon:"iconfont icon-anniu",
         enable:true,
-        level:2
+
       },
       "button":{
         title:"按钮",
         el:"input",
         attr:{
-          type:"button"
+          type:"button",
+        },
+        dataAttrs:{
+          level:2
         },
         icon:"iconfont icon-anniu",
         enable:true,
-        level:2
+
       }
 
     }
   }
 }
-
 
 var vueFormMap=_cloneObj(formMap);
 
@@ -832,6 +873,24 @@ var dropEventBus=(function(){
 }
 */
 
+
+var amazeUI={
+    "input":{
+      className:"am-form-field"
+    },
+    "select":{
+
+    },
+    "button":{
+      className:"am-btn am-btn-secondary"
+    },
+    "submit":{
+      className:"am-btn am-btn-success"
+    }
+}
+
+
+
 /*动态表单上下文对象*/
 var formContext=(function(){
 
@@ -852,25 +911,77 @@ var formContext=(function(){
     });
 
     dropEventBus.regEndEvent("contextDropEnd",function(e){
-      var currentDropDom=e.target;
-      var dragPlane=document.getElementById("js-formDragPlane");
-      /*如果拖入面板是plane*/
-      if(currentDropDom.id==="js-formDragPlane"){
+      /*获取拖拽对象*/
+      var currentDragDom=e.target;
 
+      var dragPlane=e.toElement;
+      console.log(e);
+      //console.log(dragPlane);
+      var dragPlaneLevel=parseInt(dragPlane.dataset.level);
+      var dragPlaneWidth=dragPlane.clientWidth;
+      var dragPosition={
+        x:e.offsetX,
+        y:e.offsetY
       }
 
-      var domType=e.dataTransfer.getData("text");
+      /*获取控件类型以及生成对应的dom,以及对应的控件深度。*/
+      var dragDomType=e.dataTransfer.getData("text");
+      var formMapObj=_findObjVal(formMap,dragDomType);
+      var formControlObj=formCreatorFactory.create(formMapObj,dragDomType);
+      var formlevel=parseInt(formControlObj.formDom.dataset.level);
+      var formControlId=dragPlane.dataset.controlid;
 
-      var formMapObj=_findObjVal(formMap,domType);
+      /*
+      console.log(e);
+      console.log("formlevel:",formlevel,"dragPlaneLevel:",dragPlaneLevel);
+      console.log(currentDragDom.id);
+      console.log("formHtml:",formControlObj.formHtml);
+      console.log("allHtml:",dragPlane.innerHTML+formControlObj.formHtml);
+      */
+      /*添加表单元素操作*/
+      if(dragPlaneLevel-formlevel===-1||dragPlaneLevel-formlevel===1){
+        dragPlane.innerHTML=dragPlane.innerHTML+formControlObj.formHtml;
+      }/*添加表单元素前或后操作*/
+      else if(dragPlaneLevel-formlevel===0){
 
-      var formControlStr=formCreatorFactory.create(formMapObj);
-      console.log("添加的控件值",dragPlane);
-      dragPlane.innerHTML+=formControlStr.toString();
-      dragPlane.innerHTML+=formControlStr;
+        console.log("x:",dragPosition.x,"aftetX:",dragPosition.x-(dragPlane.clientWidth/2));
+        var insertObj={
+          newDom:formMapObj,
+          controlId:formControlId
+        }
+        /*元素前方插入*/
+        if(dragPosition.x-(dragPlane.clientWidth/2)>=0){
 
-      console.log(formControlStr);
+          console.log(insertObj);
+          formCreatorFactory.append(insertObj,dragDomType);
+        /*元素后方插入*/
+      }else if(dragPosition.x-(dragPlane.clientWidth/2)<0){
+          formCreatorFactory.before(insertObj,dragDomType);
+      }
 
-      console.log("这是注册的contextDropEnd");
+
+        //dragPlane.parentNode.innerHTML=dragPlane.parentNode.innerHTML+formControlObj.formHtml;
+      }
+
+      /*拖入面板的操作*/
+      if(dragPlaneLevel==="0"){
+        /*1为面板的深度*/
+        if(formlevel==="1"){
+
+        }
+      }
+
+      /*拖入控件的操作*/
+      else if(dragPlaneLevel=="1"){
+
+        //dragPlane.innerHTML=dragPlane.innerHTML+formControlObj.formHtml;
+      }
+
+      //console.log("添加的控件值",dragPlane);
+
+
+      //console.log("对象的值",dragPlane.innerHTML);
+      //console.log("这是注册的contextDropEnd");
 
       //console.log(textId);
       //console.log(e);
@@ -895,14 +1006,19 @@ var formCreatorFactory=(function(){
     }
 
     /*设置对象的attr属性*/
-    var _setAttr=function(option,dom){
-      if(option.attr===undefined){
+    var _setAttr=function(option,dom,attrListName,isDataAttr){
+      var prefix="";
+      if(option[attrListName]===undefined){
         return;
       }
-      for(attrName in option.attr){
-        dom.setAttribute(attrName,option.attr[attrName]);
+      if(isDataAttr){
+        prefix="data-";
+      }
+      for(attrName in option[attrListName]){
+        dom.setAttribute(prefix+attrName,option[attrListName][attrName]);
       }
     };
+
 
     /*设置拖拽事件*/
     var _setDropEvent=function(dom){
@@ -912,19 +1028,44 @@ var formCreatorFactory=(function(){
 
     /*设置控件的唯一ID*/
     var _setOnlyId=function(dom){
-        dom.setAttribute("data-controlId","");
+        var controlId=dom.localName+"_"+Date.parse(new Date());
+        dom.setAttribute("data-controlId",controlId);
     }
 
+    /*设置控件的html字符串*/
+    var _wrapInnerHtmlStr=function(dom){
+        var wrapDom=document.createElement("div");
+        wrapDom.appendChild(dom);
+        return wrapDom;
+    }
+
+    /*设置控件Ui的Class*/
+    var _setUiClass=function(controlType,dom){
+        if(amazeUI[controlType]===undefined){
+          return;
+        }
+        //console.log(controlType);
+        var uiClass=amazeUI[controlType]["className"];
+        dom.setAttribute("class",uiClass);
+    }
+
+    /*设置特殊控件的函数*/
+    var _setSpecial={
+      "label":function(controlType,dom){
+        dom.innerHTML=controlType;
+      }
+    }
 
     /*创建表单元素*/
-    var _create=function(option){
+    var _create=function(option,type){
       var wrapDom,formDom;
       if(option.el===undefined){
         throw errorMes["4001"];
       }
 
       formDom=document.createElement(option.el);
-      _setAttr(option,formDom);
+      _setAttr(option,formDom,"attr",false);
+      _setUiClass(type,formDom);
 
       if(option.wrap!==undefined){
           wrapDom=document.createElement(option.wrap);
@@ -933,25 +1074,36 @@ var formCreatorFactory=(function(){
           formDom=wrapDom;
       }
 
+      if(_setSpecial[type]!==undefined&&typeof(_setSpecial[type])==="function"){
+        _setSpecial[type](type,formDom);
+      }
+
+      _setAttr(option,formDom,"dataAttrs",true);
       _setDropEvent(formDom);
       _setOnlyId(formDom);
 
-      return formDom;
+      var innerHtmlStr=_wrapInnerHtmlStr(formDom).innerHTML;
+
+      return {
+        formDom:formDom,
+        formHtml:innerHtmlStr
+      };
     }
 
+
     /*获取需要改动的dom元素*/
-    var _getChangeDom=function(option){
+    var _getChangeDom=function(option,type){
 
       var changeDom={
-        targetDom:document.getElementById(option.targetId)
+        targetDom:document.querySelector("[data-controlId='"+option.controlId+"']") //document.getElementById(option.controlId)
       };
 
       if(option.newDom!==undefined){
-          changeDom.formDom=_create(option.newDom);
+          changeDom.formDom=_create(option.newDom,type).formDom;
       }
 
       else if(option.controlId!==undefined){
-          changeDom.formDom=_create(option.newDom);
+          changeDom.formDom=document.querySelector("[data-controlId='"+option.controlId+"']"); //_create(option.newDom);
       }
 
       if(changeDom.formDom===undefined){
@@ -962,22 +1114,23 @@ var formCreatorFactory=(function(){
     }
 
     /*创建表单元素*/
-    var createContext=function(option){
-        return _create(option);
+    var createContext=function(option,type){
+        return _create(option,type);
     }
 
     //var createContext=function()
 
     /*追加表单元素到目标元素之后*/
-    var appendContext=function(option){
-        var changeDom=_getChangeDom(option);
-        document.insertBefore(formDom,targetDom);
+    var appendContext=function(option,type){
+        var changeDom=_getChangeDom(option,type);
+        _insertAfter(changeDom.formDom,changeDom.targetDom);
+
     }
 
     /*追加元素到目标元素之前*/
-    var beforeContext=function(option){
-        var changeDom=_getChangeDom(option);
-        document.insertAfter(changeDom.formData,changeDom.targetDom);
+    var beforeContext=function(option,type){
+        var changeDom=_getChangeDom(option,type);
+        changeDom.targetDom.parentNode.insertBefore(changeDom.formDom,changeDom.targetDom);
     }
 
     return{
@@ -998,27 +1151,6 @@ var formOptionFactory=(function(){
       update:null
     };
 })();
-
-
-var dom=formCreatorFactory.create({
-  title:"单选框",
-  el:"input",
-  wrap:"label",
-  editAttr:{
-    dataAttrs:{
-
-    },
-    innerText:{
-
-    }
-  },
-  attr:{
-    type:"radio"
-  },
-  icon:"iconfont icon-danxuankuangxuanzhong",
-  enable:true
-});
-
 
 
   /**
@@ -1077,6 +1209,19 @@ var dom=formCreatorFactory.create({
       targetObj[key]=mapObj[key];
     }
     return targetObj;
+  }
+
+  function _insertAfter(newElement, targetElement){
+    console.log("添加的元素是：",newElement);
+    var parent = targetElement.parentNode;
+    if (parent.lastChild == targetElement) {
+    // 如果最后的节点是目标元素，则直接添加。因为默认是最后
+      parent.appendChild(newElement);
+    }
+    else {
+      parent.insertBefore(newElement, targetElement.nextSibling);
+    //如果不是，则插入在目标元素的下一个兄弟节点 的前面。也就是目标元素的后面
+    }
   }
 
 
