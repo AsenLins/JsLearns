@@ -71,7 +71,7 @@
       background-color: white;
       box-shadow: 0px 0px 22px -8px black;
       position:relative;
-
+      top:0px;
       overflow:auto;
       transition: all 0.5s;
       float:left;
@@ -169,6 +169,7 @@
       color: #35495e;
       font-size: 0.9em;
       cursor: pointer;
+      display:block;
     }
 
     /*========面板样式========*/
@@ -236,9 +237,11 @@
       padding: 1em;
 
     }
+
     .am-form-option{
 
     }
+
     .option-content{
       margin-top: 2em;
     }
@@ -270,10 +273,21 @@
       color: #cdcdcd!important;
     }
 
-
-
-
-
+    /*拖拽参考线*/
+    .form-helpLine-x{
+      position:absolute;
+      height: 100%;
+      left: 3px;
+      width:1px;
+      border:1px dashed #0e90d2;
+    }
+    .form-helpLine-y{
+      position:absolute;
+      height: 1px;
+      left: 0px;
+      width:100%;
+      border:1px dashed #0e90d2;
+    }
 
   </style>
 </head>
@@ -338,8 +352,9 @@
     </div>
 
     <div id="js-formDragPlane" ondragover="dropEventBus.dragOver(event)" ondrop="dropEventBus.dragEvent(event)" :style="layoutStyle" class="formContent-default" >
-
-<form id="js-form" data-level="0" class="am-form-custom">
+      <div id="js-helpLine-x" class="form-helpLine-x" style=""></div>
+      <div id="js-helpLine-y" class="form-helpLine-y" style=""></div>
+      <form id="js-form" data-level="0" class="am-form-custom">
    <!--
    <div draggable="true" ondragstart="dropEventBus.dragStart(event)" class="item-row">
        <label draggable="true" ondragstart="dropEventBus.dragStart(event)">密码邮件:</label>
@@ -771,6 +786,10 @@ var dropEventBus=(function(){
       "5001":"该事件已注册"
     };
 
+    var dragParam={
+       dragKey:""
+    };
+
     var dragEvent={
       StartRegEvent:{},
       OverRegEvent:{},
@@ -819,6 +838,12 @@ var dropEventBus=(function(){
     function unbindEndEvent(eventName) {
         _unbindDragEvent("EndRegEvent",eventName);
     }
+    function setDragKey(key,val) {
+      dragParam[key]=val;
+    }
+    function getDragKey(key){
+      return dragParam[key];
+    }
 
 
     return{
@@ -828,6 +853,8 @@ var dropEventBus=(function(){
       unbindStartEvent:unbindStartEvent,
       unbindOverEvent:unbindOverEvent,
       unbindEndEvent:unbindEndEvent,
+      setDragKey:setDragKey,
+      getDragKey:getDragKey,
 
       dragStart:function(e){
 
@@ -889,33 +916,149 @@ var amazeUI={
     }
 }
 
+/*遇到的问题，js的每个函数都是独立的作用域？*/
+
+/*辅助线工具*/
+var helpLine=(function(){
+   /*
+    var hlObj={
+      xLine:document.getElementById("js-helpLine-x"),
+      yLine:document.getElementById("js-helpLine-y")
+    }
+  */
+
+    function _display(obj,type) {
+
+      if(type=="show"){
+        obj.style.display="block";
+      }else{
+        obj.style.display="none";
+      }
+    }
+
+    function _xHide() {
+      _display(hlObj.xLine,"none");
+    }
+
+    function _xShow(){
+       _display(hlObj.xLine,"show");
+    }
+
+    function _yHide(){
+      _display(hlObj.yLine,"none");
+    }
+
+    function _yShow(){
+      _display(hlObj.show,"none");
+    }
+
+    function _xLineSetX(val){
+      document.getElementById("js-helpLine-x").setAttribute("style","left:"+val+"px");
+    }
+
+    function _xLineSetY(val){
+
+    }
+
+    function _yLineSetX(val){
+
+    }
+
+    function _yLineSetY(val){
+
+    }
+
+
+
+    return {
+      x:{
+
+        setX:_xLineSetX,
+        setY:_xLineSetY,
+        hide:_xHide,
+        show:_xShow
+      },
+      y:{
+        setX:_yLineSetX,
+        setY:_yLineSetY,
+        hide:_yHide,
+        show:_yShow
+      }
+    }
+
+})();
+
+
 
 
 /*动态表单上下文对象*/
 var formContext=(function(){
+
 
     var dragVerify={
       basePlane:['row','col']
     };
 
     dropEventBus.regStartEvent("contextDropStart",function(e){
+
       var currentDragDom=e.srcElement;
       var currentControlType=currentDragDom.dataset.type;
       e.dataTransfer.setData("text",currentControlType);
+      dropEventBus.setDragKey("controlType",currentControlType);
     });
 
     dropEventBus.regOverEvent("contextDropOver",function(e){
       //console.log("这是注册的contextDropOver");
       //console.log(e);
+      console.log(e);
+      var currentDragDom=e.target;
+      var dragPlane=e.toElement;
+      var dragPlaneLevel=parseInt(dragPlane.dataset.level);
+      var dragPlaneWidth=dragPlane.clientWidth;
+      var dragPosition={
+        x:e.offsetX,
+        y:e.offsetY
+      }
+
+      /*获取控件类型以及生成对应的dom,以及对应的控件深度。*/
+      var dragDomType=dropEventBus.getDragKey("controlType");
+      console.log("types:",dragDomType);
+
+      var formMapObj=_findObjVal(formMap,dragDomType);
+      var formControlObj=formCreatorFactory.create(formMapObj,dragDomType);
+      var formlevel=parseInt(formControlObj.formDom.dataset.level);
+      var formControlId=dragPlane.dataset.controlid;
+      /*添加表单元素操作*/
+      if(dragPlaneLevel-formlevel===-1||dragPlaneLevel-formlevel===1){
+        //dragPlane.innerHTML=dragPlane.innerHTML+formControlObj.formHtml;
+      }/*添加表单元素前或后操作*/
+      else if(dragPlaneLevel-formlevel===0){
+        console.log(dragPosition.x-(dragPlane.clientWidth/2));
+        /*元素后方插入*/
+        if(dragPosition.x-(dragPlane.clientWidth/2)>=0){
+            console.log(dragPlane.clientWidth);
+             helpLine.x.setX(dragPlane.clientWidth+18+dragPlane.offsetLeft);
+
+        /*元素前方插入*/
+      }else if(dragPosition.x-(dragPlane.clientWidth/2)<0){
+           helpLine.x.setX(dragPlane.offsetLeft+16);
+      }
+
+
+
+        //dragPlane.parentNode.innerHTML=dragPlane.parentNode.innerHTML+formControlObj.formHtml;
+      }
+
+
+
 
     });
 
     dropEventBus.regEndEvent("contextDropEnd",function(e){
       /*获取拖拽对象*/
       var currentDragDom=e.target;
-
       var dragPlane=e.toElement;
-      console.log(e);
+
       //console.log(dragPlane);
       var dragPlaneLevel=parseInt(dragPlane.dataset.level);
       var dragPlaneWidth=dragPlane.clientWidth;
@@ -923,6 +1066,7 @@ var formContext=(function(){
         x:e.offsetX,
         y:e.offsetY
       }
+
 
       /*获取控件类型以及生成对应的dom,以及对应的控件深度。*/
       var dragDomType=e.dataTransfer.getData("text");
@@ -940,7 +1084,8 @@ var formContext=(function(){
       */
       /*添加表单元素操作*/
       if(dragPlaneLevel-formlevel===-1||dragPlaneLevel-formlevel===1){
-        dragPlane.innerHTML=dragPlane.innerHTML+formControlObj.formHtml;
+        dragPlane.appendChild(formControlObj.formDom);
+        //dragPlane.innerHTML=dragPlane.innerHTML+formControlObj.formHtml;
       }/*添加表单元素前或后操作*/
       else if(dragPlaneLevel-formlevel===0){
 
@@ -949,14 +1094,19 @@ var formContext=(function(){
           newDom:formMapObj,
           controlId:formControlId
         }
+
         /*元素前方插入*/
         if(dragPosition.x-(dragPlane.clientWidth/2)>=0){
-
+          console.log("后方插入");
           console.log(insertObj);
           formCreatorFactory.append(insertObj,dragDomType);
+          console.log(dragPlane.clientWidth);
+
         /*元素后方插入*/
       }else if(dragPosition.x-(dragPlane.clientWidth/2)<0){
+          console.log("前方插入");
           formCreatorFactory.before(insertObj,dragDomType);
+
       }
 
 
@@ -970,6 +1120,7 @@ var formContext=(function(){
 
         }
       }
+
 
       /*拖入控件的操作*/
       else if(dragPlaneLevel=="1"){
@@ -1124,7 +1275,6 @@ var formCreatorFactory=(function(){
     var appendContext=function(option,type){
         var changeDom=_getChangeDom(option,type);
         _insertAfter(changeDom.formDom,changeDom.targetDom);
-
     }
 
     /*追加元素到目标元素之前*/
