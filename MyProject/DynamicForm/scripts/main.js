@@ -7,13 +7,18 @@ require.config({
     "formCreatorFactory":"formFactory",
     "dragEventBus":"dragEventBus",
     "formUI":"formUI",
-    "formOption":"formOption"
+    "formOption":"formOption",
+    "dragula":"../dragula/dragula.min"
   }
 });
 
 
 /*初始化页面基础数据，以及事件*/
-require(["formMap","dragEventBus","tools"],function(formMap,dragEventBus,tools){
+
+//dragula([$('left-copy'), $('right-copy')], { copy: true });
+
+
+require(["formMap","dragEventBus","tools","dragula"],function(formMap,dragEventBus,tools,dragula){
 
   /*VUE实例化*/
   var vBaseForm=new Vue({
@@ -39,15 +44,26 @@ require(["formMap","dragEventBus","tools"],function(formMap,dragEventBus,tools){
         }
   });
 
+
+  //dragula([left,right],{ copy: true });
+
+
   /*绑定事件*/
   window.dragEventBus=dragEventBus;
 
 });
 
 /*控件拖拽逻辑*/
+/*
+存在的问题
+select无法被拖动
+排序拖动有误
+板块拖动未实现
+删除功能未实现
+*/
+
 require(["formMap","tools","formCreatorFactory","dragEventBus","formOption"],
 function(formMap,tools,formCreatorFactory,dragEventBus,formOption){
-
   /*获取拖拽对象*/
   function _getDragObj(dragEvent){
     var obj={};
@@ -83,15 +99,13 @@ function(formMap,tools,formCreatorFactory,dragEventBus,formOption){
       }
       else{
         var formObj=document.querySelector("[data-controlid='"+dragEventBus.getDragKey("controlId")+"']");
-        console.log(formObj);
+
         obj["formControlObj"]={
           formDom:formObj
         };
         obj["formlevel"]=parseInt(formObj.dataset.level);
         obj["formControlId"]=dragEventBus.getDragKey("controlId");
       }
-
-
     }
 
     return obj;
@@ -109,7 +123,6 @@ function(formMap,tools,formCreatorFactory,dragEventBus,formOption){
 
   dragEventBus.regOverEvent("contextDropOver",function(e){
 
-    console.log("这是注册的contextDropOver");
 
     if(dragEventBus.getDragKey("controlId")!==undefined){
       return;
@@ -127,9 +140,6 @@ function(formMap,tools,formCreatorFactory,dragEventBus,formOption){
       }/*添加表单元素前或后操作*/
       else if(dragObj.dragPlaneLevel-dragObj.formlevel===0){
           /*元素后方插入*/
-
-
-
         if(dragObj.dragPosition.x-(dragObj.dragPlane.clientWidth/2)>=0){
 
             dragObj.helpLine.x.style.left=dragObj.dragPlane.clientWidth+18+dragObj.dragPlane.offsetLeft+"px";
@@ -158,8 +168,7 @@ function(formMap,tools,formCreatorFactory,dragEventBus,formOption){
 
         /*添加表单元素操作*/
         if(dragObj.dragPlaneLevel-dragObj.formlevel===-1){
-            console.log(dragObj.dragPlane);
-            console.log("dragObj.dragPlaneLevel:",dragObj.dragPlaneLevel,"dragObj.formlevel:",dragObj.formlevel);
+
             dragObj.dragPlane.appendChild(dragObj.formControlObj.formDom);
 
         }/*添加表单元素前或后操作*/
@@ -173,18 +182,38 @@ function(formMap,tools,formCreatorFactory,dragEventBus,formOption){
 
             /*替换元素操作*/
             if(dragEventBus.getDragKey("controlId")!=undefined){
-              console.log("元素替换的ID:",dragEventBus.getDragKey("controlId"));
+
+              //var replaceHtml=tools.getHtml(document.querySelector("[data-controlid='"+dragEventBus.getDragKey("controlId")+"']"));
+              //var replaceObj=tools.parseDom(replaceHtml);
 
               var removeObj=document.querySelector("[data-controlid='"+dragEventBus.getDragKey("controlId")+"']");
               var replaceObj=document.querySelector("[data-controlid='"+dragEventBus.getDragKey("controlId")+"']");
               var replaceOffsetLeft=replaceObj.offsetLeft;
-              removeObj.parentNode.removeChild(removeObj);
-              console.log("parsent left",replaceObj.offsetParent);
-              console.log("new left:",replaceObj.getBoundingClientRect().left);
+
               var targetObj=e.toElement;
+              for(var i in targetObj){
+                console.log(i,targetObj[i]);
+              }
+              console.log("offsetParent.Left",targetObj.offsetParent.offsetLeft);
+              console.log("replaceObj.Left",replaceObj.offsetParent.offsetLeft);
+              console.log(targetObj.x);
               //tools.insertBefore();
-              console.log("replaceObj.offsetLeft:",replaceOffsetLeft,"targetObj.offsetLeft:",targetObj.offsetLeft);
-              console.log(replaceObj.offsetLeft);
+              console.log("replaceObj",replaceObj);
+
+
+              if(replaceObj.dataset.controlid===targetObj.dataset.controlid){
+                console.log("控件自身不能为拖拽对象");
+                return;
+              }
+
+              if(replaceObj.parentNode==null){
+                console.log("父对象为空");
+                return;
+              }
+              else{
+                removeObj.parentNode.removeChild(removeObj);
+              }
+
               if(replaceOffsetLeft<=targetObj.offsetLeft){
                 console.log("小于");
                 tools.insertAfter(replaceObj,targetObj);
@@ -192,7 +221,9 @@ function(formMap,tools,formCreatorFactory,dragEventBus,formOption){
               }
               else{
                 console.log("大于");
+                console.log("当前拖动的对象",replaceObj,"目标对象:",targetObj);
                 targetObj.parentNode.insertBefore(replaceObj,targetObj);
+
               }
 
               //changeDom.targetDom.parentNode.insertBefore(changeDom.formDom,changeDom.targetDom);

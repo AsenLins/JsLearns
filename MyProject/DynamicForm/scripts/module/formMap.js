@@ -96,6 +96,7 @@ define(["tools"],function(tools){
           title:"下拉框",
           el:"select",
           icon:"iconfont icon-xialakuang",
+          wrap:"label",
           enable:true,
           dataAttrs:{
             level:2
@@ -125,7 +126,7 @@ define(["tools"],function(tools){
         },
         "file":{
           title:"文件上传",
-          el:"textarea",
+          el:"input",
           attr:{
             type:"file",
           },

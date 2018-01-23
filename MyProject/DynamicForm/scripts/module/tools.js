@@ -24,6 +24,18 @@ define(function(){
     return _obj;
   }
 
+  function _parseDom(html){
+    var wrapDom=document.createElement("div");
+    wrapDom.innerHTML=html;
+    return wrapDom.childNodes;
+  }
+
+  function _getHtml(dom){
+    var wrapDom=document.createElement("div");
+    wrapDom.appendChild(dom);
+    return wrapDom.innerHTML;
+  }
+
   /**
    * 对象元素深拷贝（只支持值类型和对象类型，暂未支持兼容数组）。
    * @param       {[object]} targetObj 拷贝对象
@@ -80,7 +92,9 @@ define(function(){
     findObjVal:_findObjVal,
     cloneObj:_cloneObj,
     objMapTo:_objMapTo,
-    insertAfter:_insertAfter
+    insertAfter:_insertAfter,
+    getHtml:_getHtml,
+    parseDom:_parseDom
   }
 
 });

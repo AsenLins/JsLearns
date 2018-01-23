@@ -81,7 +81,11 @@ define(["tools","formUI"],function(tools,ui){
         if(option.wrap!==undefined){
             wrapDom=document.createElement(option.wrap);
             wrapDom.appendChild(formDom);
-            wrapDom.innerHTML=wrapDom.innerHTML+option.attr.type;
+            if(option.attr!=undefined){
+                wrapDom.innerHTML=wrapDom.innerHTML+option.attr.type;
+            }
+
+
             formDom=wrapDom;
         }
 

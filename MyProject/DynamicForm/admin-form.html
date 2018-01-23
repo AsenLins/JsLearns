@@ -13,8 +13,10 @@
   <link rel="stylesheet" href="ui/assets/css/amazeui.min.css"/>
   <link rel="stylesheet" href="ui/assets/css/admin.css">
 
+  <link rel="stylesheet" href="css/dragula.min.css?v=1" />
+  <link rel="stylesheet" href="css/formStyle.css?v=4" />
   <link rel="stylesheet" href="css/iconfont.css?v=3" />
-  <link rel="stylesheet" href="css/formStyle.css?v=5" />
+
 
 </head>
 <body>
@@ -25,24 +27,36 @@
   </div>
 </header>
 
+
+
 <div id="autoForm" class="am-cf admin-main">
 
   <!-- sidebar start -->
   <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
     <div class="am-offcanvas-bar admin-offcanvas-bar">
-      <ul class="am-list admin-sidebar-list">
-      <li v-for="plane in formMap">
-          <a  class="am-cf" data-am-collapse="{target: '#collapse-nav'}">
+      <ul id="js-am-list" class="am-list admin-sidebar-list">
+      <li  v-for="plane in formMap">
+          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}">
             <span :class="plane.icon"></span>
               {{plane.title}}
             <span class="am-icon-angle-right am-fr am-margin-right"></span>
           </a>
-          <ul class="am-list am-collapse admin-sidebar-sub am-in">
+          <ul class="custom-drag am-list am-collapse admin-sidebar-sub am-in container">
+
               <li draggable="true" :data-type="menuType"  ondragstart="dragEventBus.dragStart(event)"  v-for="(menu,menuType) in plane.controlMap">
                 <div class="am-cf"><span :class="menu.icon"></span>
                   {{menu.title}}
                 </div>
               </li>
+
+
+            <!--
+            <li v-for="(menu,menuType) in plane.controlMap">
+              <div  :data-type="menuType"  class="am-cf "><span :class="menu.icon"></span>
+                {{menu.title}}
+              </div>
+            </li>
+            -->
           </ul>
       </li>
 
@@ -77,6 +91,7 @@
       请不然要输出这样的值。
     </div>
 
+
     <div id="js-formDragPlane" ondragover="dragEventBus.dragOver(event)" ondrop="dragEventBus.dragEvent(event)" :style="layoutStyle" class="formContent-default" >
       <div id="js-helpLine-x" class="form-helpLine-x" style=""></div>
       <div id="js-helpLine-y" class="form-helpLine-y" style=""></div>
@@ -84,7 +99,14 @@
 
     </div>
 
+<!--
+  <div id="js-formDragPlane"  :style="layoutStyle" class="formContent-default" >
+    <div id="js-helpLine-x" class="form-helpLine-x" style=""></div>
+    <div id="js-helpLine-y" class="form-helpLine-y" style=""></div>
+    <form id="js-form" data-level="0" class="am-form-custom"></form>
 
+  </div>
+-->
     <div id="js-formOptionPlane" class="formOptionPlane">
       <ul class="am-nav am-nav-tabs">
         <li class="am-active"><a href="#">控件属性</a></li>
@@ -107,7 +129,7 @@
 
           <div class="item-option-colum">
               <label>type:</label>
-              <select>
+              <select >
                 <option value="">text</option>
                 <option value="">number</option>
                 <option value="">email</option>

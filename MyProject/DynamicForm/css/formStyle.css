@@ -145,13 +145,29 @@ body{
 }
 
 .am-form-custom .label{
-  flex-grow: 0;
-  flex-shrink:0;
+
   line-height: 35px;
-  margin: 0 0.4em;
+  padding: 0 0.4em;
   color: #35495e;
   font-size: 0.9em;
   cursor: pointer;
+  position:relative;
+  top: 0px;
+  left: 0px;
+
+}
+
+.am-form-custom label{
+  flex-grow: 0;
+  flex-shrink:0;
+  line-height: 35px;
+  padding: 0 0.4em;
+  color: #35495e;
+  font-size: 0.9em;
+  cursor: pointer;
+  position:relative;
+  top: 0px;
+  left: 0px;
   display:block;
 }
 
@@ -274,4 +290,12 @@ body{
   border:1px dashed #0e90d2;
   display: block;
   opacity: 0;
+}
+
+/*拖拽时的样式*/
+.custom-dragClass{
+  display:block;
+  padding:1rem 0;
+  padding-left:24px;
+  background-color:white;
 }
