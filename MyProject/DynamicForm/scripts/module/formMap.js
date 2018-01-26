@@ -150,7 +150,9 @@ define(["tools"],function(tools){
           icon:"iconfont icon-anniu",
           enable:true,
 
-        },
+        }
+        /*
+        ,
         "button":{
           title:"按钮",
           el:"input",
@@ -162,8 +164,8 @@ define(["tools"],function(tools){
           },
           icon:"iconfont icon-anniu",
           enable:true,
-
         }
+        */
 
       }
     }

@@ -3,7 +3,7 @@ define(function(){
    * 根据key值查找对象的值
    * @param       {object} targetObj 目标对象
    * @param       {object} keyName   查找的键值对
-   * @return      {object}           返回对应的值
+   * @return      object           返回对应的值
    */
   function _findObjVal(targetObj,keyName) {
     var _obj;
@@ -24,12 +24,39 @@ define(function(){
     return _obj;
   }
 
+  /**
+   * html字符串转dom
+   * @param       {string} html html字符串
+   * @constructor
+   * @return      object      dom对象
+   */
   function _parseDom(html){
     var wrapDom=document.createElement("div");
     wrapDom.innerHTML=html;
     return wrapDom.childNodes;
   }
 
+  /*dom的父级筛选（只筛选data-*的属性）*/
+  function _parentUntil(dom,dataAttrName,value){
+    if(dom==null||dom==undefined){
+      return null;
+    }
+
+    if(dom.dataset!=undefined){
+      if(dataAttrName in dom.dataset===true&&dom.dataset[dataAttrName]==value){
+        return dom;
+      }
+    }
+    return _parentUntil(dom.parentNode,dataAttrName,value);
+  }
+
+
+  /**
+   * 获取元素html
+   * @param       {dom对象} dom dom对象
+   * @constructor
+   * @return      string     html字符串
+   */
   function _getHtml(dom){
     var wrapDom=document.createElement("div");
     wrapDom.appendChild(dom);
@@ -37,8 +64,27 @@ define(function(){
   }
 
   /**
+   * 获取dom元素所在位置
+   * @param       {object} obj dom对象
+   * @constructor
+   * @return      object    位置对象
+   */
+  function _getPosition(obj)
+     {
+         var obj = obj;
+         var t=obj.offsetTop;
+         var l=obj.offsetLeft;
+         while(obj=obj.offsetParent)
+         {
+            t+=obj.offsetTop;
+            l+=obj.offsetLeft;
+         }
+         return {X:l,Y:t};
+     }
+
+  /**
    * 对象元素深拷贝（只支持值类型和对象类型，暂未支持兼容数组）。
-   * @param       {[object]} targetObj 拷贝对象
+   * @param       {object} targetObj 拷贝对象
    * @constructor
    * @return      object           完成拷贝的新的对象
    */
@@ -57,10 +103,10 @@ define(function(){
 
   /**
    * 映射对象值
-   * @param       {[object]} targetObj 映射目标
-   * @param       {[object]} mapObj    被映射对象
+   * @param       {object} targetObj 映射目标
+   * @param       {object} mapObj    被映射对象
    * @constructor
-   * @return      {[object]}           映射完成的对象
+   * @return      {object}           映射完成的对象
    */
   function _objMapTo(targetObj,mapObj) {
     for(var key in  targetObj){
@@ -71,8 +117,8 @@ define(function(){
 
   /**
    * 插入到指定元素后方
-   * @param       {[object]} newElement    [插入的元素]
-   * @param       {[object]} targetElement [目标元素]
+   * @param       {object} newElement    [插入的元素]
+   * @param       {object} targetElement [目标元素]
    * @constructor
    */
   function _insertAfter(newElement, targetElement){
@@ -94,7 +140,9 @@ define(function(){
     objMapTo:_objMapTo,
     insertAfter:_insertAfter,
     getHtml:_getHtml,
-    parseDom:_parseDom
+    parseDom:_parseDom,
+    getPosition:_getPosition,
+    parentUntil:_parentUntil
   }
 
 });

@@ -13,10 +13,12 @@
   <link rel="stylesheet" href="ui/assets/css/amazeui.min.css"/>
   <link rel="stylesheet" href="ui/assets/css/admin.css">
 
-  <link rel="stylesheet" href="css/dragula.min.css?v=1" />
-  <link rel="stylesheet" href="css/formStyle.css?v=4" />
-  <link rel="stylesheet" href="css/iconfont.css?v=3" />
-
+  <link rel="stylesheet" href="plugs/notie/notie.min.css?v=3" />
+  <link rel="stylesheet" href="plugs/sweetalert2/sweetalert2.min.css?v=1" />
+  <link rel="stylesheet" href="plugs/nprogress/nprogress.css?v=1" />
+  <link rel="stylesheet" href="plugs/perfect-scrollbar/perfect-scrollbar.css?v=1" />
+  <link rel="stylesheet" href="css/formStyle.css?v=6" />
+  <link rel="stylesheet" href="css/iconfont.css?v=5" />
 
 </head>
 <body>
@@ -36,6 +38,7 @@
     <div class="am-offcanvas-bar admin-offcanvas-bar">
       <ul id="js-am-list" class="am-list admin-sidebar-list">
       <li  v-for="plane in formMap">
+
           <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}">
             <span :class="plane.icon"></span>
               {{plane.title}}
@@ -87,14 +90,32 @@
       <div class="formLayoutType-size">{{layout.currentSize.width}} * {{layout.currentSize.height}}</div>
     </div>
 
-    <div class="am-alert am-alert-danger" style="display:none;">
-      请不然要输出这样的值。
-    </div>
 
+    <div id="js-form-btn" class="form-btn">
+      <button id="js-control-attr" class="am-btn am-btn-default">
+        <i class="iconfont icon-biaodanyemian"></i>
+        表单属性
+      </button>
+      <button id="js-control-clear" class="am-btn am-btn-default">
+        <i class="iconfont icon-721bianjiqi_qingkongwendang"></i>
+        清空面板
+      </button>
+
+      <!--
+      <div><i class="iconfont icon-biaodanyemian"></i></div>
+      <div><i class="iconfont icon-721bianjiqi_qingkongwendang"></i> </div>
+      -->
+    </div>
 
     <div id="js-formDragPlane" ondragover="dragEventBus.dragOver(event)" ondrop="dragEventBus.dragEvent(event)" :style="layoutStyle" class="formContent-default" >
       <div id="js-helpLine-x" class="form-helpLine-x" style=""></div>
       <div id="js-helpLine-y" class="form-helpLine-y" style=""></div>
+
+      <div id="js-delete"   class="form-delete drageDelete">
+        <div class="form-delete-wrap drageDelete">
+              <i  class="iconfont icon-shanchu dragDelete"></i>
+        </div>
+      </div>
       <form id="js-form" data-level="0" class="am-form-custom"></form>
 
     </div>
@@ -129,7 +150,7 @@
 
           <div class="item-option-colum">
               <label>type:</label>
-              <select >
+              <select>
                 <option value="">text</option>
                 <option value="">number</option>
                 <option value="">email</option>
@@ -142,25 +163,16 @@
             <button type="button" class="am-btn am-btn-primary am-radius am-btn-block">修改</button>
         </div>
       </div>
-        <!--
-        <h4>验证属性</h4>
-        <hr></hr>
 
-        <h4>数据源</h4>
-        <hr></hr>
-
-        <h4>自定义属性</h4>
-        <hr></hr>
-        -->
     </div>
   </div>
 
-
+  <!--
   <footer class="admin-content-footer">
     <hr>
     <p class="am-padding-left">© 2018 表单生成器.</p>
   </footer>
-
+-->
 </div>
 
 </div>
@@ -168,12 +180,12 @@
 <a href="#"  class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 
 
-
+<!--
 <footer>
   <hr>
   <p class="am-padding-left">© 2018 表单生成器.</p>
 </footer>
-
+-->
 
 
 <!--
@@ -184,7 +196,7 @@
 -->
 
 <script src="scripts/vue/vue.js"></script>
-<script src="scripts/requirejs/require.js" defer async="true"  data-main="scripts/main.js"></script>
+<script src="scripts/requirejs/require.js" defer async="true"  data-main="scripts/main.js?v=1"></script>
 
 
 
