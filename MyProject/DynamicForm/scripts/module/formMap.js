@@ -18,6 +18,7 @@ define(["tools"],function(tools){
           },
           icon:"iconfont icon-hang",
           enable:true,
+          parentType:"layout"
         },
         "col":{
           title:"列面板",
@@ -30,6 +31,7 @@ define(["tools"],function(tools){
           },
           icon:"iconfont icon-lie",
           enable:true,
+          parentType:"layout"
         }
       }
     },
@@ -50,6 +52,7 @@ define(["tools"],function(tools){
           },
           icon:"iconfont icon-biaoti",
           enable:true,
+          parentType:"formControl"
         },
         "input":{
           title:"文本框",
@@ -62,7 +65,7 @@ define(["tools"],function(tools){
           },
           icon:"iconfont icon-wenbenkuang",
           enable:true,
-
+          parentType:"formControl"
         },
         "radio":{
           title:"单选框",
@@ -76,7 +79,7 @@ define(["tools"],function(tools){
           },
           icon:"iconfont icon-danxuankuangxuanzhong",
           enable:true,
-
+          parentType:"formControl"
         },
         "checkbox":{
           title:"多选框",
@@ -90,7 +93,7 @@ define(["tools"],function(tools){
           },
           icon:"iconfont icon-icon192",
           enable:true,
-
+          parentType:"formControl"
         },
         "select":{
           title:"下拉框",
@@ -100,7 +103,8 @@ define(["tools"],function(tools){
           enable:true,
           dataAttrs:{
             level:2
-          }
+          },
+          parentType:"formControl"
         },
         /*
         "timepicket":{
@@ -121,7 +125,8 @@ define(["tools"],function(tools){
           enable:true,
           dataAttrs:{
             level:2
-          }
+          },
+          parentType:"formControl"
 
         },
         "file":{
@@ -135,7 +140,7 @@ define(["tools"],function(tools){
           },
           icon:"iconfont icon-uploadPic",
           enable:true,
-
+          parentType:"formControl"
 
         },
         "submit":{
@@ -149,7 +154,7 @@ define(["tools"],function(tools){
           },
           icon:"iconfont icon-anniu",
           enable:true,
-
+          parentType:"formControl"
         }
         /*
         ,

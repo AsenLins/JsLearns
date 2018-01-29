@@ -50,6 +50,22 @@ define(function(){
     return _parentUntil(dom.parentNode,dataAttrName,value);
   }
 
+  function _parentUntilByAttr(dom,dataAttrName,value){
+    if(dom==null||dom==undefined){
+      return null;
+    }
+    if(dom.getAttribute(dataAttrName)!=undefined){
+      console.log("leve:",dom.getAttribute(dataAttrName));
+      if(dom.getAttribute(dataAttrName)==value){
+        console.log("leve:",dom.getAttribute(dataAttrName));
+        console.log("确认",dom);
+        return dom;
+      }
+    }
+    return _parentUntilByAttr(dom.parentNode,dataAttrName,value);
+  }
+
+
 
   /**
    * 获取元素html
@@ -142,7 +158,8 @@ define(function(){
     getHtml:_getHtml,
     parseDom:_parseDom,
     getPosition:_getPosition,
-    parentUntil:_parentUntil
+    parentUntil:_parentUntil,
+    parentUntilByAttr:_parentUntilByAttr
   }
 
 });

@@ -128,14 +128,14 @@
 
   </div>
 -->
-    <div id="js-formOptionPlane" class="formOptionPlane">
+    <div id="js-formOptionPlane" class="formOptionPlane" hidden>
       <ul class="am-nav am-nav-tabs">
         <li class="am-active"><a href="#">控件属性</a></li>
-        <li><a href="#">验证属性</a></li>
+        <li><a  class="form-unclick"  disabled="true"  href="#">验证属性</a></li>
         <li><a class="form-unclick" disabled="true" href="#">数据源</a></li>
         <li><a class="form-unclick" disabled="true" href="#">自定义属性</a></li>
       </ul>
-      <div class="option-content">
+      <div id="js-option-content" class="option-content">
 
         <form class="am-form-option">
           <div class="item-option-colum">
@@ -196,7 +196,7 @@
 -->
 
 <script src="scripts/vue/vue.js"></script>
-<script src="scripts/requirejs/require.js" defer async="true"  data-main="scripts/main.js?v=1"></script>
+<script src="scripts/requirejs/require.js" defer async="true"  data-main="scripts/main.js?v=4"></script>
 
 
 

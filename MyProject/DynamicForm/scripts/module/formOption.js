@@ -6,9 +6,10 @@ define(function(){
   var formOptionMap={
     "form":{
       editOption:{
-            metod:{
+            method:{
               title:"method",
               el:"select",
+              notNull:true,
               defaultVal:{
                 get:"get",
                 post:"post"
@@ -16,11 +17,13 @@ define(function(){
             },
             action:{
               title:"action",
-              el:"input"
+              el:"input",
+              notNull:true
             },
             enctype:{
               title:"enctype",
               el:"select",
+              notNull:true,
               defaultVal:{
                 "application/x-www-form-urlencoded":"application/x-www-form-urlencoded",
                 "multipart/form-data":"multipart/form-data",
@@ -42,7 +45,8 @@ define(function(){
       editOption:{
         name:{
           title:"name",
-          el:"input"
+          el:"input",
+          notNull:true,
         },
         placeholder:{
           title:"placeholder",
@@ -64,11 +68,13 @@ define(function(){
       editOption:{
         value:{
           title:"value",
-          el:"input"
+          el:"input",
+          notNull:true
         },
         name:{
           title:"name",
-          el:"input"
+          el:"input",
+          notNull:true
         },
         checked:{
           title:"checked",
@@ -80,7 +86,8 @@ define(function(){
         editOption:{
           name:{
             title:"name",
-            el:"input"
+            el:"input",
+            notNull:true
           }
         }
     },
@@ -88,11 +95,13 @@ define(function(){
       editOption:{
         value:{
           title:"value",
-          el:"input"
+          el:"input",
+          notNull:true
         },
         name:{
           title:"name",
-          el:"input"
+          el:"input",
+          notNull:true
         },
         checked:{
           title:"checked",
@@ -104,7 +113,8 @@ define(function(){
       editOption:{
         name:{
           title:"name",
-          el:"input"
+          el:"input",
+          notNull:true
         },
         postUrl:{
           title:"postUrl",
@@ -124,7 +134,8 @@ define(function(){
       editOption:{
         name:{
           title:"name",
-          el:"input"
+          el:"input",
+          notNull:true
         }
       }
     }
@@ -136,22 +147,5 @@ define(function(){
   }
 
 
-
-  var formOptionFactory=(function(){
-
-     function _init(){
-
-     }
-
-
-
-
-
-      return{
-        update:null
-      };
-  })();
-
-
-  return formOptionFactory;
+  return formOptionMap;
 });

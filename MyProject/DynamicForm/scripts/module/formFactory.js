@@ -40,6 +40,9 @@ define(["tools","formUI"],function(tools,ui){
       /*设置控件的唯一ID*/
       var _setOnlyId=function(dom){
           var controlId=dom.localName+"_"+Date.parse(new Date());
+          var randomStr=  Math.floor(Math.random()*10000+1);
+
+          controlId=controlId+"_"+randomStr;
           dom.setAttribute("data-controlId",controlId);
       }
 
@@ -84,18 +87,42 @@ define(["tools","formUI"],function(tools,ui){
             if(option.attr!=undefined){
                 wrapDom.innerHTML=wrapDom.innerHTML+option.attr.type;
             }
-
-
             formDom=wrapDom;
         }
 
         if(_setSpecial[type]!==undefined&&typeof(_setSpecial[type])==="function"){
           _setSpecial[type](type,formDom);
         }
-
         _setAttr(option,formDom,"dataAttrs",true);
-        _setDropEvent(formDom);
         _setOnlyId(formDom);
+
+        /*创建编辑控件面板*/
+        //console.log(option.parentType);
+        if(option.parentType!=="layout"){
+          var controlPlane,controlPlaneMask;
+          controlPlane=document.createElement("div");
+          controlPlane.className="custom-form-editPlane";
+          controlPlaneMask=document.createElement("div");
+          controlPlaneMask.className="custom-form-editMask";
+          controlPlaneMask.setAttribute("data-level",formDom.dataset.level);
+          controlPlaneMask.setAttribute("data-type",type);
+          _setOnlyId(controlPlaneMask);
+          controlPlane.appendChild(formDom);
+          controlPlane.appendChild(controlPlaneMask);
+          controlPlane.setAttribute("data-level",formDom.dataset.level);
+          controlPlane.setAttribute("data-isControlPlane",true);
+          controlPlane.setAttribute("onclick","formOptionClick(event)");
+          controlPlane.setAttribute("data-type",type);
+
+          _setOnlyId(controlPlane);
+          _setDropEvent(controlPlane);
+          //console.log(controlPlane);
+          formDom=controlPlane;
+        }
+
+        else{
+          _setDropEvent(formDom);
+        }
 
         var innerHtmlStr=_wrapInnerHtmlStr(formDom).innerHTML;
 
@@ -133,18 +160,49 @@ define(["tools","formUI"],function(tools,ui){
           return _create(option,type);
       }
 
+      var _getParentAndChangeDom=function(option,changeDom){
+        var parent;
+        if(changeDom.targetDom.dataset.level!="1"){
+            parent=tools.parentUntilByAttr(changeDom.targetDom,"data-level","1");
+        }
+        else{
+          parent=changeDom.targetDom.parentNode;
+        }
+
+        /*获取正确的目标面板*/
+        if(changeDom.targetDom.dataset.level!="1"&&changeDom.targetDom.getAttribute("data-isControlPlane")==undefined){
+          for(var index=0;index<option.path.length-1;index++){
+            if(option.path[index].getAttribute("data-isControlPlane")!=undefined){
+              changeDom.targetDom=option.path[index];
+              break;
+            }
+          }
+        }
+        console.log("父节点是:",parent);
+        console.log(option.path[index]);
+        return parent;
+
+      }
+
+
       //var createContext=function()
 
       /*追加表单元素到目标元素之后*/
       var appendContext=function(option,type){
           var changeDom=_getChangeDom(option,type);
+          var parent=_getParentAndChangeDom(option,changeDom);
+
           tools.insertAfter(changeDom.formDom,changeDom.targetDom);
       }
 
       /*追加元素到目标元素之前*/
       var beforeContext=function(option,type){
           var changeDom=_getChangeDom(option,type);
-          changeDom.targetDom.parentNode.insertBefore(changeDom.formDom,changeDom.targetDom);
+          var parent=_getParentAndChangeDom(option,changeDom);
+
+          //changeDom.targetDom.parentNode.insertBefore(changeDom.formDom,changeDom.targetDom);
+
+          parent.insertBefore(changeDom.formDom,changeDom.targetDom);
       }
 
       var replaceContext=function(replaceObj){

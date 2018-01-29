@@ -138,15 +138,16 @@ body{
 .am-form-custom textarea,
 .am-form-custom>div,
 .am-form-custom input{
+  /*
   margin-bottom: 0.4em;
-  margin: 0 0.1em 0.4em 0.1em;
+  margin: 0 0.1em 0.4em 0.1em;*/
   flex-grow: 1;
   flex-shrink:1;
   cursor: pointer;
 }
 
 .am-form-custom input{
-  flex-basis: 15%;
+  flex-basis: 16%;
 }
 
 .am-form-custom .label{
@@ -379,6 +380,34 @@ body{
   display:block;
   clear: both;
 }
+
+.custom-form-editMask{
+  position:absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  border: 1px dashed gray;
+  background-color: white;
+  z-index: 3;
+  background:rgba(255,255,255, 0.6);
+}
+
+.custom-form-editPlane{
+  position:relative;
+  top: 0px;
+  left: 0px;
+  padding: 0.4em;
+  margin: 0.3em;
+  display:inline-block;
+
+  flex-grow: 1;
+  flex-grow: 1;
+  flex-shrink:1;
+  cursor: pointer;
+  flex-basis: 15%;
+}
+/*.custom-form-editPlane*/
 
 /*自定义提示样式*/
 .notie-overlay{

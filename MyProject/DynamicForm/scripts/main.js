@@ -107,30 +107,17 @@ function(formMap,dragEventBus,tools,nprogress,notie,swal,domReady){
       buttonsStyling: true,
       reverseButtons: true
     }).then((result) => {
-      console.log(result);
-      /*
-      if (result.value) {
-        swal(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
-
-      } else if (result.dismiss === 'cancel') {
-        swal(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
-        )
+      if(result.value){
+        var jsForm=document.getElementById("js-form");
+        jsForm.innerHTML="";
       }
-      */
     })
     });
 
     document.getElementById("js-control-attr").addEventListener("click",function(){
 
     });
-  
+
     nprogress.done();
   });
 
@@ -139,9 +126,29 @@ function(formMap,dragEventBus,tools,nprogress,notie,swal,domReady){
   //nprogress.done();
 
 
-
-
 });
+
+
+
+/*控件选项逻辑*/
+
+require(["formOption","tools","formOptionFactory"],
+function(formOptionMap,tools,formOptionFactory){
+  var formOptionMap=formOptionMap;
+  var tools=tools;
+  window.formOptionClick=function(e){
+    console.log("点击了",e);
+    console.log(formOptionMap);
+    var currentTarget=e.srcElement;
+    var currentType=e.srcElement.dataset.type;
+    console.log("当前点击对象是:",currentTarget);
+    console.log("类型是:",currentType);
+    console.log("生成对象是：",formOptionMap[currentType]);
+
+  }
+});
+
+
 
 /*控件拖拽逻辑*/
 /*
@@ -167,6 +174,7 @@ function(formMap,tools,formCreatorFactory,dragEventBus,formOption,notie){
       x:document.getElementById("js-helpLine-x"),
       y:document.getElementById("js-helpLine-y")
     }
+    obj["path"]=dragEvent.path;
 
     if(dragEvent.type==="dragstart"){
 
@@ -221,9 +229,14 @@ function(formMap,tools,formCreatorFactory,dragEventBus,formOption,notie){
     else{
 
       var dragObj=_getDragObj(e);
+      var parentNode;
+      if(dragObj.dragPlane.getAttribute("data-level")!==undefined){
+        parentNode=dragObj.dragPlane;
+      }
+      else{
+        parentNode=tools.parentUntil(dragObj.dragPlane,"data-level",1);
+      }
 
-
-      var parentNode=tools.parentUntil(dragObj.dragPlane,"level",1);
 
 
       if(dragObj.dragPlaneLevel-dragObj.formlevel===-1||dragObj.dragPlaneLevel-dragObj.formlevel===1){
@@ -288,14 +301,15 @@ function(formMap,tools,formCreatorFactory,dragEventBus,formOption,notie){
 
         /*添加表单元素操作*/
         if(dragObj.dragPlaneLevel-dragObj.formlevel===-1){
-
+            console.log("插入面板");
             dragObj.dragPlane.appendChild(dragObj.formControlObj.formDom);
 
         }/*添加表单元素前或后操作*/
         else if(dragObj.dragPlaneLevel-dragObj.formlevel===0){
             var insertObj={
               newDom:dragObj.formMapObj,
-              controlId:dragObj.formControlId
+              controlId:dragObj.formControlId,
+              path:dragObj.path
             }
 
             /*替换元素操作*/
@@ -309,6 +323,21 @@ function(formMap,tools,formCreatorFactory,dragEventBus,formOption,notie){
 
               var targetPosition=tools.getPosition(targetObj);
               var replacePosition=tools.getPosition(replaceObj);
+              console.log("替换的对象是：",replaceObj);
+              console.log("目标对象是：",targetObj);
+
+              if(targetObj.dataset.level!="1"&&targetObj.getAttribute("data-isControlPlane")==undefined){
+                console.log(e.path);
+                for(var index=0;index<e.path.length;index++){
+
+                  if(e.path[index].getAttribute("data-isControlPlane")!=undefined){
+                    targetObj=e.path[index];
+                    break;
+                  }
+                }
+                console.log("修改的对象是：",targetObj);
+                console.log("没发目标");
+              }
 
               if(replaceObj.dataset.controlid===targetObj.dataset.controlid){
                 console.log("控件自身不能为拖拽对象");
@@ -374,7 +403,6 @@ function(formMap,tools,formCreatorFactory,dragEventBus,formOption,notie){
 
         if(document.getElementById("js-formDragPlane").scrollTop>0){
           document.getElementById("js-form").style.height="auto";
-
         }
 
         else{
