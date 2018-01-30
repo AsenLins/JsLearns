@@ -3,11 +3,23 @@
  * @return {[object]} 属性对象
  */
 define(function(){
+  /*
+  var appendPlane=document.getElementById("js-option-content");
+  var formPlane=document.getElementById("js-formOptionPlane");
+  var btnSave=document.getElementById("btn-formEdit-save");
+  var editMaskList=document.querySelectorAll(".custom-form-editMask");
+
+
+
+   */
+
+
+
   var formOptionMap={
     "form":{
       editOption:{
             method:{
-              title:"method",
+              attrName:"method",
               el:"select",
               notNull:true,
               defaultVal:{
@@ -16,12 +28,12 @@ define(function(){
               }
             },
             action:{
-              title:"action",
+              attrName:"action",
               el:"input",
               notNull:true
             },
             enctype:{
-              title:"enctype",
+              attrName:"enctype",
               el:"select",
               notNull:true,
               defaultVal:{
@@ -35,7 +47,7 @@ define(function(){
     "label":{
       editOption:{
         html:{
-          title:"标题内容",
+          attrName:"label",
           el:"input",
           type:"text"
         }
@@ -44,16 +56,18 @@ define(function(){
     "input":{
       editOption:{
         name:{
-          title:"name",
+          attrName:"name",
           el:"input",
           notNull:true,
+          class:"am-form-field"
         },
         placeholder:{
-          title:"placeholder",
-          el:"input"
+          attrName:"placeholder",
+          el:"input",
+          class:"am-form-field"
         },
         type:{
-          title:"type",
+          attrName:"type",
           el:"select",
           defaultVal:{
             text:"text",
@@ -67,61 +81,77 @@ define(function(){
     "checkbox":{
       editOption:{
         value:{
-          title:"value",
+          attrName:"value",
           el:"input",
-          notNull:true
+          notNull:true,
+          class:"am-form-field"
         },
         name:{
-          title:"name",
+          attrName:"name",
           el:"input",
-          notNull:true
+          notNull:true,
+          class:"am-form-field"
         },
         checked:{
-          title:"checked",
-          el:"checkbox"
+          attrName:"checked",
+          el:"checkbox",
+          type:"checkbox",
+          label:"是否选中"
         }
       }
     },
     "select":{
         editOption:{
           name:{
-            title:"name",
+            attrName:"name",
             el:"input",
-            notNull:true
+            notNull:true,
+            class:"am-form-field"
+          },
+          data:{
+            attrName:"data",
+            title:"新增option值",
+            type:"dynamic",
+            el:"dynamic"
           }
         }
     },
     "radio":{
       editOption:{
         value:{
-          title:"value",
+          attrName:"value",
           el:"input",
-          notNull:true
+          notNull:true,
+          class:"am-form-field"
         },
         name:{
-          title:"name",
+          attrName:"name",
           el:"input",
-          notNull:true
+          notNull:true,
+          class:"am-form-field"
         },
         checked:{
-          title:"checked",
-          el:"checkbox"
+          attrName:"checked",
+          el:"checkbox",
+          type:"checkbox"
         }
       }
     },
     "file":{
       editOption:{
         name:{
-          title:"name",
+          attrName:"name",
           el:"input",
-          notNull:true
+          notNull:true,
+          class:"am-form-field"
         },
         postUrl:{
-          title:"postUrl",
-          el:"input"
+          attrName:"postUrl",
+          el:"input",
+          class:"am-form-field"
         },
         postType:{
-          title:"postType",
+          attrName:"postType",
           el:"select",
           defaultVal:{
             "get":"get",
@@ -133,8 +163,9 @@ define(function(){
     "multiline":{
       editOption:{
         name:{
-          title:"name",
+          attrName:"name",
           el:"input",
+          class:"am-form-field",
           notNull:true
         }
       }

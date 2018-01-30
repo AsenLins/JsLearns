@@ -256,7 +256,7 @@ body{
   flex-direction:row;
   justify-content:start;
   align-content:center;
-  flex-wrap: wrap;
+  /*flex-wrap: wrap;*/
   margin:0.8em auto;
 }
 
@@ -430,5 +430,5 @@ html.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown){
 }
 
 .swal2-container.swal2-shown{
-  background-color: rgba(0,0,0,.0);
+  background-color: rgba(0,0,0,.1);
 }

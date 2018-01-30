@@ -8,12 +8,11 @@ require.config({
     "dragEventBus":"dragEventBus",
     "formUI":"formUI",
     "formOption":"formOption",
+    "formOptionFactory":"formOptionFactory",
     "nprogress":"../../plugs/nprogress/nprogress",
-    "pScrollbar":"../../plugs/perfect-scrollbar/perfect-scrollbar.min",
     "notie":"../../plugs/notie/notie.min",
     "sweetalert2":"../../plugs/sweetalert2/sweetalert2.min",
     "domReady":"../../plugs/requirePlus/domReady",
-
   }
 });
 
@@ -132,20 +131,75 @@ function(formMap,dragEventBus,tools,nprogress,notie,swal,domReady){
 
 /*控件选项逻辑*/
 
-require(["formOption","tools","formOptionFactory"],
-function(formOptionMap,tools,formOptionFactory){
+require(["formOption","tools","formOptionFactory","domReady"],
+function(formOptionMap,tools,formOptionFactory,domReady){
   var formOptionMap=formOptionMap;
   var tools=tools;
+  var formOptionFactory=formOptionFactory;
+  var optionOperate=formOptionFactory.optionOperate;
+  var optionCreate=formOptionFactory.optionCreate;
+  console.log("formOptionFactory",formOptionFactory);
+
   window.formOptionClick=function(e){
-    console.log("点击了",e);
-    console.log(formOptionMap);
+
+    var controlid=e.srcElement.dataset.targetid;
+    optionOperate.clear();
+    optionOperate.show();
+    optionOperate.setSelectBorder(controlid);
+    optionCreate({
+      optionMap:formOptionMap[e.srcElement.dataset.type],
+      currentType:e.srcElement.dataset.type,
+      targetPlane:document.getElementById("js-option-content")
+    });
+
+
+
+    //optionOperate.hide();
+    console.log(optionOperate);
+
+    /*
+    var optionObj={
+      optionMap:formOptionMap[currentType],
+      currentType:e.srcElement.dataset.type,
+      targetPlane:document.getElementById("js-option-content")
+    }
+    */
+
+
+
+    /*
     var currentTarget=e.srcElement;
     var currentType=e.srcElement.dataset.type;
-    console.log("当前点击对象是:",currentTarget);
-    console.log("类型是:",currentType);
-    console.log("生成对象是：",formOptionMap[currentType]);
+    var appendPlane=document.getElementById("js-option-content");
+    var formPlane=document.getElementById("js-formOptionPlane");
+    var btnSave=document.getElementById("btn-formEdit-save");
+    var editMaskList=document.querySelectorAll(".custom-form-editMask");
 
+
+
+
+    console.log("maskList",editMaskList);
+    for(var index=0;index<editMaskList.length;index++){
+      editMaskList[index].style.cssText="border-color:gray";
+    }
+
+    currentTarget.style.cssText="border-color:#39a5ea;";
+    formPlane.style.cssText="display:block;";
+    appendPlane.innerHTML="";
+    formOptionFactory.createOption(formOptionMap[currentType],currentType,appendPlane);
+    btnSave.setAttribute("data-targetId",currentTarget.dataset.targetid);
+    */
   }
+
+  window.formEditClick=function(e){
+    console.log(e);
+    console.log(e.currentTarget.dataset.targetid);
+    formOptionFactory.saveOption("js-option-content",e.currentTarget.dataset.targetid);
+  }
+
+
+
+
 });
 
 

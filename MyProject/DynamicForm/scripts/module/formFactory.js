@@ -106,6 +106,7 @@ define(["tools","formUI"],function(tools,ui){
           controlPlaneMask.className="custom-form-editMask";
           controlPlaneMask.setAttribute("data-level",formDom.dataset.level);
           controlPlaneMask.setAttribute("data-type",type);
+          controlPlaneMask.setAttribute("data-targetId",formDom.dataset.controlid);
           _setOnlyId(controlPlaneMask);
           controlPlane.appendChild(formDom);
           controlPlane.appendChild(controlPlaneMask);
@@ -113,6 +114,7 @@ define(["tools","formUI"],function(tools,ui){
           controlPlane.setAttribute("data-isControlPlane",true);
           controlPlane.setAttribute("onclick","formOptionClick(event)");
           controlPlane.setAttribute("data-type",type);
+          controlPlane.setAttribute("data-targetId",formDom.dataset.controlid);
 
           _setOnlyId(controlPlane);
           _setDropEvent(controlPlane);

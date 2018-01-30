@@ -143,6 +143,7 @@ define(["tools"],function(tools){
           parentType:"formControl"
 
         },
+        /*
         "submit":{
           title:"提交",
           el:"input",
@@ -156,6 +157,7 @@ define(["tools"],function(tools){
           enable:true,
           parentType:"formControl"
         }
+        */
         /*
         ,
         "button":{
