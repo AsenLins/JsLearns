@@ -13,6 +13,9 @@ require.config({
     "notie":"../../plugs/notie/notie.min",
     "sweetalert2":"../../plugs/sweetalert2/sweetalert2.min",
     "domReady":"../../plugs/requirePlus/domReady",
+    "text":"../../Plugs/requirePlus/text",
+    "ht_optionSelect":"../template/option_select.html",
+    "jquery":"../../Plugs/jquery/jquery-1.9.1.min"
   }
 });
 
@@ -20,6 +23,8 @@ require.config({
 /*初始化页面基础数据，以及事件*/
 
 //dragula([$('left-copy'), $('right-copy')], { copy: true });
+
+
 
 
 require(["formMap","dragEventBus","tools","nprogress","notie","sweetalert2","domReady"],
@@ -113,10 +118,6 @@ function(formMap,dragEventBus,tools,nprogress,notie,swal,domReady){
     })
     });
 
-    document.getElementById("js-control-attr").addEventListener("click",function(){
-
-    });
-
     nprogress.done();
   });
 
@@ -143,6 +144,15 @@ function(formOptionMap,tools,formOptionFactory,domReady){
   window.formOptionClick=function(e){
 
     var controlid=e.srcElement.dataset.targetid;
+    var planeid=e.srcElement.dataset.controlid;
+    var currentid=optionOperate.getCurrentId();
+    if(controlid===currentid){
+      optionOperate.show();
+      return;
+    }
+
+
+    optionOperate.setCurrentId(controlid);
     optionOperate.clear();
     optionOperate.show();
     optionOperate.setSelectBorder(controlid);
@@ -152,51 +162,76 @@ function(formOptionMap,tools,formOptionFactory,domReady){
       targetPlane:document.getElementById("js-option-content")
     });
 
-
-
+    document.getElementById("btn-formEdit-save").setAttribute("data-targetid",controlid);
+    document.getElementById("btn-formEdit-save").setAttribute("data-planeid",planeid);
     //optionOperate.hide();
     console.log(optionOperate);
 
-    /*
-    var optionObj={
-      optionMap:formOptionMap[currentType],
-      currentType:e.srcElement.dataset.type,
-      targetPlane:document.getElementById("js-option-content")
-    }
-    */
-
-
-
-    /*
-    var currentTarget=e.srcElement;
-    var currentType=e.srcElement.dataset.type;
-    var appendPlane=document.getElementById("js-option-content");
-    var formPlane=document.getElementById("js-formOptionPlane");
-    var btnSave=document.getElementById("btn-formEdit-save");
-    var editMaskList=document.querySelectorAll(".custom-form-editMask");
-
-
-
-
-    console.log("maskList",editMaskList);
-    for(var index=0;index<editMaskList.length;index++){
-      editMaskList[index].style.cssText="border-color:gray";
-    }
-
-    currentTarget.style.cssText="border-color:#39a5ea;";
-    formPlane.style.cssText="display:block;";
-    appendPlane.innerHTML="";
-    formOptionFactory.createOption(formOptionMap[currentType],currentType,appendPlane);
-    btnSave.setAttribute("data-targetId",currentTarget.dataset.targetid);
-    */
   }
 
   window.formEditClick=function(e){
-    console.log(e);
-    console.log(e.currentTarget.dataset.targetid);
-    formOptionFactory.saveOption("js-option-content",e.currentTarget.dataset.targetid);
+    console.log("提交的e",e);
+    console.log("提交的e的id",e.currentTarget.dataset.targetid);
+    var planeid=e.currentTarget.dataset.planeid;
+    var contorlid=e.currentTarget.dataset.targetid;
+    var result=formOptionFactory.saveOption("js-option-content",contorlid,planeid);
+    if(result){
+      console.log("是否成功",result);
+      optionOperate.clear();
+      optionOperate.hide();
+      optionOperate.setSelectSuccess(contorlid);
+    }
   }
 
+  $("#js-control-create").on("click",function(){
+
+    var failSize=$(".custom-form-editMask").size();
+    var successSize=$(".custom-form-editMask[success]").size();
+    if(failSize===0){
+      return;
+    }
+
+
+
+
+    if(failSize-successSize===0){
+      console.log("success");
+      var useDoms="";
+      var myarray=[];
+
+      var List=document.querySelectorAll(".custom-form-editMask[success]");
+      for(var index=0;index<List.length;index++){
+        console.log("theList",List[index]);
+        console.log("theList2222",List[index].parentNode.childNodes);
+        var doms=document.createElement("div");
+        var replaceDom=List[index].parentNode.childNodes[1];
+        var parentNode=List[index].parentNode;
+        List[index].parentNode.removeChild(List[index].parentNode.childNodes[1]);
+
+        parentNode.appendChild(replaceDom);
+
+        var html=parentNode.innerHTML;
+
+        useDoms=useDoms+html;
+      }
+      $("#js-formprevPlane").append(useDoms);
+
+      var id=Date.parse(new Date());
+      var createObj={
+        id:id,
+        createForm:$("#js-form").html(),
+        useForm:useDoms
+      }
+
+      console.log("useDom33333",useDoms);
+    }
+    else{
+      console.log("fail");
+    }
+
+    console.log($(".custom-form-editMask[success]").size());
+
+  });
 
 
 

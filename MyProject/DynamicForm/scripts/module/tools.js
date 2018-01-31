@@ -67,6 +67,22 @@ define(function(){
 
 
 
+  function _getVirtualDomById(dom,id){
+    var currentDom;
+    for(var index=0;index<dom.length;index++){
+      if(dom[index].id===id){
+        //console.log("符合",_parseDom(dom[index].innerHTML));
+        var wrap=document.createElement("div");
+        //currentDom=_parseDom(dom[index].innerHTML);
+        wrap.innerHTML=dom[index].innerHTML;
+        currentDom=wrap;
+        break;
+      }
+    }
+    return currentDom;
+  }
+
+
   /**
    * 获取元素html
    * @param       {dom对象} dom dom对象
@@ -75,7 +91,15 @@ define(function(){
    */
   function _getHtml(dom){
     var wrapDom=document.createElement("div");
-    wrapDom.appendChild(dom);
+    if(dom.lenght!==undefined){
+      for(var index=0;index<dom.lenght;index++){
+        wrapDom.appendChild(dom[index]);
+      }
+    }
+    else{
+      wrapDom.appendChild(dom);
+    }
+
     return wrapDom.innerHTML;
   }
 
@@ -159,7 +183,8 @@ define(function(){
     parseDom:_parseDom,
     getPosition:_getPosition,
     parentUntil:_parentUntil,
-    parentUntilByAttr:_parentUntilByAttr
+    parentUntilByAttr:_parentUntilByAttr,
+    getVirtualDomById:_getVirtualDomById
   }
 
 });

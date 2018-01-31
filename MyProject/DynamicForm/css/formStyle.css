@@ -425,7 +425,7 @@ html.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown){
 
 .swal2-modal{
   box-shadow: 1px 1px 14px -3px gray;
-  border: 8px solid #eeeeee;
+  /*border: 8px solid #eeeeee;*/
   background-color:white;
 }
 

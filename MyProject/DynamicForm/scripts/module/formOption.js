@@ -92,6 +92,11 @@ define(function(){
           notNull:true,
           class:"am-form-field"
         },
+        text:{
+          attrName:"text",
+          el:"input",
+          notNull:true
+        },
         checked:{
           attrName:"checked",
           el:"checkbox",
@@ -109,10 +114,10 @@ define(function(){
             class:"am-form-field"
           },
           data:{
-            attrName:"data",
+            attrName:"select",
             title:"新增option值",
-            type:"dynamic",
-            el:"dynamic"
+            type:"dynamic_select",
+            el:"dynamic_select"
           }
         }
     },
@@ -123,6 +128,11 @@ define(function(){
           el:"input",
           notNull:true,
           class:"am-form-field"
+        },
+        text:{
+          attrName:"text",
+          el:"input",
+          notNull:true
         },
         name:{
           attrName:"name",
@@ -144,7 +154,8 @@ define(function(){
           el:"input",
           notNull:true,
           class:"am-form-field"
-        },
+        }
+        /*
         postUrl:{
           attrName:"postUrl",
           el:"input",
@@ -158,6 +169,7 @@ define(function(){
             "post":"post"
           }
         }
+        */
       }
     },
     "multiline":{
