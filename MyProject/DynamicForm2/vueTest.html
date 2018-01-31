@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body >
+    <div id="vueObj">
+        <my-input value="12354545"></my-input>
+    </div>
+
+    <div id="vueObj2">
+        <my-input v-model="testVal"></my-input>
+        <my-input2 v-model="testVal"></my-input2>
+        <supper-cp></supper-cp>
+    </div>
+
+
+    <script src="scripts/vue/vue.js" ></script>
+    <script type="text/javascript">
+      Vue.component("my-input",{
+        template:"<div>{{value}}</div> ",
+        props:["value"],
+        methods:{
+          inputTest:function(e) {
+            console.log("触发了更新值",e);
+          }
+        }
+      });
+      new Vue({
+        el:"#vueObj",
+        data:{
+          message:"443",
+          value:"987"
+        }
+      });
+
+
+      Vue.component("my-input2",{
+        data:function () {
+          return {
+            testVal:"postVal33"
+          }
+        },
+        template:"<input type='text' v-bind:value='testVal' /> "
+      });
+      var childSon={
+        props:["testVal"],
+
+        template:"<div>{{testVal}}</div>"
+      }
+
+      var child={
+
+        template:"<div>i am Asen Lins<supper-son testVal='903' ></supper-son></div>",
+        components:{
+          "supper-son":childSon
+        },
+        data:function () {
+          return{
+            testVal:"666666666"
+          }
+        }
+      }
+
+
+
+      new Vue({
+        el:"#vueObj2",
+        components:{
+          "supper-cp":child
+        }
+        ,
+        data:{
+          testVal:"postVal"
+        }
+      })
+    </script>
+
+
+  </body>
+  </html>

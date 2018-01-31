@@ -1,0 +1,213 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Auto Form</title>
+  <meta name="description" content="表单生成">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="apple-touch-icon-precomposed" href="ui/assets/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" href="ui/assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="ui/assets/css/admin.css">
+
+  <link rel="stylesheet" href="plugs/notie/notie.min.css?v=3" />
+  <link rel="stylesheet" href="plugs/sweetalert2/sweetalert2.min.css?v=1" />
+  <link rel="stylesheet" href="plugs/nprogress/nprogress.css?v=1" />
+  <link rel="stylesheet" href="plugs/perfect-scrollbar/perfect-scrollbar.css?v=1" />
+  <link rel="stylesheet" href="css/formStyle.css?v=8" />
+  <link rel="stylesheet" href="css/iconfont.css?v=5" />
+
+</head>
+<body>
+
+<header class="am-topbar am-topbar-customer admin-header">
+  <div class="am-topbar-brand">
+    <strong>Auto Form</strong> <small>表单生成器</small>
+  </div>
+</header>
+
+
+
+
+<div id="autoForm" class="am-cf admin-main">
+
+  <!-- sidebar start -->
+  <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+    <div class="am-offcanvas-bar admin-offcanvas-bar">
+      <ul id="js-am-list" class="am-list admin-sidebar-list">
+      <li  v-for="plane in formMap">
+
+          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}">
+            <span :class="plane.icon"></span>
+              {{plane.title}}
+            <span class="am-icon-angle-right am-fr am-margin-right"></span>
+          </a>
+          <ul class="custom-drag am-list am-collapse admin-sidebar-sub am-in container">
+
+              <li draggable="true" :data-type="menuType"  ondragstart="dragEventBus.dragStart(event)"  v-for="(menu,menuType) in plane.controlMap">
+                <div class="am-cf"><span :class="menu.icon"></span>
+                  {{menu.title}}
+                </div>
+              </li>
+
+
+            <!--
+            <li v-for="(menu,menuType) in plane.controlMap">
+              <div  :data-type="menuType"  class="am-cf "><span :class="menu.icon"></span>
+                {{menu.title}}
+              </div>
+            </li>
+            -->
+          </ul>
+      </li>
+
+        <div class="am-panel am-panel-default admin-sidebar-panel">
+          <div class="am-panel-bd">
+            <p><span class="am-icon-bookmark"></span> 使用方法</p>
+            <p>1.请先添加面板控件。</p>
+            <p>2.再拖动表单控件。</p>
+          </div>
+        </div>
+      </ul>
+
+    </div>
+  </div>
+  <!-- sidebar end -->
+
+<!-- content start -->
+<div class="admin-content">
+
+  <div class="admin-content-body">
+
+    <div class="formLayoutType-plane" id="formLayoutType-plane">
+      <div class="formLayoutType-select">
+        <select v-model="layout.itemSelect" @change="layoutChange">
+          <option  v-for="(sizeItem,key) in layout.layoutItems" :value="key" >{{key}}</option>
+        </select>
+      </div>
+      <div class="formLayoutType-size">{{layout.currentSize.width}} * {{layout.currentSize.height}}</div>
+    </div>
+
+
+    <div id="js-form-btn" class="form-btn">
+      <button id="js-control-create" class="am-btn am-btn-success">
+        <i class="iconfont icon-biaodanyemian"></i>
+        生成表单
+      </button>
+      <button id="js-control-clear" class="am-btn am-btn-default">
+        <i class="iconfont icon-721bianjiqi_qingkongwendang"></i>
+        清空面板
+      </button>
+
+      <!--
+      <div><i class="iconfont icon-biaodanyemian"></i></div>
+      <div><i class="iconfont icon-721bianjiqi_qingkongwendang"></i> </div>
+      -->
+    </div>
+
+    <div id="js-formDragPlane" ondragover="dragEventBus.dragOver(event)" ondrop="dragEventBus.dragEvent(event)" :style="layoutStyle" class="formContent-default" >
+      <div id="js-helpLine-x" class="form-helpLine-x" style=""></div>
+      <div id="js-helpLine-y" class="form-helpLine-y" style=""></div>
+
+      <div id="js-delete"   class="form-delete drageDelete">
+        <div class="form-delete-wrap drageDelete">
+              <i  class="iconfont icon-shanchu dragDelete"></i>
+        </div>
+      </div>
+      <form id="js-form" data-level="0" class="am-form-custom"></form>
+
+    </div>
+
+<!--
+  <div id="js-formDragPlane"  :style="layoutStyle" class="formContent-default" >
+    <div id="js-helpLine-x" class="form-helpLine-x" style=""></div>
+    <div id="js-helpLine-y" class="form-helpLine-y" style=""></div>
+    <form id="js-form" data-level="0" class="am-form-custom"></form>
+
+  </div>
+-->
+
+
+
+  <div id="js-formprevPlane" style="width:414px;" class="formOptionPlane" >
+    <!--js-formOptionPlane-->
+  </div>
+    <div id="js-formOptionPlane" class="formOptionPlane" >
+      <ul class="am-nav am-nav-tabs">
+        <li class="am-active"><a href="#">控件属性</a></li>
+        <li><a  class="form-unclick"  disabled="true"  href="#">验证属性</a></li>
+        <li><a class="form-unclick" disabled="true" href="#">数据源</a></li>
+        <li><a class="form-unclick" disabled="true" href="#">自定义属性</a></li>
+      </ul>
+      <div  class="option-content">
+
+        <form id="js-option-content" class="am-form-option">
+          <div class="item-option-colum">
+              <label>name:</label>
+              <input  type="email"   class="am-form-field" placeholder="name属性" data-form-un="1516000411279.6406">
+          </div>
+
+          <div class="item-option-colum">
+              <label>placeholder:</label>
+              <input  type="email"  class="am-form-field" placeholder="placeholder属性" data-form-un="1516000411279.6406">
+          </div>
+
+          <div class="item-option-colum">
+              <label>type:</label>
+              <select>
+                <option value="">text</option>
+                <option value="">number</option>
+                <option value="">email</option>
+                <option value="">number</option>
+              </select>
+          </div>
+        </form>
+
+        <div style="text-align:center; margin-top:2em;" id="js-formOptionSave">
+            <button onclick="formEditClick(event)" id="btn-formEdit-save" type="button" class="am-btn am-btn-primary am-radius am-btn-block">保存</button>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+  <!--
+  <footer class="admin-content-footer">
+    <hr>
+    <p class="am-padding-left">© 2018 表单生成器.</p>
+  </footer>
+-->
+</div>
+
+</div>
+
+<a href="#"  class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+
+<!--
+<footer>
+  <hr>
+  <p class="am-padding-left">© 2018 表单生成器.</p>
+</footer>
+-->
+
+
+<!--
+<script src="ui/assets/js/jquery.min.js"></script>
+
+<script src="ui/assets/js/amazeui.min.js"></script>
+<script src="ui/assets/js/app.js"></script>
+-->
+
+<script src="scripts/vue/vue.js"></script>
+<script src="scripts/requirejs/require.js?v=3" defer async="true"  data-main="scripts/main.js?v=5"></script>
+
+
+
+</body>
+</html>

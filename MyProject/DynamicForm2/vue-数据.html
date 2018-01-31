@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="myVau">
+      <div>{{name}}</div>
+      <div>{{age}}</div>
+      <child :mes="mes"></child>
+    </div>
+    <input type="button" onclick="btn_change()" value="点击我修改按钮" />
+
+
+    <script src="scripts/vue/vue.js" ></script>
+    <script>
+      var child={
+        props:["mes"],
+        render:function(createElement){
+          console.log(this.mes);
+          return createElement("div","i am render div");
+          console.log(createElement);
+        },
+        template:"<div v-on:click='childMethod'>the mes is :{{mes}} </div>",
+        methods:{
+          childMethod:function(event){
+            console.log("childMethod is tigger");
+          }
+        }
+      };
+      var myVue=new Vue({
+
+        el:"#myVau",
+        data:{
+          name:"Asen",
+          age:11,
+          mes:"very cool"
+        },
+        components:{
+          child:child
+        }
+      });
+
+      function btn_change(){
+        console.log("修改");
+        myVue.mes="i am change";
+      }
+
+
+
+
+
+
+    </script>
+  </body>
+  </html>
