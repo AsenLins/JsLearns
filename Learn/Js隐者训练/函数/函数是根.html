@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+
+  <body>
+  <script src="../scripts/assert.js" ></script>
+  <script>
+      function fn(){
+        console.log("i am fn");
+      }
+      assert(typeof window.fn==="function","函数fn不是函数");
+      assert(window.fn.name==="fn","函数名称不是fn");
+
+      var noNameFn=function(){
+        console.log ("i am no Name Fn");
+      }
+
+      var noNameFn2=function haveFn(){
+        console.log("i am have fn");
+      }
+
+      console.log(noNameFn2.name);
+
+      console.log("noNameFn:",noNameFn.name);
+      assert(noNameFn.name==="noNameFn","变量noNameFn函数名不是noNameFn");
+      assert(typeof noNameFn==="function","变量noNameFn不是函数");
+
+
+      console.log("fn.name=",fn.name);
+  </script>
+  </body>
+  </html>

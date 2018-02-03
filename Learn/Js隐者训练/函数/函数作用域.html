@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <script src="../scripts/assert.js" ></script>
+
+
+    <script>
+
+
+      /*
+      函数的作用域
+      */
+      assert(true,"/*测试作用域*/");
+
+      function out(){
+        inner();
+        function inner(){
+          console.log(this);
+          var a=0;
+          var b=1;
+
+          function innerFn(){
+            console.log(this);
+          }
+
+          if(b>a){
+            var c=a+b;
+          }
+          innerFn();
+          test();
+        }
+
+      }
+
+      function test(){
+        console.log(this);
+        console.log("a is",typeof a  ==="number");
+        console.log("b is",typeof b  ==="number");
+        console.log("c is",typeof c  ==="number");
+
+      }
+
+
+      out();
+
+
+      assert(out!==undefined,"out在全局作用域");
+      assert(typeof inner!==undefined,"inner在全局作用域");
+      assert(typeof a==="number","a在全局作用域");
+
+
+      /*
+      函数在不同调用下的this指向
+      */
+      assert(true,"/*函数在不同调用下的this指向*/");
+
+      /*以方法的方式调用*/
+      function fn1(){return this;}
+      assert(fn1()===window,"以方法的方式调用，fn1指向的window");
+
+      /*以对象的方式调用*/
+      var fn1Obj={
+        fn:fn1
+      }
+      assert(fn1()===window,"以对象的方式调用，fn1指向当前fn1Obj");
+      console.log("fn1()===window",fn1()===window);
+
+
+
+
+    </script>
+  </body>
+  </html>
