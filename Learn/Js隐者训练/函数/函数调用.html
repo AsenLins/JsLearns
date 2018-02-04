@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+    function chirp(n){
+    
+      console.log("名称是",this.name);
+      console.log(n>1?chirp(n-1)+"-chirp":"chirp");
+      return n>1?chirp(n-1)+"-chirp":"chirp";
+    }
+
+    var dc=chirp(6);
+    console.log("result:",dc);
+
+
+    var ninjia={
+      chirp:function(n){
+        console.log("名称是",this.name);
+        return n>1?ninjia.chirp(n-1)+"-chirp":"chirp";
+      }
+    }
+
+    var sakuma={
+      chirp:ninjia.chirp
+    }
+    console.log("functionName:",ninjia.chirp.name);
+    console.log("ninjia-result",ninjia.chirp(1));
+    console.log("sakuma-result",sakuma.chirp(4));
+
+    console.log("/*ninjia被敌人干掉*/");
+    ninjia={};
+    try{
+      console.log("sakuma-result",(sakuma.chirp(4)));
+    }catch(e){
+      console.log("sakuma呼叫ninjia失败");
+    }
+
+    </script>
+  </body>
+  </html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+
+  <body>
+    <div>123</div>
+    <script>
+    var obj={};
+    obj.name="ninjia";
+    function sakuma(){
+
+    }
+
+    sakuma.name="sakuma";
+
+    console.log("obj.name",obj.name);
+    console.log("function.name",sakuma.name);
+
+
+    /*利用函数对象自身属性实现缓存对象*/
+
+    var store={
+      id:1,
+      cache:{},
+      add:function(fn){
+        if(!fn.id){
+          fn.id=this.id++;
+          return !!(this.cache[fn.id]=fn);
+        }
+      }
+    }
+
+    function fn1() {
+      console.log("i am fn 1");
+    }
+    store.add(fn1);
+    store.add(fn1);
+    console.log(store.cache);
+
+
+    /*利用函数自身实现缓存*/
+
+    function fnStore(mes){
+      if(!fnStore.cache){
+        fnStore.cache={};
+      }
+      fnStore.cache[mes]=mes;
+
+
+    }
+    fnStore("i am ansen lins");
+    console.log("store对象是",fnStore.cache);
+
+    function test(){
+      var a=3;
+      return a=4;
+    }
+    console.log(test());
+
+    /*获取dom的对象的缓存代理*/
+    function getElements(name) {
+      if(!getElements.cache){
+        getElements.cache={};
+      }
+      return getElements.cache[name]=document.getElementsByTagName(name)||
+      document.getElementsByTagName(name);
+    }
+
+    var dom=getElements("div");
+
+    console.log("dom is",dom);
+    console.log(getElements.cache);
+
+
+    /*使用函数上下文，模拟数组方法*/
+    var elements={
+      length:0,
+      add:function(elem){
+        Array.prototype.push.call(this,elem);
+      },
+      useAdd:function(elem){
+        this.add(elem);
+      }
+    }
+
+    elements.useAdd(4);
+    elements.useAdd(5);
+    elements.useAdd(6);
+    console.log(elements);
+
+    /*使用apply与call调用未知参数的方法*/
+    function maxNum(arrayNum) {
+      return Math.max.apply(Math,arrayNum);
+    }
+
+    function minNum(arrayNum){
+      return Math.min.apply(Math,arrayNum);
+    }
+
+    console.log(maxNum([1,2,3,4,5]));
+    console.log(minNum([1,2,3,4,5]));
+
+    /*使用apply切片元素，获取第一个元素，并且与参数最大的一个参数相乘*/
+    function theMax(first){
+      return first*Math.max.apply(Math,Array.prototype.slice.call(arguments,1));
+    }
+
+    console.log("相乘数是：",theMax(2,3,4,5));
+
+
+
+
+    /*使用arguments接收参数,并且合并对象*/
+
+    function merge(root){
+      for(var index=0;index<arguments.length;index++){
+        for(var key in arguments[index]){
+          root[key]= arguments[index][key];
+        }
+      }
+      return root;
+    }
+
+    var mergeObj={
+      name:"asen"
+    }
+    var mergeObj2={
+      age:12
+    };
+    var mergeTheObj=merge(mergeObj,mergeObj2);
+    console.log("合并的对象是：",mergeTheObj);
+
+    /*使用arguments和闭包重载*/
+    function addMethod(object,methodName,fn){
+      var oldFn=object[methodName];
+      object[methodName]=function(){
+        if(fn.length==arguments.length){
+          return fn.apply(this,arguments);
+        }else if(typeof oldFn==="function"){
+          return oldFn.apply(this,arguments);
+        }
+      }
+    }
+
+    var methodObj={
+      name:"asen",
+      age:10,
+      sex:"boy"
+    };
+    addMethod(methodObj,"find",function(){
+      return this.name;
+    });
+    addMethod(methodObj,"find",function(a){
+      return this.age+10;
+    });
+    addMethod(methodObj,"find",function(a,b){
+      return a+b+this.sex;
+    });
+    console.log(methodObj);
+    console.log(methodObj.find());
+    console.log(methodObj.find(1));
+    console.log(methodObj.find("sam","is "));
+
+    console.log("/*apply与call的区别*/");
+    var fn_1=function(a,b){
+      console.log(a,b);
+    }
+    fn_1.call(this,1,2);
+
+    fn_1.apply(this,[1,2]);
+
+
+
+    </script>
+  </body>
+  </html>
