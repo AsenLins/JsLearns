@@ -200,21 +200,59 @@ function(formOptionMap,tools,formOptionFactory,domReady){
       var myarray=[];
 
       var List=document.querySelectorAll(".custom-form-editMask[success]");
+      var ListPlane=document.querySelectorAll("#js-form .form-item");
+        console.log("ListPlane Size:",ListPlane.length);
+      for(var index=0;index<ListPlane.length;index++){
+        console.log("ListPlane",ListPlane[index]);
+        var currentPlane=ListPlane[index];
+        var planeChild=ListPlane[index].childNodes;
+        var html="";
+        for(var cindex=0;cindex<planeChild.length;cindex++){
+          var current=planeChild[cindex];
+          var replaceDom=current.childNodes[1];
+
+          //var replaceDom=List[index].parentNode.childNodes[1];
+          var parentNode=replaceDom.parentNode;
+          parentNode.removeChild(parentNode.childNodes[1]);
+
+          html=html+parentNode.innerHTML;
+          parentNode.appendChild(replaceDom);
+        }
+
+
+        var inputWrap=document.createElement("div");
+        inputWrap.setAttribute("class","create-"+currentPlane.className);
+
+        inputWrap.innerHTML=html;
+
+        useDoms=useDoms+tools.getHtml(inputWrap);
+      }
+
+      var postBtn=document.createElement("button");
+      postBtn.setAttribute("class","am-btn am-btn-success am-btn-block btn-bottom");
+      postBtn.innerHTML="提交";
+      useDoms=useDoms+tools.getHtml(postBtn);
+
+      /*
       for(var index=0;index<List.length;index++){
-        console.log("theList",List[index]);
-        console.log("theList2222",List[index].parentNode.childNodes);
         var doms=document.createElement("div");
         var replaceDom=List[index].parentNode.childNodes[1];
         var parentNode=List[index].parentNode;
+        var wrap=List[index].parentNode.parentNode;
         List[index].parentNode.removeChild(List[index].parentNode.childNodes[1]);
 
-        parentNode.appendChild(replaceDom);
-
+        var inputWrap=document.createElement("div");
+        inputWrap.setAttribute("class","create-"+wrap.className);
         var html=parentNode.innerHTML;
+        inputWrap.innerHTML=html;
 
-        useDoms=useDoms+html;
+        parentNode.appendChild(replaceDom);
+        useDoms=useDoms+tools.getHtml(inputWrap);
+
       }
-      $("#js-formprevPlane").append(useDoms);
+      */
+      console.log(useDoms);
+
 
       var id=Date.parse(new Date());
       var createObj={
@@ -222,7 +260,8 @@ function(formOptionMap,tools,formOptionFactory,domReady){
         createForm:$("#js-form").html(),
         useForm:useDoms
       }
-
+      $("#js-formprevPlane").empty();
+      $("#js-formprevPlane").append(useDoms);
       console.log("useDom33333",useDoms);
     }
     else{

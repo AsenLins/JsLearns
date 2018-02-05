@@ -11,7 +11,7 @@ define(["tools"],function(tools){
           title:"行面板",
           el:"div",
           attr:{
-            class:"item-row"
+            class:"item-row form-item"
           },
           dataAttrs:{
             level:1
@@ -24,7 +24,7 @@ define(["tools"],function(tools){
           title:"列面板",
           el:"div",
           attr:{
-            class:"item-colum",
+            class:"item-colum form-item",
           },
           dataAttrs:{
             level:1
