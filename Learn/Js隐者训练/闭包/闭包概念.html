@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>闭包</title>
+  </head>
+  <body>
+    <script>
+
+      function myFunc(){
+        var a=1;
+        var myfn=function(){
+          a++;
+        }
+        function my(){
+          a++;
+          return a;
+        }
+        return a;
+      }
+
+    </script>
+  </body>
+  </html>
