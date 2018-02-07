@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+      var prevNum=0;
+      function fn(fn){
+        fn();
+      };
+
+      function myfn(a,time){
+        var a=a;
+        /*
+        setInterval(function(){
+
+          console.log(a);
+        },time)
+        */
+        fn(function(){
+          console.log(a,time);
+        });
+
+      };
+
+      myfn(10,4000);
+      myfn(11,1000);
+
+
+
+
+
+
+
+    </script>
+  </body>
+  </html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      Function.prototype.curry=function(){
+        var fn=this,
+        args=Array.prototype.slice.call(arguments);
+        console.log("args",args);
+        return function(){
+          console.log("调用方法参数",arguments);
+          console.log("slice",Array.prototype.slice.call(arguments));
+          console.log("数组是",args.concat(Array.prototype.slice.call(arguments)));
+          return fn.apply(this,args.concat(Array.prototype.slice.call(arguments)));
+        }
+
+      }
+
+      function fn() {
+        console.log("this",this);
+        console.log("arguments",arguments);
+        console.log("f1");
+      }
+
+      var myCurry=fn.curry({
+        name:"sakuma",
+        age:10,
+        sex:"box"
+      });
+
+      myCurry(444);
+
+
+      Function.prototype.partial=function(){
+        var fn=this,args=Array.prototype.slice.call(arguments);
+        console.log("当前partial方法是：",fn);
+        console.log("当前partial参数是：",args);
+        return function(){
+          var arg=0;
+          for(var i=0;i<args.length&&arg<arguments.length;i++){
+            if(args[i]===undefined){
+              args[i]=arguments[arg++];
+            }
+          }
+          console.log("....");
+          console.log("返回的方法是：",fn.apply(this,args));
+          return fn.apply(this,args);
+        }
+      }
+
+      var kkk;
+      function mydec(){
+
+        console.log("i am my dec",this);
+      }
+      mydec.kc=function(){
+        kkk=this;
+        console.log("mydec的kc是：",this);
+      }
+
+      var myobj={
+        name:"asen",
+        method:function(){
+          console.log("myobj",this);
+          console.log("i am method");
+        }
+      }
+      myobj.method();
+
+
+
+      mydec.kc();
+      kkk();
+
+
+      var delay=setTimeout.partial(undefined,3000);
+      /*
+      delay(function(){
+        console.log("i am very cool delay");
+      });
+      */
+
+    </script>
+  </body>
+  </html>

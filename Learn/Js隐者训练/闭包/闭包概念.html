@@ -5,19 +5,52 @@
     <title>闭包</title>
   </head>
   <body>
+    asdasd4424213123123
+
     <script>
+      var b=1;
+      var c=2;
+      var d=10;
+      function fnMethod(fn){
+        return fn();
+        //fn.apply(this,arguments);
+      }
 
       function myFunc(){
-        var a=1;
-        var myfn=function(){
-          a++;
-        }
-        function my(){
-          a++;
-          return a;
-        }
-        return a;
+        var a=0;
+        var b=0;
+
+        console.log("myFunc d is ", d);
+        //var b;
+        /*
+        setTimeout(function(){
+          console.log(a);
+          console.log(b);
+        },2000);
+        */
+       console.log("myFunc a",a);
+       console.log("myFunc b",b);
+       function myf(){
+          console.log("myf a is :",a);
+          console.log("myf b is :",b);
+          console.log("myf c is :",c);
+       }
+       myf();
+        console.log("改变后的a:",a);
+        return fnMethod(function(){
+          console.log("a is",a);
+          console.log("b is",b);
+          console.log("myf c is :",c);
+          ++b;
+          return ++a;
+        });
+
+
+
       }
+      console.log("得到的结果值是:"+myFunc());
+      console.log("得到结果值是："+myFunc());
+
 
     </script>
   </body>

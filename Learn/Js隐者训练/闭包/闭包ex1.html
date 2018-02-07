@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+        var a=1;
+        var myfn;
+        function fn(){
+          var b=2;
+          console.log(a);
+          function innerFn(param){
+            console.log("param is",param);
+            console.log("i am inner Fn:",b);
+            console.log("myFirend",myFriend);
+          }
+          myfn=innerFn;
+        }
+
+
+        var myFriend="123";
+
+        fn();
+        myfn(4443);
+        function mytest() {
+          var age=10;
+          var b=a;
+          return{
+            getage:function(num){
+              age=age+num;
+              return age+b;
+            }
+          }
+
+        }
+
+        var ninjia=function(){
+            var name="sakuma";
+
+            this.setNinJiaName=function(name){
+              var dc=mytest().getage(3);
+              name=name;
+            };
+            this.getNinJiaName=function(){
+              return name;
+            }
+        }
+
+        var ninJiaLin=new ninjia();
+        ninJiaLin.setNinJiaName("AsenLinst");
+        ninJiaLin.setNinJiaName("AsenLinst3");
+        console.log(ninJiaLin.getNinJiaName());
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+  </body>
+  </html>

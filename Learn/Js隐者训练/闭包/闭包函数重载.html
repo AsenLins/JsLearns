@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+    Function.prototype.memoized=function(key){
+
+      this._values=this._values||{};
+      console.log("值是：",this._values);
+      return this._values[key]!==undefined?this._values[key]
+      :this._values[key]=this.apply(this,arguments);
+    }
+
+    Function.prototype.memoize=function(){
+      var fn=this;
+      return function(){
+        console.log(fn);
+        return fn.memoized.apply(fn,arguments);
+      };
+    }
+
+
+    function isPrime(num){
+      var prime=num!=1;
+      for(var i=2;i<num;i++){
+        if(num%i==0){
+          prime=false;
+          break;
+        }
+      }
+      return prime;
+    }
+
+
+    var misPrime=isPrime.memoize();
+
+    console.log(misPrime(5));
+    console.log(misPrime(5));
+
+    //console.log("misPrime",misPrime);
+
+    //console.log(isPrime.memoized(5));
+    //console.log(isPrime._values[5]);
+
+
+    </script>
+  </body>
+  </html>

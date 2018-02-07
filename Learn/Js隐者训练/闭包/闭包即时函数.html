@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+      function fn(){
+        console.log("i am fn3");
+      }
+      (fn)();
+
+
+      (function(window){
+        var Jquery=window.jquery=function(){
+          console.log(Jquery);
+        }
+
+
+
+        console.log("dc",dc);
+      })(window);
+
+      var innerFnc;
+
+      function fn2(){
+        function inner(){
+          console.log("fn2 dc44444",dc);
+          console.log("po",po);
+        }
+        var po="123";
+        innerFnc=inner;
+        //return inner;
+      }
+
+
+      //pc();
+
+
+      var dc="123";
+      fn2();
+      innerFnc();
+    </script>
+  </body>
+  </html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+    function wrap(object,method,wrapper){
+      var fn=object[method];
+      return object[method]=function(){
+        return wrapper.apply(this,[fn.bind(this)])
+        .concat(Array.prototype.slice.call(arguments));
+      }
+    }
+
+    function fn(){
+      console.log("fn");
+    }
+
+    var obj={
+      name:"asen",
+      myfn:function(){
+        console.log("i am my fn");
+      }
+    }
+
+    var wrapAp=wrap(obj,"myfn",function(){
+      console.log("i am asen");
+    });
+
+    wrapAp();
+
+    </script>
+  </body>
+  </html>

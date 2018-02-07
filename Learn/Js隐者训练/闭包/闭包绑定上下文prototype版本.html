@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+    Function.prototype.bind=function(){
+      console.log("绑定的参数是：",arguments);
+      var fn=this,args=Array.prototype.slice.call(arguments),
+      object=args.shift();
+
+      console.log("fn",fn);
+      console.log("args",args);
+      console.log("object",object);
+      return function(){
+        return fn.apply(object,args.concat(Array.prototype.slice.call(arguments)));
+      }
+
+    };
+
+    function fn(a,b,c){
+      console.log("fn.this",this);
+    }
+
+    var myfun=fn.bind({
+      a:10,
+      b:20,
+      c:30
+    });
+    myfun();
+    console.log(myfun);
+
+
+    </script>
+  </body>
+  </html>
