@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <script>
+      function fn(){
+        //var a=0;
+
+        this.getA=function(){
+
+          return this.a;
+        }
+        this.setA=function(param){
+          "use strice"
+          this.a=param;
+          console.log(this);
+        }
+      }
+
+      var obj=new fn();
+      console.log(obj);
+      obj.b=123;
+      obj.setA(10);
+
+      /*输出10*/
+      console.log(obj.getA());
+    </script>
+  </body>
+  </html>
