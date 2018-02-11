@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <div id="muVue">
+        <auto-input>333</auto-input>
+    </div>
+
+    <script src="scripts/vue/vue.js"></script>
+
+
+
+    <script type="text/x-template" id="auto-input">
+      <input v-model='mes' v-bind:name='' type='text' />
+    </script>
+
+    <script type="text/x-template" id="auto-checkbox">
+      <input type="checkbox" v-bind:name="" type="text" />
+    </script>
+
+    <script type="text/x-template" id="auto-radio">
+      <input type="radio" v-bind:name="" type="text" />
+    </script>
+
+    <script type="text/x-template" id="auto-select">
+      <select v-bind:name=""></select>
+    </script>
+
+    <script type="text/x-template" id="auto-label" >
+      <label></label>
+    </script>
+
+    <script type="text/x-template" id="auto-timePicker">
+      <input type="file" />
+    </script>
+
+    <script type="text/x-template" id="auto-file">
+      <input type="file" />
+    </script>
+
+
+
+    <script>
+      function vTmpCreator(elType){
+        this.dom=document.createElement(elType);
+      }
+      vTmpCreator.prototype.setAttrs=function(attrs){
+        for(attrKey in attrs){
+          this.dom.setAttribute(attrKey,dom.option.attrs[attrKey]);
+        }
+      }
+
+      vTmpCreator.prototype.setClass=function(className){
+          this.dom.setAttribute("class",className)
+      }
+
+      vTmpCreator.prototype.setCssText=function(cssText){
+          this.dom.style.cssText=cssText;
+      }
+
+      vTmpCreator.prototype.create=function(){
+        var wrap=document.createElement("div");
+        wrap.appendChild(this.dom);
+        return wrap.innerHTML;
+      }
+
+      var vdom=new vTmpCreator("input");
+      vdom.setAttrs();
+      vdom.setClass("myClass");
+      vdom.setCssText("mytext");
+      var htmlTemplate=vdom.create();
+
+
+
+
+      var c1=Vue.component("auto-input",{
+          template:"#auto-input"
+      });
+
+      var v=new Vue({
+        el:"#muVue"
+      });
+
+
+
+
+      console.log(vdom);
+
+
+    </script>
+
+
+
+
+
+
+
+
+  </body>
+  </html>

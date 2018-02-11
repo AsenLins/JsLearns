@@ -205,8 +205,80 @@
 -->
 
 <script src="scripts/vue/vue.js"></script>
-<script src="scripts/requirejs/require.js?v=3" defer async="true"  data-main="scripts/main.js?v=5"></script>
 
+
+
+
+
+<script src="scripts/requirejs/require.js?v=3" defer async="true"  data-main="scripts/main.js?v=5"></script>
+<script type="text/javascript">
+
+
+  function vCreator(option){
+    this.dom;
+  }
+
+  vCreator.prototype.setAttrs(attrs){
+    for(attrKey in attrs){
+      dom.el.setAttrbuite(attrKey,dom.option.attrs[attrKey]);
+    }
+  }
+  
+  vCreator.prototype.setClass(className){
+      dom.el.setAttrbuite("class",className)
+  }
+
+  vCreator.prototype.setCssText(cssText){
+      dom.el.style.cssText=cssText;
+  }
+  vCreator.prototype.setWrap(){
+
+  }
+
+  /*
+  function vCreator(option){
+    var dom=document.createElement(option.el);
+    dom.setAttrbuite("class",option.class);
+    dom.setAttrbuite("",);
+  }
+
+  function setAttrs(attrs,domObj){
+    for(var attrName in attrs){
+      domObj.setAttrs attrs[attrName]
+    }
+  }
+  */
+
+
+
+  var vControls={
+    "input":Vue.component("input",{
+      template:"<input type=''"
+    }),
+    "radio":Vue.component("radio",{
+
+    }),
+    "checkbox":Vue.component("checkbox",{
+
+    }),
+    "textarea":Vue.component("textarea",{
+
+    }),
+    "label":Vue.component("label",{
+
+    }),
+    "select":Vue.component("select",{
+
+    }),
+    "file":Vue.component("file",{
+
+    })
+  }
+
+
+
+
+</script>
 
 
 </body>
