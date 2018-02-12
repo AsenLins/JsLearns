@@ -8,6 +8,7 @@
 
     <div id="muVue">
         <auto-input>333</auto-input>
+        <div></div>
     </div>
 
     <script src="scripts/vue/vue.js"></script>
@@ -15,7 +16,7 @@
 
 
     <script type="text/x-template" id="auto-input">
-      <input v-model='mes' v-bind:name='' type='text' />
+      <input v-bind:value='value'  v-bind:name='name' type='text' />
     </script>
 
     <script type="text/x-template" id="auto-checkbox">
@@ -45,6 +46,8 @@
 
 
     <script>
+
+      /*
       function vTmpCreator(elType){
         this.dom=document.createElement(elType);
       }
@@ -73,22 +76,26 @@
       vdom.setClass("myClass");
       vdom.setCssText("mytext");
       var htmlTemplate=vdom.create();
+      */
 
 
 
+      Vue.component("auto-input",{
+          template:"#auto-input",
+          props:['value','name'],
+          methods:{
 
-      var c1=Vue.component("auto-input",{
-          template:"#auto-input"
+          }
       });
 
       var v=new Vue({
-        el:"#muVue"
+        el:"#muVue",
+        data:{
+          value:"123",
+          name:"Asen"
+        }
       });
 
-
-
-
-      console.log(vdom);
 
 
     </script>

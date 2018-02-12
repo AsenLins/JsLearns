@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="myApp" class="" >
+     <template>
+
+     </template>
+      <input type="text" :value="$store.state.formEl['123'].name" />
+    </div>
+    <script src="script/vue.js"></script>
+    <script src="script/vuex.js"></script>
+    <script>
+      var store=new Vuex.Store({
+        state:{
+          formEl:{}
+        },
+        getters:{
+
+        },
+        mutations:{
+          /*添加表单元素*/
+          addFormElement:function(state,aTarget){
+            console.log(aTarget);
+            state.formEl[aTarget.id]=aTarget;
+
+            console.log(state.formEl);
+          },
+          /*删除表单元素*/
+          deleteFormElement:function(state,dTarget){
+            state.formEl[dTarget.id]=null;
+            //delete state.formEl[dTarget.id];
+          },
+          /*更新表单元素*/
+          updateFormElement:function(state,uTarget){
+            for(var key in state.formEl){
+              if(uTarget.id===state.formEl[key].id){
+
+                console.log(uTarget.id);
+              }
+            }
+          },
+          /*更换元素位置*/
+          changeFormElement:function(state,cTarget){
+            var target=state.formEl[cTarget.targetId];
+          }
+        },
+        actions:{
+
+        }
+      });
+
+
+      var inputData={
+        id:"",
+        value:"",
+        type:"",
+
+      }
+      store.commit("addFormElement",{id:"123",name:"postVal"});
+      console.log(store.state.formEl);
+      //store.commit("deleteFormElement",{id:"123"});
+      console.log(store.state.formEl);
+
+      var MyVue=new Vue({
+        el:"#myApp",
+        store
+      });
+      console.log(store);
+      setTimeout(function(){
+        console.log("delete");
+        store.commit("")
+        //store.state.formEl["123"].name="4445566";
+        //Vue.delete(store.state.formEl,"123");
+        //store.commit("deleteFormElement",{id:"123"});
+
+      },3000);
+
+    </script>
+  </body>
+  </html>
