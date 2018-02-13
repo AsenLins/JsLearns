@@ -9,6 +9,10 @@ require.config({
     "text":"requirejs/plugs/text",
     /*数据*/
     "formDragMap":"map/formDragMap",
+
+    /*公用类*/
+    "toolsTemplate":"module/tools/template",
+
     /*模板*/
     "formMenuTemplate":"template/formMenuTemplate.html",
     "formStoreData":"template/formStoreData.html"
@@ -20,16 +24,27 @@ define(function(require){
   var Vue=require("vue");
   var Vuex=require("vuex");
   var formDragMap=require("formDragMap");
-  var formMenuTemplate=require("text!formMenuTemplate");
+  var toolsTemplate= require("toolsTemplate");
 
-  var vDragMenu=Vue.component('auto-dragMenu',{
-    template:"",
 
-    props:[""]
+  var menuTemplate=toolsTemplate.getHtmlById({
+      html:require("text!formMenuTemplate"),
+      query:"#auto-menu"
   });
 
+  Vue.component('auto-dragMenu',{
+    template:menuTemplate,
+    props:["data"]
+  });
+
+
+
+
+
+console.log(toolsTemplate);
 console.log(Vue,Vuex,formDragMap);
-console.log(formMenuTemplate);
+console.log(menuTemplate);
+//console.log(formMenuTemplate);
 
 
 });
