@@ -1,0 +1,29 @@
+<script type="text/x-template" id="auto-menu">
+  <ul id="js-am-list" class="am-list admin-sidebar-list">
+  <li  v-for="plane in formMap">
+
+      <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}">
+        <span :class="plane.icon"></span>
+          {{plane.title}}
+        <span class="am-icon-angle-right am-fr am-margin-right"></span>
+      </a>
+      <ul class="custom-drag am-list am-collapse admin-sidebar-sub am-in container">
+
+          <li draggable="true" :data-type="menuType"  ondragstart="dragEventBus.dragStart(event)"  v-for="(menu,menuType) in plane.controlMap">
+            <div class="am-cf"><span :class="menu.icon"></span>
+              {{menu.title}}
+            </div>
+          </li>
+
+      </ul>
+  </li>
+
+    <div class="am-panel am-panel-default admin-sidebar-panel">
+      <div class="am-panel-bd">
+        <p><span class="am-icon-bookmark"></span> 使用方法</p>
+        <p>1.请先添加面板控件。</p>
+        <p>2.再拖动表单控件。</p>
+      </div>
+    </div>
+  </ul>
+</script>

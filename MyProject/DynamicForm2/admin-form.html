@@ -37,41 +37,8 @@
   <!-- sidebar start -->
   <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
     <div class="am-offcanvas-bar admin-offcanvas-bar">
-      <ul id="js-am-list" class="am-list admin-sidebar-list">
-      <li  v-for="plane in formMap">
+      <auto-dragMenu></auto-dragMenu>
 
-          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}">
-            <span :class="plane.icon"></span>
-              {{plane.title}}
-            <span class="am-icon-angle-right am-fr am-margin-right"></span>
-          </a>
-          <ul class="custom-drag am-list am-collapse admin-sidebar-sub am-in container">
-
-              <li draggable="true" :data-type="menuType"  ondragstart="dragEventBus.dragStart(event)"  v-for="(menu,menuType) in plane.controlMap">
-                <div class="am-cf"><span :class="menu.icon"></span>
-                  {{menu.title}}
-                </div>
-              </li>
-
-
-            <!--
-            <li v-for="(menu,menuType) in plane.controlMap">
-              <div  :data-type="menuType"  class="am-cf "><span :class="menu.icon"></span>
-                {{menu.title}}
-              </div>
-            </li>
-            -->
-          </ul>
-      </li>
-
-        <div class="am-panel am-panel-default admin-sidebar-panel">
-          <div class="am-panel-bd">
-            <p><span class="am-icon-bookmark"></span> 使用方法</p>
-            <p>1.请先添加面板控件。</p>
-            <p>2.再拖动表单控件。</p>
-          </div>
-        </div>
-      </ul>
 
     </div>
   </div>
@@ -81,7 +48,6 @@
 <div class="admin-content">
 
   <div class="admin-content-body">
-
     <div class="formLayoutType-plane" id="formLayoutType-plane">
       <div class="formLayoutType-select">
         <select v-model="layout.itemSelect" @change="layoutChange">
@@ -102,10 +68,6 @@
         清空面板
       </button>
 
-      <!--
-      <div><i class="iconfont icon-biaodanyemian"></i></div>
-      <div><i class="iconfont icon-721bianjiqi_qingkongwendang"></i> </div>
-      -->
     </div>
 
     <div id="js-formDragPlane" ondragover="dragEventBus.dragOver(event)" ondrop="dragEventBus.dragEvent(event)" :style="layoutStyle" class="formContent-default" >
@@ -121,14 +83,7 @@
 
     </div>
 
-<!--
-  <div id="js-formDragPlane"  :style="layoutStyle" class="formContent-default" >
-    <div id="js-helpLine-x" class="form-helpLine-x" style=""></div>
-    <div id="js-helpLine-y" class="form-helpLine-y" style=""></div>
-    <form id="js-form" data-level="0" class="am-form-custom"></form>
 
-  </div>
--->
 
 
 
@@ -223,7 +178,7 @@
       dom.el.setAttrbuite(attrKey,dom.option.attrs[attrKey]);
     }
   }
-  
+
   vCreator.prototype.setClass(className){
       dom.el.setAttrbuite("class",className)
   }

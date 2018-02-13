@@ -1,0 +1,181 @@
+var formStore=new Vuex.Store({
+  state:{
+    formEl:{}
+  },
+  getters:{
+    gettersTest:function(state){
+      console.log(state);
+      return "443";
+    }
+  },
+  mutations:{
+    /*添加表单元素*/
+    addFormElement:function(state,target){
+      state.formEl[target.id]=target;
+    }
+    ,
+    /*删除表单元素*/
+    deleteFormElement:function(state,target){
+      state.formEl[target.id]=null;
+    },
+    /*更新表单元素*/
+    updateFormElement:function(state,target){
+      var updateTarget=state.formEl[target.updateId];
+      var currentTarget=target;
+      for(var key in state.formEl){
+        if(uTarget.id===state.formEl[key].id){
+
+        }
+      }
+    },
+    /*更换元素位置*/
+    changeFormElement:function(state,target){
+
+      var target=state.formEl[cTarget.targetId];
+
+    }
+  },
+  actions:{
+    actionTest:function(commit){
+
+    }
+  }
+});
+
+
+var formDragMap={
+  "panel":{
+    title:"",
+    icon:"",
+    imgUrl:"",
+    control:{
+      "col":{
+        icon:"",
+        imgUrl:"",
+        title:"列面板"
+      },
+      "row":{
+        icon:"",
+        imgUrl:"",
+        title:"行面板"
+      }
+    }
+  },
+  "formControl":{
+    title:"",
+    icon:"",
+    imgUrl:"",
+    control:{
+      "label":{
+        icon:"",
+        imgUrl:"",
+        title:"描述"
+      },
+      "input":{
+        icon:"",
+        imgUrl:"",
+        title:"文本框"
+      },
+      "radio":{
+        icon:"",
+        imgUrl:"",
+        title:"单选框"
+      },
+      "checkbox":{
+        icon:"",
+        imgUrl:"",
+        title:"多选框"
+      },
+      "timepicker":{
+        icon:"",
+        imgUrl:"",
+        title:"时间选择"
+      },
+      "textarea":{
+        icon:"",
+        imgUrl:"",
+        title:"多行文本框"
+      },
+      "imgUpload":{
+        icon:"",
+        imgUrl:"",
+        title:"图片上传"
+      },
+      "fileUpload":{
+        icon:"",
+        imgUrl:"",
+        title:"文件上传"
+      }
+    }
+  }
+}
+
+Vue.component('auto-dragMenu',{
+    template:"",
+    props:['data']
+});
+
+
+
+
+
+var formStoreDataMap={
+  "input":{
+    templateId:"#auto-input"
+  },
+  "radio":{
+    templateId:"#auto-radio"
+  },
+  "checkbox":{
+    templateId:"#auto-checkbox"
+  },
+  "timepicker":{
+    templateId:"#auto-timepicker"
+  },
+  "textarea":{
+    templateId:"#auto-textarea"
+  },
+  "imgUpload":{
+    templateId:"#auto-imgUpload"
+  },
+  "fileUpload":{
+    templateId:"#auto-fileUpload"
+  },
+  "label":{
+    templateId:"auto-label"
+  }
+}
+
+
+
+
+
+function formStoreDataCreator() {}
+formStoreDataCreator["input"]=function(){
+
+
+formStore.commit("addFormElement",{
+ id:"443",
+ attrs:{
+   name:"myku",
+   isEmpty:false,
+   value:"inputData",
+   placeholder:"请输入验证",
+ },
+ elHtml:"<div>123</div>"
+});
+
+
+
+/*sotre的数据结构*/
+var storeObj={
+  "acd-23":{
+    elHtml:"",
+    attrs:{
+      name:"",
+      type:"",
+      placeholder:"",
+    },
+    value:""
+  }
+}

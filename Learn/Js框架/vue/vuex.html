@@ -19,7 +19,10 @@
           formEl:{}
         },
         getters:{
-
+          gettersTest:function(state){
+            console.log(state);
+            return "443";
+          }
         },
         mutations:{
           /*添加表单元素*/
@@ -28,7 +31,8 @@
             state.formEl[aTarget.id]=aTarget;
 
             console.log(state.formEl);
-          },
+          }
+          ,
           /*删除表单元素*/
           deleteFormElement:function(state,dTarget){
             state.formEl[dTarget.id]=null;
@@ -38,18 +42,23 @@
           updateFormElement:function(state,uTarget){
             for(var key in state.formEl){
               if(uTarget.id===state.formEl[key].id){
-
                 console.log(uTarget.id);
               }
             }
           },
           /*更换元素位置*/
           changeFormElement:function(state,cTarget){
+
             var target=state.formEl[cTarget.targetId];
+
           }
         },
         actions:{
-
+          actionTest:function(commit,a,b){
+            console.log(a);
+            console.log(b);
+            console.log("commit",commit);
+          }
         }
       });
 
@@ -64,18 +73,20 @@
       console.log(store.state.formEl);
       //store.commit("deleteFormElement",{id:"123"});
       console.log(store.state.formEl);
-
+      console.log("gettersTest",store.getters.gettersTest);
       var MyVue=new Vue({
         el:"#myApp",
         store
       });
       console.log(store);
+
+      store.dispatch("actionTest",{
+        a:1,
+        b:2
+      });
       setTimeout(function(){
-        console.log("delete");
-        store.commit("")
-        //store.state.formEl["123"].name="4445566";
-        //Vue.delete(store.state.formEl,"123");
-        //store.commit("deleteFormElement",{id:"123"});
+      console.log("delete");
+        //store.commit("")
 
       },3000);
 
