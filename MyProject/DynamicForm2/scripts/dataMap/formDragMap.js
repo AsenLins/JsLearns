@@ -5,7 +5,7 @@ define(function(){
       title:"",
       icon:"",
       imgUrl:"",
-      control:{
+      controlMap:{
         "col":{
           icon:"",
           imgUrl:"",
@@ -22,7 +22,7 @@ define(function(){
       title:"",
       icon:"",
       imgUrl:"",
-      control:{
+      controlMap:{
         "label":{
           icon:"",
           imgUrl:"",

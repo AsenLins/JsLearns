@@ -1,6 +1,6 @@
 <script type="text/x-template" id="auto-menu">
   <ul id="js-am-list" class="am-list admin-sidebar-list">
-  <li  v-for="plane in formMap">
+  <li  v-for="plane in formDragMap">
 
       <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}">
         <span :class="plane.icon"></span>
@@ -9,7 +9,8 @@
       </a>
       <ul class="custom-drag am-list am-collapse admin-sidebar-sub am-in container">
 
-          <li draggable="true" :data-type="menuType"  ondragstart="dragEventBus.dragStart(event)"  v-for="(menu,menuType) in plane.controlMap">
+          <li draggable="true" :data-type="menuType"  ondragstart="dragEventBus.dragStart(event)"
+          v-for="(menu,menuType) in plane.controlMap">
             <div class="am-cf"><span :class="menu.icon"></span>
               {{menu.title}}
             </div>

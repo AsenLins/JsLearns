@@ -6,6 +6,11 @@
 define(function(){
 
   var template={
+      /**
+       * 通过ID获取模板html
+       * @param  {Object} option {id:string,html:string}
+       * @return {String}        {html字符串}
+       */
       getHtmlById:function(option){
 
       if(option==null||option.html==undefined){
