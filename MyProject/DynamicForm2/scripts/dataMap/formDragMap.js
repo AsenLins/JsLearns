@@ -2,7 +2,7 @@ define(function(){
 
   var formDragMap={
     "panel":{
-      title:"",
+      title:"面板",
       icon:"",
       imgUrl:"",
       controlMap:{
@@ -19,7 +19,7 @@ define(function(){
       }
     },
     "formControl":{
-      title:"",
+      title:"控件",
       icon:"",
       imgUrl:"",
       controlMap:{
