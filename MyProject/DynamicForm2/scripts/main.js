@@ -94,7 +94,7 @@ define(function(require){
     },
     methods:{
       change:function(){
-        
+
       }
     }
   }

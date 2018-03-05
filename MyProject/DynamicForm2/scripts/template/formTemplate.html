@@ -1,0 +1,72 @@
+<script type="text/x-template" id="auto-input">
+  <input
+    :class='className'
+    :style='styleText'
+    :data-level='level'
+    :type='type'
+    :name='name'
+    :data-id='id'
+    :placeholder='placeholder'
+  />
+</script>
+
+<script type="text/x-template" id="auto-radio">
+  <input
+    :class='className'
+    :style='styleText'
+    :data-level='level'
+    :name='name'
+    :data-id='id'
+    :type='type'
+  />
+</script>
+
+
+<script type="text/x-template" id="auto-checkbox">
+  <input
+    :class='className'
+    :style='styleText'
+    :data-level='level'
+    :name='name'
+    :data-id='id'
+    :type='type'
+  />
+</script>
+
+<script type="text/x-template" id="auto-select">
+  <select
+    :class='className'
+    :style='styleText'
+    :data-level='level'
+    :data-id='id'
+    :name='name'
+  >
+    <option v-for:"item in seletItem" value='item.value' >
+      {{item.text}}
+    </option>
+  </select>
+</script>
+
+<script type="text/x-template" id="auto-fileUpload">
+  <input
+    :class='className'
+    :style='styleText'
+    :data-level='level'
+    :name='name'
+    :data-id='id'
+    :type='type'
+  />
+</script>
+
+<script type="text/x-template" id="auto-textarea">
+
+  <textarea
+    :class='className'
+    :style='styleText'
+    :data-level='level'
+    :name='name'
+    :data-id='id'
+    :type='type'
+  >
+  </textarea>
+</script>

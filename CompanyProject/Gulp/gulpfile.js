@@ -4,7 +4,7 @@ var gulp=require("gulp"),
 
 
 gulp.task("test",function(){
-      gulp.src(['needmin/*.css'])
+      gulp.src(['needmin/*.css','needmin2/*.css'])
       .pipe(concat('allcss.css'))
       .pipe(gulp.dest("min/"));
 });
