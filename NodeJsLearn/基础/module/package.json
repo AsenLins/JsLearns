@@ -1,0 +1,14 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "这是一个测试CommonJs的包",
+  "main": "moduleBase.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "AsenLins",
+  "license": "MIT",
+  "devDependencies": {
+    "jquery": "^3.3.1"
+  }
+}
