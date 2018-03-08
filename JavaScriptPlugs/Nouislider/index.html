@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link  href="node_modules/nouislider/distribute/nouislider.min.css" rel="stylesheet" />
+</head>
+
+<body>
+<div id="range"></div>
+<script src="node_modules/nouislider/distribute/nouislider.min.js"></script>
+<script>
+
+
+var slider = document.getElementById('range');
+
+noUiSlider.create(slider, {
+	start: [20, 80],
+	connect: true,
+	range: {
+		'min': 0,
+		'max': 100
+	}
+});
+
+</script>
+</body>
+</html>
