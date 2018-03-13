@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+
+
+
+        <div>
+            <input type="input" id="input_text" value="这是一条默认信息。" />
+            <input id="btn_send" onclick="sendTextMessage()" type="button" value="发送" />
+        </div>
+		<div id="show"></div>
+		<script src="lib/RongIMLib-2.2.7.js" ></script>
+        <!--script src="lib/RongIMLib-2.2.7.min.js"></script>-->
+        <script src="lib/RongEmoji-dev.js"></script>
+
+        <script src="script/init.js"></script>
+      
+        <script>
+function registerMessage(type,propertys){
+	var messageName = type; // 消息名称。
+	var objectName = "s:" + type; // 消息内置名称，请按照此格式命名 *:* 。
+	var mesasgeTag = new RongIMLib.MessageTag(true,true); //true true 保存且计数，false false 不保存不计数。
+
+	RongIMClient.registerMessageType(messageName, objectName, mesasgeTag, propertys);
+}
+
+function startInit(user,targetId){
+	/*
+	var params = {
+		appKey : getValue("appKey"),
+		token : getValue("token"),
+		navi : getValue("navi")
+	};
+	*/
+	var params={
+		appKey:"cpj2xarlc74xn",
+		token:"1nX6QmtQVJwrH7nM5fA3lgnTbMzFNPbIby7jf2QMYHjWwdeYdBLVaaZMaUpyJ6wbph40S0qOwAzsIrtP83oZ3oHW34F5E2Ut",
+		navi:""
+	}
+
+	var userId = "asen-123";
+
+	var callbacks = {
+		getInstance : function(instance){
+			RongIMLib.RongIMEmoji.init();
+			//instance.sendMessage	
+			var propertys = ["name","age","gender"]; // 消息类中的属性名。
+			registerMessage("PersonMessage",propertys);
+		},
+		getCurrentUser : function(userInfo){
+			console.log(userInfo.userId);
+			userId = userInfo.userId;
+			alert("链接成功；userid=" + userInfo.userId);
+			document.titie = ("链接成功；userid=" + userInfo.userId);
+
+			//加入聊天室
+			joinChatRoom();
+		},
+		receiveNewMessage : function(message){
+			//判断是否有 @ 自己的消息
+			var mentionedInfo = message.content.mentionedInfo || {};
+			var ids = mentionedInfo.userIdList || [];
+			for(var i=0; i < ids.length; i++){
+				if( ids[i] == userId){
+					alert("有人 @ 了你！");
+				}
+			}
+			showResult("show1",message);
+			messageOutput(message);
+		}
+	};
+	console.log(params);
+	init(params,callbacks);
+}
+
+function getValue(id){
+	return "asen-rec"; //document.getElementById(id).value;
+}
+
+function joinChatRoom(){
+	var chatRoomId = getValue("chatRoomId");
+		// chatRoomId = chatRoomId.replace(/(^\s*)|(\s*$)/g, " ");
+	if(chatRoomId == ""){
+		alert("请输入聊天室 id！");
+		return false;
+	}
+
+	var IM = RongIMClient.getInstance();
+		IM.joinChatRoom(chatRoomId, 50, {
+		onSuccess: function() {
+            alert("加入聊天室 " + chatRoomId + " 成功");
+		},
+		onError: function(error) {
+            alert("加入聊天室失败");
+		}
+	});
+}
+
+
+
+function messageOutput(message){
+	/* message 数据结构
+	{
+		"content": {
+			"messageName": "TextMessage",
+			"content": "阿拉部",
+			"extra": {
+				"name": "name",
+				"age": 12
+			},
+			"user": {
+				"userId": "this-is-a-test-id",
+				"name": "张三",
+				"portraitUri": "http://rongcloud.cn/images/newVersion/log_wx.png"
+			}
+		},
+		"conversationType": 1,
+		"objectName": "RC:TxtMsg",
+		"messageDirection": 2,
+		"messageId": "1_13887103",
+		"receivedStatus": 0,
+		"receivedTime": 1496373353260,
+		"senderUserId": "user10",
+		"sentTime": 1496287140858,
+		"targetId": "user10",
+		"messageType": "TextMessage",
+		"messageUId": "5E63-AERV-843A-D3EE",
+		"offLineMessage": true
+	}
+	*/
+
+	messageOutput["list"] = messageOutput["list"] || [];
+
+	var msg = {
+		"content" : message.content.content,
+		"messageUId" : message.messageUId,
+		"senderUserId" : message.senderUserId,
+		"sentTime" : message.sentTime
+	};
+
+	messageOutput["list"].push(JSON.stringify(msg) + "\n");
+
+	var id = "messageOutputBtn";
+	var target = document.getElementById(id);
+	if(!target){
+		target = document.createElement("span");
+		target.id = id;
+		target.style.cssText = "position:fixed;right:1em;top:4em;border:1px solid #ccc;background:#f5f5f5;border-radius:5px;font-size:14px;padding:10px;cursor:pointer;";
+		document.body.appendChild(target);
+		target.onclick = function(){
+			var list = messageOutput["list"];
+			var file = new Blob(list, { "type" : "text\/plain" }); // the blob
+
+			var url = window.URL.createObjectURL(file);
+			window.open(url);
+		}
+	}
+	target.innerHTML = "导出消息(" + messageOutput["list"].length + ")";
+}
+
+
+startInit();
+
+        </script>
+    </body>
+</html>

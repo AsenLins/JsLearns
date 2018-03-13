@@ -1,0 +1,230 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+
+
+
+        <div>
+            <input type="input" id="input_text" value="这是一条默认信息。" />
+            <input id="btn_send" onclick="sendTextMessage()" type="button" value="发送" />
+        </div>
+        <div id="show"></div>
+        <script src="lib/RongIMLib-2.2.9.min.js"></script>
+        <script src="lib/RongEmoji-dev.js"></script>
+        <script src="lib/RongIMVoice-2.2.6.js"></script>
+        <script src="script/init.js"></script>
+      
+        <script>
+
+/*
+消息全部用单聊，user8 -> user9
+*/
+var conversationType = RongIMLib.ConversationType.PRIVATE; // 私聊
+ /*
+ PRIVATE 				1		单聊
+ DISCUSSION 			2		讨论组
+ GROUP 					3		群组
+ CHATROOM 				4		聊天室
+ CUSTOMER_SERVICE 		5		客服
+ SYSTEM 				6		系统消息
+ APP_PUBLIC_SERVICE 	7		应用公众账号（应用内私有）
+ PUBLIC_SERVICE 		8		公众账号 (公有)
+ */
+
+
+
+var targetId = "user9"; 
+var targetId2 = "user10";
+var targetIds = [];
+//消息接收方 Id，根据不同的 ConversationType，可能是用户 Id、讨论组 Id、群组 Id、聊天室 Id等。
+
+var begin = 0;
+
+
+
+function showTips(data){
+	var dom = document.getElementById("show");
+		dom.style.display = "block";
+	if(data){
+		dom.innerHTML += "<li>" + data + "</li>";
+	}else{
+		dom.innerHTML = "";
+	}
+}
+
+
+function getTimer(begin){
+	var now = new Date().getTime();
+	return " time:" + (now - begin) + " ms";
+}
+
+
+
+
+function afterConnected(){
+    console.log("链接成功");
+    //document.getElementById("panel").style.display = "none";
+	//document.getElementById("btns").style.display = "block";
+}
+
+function disconnect(){
+	/*
+	文档：http://www.rongcloud.cn/docs/api/js/RongIMClient.html
+	*/
+
+	var start = new Date().getTime();
+	instance.disconnect();
+	showResult("断开链接 成功", null , start);
+}
+
+function startInit(){
+    appKey="cpj2xarlc74xn";
+    token="2Y869KCAiQEv5kYGBLEYycNVcJirBFljL7M07UlG8TYGGfKZKrGXWMOJBC2f8EbtTMYxsX2VSg8=";
+    //appKey = document.getElementById("appkey").value;
+	//token = document.getElementById("token").value;
+
+	if(appKey == "" || token == ""){
+		alert("必须提供appkey和token");
+	}
+
+	targetIds ="user9,user10"; //document.getElementById("targetId").value;
+	if(targetIds == ""){
+		alert("必须提供两个的有效targetId");
+	}
+
+	targetIds = targetIds.split("，").join(",").split(",");
+	targetId = targetIds[0];	
+	targetId2 = targetIds[1];	
+
+	showTips();
+
+	begin = new Date().getTime()
+
+	//公有云初始化
+	var config = {
+        //protobuf: './local-sdk/protobuf-2.2.7.min.js' //支持http(s)网络路径、本地相对路径
+    };
+
+	var params = {
+		appKey : appKey,
+		token : token
+	};
+
+	var callbacks = {
+		getInstance : function(_instance){
+			instance = _instance;
+		},
+		receiveNewMessage : function(message){
+			// 判断消息类型
+		    showTips("新消息，类型为：" + message.messageType);
+            // showResult("新消息",message,start);
+
+            console.log("messageUId:" + message.messageUId + ",   messageId:" + message.messageId);
+            console.log(message);
+		},
+		getCurrentUser : function(userInfo){
+			showTips("链接成功 用户id：" + userInfo.userId + ", 耗时" + getTimer(begin));
+			userId = userInfo.userId;
+		    afterConnected();
+		}
+    };
+    console.log(params);
+    console.log(callbacks);
+    console.log(config);
+	init(params,callbacks,config);
+	showTips("初始化 应用 " + getTimer(begin));
+
+
+	RongIMLib.RongIMEmoji.init();
+	showTips("初始化 表情库 " + getTimer(begin));
+
+
+	RongIMLib.RongIMVoice.init();
+	showTips("初始化 声音库 " + getTimer(begin));
+}         
+
+startInit();
+
+var recallMessage = null, clearMessage;
+function markMessage(message){
+	recallMessage = message;
+	clearMessage = message;
+}
+
+function sendTextMessage(){
+	/*
+	文档： http://www.rongcloud.cn/docs/web.html#5_1、发送消息
+		   http://rongcloud.cn/docs/api/js/TextMessage.html
+	1: 单条消息整体不得大于128K
+	2: conversatinType 类型是 number，targetId 类型是 string
+	*/
+
+	/*
+		1、不要多端登陆，保证所有端都离线
+		2、接收 push 设备设置:
+			（1）打开系统通知提醒
+			（2）小米设置 “授权管理” －> “自己的应用” 为自启动
+			（3）应用内不要屏蔽新消息通知
+		3、内置消息类型，默认 push，自定义消息类型需要
+		   pushData 显示逻辑顺序：自定义 > 默认
+		4、发送其他消息类型与发送 TextMessage 逻辑、方式一致
+	*/
+	var pushData = "pushData" + Date.now();
+
+	var isMentioned = false;
+    var strText=document.getElementById("input_text").value;
+    showTips("发送的text是："+strText);
+	var content = {
+        /*
+		content: [
+			"阿拉伯语：الشرق الأوسط ",
+			"希伯来语：המזרח התיכון",
+			"emoji: 😊 ",
+			"希腊字母： π，α，β, ",
+			"数字单位部分字符 如：× ",
+			"拉丁文所有字符 如：Ο Ρ σ Ï Æ ",
+			"拼音所有字符 如： ě ì ň ",
+			"英文音标部分字符 如 ： ə ʃ ",
+			"俄文部分字符 如 ：ш ; ⊇ â Œ Š ™ "
+        ].join(","),
+        */
+        content:[strText],
+		user : {
+			"id" : "this-is-a-test-id",	//不支持中文及特殊字符
+			"name" : "张三",
+			"portrait" : "http://rongcloud.cn/images/newVersion/log_wx.png"
+		},
+		extra: "{\"key\":\"value\", \"key2\" : 12, \"key3\":true}"
+	};
+
+	var msg = new RongIMLib.TextMessage(content);
+
+	var start = new Date().getTime();
+	instance.sendMessage(conversationType, targetId, msg, {
+        onSuccess: function (message) {
+        	markMessage(message);
+            showResult("发送文字消息 成功",message,start);
+        },
+        onError: function (errorCode,message) {
+            showResult("发送文字消息 失败",message,start);
+        }
+    }, isMentioned, pushData);
+}
+
+function showResult(title,code,start){
+    var now = new Date().getTime();
+	console.log( title,"执行时间：", (now - start));
+    console.log(code);
+    //jsonOprators(code);
+}
+
+        </script>
+    </body>
+</html>

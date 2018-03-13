@@ -1,0 +1,29 @@
+{
+  "name": "ht",
+  "version": "1.0.0",
+  "description": "多页面应用",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^0.28.10",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.0.6",
+    "html-withimg-loader": "^0.1.16",
+    "style-loader": "^0.20.3",
+    "vant": "^0.12.14",
+    "vue": "^2.5.15",
+    "vue-router": "^3.0.1",
+    "vue-store": "^0.3.1-moved",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.11"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "build": "webpack",
+    "debug": "webpack-dev-server --open"
+  },
+  "author": "asenlins",
+  "license": "MIT"
+}
