@@ -65,6 +65,7 @@ function startInit(user,targetId){
 		},
 		receiveNewMessage : function(message){
 			//判断是否有 @ 自己的消息
+			console.log(message);
 			var mentionedInfo = message.content.mentionedInfo || {};
 			var ids = mentionedInfo.userIdList || [];
 			for(var i=0; i < ids.length; i++){
@@ -81,7 +82,7 @@ function startInit(user,targetId){
 }
 
 function getValue(id){
-	return "asen-rec"; //document.getElementById(id).value;
+	return ""; //document.getElementById(id).value;
 }
 
 function joinChatRoom(){
