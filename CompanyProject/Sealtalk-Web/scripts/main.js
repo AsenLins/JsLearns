@@ -1,4 +1,7 @@
 
+
+
+
 var isSupportSocket =(function isSupport(APIName){
 	var d = document, w = window;
 	var id = "RongCloudCloud-API-Test" + new Date().getTime;
@@ -20,7 +23,8 @@ var isSupportSocket =(function isSupport(APIName){
 
 var basePaths={
     "vue":"lib/vue-2.1.4",
-    "vant":"ui/vant.min"
+    "vant":"ui/vant.min",
+    "upload":"lib/upload"
 };
 
 
@@ -44,7 +48,10 @@ require.config({
     
     },
     shim:{
-
+        /*上次组件*/
+        'upload':{
+            exports: 'upload'
+        },
         /*
         vant:加载依赖的css.
         */
@@ -56,7 +63,7 @@ require.config({
 
 
 
-require(['RongIMLib','protobuf','vant'],function(RongIMLib,protobuf,vant){
+require(['RongIMLib','protobuf','vant','upload'],function(RongIMLib,protobuf,vant,upload){
     
     var appKey="cpj2xarlc74xn";
     var token=document.getElementById("token").value; //"yp9BFwcOG9J4yTZi52vW5HfBXPxCovs0ajbAO4eE0ouyFL19u1TWD4lF4W0GPSDxsSweSCdhr0lv1N0vdIi8DLI8DbqUEQeS";//"2Y869KCAiQEv5kYGBLEYycNVcJirBFljL7M07UlG8TYGGfKZKrGXWMOJBC2f8EbtTMYxsX2VSg8=";
@@ -230,6 +237,65 @@ require(['RongIMLib','protobuf','vant'],function(RongIMLib,protobuf,vant){
         });
     } 
 
+    function sendImageMessage(targetId,success,fail){
+        /*
+        文档：http://www.rongcloud.cn/docs/api/js/ImageMessage.html
+    
+        需自行解决文件上传
+        上传插件（含获取缩略图方法）: https://github.com/rongcloud/rongcloud-web-im-upload
+        
+        缩略图必须是base64码的jpg图，而且不带前缀"data:image/jpeg;base64,"，不得超过100K
+        压缩：https://github.com/rongcloud/rongcloud-web-im-upload/blob/master/resize.html
+        */
+    
+        var content = {
+            imageUri: "http://rongcloud.cn/images/newVersion/log_wx.png", 
+            content: getBase64Image()
+        };
+    
+        var msg = new RongIMLib.ImageMessage(content);
+        var conversationType = RongIMLib.ConversationType.PRIVATE;
+        var start = new Date().getTime();
+        _instance.sendMessage(conversationType, targetId, msg, {
+            onSuccess: function (message) {
+                //markMessage(message);
+                if(success!=null){
+                    success.apply(this,message);
+                }
+                console.log("发送图片消息 成功",message,start);
+            },
+            onError: function (errorCode,message) {
+                console.log("发送图片消息 失败",message,start);
+                if(error!=null){
+                    error.apply(this,success);
+                }
+            }
+        });	
+    }
+
+    //获取base64假数据方法
+    function getBase64Image(){
+        var canvas = document.createElement("canvas");
+            canvas.width = 100;
+            canvas.height = 100;
+
+
+        var context = canvas.getContext("2d");	
+            context.font = "20pt Arial";    			
+            context.fillStyle = "blue"; 
+            context.fillText("RongCloud.cn", 10, 20);
+        var content = canvas.toDataURL("image/jpeg");
+            content = content.replace("data:image/jpeg;base64,","");
+        return content;
+    }
+
+
+
+
+
+
+
+
 
     document.getElementById("btn_send").addEventListener("click",function(){
         var text=document.getElementById("input_content").value;
@@ -240,6 +306,101 @@ require(['RongIMLib','protobuf','vant'],function(RongIMLib,protobuf,vant){
 
         })
     });
+
+    document.getElementById("btn_sendImage").addEventListener("click",function(){
+        document.getElementById("imgfiles").click();
+
+    });
+
+
+
+    document.getElementById("imgfiles").addEventListener("change",function(){
+        console.log("file Select is Change");
+        var uploadFile=document.getElementById("imgfiles").files[0];
+        ImgToBase64(uploadFile,400,function(base){
+            var privewimg= document.getElementById("imgPriview");
+            console.log(privewimg);
+            privewimg.setAttribute("src",base);
+            
+            console.log("上传的base是",base);
+            var targetId=document.getElementById("targetId").value;
+            sendImageMessage(targetId,
+                function(message)
+                {
+                    console.log("图片发送成功");
+                },
+                function(message){
+                    
+            });
+        });
+
+        /*
+        var reader = new FileReader();
+        var AllowImgFileSize = 2100000; //上传图片最大值(单位字节)（ 2 M = 2097152 B ）超过2M上传失败
+        var file = document.getElementById("imgfiles").files[0]; //$("#imgfiles")[0].files[0];
+        var imgUrlBase64;
+        
+        console.log("上传的图片是：",file);
+        if (file) {
+            //将文件以Data URL形式读入页面  
+            imgUrlBase64 = reader.readAsDataURL(file);
+            reader.onload = function (e) {
+              //var ImgFileSize = reader.result.substring(reader.result.indexOf(",") + 1).length;//截取base64码部分（可选可不选，需要与后台沟通）
+              if (AllowImgFileSize != 0 && AllowImgFileSize < reader.result.length) {
+                    alert( '上传失败，请上传不大于2M的图片！');
+                    return;
+                }else{
+                    //执行上传操作
+                    alert(reader.result);
+                }
+            }
+         }   
+         */
+
+
+    });
+
+
+             
+         
+
+    function ImgToBase64(file, maxLen, callBack) {
+        var img = new Image();
+        
+         var reader = new FileReader();//读取客户端上的文件
+             reader.onload = function () {
+                 var url = reader.result;//读取到的文件内容.这个属性只在读取操作完成之后才有效,并且数据的格式取决于读取操作是由哪个方法发起的.所以必须使用reader.onload，
+                 img.src = url;//reader读取的文件内容是base64,利用这个url就能实现上传前预览图片
+             };
+             img.onload = function () {
+                //生成比例
+                var width = img.width, height = img.height;
+                //计算缩放比例
+                var rate = 1;
+                if (width >= height) {
+                    if (width > maxLen) {
+                        rate = maxLen / width;
+                    }
+                } else {
+                    if (height > maxLen) {
+                        rate = maxLen / height;
+                    }
+                };
+                img.width = width * rate;
+                img.height = height * rate;
+                //生成canvas
+                var canvas = document.createElement("canvas");
+                var ctx = canvas.getContext("2d");
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0, img.width, img.height);
+                var base64 = canvas.toDataURL('image/jpeg', 0.9);
+                callBack.call(this,base64);
+                //callBack(base64);
+            };
+            reader.readAsDataURL(file);
+    }
+
 
 });
 

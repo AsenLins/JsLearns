@@ -7,13 +7,30 @@
     </head>
     
     <body>
+
+            <van-nav-bar title="标题" left-text="返回" left-arrow>
+                    <van-icon name="search" slot="right" />
+                  </van-nav-bar>
+
+
+
+
+
     <input type="text" id="input_content" value="默认消息" />
     <input type="button" id="btn_send"  value="发送文本信息">
 
+    <hr/>
+    <input type="button" id="btn_sendImage" value="发送图片" />
+    <input type="file"  id="imgfiles" />
+
+    <img id="imgPriview" />
 
     <hr/>
     <h3>收到的信息如下:</h3>
     <div id="recMes"></div>
+    
+
+
     
     <!--正式版APPKEY-->
     <!--kj7swf8ok1g32-->

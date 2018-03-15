@@ -1,0 +1,20 @@
+{
+  "name": "talk",
+  "version": "1.0.0",
+  "description": "直聊web版",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel scripts -d babelScript"
+
+
+  },
+  "author": "asenlins",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-import": "^1.6.7",
+    "babel-preset-env": "^1.6.1",
+    "vant": "^0.12.14"
+  }
+}
