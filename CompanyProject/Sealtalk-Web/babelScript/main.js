@@ -1,4 +1,4 @@
-
+"use strict";
 
 var isSupportSocket = function isSupport(APIName) {
     var d = document,
@@ -20,27 +20,27 @@ var isSupportSocket = function isSupport(APIName) {
 }("WebSocket");
 
 var basePaths = {
-    "vue": "lib/vue-2.1.4",
+    "vue": "plugs/vue-2.1.4",
     "vant": "ui/vant.min",
-    "upload": "lib/upload"
+    "upload": "plugs/upload"
 };
 
 if (isSupportSocket) {
-    basePaths["protobuf"] = "lib/protobuf-2.2.7.min";
-    basePaths["RongIMLib"] = "lib/RongIMLib-2.2.7.min";
+    basePaths["protobuf"] = "plugs/protobuf-2.2.7.min";
+    basePaths["RongIMLib"] = "plugs/RongIMLib-2.2.7.min";
 } else {
-    basePaths["RongIMLib"] = "lib/RongIMLib-2.2.7.min";
+    basePaths["RongIMLib"] = "plugs/RongIMLib-2.2.7.min";
 }
 
 require.config({
-    baseUrl: "scripts",
+    baseUrl: "src",
     paths: basePaths,
     map: {
         /*
         css:加载requirejs的css插件，该插件可以使requirejs加载css。
         */
         '*': {
-            'css': 'lib/css.min'
+            'css': 'plugs/css.min'
         }
 
     },
@@ -73,7 +73,7 @@ require(['RongIMLib', 'protobuf', 'vant', 'upload'], function (RongIMLib, protob
 
     // 连接状态监听器
     RongIMClient.setConnectionStatusListener({
-        onChanged: function (status) {
+        onChanged: function onChanged(status) {
             console.info(status);
             switch (status) {
                 case RongIMLib.ConnectionStatus.CONNECTED:
@@ -100,7 +100,7 @@ require(['RongIMLib', 'protobuf', 'vant', 'upload'], function (RongIMLib, protob
 
     RongIMClient.setOnReceiveMessageListener({
         // 接收到的消息
-        onReceived: function (message) {
+        onReceived: function onReceived(message) {
             // 判断消息类型
             // showTips("新消息，类型为：" + message.messageType);
             // showResult("新消息",message,start);
@@ -163,15 +163,15 @@ require(['RongIMLib', 'protobuf', 'vant', 'upload'], function (RongIMLib, protob
     //开始链接
 
     RongIMClient.connect(token, {
-        onSuccess: function (userId) {
+        onSuccess: function onSuccess(userId) {
             console.log("链接成功，用户id：" + userId);
             //sendMessage();
             getConversationList();
         },
-        onTokenIncorrect: function () {
+        onTokenIncorrect: function onTokenIncorrect() {
             console.log('token无效');
         },
-        onError: function (errorCode) {
+        onError: function onError(errorCode) {
             var info = '';
             switch (errorCode) {
                 case RongIMLib.ErrorCode.TIMEOUT:
@@ -196,10 +196,10 @@ require(['RongIMLib', 'protobuf', 'vant', 'upload'], function (RongIMLib, protob
 
     function getConversationList() {
         _instance.getConversationList({
-            onSuccess: function (list) {
+            onSuccess: function onSuccess(list) {
                 console.log(JSON.stringify(list, null, '\t'));
             },
-            onError: function (errorCode) {
+            onError: function onError(errorCode) {
                 console.log(errorCode);
             }
         }, null, 2);
@@ -212,7 +212,7 @@ require(['RongIMLib', 'protobuf', 'vant', 'upload'], function (RongIMLib, protob
         var conversationtype = RongIMLib.ConversationType.PRIVATE;
         var targetId = targetId; //"tester";
         _instance.sendMessage(conversationtype, targetId, msg, {
-            onSuccess: function (message) {
+            onSuccess: function onSuccess(message) {
 
                 console.log(message);
                 console.log(JSON.stringify(message, null, '\t'));
@@ -220,7 +220,7 @@ require(['RongIMLib', 'protobuf', 'vant', 'upload'], function (RongIMLib, protob
                     success.apply(this, arguments);
                 }
             },
-            onError: function (errorCode, message) {
+            onError: function onError(errorCode, message) {
                 console.log(errorCode);
                 if (fail != null) {
                     fail.apply(this.arguments);
@@ -248,14 +248,14 @@ require(['RongIMLib', 'protobuf', 'vant', 'upload'], function (RongIMLib, protob
         var conversationType = RongIMLib.ConversationType.PRIVATE;
         var start = new Date().getTime();
         _instance.sendMessage(conversationType, targetId, msg, {
-            onSuccess: function (message) {
+            onSuccess: function onSuccess(message) {
                 //markMessage(message);
                 if (success != null) {
                     success.apply(this, message);
                 }
                 console.log("发送图片消息 成功", message, start);
             },
-            onError: function (errorCode, message) {
+            onError: function onError(errorCode, message) {
                 console.log("发送图片消息 失败", message, start);
                 if (error != null) {
                     error.apply(this, success);

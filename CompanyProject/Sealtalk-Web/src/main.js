@@ -22,28 +22,28 @@ var isSupportSocket =(function isSupport(APIName){
 
 
 var basePaths={
-    "vue":"lib/vue-2.1.4",
+    "vue":"plugs/vue-2.1.4",
     "vant":"ui/vant.min",
-    "upload":"lib/upload"
+    "upload":"plugs/upload"
 };
 
 
 if(isSupportSocket){
-    basePaths["protobuf"]="lib/protobuf-2.2.7.min";
-    basePaths["RongIMLib"]="lib/RongIMLib-2.2.7.min";
+    basePaths["protobuf"]="plugs/protobuf-2.2.7.min";
+    basePaths["RongIMLib"]="plugs/RongIMLib-2.2.7.min";
 }else{
-    basePaths["RongIMLib"]="lib/RongIMLib-2.2.7.min";
+    basePaths["RongIMLib"]="plugs/RongIMLib-2.2.7.min";
 }
 
 require.config({
-    baseUrl:"scripts",
+    baseUrl:"src",
     paths:basePaths,
     map: {
         /*
         css:加载requirejs的css插件，该插件可以使requirejs加载css。
         */
         '*': {
-          'css':'lib/css.min',
+          'css':'plugs/css.min',
         }
     
     },
