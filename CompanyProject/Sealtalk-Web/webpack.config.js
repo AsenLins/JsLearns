@@ -6,7 +6,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    filename: 'build333.js'
   },
   module: {
     rules: [
@@ -32,13 +32,12 @@ module.exports = {
                     ]
                   },
 
-                 
-
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      }
+                  {
+                    test: /\.js$/,
+                    loader: 'babel-loader',
+                    exclude: /node_modules/
+                  }
+            
 
     ]
   },

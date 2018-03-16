@@ -24,7 +24,8 @@ var isSupportSocket =(function isSupport(APIName){
 var basePaths={
     "vue":"plugs/vue-2.1.4",
     "vant":"ui/vant.min",
-    "upload":"plugs/upload"
+    "upload":"plugs/upload",
+    "jquery":"plugs/jquery-3.1.1"
 };
 
 
@@ -63,9 +64,10 @@ require.config({
 
 
 
-require(['RongIMLib','protobuf','vant','upload'],function(RongIMLib,protobuf,vant,upload){
+require(['RongIMLib','protobuf','vant','upload','jquery'],function(RongIMLib,protobuf,vant,upload,$){
     
-    var appKey="cpj2xarlc74xn";
+    //var appKey="cpj2xarlc74xn";
+    var appKey="kj7swf8ok1g32"
     var token=document.getElementById("token").value; //"yp9BFwcOG9J4yTZi52vW5HfBXPxCovs0ajbAO4eE0ouyFL19u1TWD4lF4W0GPSDxsSweSCdhr0lv1N0vdIi8DLI8DbqUEQeS";//"2Y869KCAiQEv5kYGBLEYycNVcJirBFljL7M07UlG8TYGGfKZKrGXWMOJBC2f8EbtTMYxsX2VSg8=";
     console.log("当前用户token:",token);
     var RongIMClient = RongIMLib.RongIMClient;
@@ -302,6 +304,45 @@ require(['RongIMLib','protobuf','vant','upload'],function(RongIMLib,protobuf,van
         var targetId=document.getElementById("targetId").value;
         sendMessage(text,targetId,function(message){
             console.log("发送的信息是："+message);
+
+
+
+            alert(targetId);
+            var senderId=message.senderUserId;
+            //return;
+            var param={
+                "CityCode": "853",
+                "AppName": "sealTalkWeb-Test",
+                //"TargetValue": "u_U101079030",
+                TargetValue:targetId,
+                //"RcSender": "u_U101079030",
+                "RcSender": senderId,
+                //"RcReceiver": "s_853_1703486",
+                "RcReceiver":"s_853_1708587", //targetId, //"s_853_",
+                
+                "MsgType": "text",
+                //"MsgContent": "hi i am asen",
+                "MsgContent":message.content.content,
+                "SendToRc": "YES",
+                "ExtensionName": ""
+            }
+
+            //var jsonstr=JSON.stringify(param);
+            
+
+            $.ajax({
+                url:"http://localhost:8002/api/CentalineMes/SendMessToCentaline",
+                type:"post",
+
+                data:param,
+             
+                success:function(data){
+                    console.log(data);
+                },
+                fail:function(data){}
+            });
+
+
         },function(){
 
         })

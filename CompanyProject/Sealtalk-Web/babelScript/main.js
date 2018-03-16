@@ -22,7 +22,8 @@ var isSupportSocket = function isSupport(APIName) {
 var basePaths = {
     "vue": "plugs/vue-2.1.4",
     "vant": "ui/vant.min",
-    "upload": "plugs/upload"
+    "upload": "plugs/upload",
+    "jquery":"src/plugs/jquery-3.1.1"
 };
 
 if (isSupportSocket) {
@@ -57,7 +58,7 @@ require.config({
 
 });
 
-require(['RongIMLib', 'protobuf', 'vant', 'upload'], function (RongIMLib, protobuf, vant, upload) {
+require(['RongIMLib', 'protobuf', 'vant', 'upload','jquery'], function (RongIMLib, protobuf, vant, upload,$) {
 
     var appKey = "cpj2xarlc74xn";
     var token = document.getElementById("token").value; //"yp9BFwcOG9J4yTZi52vW5HfBXPxCovs0ajbAO4eE0ouyFL19u1TWD4lF4W0GPSDxsSweSCdhr0lv1N0vdIi8DLI8DbqUEQeS";//"2Y869KCAiQEv5kYGBLEYycNVcJirBFljL7M07UlG8TYGGfKZKrGXWMOJBC2f8EbtTMYxsX2VSg8=";
@@ -107,6 +108,7 @@ require(['RongIMLib', 'protobuf', 'vant', 'upload'], function (RongIMLib, protob
             console.log(message);
             switch (message.messageType) {
                 case RongIMClient.MessageType.TextMessage:
+                    console.log("接受消息为：",message);
                     var hasHtml = document.getElementById("recMes").innerHTML;
                     document.getElementById("recMes").innerHTML = hasHtml + "<div>" + message.content.content + "</div>";
                     /*
@@ -219,6 +221,8 @@ require(['RongIMLib', 'protobuf', 'vant', 'upload'], function (RongIMLib, protob
                 if (success != null) {
                     success.apply(this, arguments);
                 }
+
+
             },
             onError: function onError(errorCode, message) {
                 console.log(errorCode);
@@ -282,8 +286,14 @@ require(['RongIMLib', 'protobuf', 'vant', 'upload'], function (RongIMLib, protob
     document.getElementById("btn_send").addEventListener("click", function () {
         var text = document.getElementById("input_content").value;
         var targetId = document.getElementById("targetId").value;
+       
         sendMessage(text, targetId, function (message) {
-            console.log("发送的信息是：" + message);
+            console.log("发送的信息是1231231：" + message);
+
+
+
+
+
         }, function () {});
     });
 
