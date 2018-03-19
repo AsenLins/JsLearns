@@ -9,11 +9,15 @@ import 'vant/lib/vant-css/button.css';
 Vue.use(Vant);
 alert("?");
 */
+
+
+
 import Vue from 'vue';
-import 'vant/lib/vant-css/button.css';
-import { Button } from 'vant';
-
-
-console.log(Button);
+import talkApp from "./../index.vue";
 
 Vue.use(Button);
+
+new Vue({
+    el:"talkApp",
+    render: h => h(talkApp)
+});

@@ -19,25 +19,33 @@ module.exports = {
                 'css-loader'
             ]
         },
-          {
-                    test: /\.(woff|woff2|eot|ttf|otf)$/,
-                   use: [
-                      'file-loader'
-                    ]
-                  },
-                  {
-                    test: /\.(png|svg|jpg|gif)$/,
-                   use: [
-                      'file-loader'
-                    ]
-                  },
+        {
+            test: /\.(woff|woff2|eot|ttf|otf)$/,
+            use: [
+                  'file-loader'
+                 ]
+        },
+        {
+            test: /\.(png|svg|jpg|gif)$/,
+            use: [
+                 'file-loader'
+                 ]
+        },
+        {
+          test: /\.js$/,
+          loader: 'babel-loader'
+        },
 
-                  {
-                    test: /\.js$/,
-                    loader: 'babel-loader',
-                    exclude: /node_modules/
-                  }
-            
+        {
+          test:/\.vue$/,
+          use:[
+              'vue-loader'
+          ]
+        }
+
+
+
+
 
     ]
   },
