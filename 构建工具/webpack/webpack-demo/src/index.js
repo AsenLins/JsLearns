@@ -9,7 +9,8 @@ console.log(Data);
 console.log("i am asen lins2");
 console.log("i am asen lins3");
 console.log("i am asen lins4");
-
+console.log("i am asen lins4");
+console.log("i am asen lins4");
 
 /*热加载模块*/
 if (module.hot) {

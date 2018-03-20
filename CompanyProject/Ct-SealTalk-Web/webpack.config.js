@@ -11,6 +11,12 @@ module.exports = {
     publicPath: '../',
     filename: 'scripts/[name].js'
   },
+  devtool: 'inline-source-map',
+  devServer: {
+    //contentBase: './dist',
+    contentBase:path.join(__dirname, "dist"),
+  },
+
   module: {
     rules: [
       {
@@ -49,14 +55,15 @@ module.exports = {
     ]
   },
   plugins:[
+    //new CleanWebpackPlugin(['dist/*']),
     new HtmlWebpackPlugin({
       title: 'My App',
       template: './src/page/index.html',
       filename: './page/index.html',
       chunks: ['sealTalkApp']    
     }), 
-    new CleanWebpackPlugin(['dist/*']),
 
+    
   ],
   resolve: {
     alias: {

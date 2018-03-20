@@ -16,7 +16,7 @@ module.exports = {
   devtool: 'inline-source-map', //开启错误源提示（会显代码源的错误）,该选项不要在生产环境使用。
   devServer:{
     contentBase: './dist',
-    hot: true noInfo            //启动热加载
+    hot: true             //启动热加载
   },
   plugins: [
        //new CleanWebpackPlugin(['dist']),  //清除目录
