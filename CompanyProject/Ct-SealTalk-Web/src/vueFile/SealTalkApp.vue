@@ -4,19 +4,17 @@
 
     <van-nav-bar fixed="true" :title="title" ></van-nav-bar>
 
-
+    
     <div class="t-inputBody">
-
-
+        <p>p1111111111111111</p>
+        <p>p222222222222222</p>
+        <input type="button" id="btn_test"  value="测试" />
         <div class="t-chat left">
             <div >
                 <img src="../assets/testPic.jpg" class="t-chat-pic" />
             </div>
             <div class="t-chat-content left">
-                雷猴。
-                <i class="em em-heart"></i>
-                <i class="em em-gift"></i>
-                <i class="em em-bell"></i>                
+                雷猴。              
             </div>
         </div>
 
@@ -44,55 +42,51 @@
 
 
     </div>
-    <div class="t-inputPlane" style="bottom:120px;">
+
+    <div class="t-inputPlane">
         <van-col span="3"> 
-            <div class="t-control-btn"> <van-icon name="add-o" /></div>
+            <div @click="showActionSelect" class="t-control-btn"> <van-icon name="add-o" /></div>
         </van-col>
-   
-        <van-col  span="18">
+         <van-col span="3"> 
+            <div @click="showEmoJiPlane" class="t-control-btn t-control-emoji"> <i class="icon iconfont icon-xiaolian t-control-btn " /></div>
+        </van-col>  
+
+        <van-col  span="15">
+            <div id="t-input" class="t-input"  contentEditable="true" >请输入信息...</div>
+            <div class="t-input-line" ></div>
+            <!--
             <van-cell-group>
-            <van-field v-model="value" placeholder="请输入信息..." /></van-cell-group>
+            <van-field v-model="value" placeholder="请输入信息..." />
+            </van-cell-group>
+            -->
         </van-col>
 
         <van-col span="3"> 
            <div class="t-control-btn t-control-send"> <i class="icon iconfont icon-fasongduilie t-control-btn " /></div>
         </van-col>   
-
-        <div>
-
-
-            
-        </div>
-        
-        <div style="height:300px;position: relative; top:0px;">
-
-
-
-        </div>
-
-
-
     </div>
-    <div style="position: fixed;bottom:0px; width:100%; height:300px; background-color:white;">
-        <van-swipe style="margin-top:46px; height:300px;" >
-            <van-swipe-item>
-                <van-col span="2">
-                    <img src="https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/58.gif" alt="/:basketb">
+
+
+
+    <div class="t-emoJiPlane " :class="{'t-emoJiPlane-show':emoJiOption.show}" >
+        <van-swipe class="t-emoJiSwipe">
+
+            <van-swipe-item class="t-emoJiSwipeItem">
+                <van-col span="3" :key="emoJiItem.code" v-for="emoJiItem in emoJiOption.emoJiData.emoJiList" >
+                  
+                    <div @click="emojiSelect" class="t-emoJiItem" :data-code="emoJiItem.code" v-html="emoJiItem.html"></div>
+                </van-col>
+             
+            </van-swipe-item>
+
+            <van-swipe-item class="t-emoJiSwipeItem" >
+        
+                <van-col span="3" :key="emoJiItem.code" v-for="emoJiItem in emoJiOption.emoJiData.emoJiQQList" >
+                    <div @click="emojiSelect" class="t-emoJiItem" :data-code="emoJiItem.code" v-html="emoJiItem.html"></div>
                 </van-col>
 
-                <van-col span="2">
-                    <img src="https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/0.gif" alt="/::)">
-                </van-col>       
-
-
-
             </van-swipe-item>
-            <van-swipe-item>
-                <van-col span="2">
-                    <i class="em em-heart"></i>
-                </van-col> 
 
-            </van-swipe-item>
         </van-swipe>
 
     </div>
@@ -102,8 +96,8 @@
     <van-actionsheet :title="actionOption.title" v-model="actionOption.show">
      <div class="t-actionPlane">
         <van-col  span="3">
-            <van-button v-on:click="showPhotoSelect" size="normal"><van-icon name="photograph" /></van-button>
-            <div class="t-actionPlane-tip">照片</div> 
+            <van-button v-on:click="showPhotoActionSelect" size="normal"><van-icon name="photograph" /></van-button>
+            <div @click="showPhotoActionSelect" class="t-actionPlane-tip">{{actionOption.photoTitle}} </div> 
         </van-col>
 
      </div>
@@ -120,10 +114,10 @@
                 <a @click="selectPhotoByList"> 从相册中选取</a>
             </van-row>
             <van-row  >
-                <a @click="hidePhotoSelect"> 取消</a>
+                <a @click="hidePhotoActionSelect"> 取消</a>
             </van-row>
 
-        </div>33123333
+        </div>
     </van-actionsheet>
 
 </div>
@@ -142,16 +136,125 @@ var emoji=require('../util/emoji');
 
 
 
+var range=function(targetId){
+    var option={
+        target:document.getElementById(targetId),
+        range:null,
+        lastRange:0
+    };
+    this.option=option;
+
+    option.target.addEventListener("focusout",function(){
+        var selection = window.getSelection();
+        var range=selection.getRangeAt(0);
+        option.lastRange=range.endOffset;
+        option.range=range;    
+        console.log("focus out");  
+        /*
+            console.log("EndRange",option.lastRange);
+            console.log("range.startContainer",range);
+            console.log("range.startContainer",range.startContainer);
+            var text=document.createTextNode("dc");
+            range.insertNode(text,range.startContainer);
+            option.target.focus();
+            range.setStart(range.startContainer,6);
+            range.setEnd(range.startContainer,6);
+            selection.removeAllRanges();
+            selection.addRange(range); 
+         */  
+        
+    });
+
+};
+
+
+range.prototype.insetDom=function(dom){
+
+        var range=this.option.range;
+        var target=this.option.target;
+
+
+        var dom=document.createElement("i");
+        dom.className="em em-smile"
+        range.insertNode(dom,range.startContainer); 
+
+        //range.insertNode(dom,range.startContainer); 
+        var selection = window.getSelection();
+        var insertRange=selection.getRangeAt(0);
+        var lastRange=insertRange.endOffset;
+        var startRange=insertRange.startOffset;
+
+
+        console.log("insertRange",insertRange);
+        
+        console.log("lenght",dom.length);
+        console.log("range",this.option.range);
+        
+        if(dom.nodeName!="#text"){
+           dom=dom.nextSibling;
+        }
+
+        
+        insertRange.setStart(dom,0);
+        insertRange.setEnd(dom,0);
+        selection.removeAllRanges();
+        selection.addRange(insertRange); 
+        
+        //range.insertNode(text,range.startContainer);
+        target.focus();
+
+}
+
+
+var range;
+window.onload=function(){
+
+
+var inputRange=new range("t-input");
+console.log("inputRange",inputRange);
+
+
+document.addEventListener("keyup",function(){
+    var oControlRange = document.getSelection();
+    var range=oControlRange.getRangeAt(0);
+    console.log("key up range",range);
+    if (oControlRange(0).tagName.toUpperCase() == "IMG"||oControlRange(0).tagName.toUpperCase()=="I") {
+    alert("您在图片或I上按了键！")
+    }
+});
+
+
+document.getElementById("t-input").addEventListener("click",function(e){
+    console.log("keyup",e);
+});
+
+document.getElementById("t-input").addEventListener("fouse",function(e){
+    console.log("fousein",e);
+});
+
+
+document.getElementById("btn_test").addEventListener("click",function(){
+    var text=document.createTextNode("dcname");
+    inputRange.insetDom(text);
+});
+
+
+}
 
 
 
 
-console.log("emoji",emoji);
+
+
+
+
+
 
 
 /*初始化表情*/
 function initEmoJi(){
     var emoJiList=[];
+    var emoJiQQList=[];
 
     for(var emojiName in emoji.baseCode){
         var type=emoji.baseSource[emojiName].type;
@@ -159,17 +262,27 @@ function initEmoJi(){
         if(type==="js"){
             emoJiObj.html=qqWechatEmotionParser(emoji.baseCode[emojiName]);
             emoJiObj.code=emoji.baseCode[emojiName];
-        }else{
-            emoJiObj.html="<i class="+emoji.baseSource[emojiName].class+" />";
-            emoJiObj.code=emoji.baseCode[emojiName];            
+            emoJiQQList.push(emoJiObj);  
+        
+        }else if(type==="class"){
+            emoJiObj.html="<i class='em "+emoji.baseSource[emojiName].name+"' ></i>";
+            emoJiObj.code=emoji.baseCode[emojiName]; 
+            emoJiList.push(emoJiObj);           
         }
-        emoJiList.push(emoJiObj);
+ 
     }
 
-    return emoJiList;
+    return {
+        emoJiList:emoJiList,
+        emoJiQQList:emoJiQQList
+    };
 }
 
-console.log("表情对象是",initEmoJi());
+var emoJiObj=initEmoJi();
+
+console.log(emoJiObj.emoJiList);
+
+//console.log("表情对象是",initEmoJi());
 
 
 //var qqItem=
@@ -197,7 +310,8 @@ export default {
       title:"与Amy聊天中",
       actionOption:{
           show:false,
-          title:"请选择以下操作"
+          title:"请选择以下操作",
+          photoTitle:"照片"
       },
       actionPhotoOption:{
           show:false     
@@ -206,25 +320,45 @@ export default {
           title:"请选择表情",
           show:true
       },
-      emoJiData:{
-          qq:{},
-          emoJi:{}
+      emoJiOption:{
+          emoJiData:emoJiObj,
+          show:false
+      },
+      chat:{
+          send:[],
+          rec:[],
+          privewImg:[]
       }
     }
   },
   methods:{
-    showPhotoSelect:function(){
-        this.actionOption.show=false;
-        this.actionPhotoOption.show=true;
+    showActionSelect:function(){
+        this.actionOption.show=true;
+        this.emoJiOption.show=false;
+
     },
-    hidePhotoSelect:function(){
+    hidePhotoActionSelect:function(){
         this.actionPhotoOption.show=false;
+    },
+    showPhotoActionSelect:function(){
+        this.actionPhotoOption.show=true;
+        this.actionOption.show=false;
     },
     selectPhoto:function(){
         this.actionPhotoOption.show=false;
     },
     selectPhotoByList:function(){
         this.actionPhotoOption.show=false;
+     
+    },
+    showEmoJiPlane:function(){
+        this.emoJiOption.show=true;
+    },
+    emojiSelect:function(e){
+        console.log("select emoji",e);
+    },
+    sendMes:function(e){
+
     }
   }
 }
@@ -232,8 +366,6 @@ export default {
 
 
 <style>
-
-
 body,html{
     height: 100%;
     color: #596978;
@@ -286,8 +418,13 @@ body,html{
     background-color: white;
 }
 
+.van-icon-photograph{
+    font-size:1em;
+}
 .t-actionPlane-tip {
     color: #596976;
+    font-size: 14px;
+    padding-left: 1px;    
 }
 
 .t-control-btn{
@@ -301,6 +438,11 @@ body,html{
 .t-control-send{
     font-size: 1.1em;
     margin-top:0.35em;
+}
+
+.t-control-emoji{
+    font-size: 1.1em;
+    margin-top: 0.44em;
 }
 
 .van-icon{
@@ -397,6 +539,52 @@ body,html{
     margin-left:0.8em;
 }
 
+    
+.t-emoJiPlane{
+    position: fixed;
+    bottom:-200px;
+    width:100%; 
+    height:200px; 
+    background-color:white;
+    padding-bottom: 46px;
+}
 
+.t-emoJiSwipe{
+    margin-top:5px; 
+    padding:0.4em; 
+    height:175px;
+}
 
+.t-emoJiSwipeItem{
+    overflow-y:scroll;
+}
+.t-emoJiItem{
+    margin-bottom: 10px;
+}
+
+.t-emoJiPlane-show{
+    bottom:0px;
+}
+
+.t-input{
+    /*
+    min-height: 25px;
+    overflow-y: auto;
+    max-height:150px; 
+    */
+    height:25px;
+    margin-top:8px; 
+    margin-right:10px; 
+    margin-left:5px; 
+    font-size:14px; 
+    outline:none;
+    overflow-y:auto;
+
+}
+.t-input-line{
+    margin-left:5px; 
+    border-top:1px solid #596978; 
+    height:1px; 
+    width:98%;
+}
 </style>
