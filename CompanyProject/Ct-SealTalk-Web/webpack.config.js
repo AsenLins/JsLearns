@@ -51,7 +51,16 @@ module.exports = {
           name: '[name].[ext]?[hash]',
           outputPath:"assets/",          
         }
-      }
+      },
+      {
+        test: require.resolve('jquery'),
+        use: [{
+            loader: 'expose-loader',
+            options: '$'
+      }]
+     }
+    
+      
     ]
   },
   plugins:[

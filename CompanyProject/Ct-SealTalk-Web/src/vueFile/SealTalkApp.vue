@@ -2,45 +2,29 @@
 
 <div class="t-wrap">
 
+    <form id="postForm" method="post"></form>
+
     <van-nav-bar fixed="true" :title="title" ></van-nav-bar>
 
-    
-    <div class="t-inputBody">
-        <p>p1111111111111111</p>
-        <p>p222222222222222</p>
-        <input type="button" id="btn_test"  value="测试" />
-        <div class="t-chat left">
-            <div >
-                <img src="../assets/testPic.jpg" class="t-chat-pic" />
+    <div class="t-inputBody" id="t-inputBody" @click="closeEmoJiPlane">
+
+            
+            <div v-for="item in chat.mesBody" :key="item.mesId" class="t-chat left" :class="[item.class]"  >
+                <div>
+                    <img src="../assets/testPic.jpg" class="t-chat-pic" :class="[item.class]"  />
+                </div>
+                <div class="t-chat-content" :class="[item.class]"  >
+                    <template v-if="item.mesType=='text'">
+                        {{item.content}}
+                    </template> 
+                    <template v-if="item.mesType=='image'">
+                        <img @click="privewImg" :src="item.file" />
+                    </template>             
+                    <template v-if="item.mesType=='unknow'">
+                        未识别的消息类型
+                    </template>
+                </div>
             </div>
-            <div class="t-chat-content left">
-                雷猴。              
-            </div>
-        </div>
-
-        <div class="t-chat right">
-            <div >
-                <img src="../assets/testPic2.jpg" class="t-chat-pic right" />
-            </div>
-
-            <div  class="t-chat-content right" >
-                你好，Amy姐姐你好，Amy姐姐你好，Amy姐姐你好，Amy姐姐你好，Amy姐姐你好，Amy姐姐你好，Amy姐姐你好，Amy姐姐
-            </div>
-        </div>
-
-
-        <div class="t-chat right">
-            <div>
-                <img src="../assets/testPic2.jpg" class="t-chat-pic right" />
-            </div>
-
-            <div class="t-chat-content right img" >
-                <img src="../assets/testPic.jpg"  />
-            </div>
-        </div>
-
-
-
     </div>
 
     <div class="t-inputPlane">
@@ -62,7 +46,7 @@
         </van-col>
 
         <van-col span="3"> 
-           <div class="t-control-btn t-control-send"> <i class="icon iconfont icon-fasongduilie t-control-btn " /></div>
+           <div @click="sendMes" class="t-control-btn t-control-send"> <i class="icon iconfont icon-fasongduilie t-control-btn " /></div>
         </van-col>   
     </div>
 
@@ -70,7 +54,7 @@
 
     <div class="t-emoJiPlane " :class="{'t-emoJiPlane-show':emoJiOption.show}" >
         <van-swipe class="t-emoJiSwipe">
-
+            <!--
             <van-swipe-item class="t-emoJiSwipeItem">
                 <van-col span="3" :key="emoJiItem.code" v-for="emoJiItem in emoJiOption.emoJiData.emoJiList" >
                   
@@ -78,15 +62,15 @@
                 </van-col>
              
             </van-swipe-item>
-
+            -->
             <van-swipe-item class="t-emoJiSwipeItem" >
         
                 <van-col span="3" :key="emoJiItem.code" v-for="emoJiItem in emoJiOption.emoJiData.emoJiQQList" >
-                    <div @click="emojiSelect" class="t-emoJiItem" :data-code="emoJiItem.code" v-html="emoJiItem.html"></div>
+                    <div @click="emojiSelect" class="t-emoJiItem" :data-html="emoJiItem.html" :data-code="emoJiItem.code" v-html="emoJiItem.html"></div>
                 </van-col>
 
             </van-swipe-item>
-
+            
         </van-swipe>
 
     </div>
@@ -119,9 +103,11 @@
 
         </div>
     </van-actionsheet>
-
+    <input id="photo_camera" type="file" name="file"  capture="camera" hidden />
+    <input id="photo_list" type="file" name="file" accept="image/*"  hidden />
 </div>
 </template>
+
 
 <script>
 
@@ -132,163 +118,173 @@ import "../../node_modules/emoji-awesome/dist/css/emojione.min.css";
 
 /*引入表情需要用到的js*/
 var qqWechatEmotionParser=require('qq-wechat-emotion-parser');
+
+
+/*页面业务代码块*/
+var sealTalkApi=require("../util/sealTalkApi");
+var range=require("../util/range");
 var emoji=require('../util/emoji');
+var RongIMLib=require("../util/RongIMLib-2.2.7.min");
+var protobuf=require("../util/protobuf-2.2.7.min");
 
 
 
-var range=function(targetId){
-    var option={
-        target:document.getElementById(targetId),
-        range:null,
-        lastRange:0
-    };
-    this.option=option;
 
-    option.target.addEventListener("focusout",function(){
-        var selection = window.getSelection();
-        var range=selection.getRangeAt(0);
-        option.lastRange=range.endOffset;
-        option.range=range;    
-        console.log("focus out");  
-        /*
-            console.log("EndRange",option.lastRange);
-            console.log("range.startContainer",range);
-            console.log("range.startContainer",range.startContainer);
-            var text=document.createTextNode("dc");
-            range.insertNode(text,range.startContainer);
-            option.target.focus();
-            range.setStart(range.startContainer,6);
-            range.setEnd(range.startContainer,6);
-            selection.removeAllRanges();
-            selection.addRange(range); 
-         */  
-        
+
+function ready(vueObj){
+    vueObj.loading.message="连接服务中";
+
+    var appKey="kj7swf8ok1g32";
+    var RongIMClient = RongIMLib.RongIMClient;
+    var config = { };
+    if (protobuf) {
+        config.protobuf = protobuf;
+    }
+    //初始化
+    RongIMClient.init(appKey,null,{protobuf:protobuf});
+    var _instance = RongIMClient.getInstance();
+    vueObj.rong._instance=_instance;
+    vueObj.rong.RongIMClient=RongIMClient;
+
+
+    sealTalkApi.getToken("U",vueObj.chat.userId,function(data){
+    var token=data.Result;
+
+    RongIMClient.setConnectionStatusListener({
+        onChanged: function (status) {
+            console.info(status)   
+            switch (status) {
+                case RongIMLib.ConnectionStatus.CONNECTED:
+                     console.log("链接成功");
+                    break;
+                case RongIMLib.ConnectionStatus.CONNECTING:
+                    console.log('正在链接');
+                    break;
+                case RongIMLib.ConnectionStatus.DISCONNECTED:
+                    console.log('断开连接');
+                   
+                    break;
+                case RongIMLib.ConnectionStatus.KICKED_OFFLINE_BY_OTHER_CLIENT:
+                    console.log('其他设备登录');
+                    break;
+                  case RongIMLib.ConnectionStatus.DOMAIN_INCORRECT:
+                    console.log('域名不正确');
+                    break;
+                case RongIMLib.ConnectionStatus.NETWORK_UNAVAILABLE:
+                    console.log('网络不可用');
+                    break;
+                }
+
+        }
+    });
+    
+    RongIMClient.setOnReceiveMessageListener({
+        // 接收到的消息
+        onReceived: function (message) {
+            // 判断消息类型
+            // showTips("新消息，类型为：" + message.messageType);
+            // showResult("新消息",message,start);
+            console.log(message);
+            switch(message.messageType){
+                case RongIMClient.MessageType.TextMessage:
+                    var hasHtml=document.getElementById("recMes").innerHTML;
+                    document.getElementById("recMes").innerHTML=hasHtml+"<div>"+
+                    message.content.content+"</div>";
+                    /*
+                    显示消息方法： 
+                    消息里是 原生emoji
+                    RongIMLib.RongIMEmoji.emojiToHTML(message.content.content);
+                    */
+                    break;
+                case RongIMClient.MessageType.VoiceMessage:
+                    // 对声音进行预加载                
+                    // message.content.content 格式为 AMR 格式的 base64 码
+                    break;
+                case RongIMClient.MessageType.ImageMessage:
+                   // message.content.content => 图片缩略图 base64。
+                   // message.content.imageUri => 原图 URL。
+                   break;
+                case RongIMClient.MessageType.DiscussionNotificationMessage:
+                   // message.content.extension => 讨论组中的人员。
+                   break;
+                case RongIMClient.MessageType.LocationMessage:
+                   // message.content.latiude => 纬度。
+                   // message.content.longitude => 经度。
+                   // message.content.content => 位置图片 base64。
+                   break;
+                case RongIMClient.MessageType.RichContentMessage:
+                   // message.content.content => 文本消息内容。
+                   // message.content.imageUri => 图片 base64。
+                   // message.content.url => 原图 URL。
+                   break;
+                case RongIMClient.MessageType.InformationNotificationMessage:
+                    // do something...
+                   break;
+                case RongIMClient.MessageType.ContactNotificationMessage:
+                    // do something...
+                   break;
+                case RongIMClient.MessageType.ProfileNotificationMessage:
+                    // do something...
+                   break;
+                case RongIMClient.MessageType.CommandNotificationMessage:
+                    // do something...
+                   break;
+                case RongIMClient.MessageType.CommandMessage:
+                    // do something...
+                   break;
+                case RongIMClient.MessageType.UnknownMessage:
+                    // do something...
+                   break;
+                default:
+                    // do something...
+            }
+        }
     });
 
-};
 
-
-range.prototype.insetDom=function(dom){
-
-        var range=this.option.range;
-        var target=this.option.target;
-
-
-        var dom=document.createElement("i");
-        dom.className="em em-smile"
-        range.insertNode(dom,range.startContainer); 
-
-        //range.insertNode(dom,range.startContainer); 
-        var selection = window.getSelection();
-        var insertRange=selection.getRangeAt(0);
-        var lastRange=insertRange.endOffset;
-        var startRange=insertRange.startOffset;
-
-
-        console.log("insertRange",insertRange);
-        
-        console.log("lenght",dom.length);
-        console.log("range",this.option.range);
-        
-        if(dom.nodeName!="#text"){
-           dom=dom.nextSibling;
+    RongIMClient.connect(token, {
+        onSuccess: function(userId) {
+             Toast.clear();
+            console.log("链接成功，用户id：" + userId);
+            //sendMessage();
+            //getConversationList();
+        },
+        onTokenIncorrect: function() {
+            console.log('token无效');
+              Toast.clear();
+        },
+        onError:function(errorCode){
+          var info = '';
+          Toast.clear();
+          switch (errorCode) {
+            case RongIMLib.ErrorCode.TIMEOUT:
+              info = '超时';
+              break;
+            case RongIMLib.ErrorCode.UNKNOWN_ERROR:
+              info = '未知错误';
+              break;
+            case RongIMLib.ErrorCode.UNACCEPTABLE_PaROTOCOL_VERSION:
+              info = '不可接受的协议版本';
+              break;
+            case RongIMLib.ErrorCode.IDENTIFIER_REJECTED:
+              info = 'appkey不正确';
+              break;
+            case RongIMLib.ErrorCode.SERVER_UNAVAILABLE:
+              info = '服务器不可用';
+              break;
+          }
+          console.log(info);
         }
-
-        
-        insertRange.setStart(dom,0);
-        insertRange.setEnd(dom,0);
-        selection.removeAllRanges();
-        selection.addRange(insertRange); 
-        
-        //range.insertNode(text,range.startContainer);
-        target.focus();
-
-}
+    });
 
 
-var range;
-window.onload=function(){
+
+    });
 
 
-var inputRange=new range("t-input");
-console.log("inputRange",inputRange);
-
-
-document.addEventListener("keyup",function(){
-    var oControlRange = document.getSelection();
-    var range=oControlRange.getRangeAt(0);
-    console.log("key up range",range);
-    if (oControlRange(0).tagName.toUpperCase() == "IMG"||oControlRange(0).tagName.toUpperCase()=="I") {
-    alert("您在图片或I上按了键！")
-    }
-});
-
-
-document.getElementById("t-input").addEventListener("click",function(e){
-    console.log("keyup",e);
-});
-
-document.getElementById("t-input").addEventListener("fouse",function(e){
-    console.log("fousein",e);
-});
-
-
-document.getElementById("btn_test").addEventListener("click",function(){
-    var text=document.createTextNode("dcname");
-    inputRange.insetDom(text);
-});
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-/*初始化表情*/
-function initEmoJi(){
-    var emoJiList=[];
-    var emoJiQQList=[];
-
-    for(var emojiName in emoji.baseCode){
-        var type=emoji.baseSource[emojiName].type;
-        var emoJiObj={}
-        if(type==="js"){
-            emoJiObj.html=qqWechatEmotionParser(emoji.baseCode[emojiName]);
-            emoJiObj.code=emoji.baseCode[emojiName];
-            emoJiQQList.push(emoJiObj);  
-        
-        }else if(type==="class"){
-            emoJiObj.html="<i class='em "+emoji.baseSource[emojiName].name+"' ></i>";
-            emoJiObj.code=emoji.baseCode[emojiName]; 
-            emoJiList.push(emoJiObj);           
-        }
- 
-    }
-
-    return {
-        emoJiList:emoJiList,
-        emoJiQQList:emoJiQQList
-    };
-}
-
-var emoJiObj=initEmoJi();
-
-console.log(emoJiObj.emoJiList);
-
-//console.log("表情对象是",initEmoJi());
-
-
-//var qqItem=
-
-
-//Toast('不可发送空消息....');
 
 export default {
   components:{
@@ -321,15 +317,66 @@ export default {
           show:true
       },
       emoJiOption:{
-          emoJiData:emoJiObj,
+          emoJiData:emoji.init(),
           show:false
       },
       chat:{
           send:[],
           rec:[],
-          privewImg:[]
-      }
+          privewImg:[],
+          inputRange:null,
+          userId:"",
+          targetId:"",
+          mesBody:[]
+      },
+     rong:{
+         _instance:null,
+         RongIMClient:null
+     },
+    loading:null
     }
+  },
+  created:function(){
+
+    this.loading=Toast.loading({
+        mask: true,
+        duration: 0,       // 持续展示 toast
+        forbidClick: true, // 禁用背景点击
+        message: '加载中'
+    });
+
+
+
+  },
+  mounted:function(){
+
+
+    this.$nextTick(function () {
+      /*初始化输入框*/
+      this.chat.inputRange=new range("t-input");
+         
+      /*注册用户UI到中原集团，用于调用集团融云api */
+      var vueObj=this;
+      sealTalkApi.register("asenlins",function(data){
+          console.log("UserId",data.Result);
+          vueObj.chat.userId=data.Result;
+          vueObj.loading.message="注册用户信息";
+          if(vueObj.chat.userId!==""&&vueObj.chat.targetId!=""){
+                ready(vueObj);
+          }
+      });
+
+      sealTalkApi.register("1708587",function(data){
+          console.log("UserId",data.Result);
+          vueObj.chat.targetId=data.Result;
+          vueObj.loading.message="获取联系人";
+          if(vueObj.chat.userId!==""&&vueObj.chat.targetId!=""){
+               ready(vueObj);
+
+          }          
+      });
+    });
+
   },
   methods:{
     showActionSelect:function(){
@@ -346,20 +393,94 @@ export default {
     },
     selectPhoto:function(){
         this.actionPhotoOption.show=false;
+        document.getElementById("photo_camera").click();
     },
     selectPhotoByList:function(){
         this.actionPhotoOption.show=false;
-     
+        document.getElementById("photo_list").click();
     },
     showEmoJiPlane:function(){
-        this.emoJiOption.show=true;
+        if(this.emoJiOption.show==true){
+            this.emoJiOption.show=false;
+        }else{
+            this.emoJiOption.show=true;
+        }
+        
+    },
+    closeEmoJiPlane:function(){
+        this.emoJiOption.show=false;
     },
     emojiSelect:function(e){
-        console.log("select emoji",e);
+
+        if(e.srcElement.nodeName!="IMG"){
+            return;
+        }
+        var currentDom=e.srcElement;
+        var parent=currentDom.parentNode;
+   
+        var img=document.createElement("img");
+        img.src=currentDom.src;
+        img.setAttribute("data-code",parent.dataset.code);
+        this.chat.inputRange.insetDom(img);
+        console.log("select emoji",parent.dataset.code);
+
     },
     sendMes:function(e){
+        console.log(this.chat);
+        var sendMes=this.chat.inputRange.getMes();
+        var msg = new RongIMLib.TextMessage({content:sendMes,extra:"附加信息"});
+        var conversationtype = RongIMLib.ConversationType.PRIVATE;
+        var userId=this.chat.userId;
+        var targetId = this.chat.targetId; //targetId; //"tester";
+        console.log(targetId);
+        var _instance=this.rong._instance;
+        _instance.sendMessage(conversationtype, targetId, msg, {
+                onSuccess: function (message) {
 
+                    console.log(message);
+                    console.log(JSON.stringify(message, null, '\t'));
+                    sealTalkApi.sendMes(userId,"1708587","text",sendMes,function(data){
+                        console.log("调用集团api返回的是",data);
+                    });
+                },
+                onError: function (errorCode,message) {
+                    console.log(errorCode);
+
+                }
+        });
+
+
+            /*
+             {
+                mesId:"1",
+                content:"这是一条测试信息",
+                mesType:"text",
+                mesIsRec:false,
+                time:"",
+                userPic:"",
+                class:"left"
+             },
+             {
+                mesId:"1",
+                content:"这是一条测试信息",
+                mesType:"image",
+                mesIsRec:false,
+                time:"",
+                file:"../assets/testPic.jpg",
+                userPic:"",
+                class:"right"
+             }
+             */
+
+
+    },
+    privewImg:function(e){
+        var currentDom=e.srcElement;
+        ImagePreview([
+            currentDom.src
+        ]);
     }
+
   }
 }
 </script>
@@ -459,6 +580,9 @@ body,html{
 
 .t-chat.right>div{
     float:right;
+    border-radius: 5px;
+    padding: 3px;
+
 }
 
 .t-chat::after{
@@ -531,7 +655,10 @@ body,html{
 
 .t-chat-content img{
     max-width: 120px;
-    border-radius: 10px;
+    margin-top: 3px;
+    margin-left:3px;
+    margin-right: 3px;
+    border-radius: 2px;
 }
 
 .t-chat-pic.right{

@@ -41,7 +41,16 @@ module.exports = {
           use:[
               'vue-loader'
           ]
+        },
+        {
+          test: require.resolve('jquery'),
+          use: [{
+              loader: 'expose-loader',
+              options: '$'
+          }]
         }
+
+
 
 
 

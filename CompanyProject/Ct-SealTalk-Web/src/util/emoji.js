@@ -1,4 +1,5 @@
-module.exports = {
+var qqWechatEmotionParser=require('qq-wechat-emotion-parser');
+var emoji={
     baseCode:{
     wx : '/::)', //微笑
     pz : '/::~', //撇嘴
@@ -499,3 +500,36 @@ module.exports = {
         } 
     }
   }
+
+
+function initEmoJi(){
+    var emoJiList=[];
+    var emoJiQQList=[];
+
+    for(var emojiName in emoji.baseCode){
+        var type=emoji.baseSource[emojiName].type;
+        var emoJiObj={}
+        if(type==="js"){
+            emoJiObj.html=qqWechatEmotionParser(emoji.baseCode[emojiName]);
+            emoJiObj.code=emoji.baseCode[emojiName];
+            emoJiQQList.push(emoJiObj);  
+        
+        }else if(type==="class"){
+            emoJiObj.html="<i class='em "+emoji.baseSource[emojiName].name+"' ></i>";
+            emoJiObj.code=emoji.baseCode[emojiName]; 
+            emoJiList.push(emoJiObj);           
+        }
+ 
+    }
+
+    return {
+        emoJiList:emoJiList,
+        emoJiQQList:emoJiQQList
+    };
+}
+
+
+
+module.exports={
+    init:initEmoJi
+}
