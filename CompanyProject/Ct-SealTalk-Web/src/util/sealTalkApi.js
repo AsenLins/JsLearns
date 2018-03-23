@@ -41,7 +41,7 @@ function getToken(UserType,UserNo,fn){
     
 }
 
-function sendMes(sender,target,msgType,MsgContent,fn){
+function sendMes(sender,target,msgType,MsgContent,ExtensionName,fn){
 
     var param={
         CityCode:"853",
@@ -50,14 +50,14 @@ function sendMes(sender,target,msgType,MsgContent,fn){
         RcSender:"u_"+sender,
         RcReceiver:"s_853_"+target,
         msgType:msgType,
-        MsgContent:"123",
+        MsgContent:MsgContent,
         SendToRc:"YES",
-        ExtensionName:""
+        ExtensionName:ExtensionName
     }
     var paramStr=JSON.stringify(param);
-    console.log(paramStr);
+    //console.log(paramStr);
     //console.log($("#postForm").ajaxSubmit);
-    $.support.cors = true;
+    //$.support.cors = true;
     /*
     $.ajax({
         url:"http://localhost:8002/api/CentalineMes/SendMessToCentaline",
@@ -75,8 +75,10 @@ function sendMes(sender,target,msgType,MsgContent,fn){
         }
     });*/
 
+    /*集团服务器不支持application/json的跨域请求，只能通过代理服务器请求。*/
     $("#postForm").ajaxSubmit({
-        url:"http://localhost:8002/api/CentalineMes/SendMessToCentaline",
+        //url:"http://localhost:8002/api/CentalineMes/SendMessToCentaline",
+        url:"http://10.68.2.9:/Centaline-SealTalkSever/api/CentalineMes/SendMessToCentaline",
         type:"post",
         data:param,
         success:function(data){

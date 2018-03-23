@@ -82,7 +82,7 @@ range.prototype.clear=function(){
 range.prototype.getMes=function(){
     var currentDom=this.option.target;
     var sendMes=currentDom.innerHTML;
- 
+    console.log("原始值",sendMes);
     var imgreg=/<img[^>]+>/g;
     var matchArray=sendMes.match(imgreg);
     console.log(matchArray);
@@ -96,7 +96,11 @@ range.prototype.getMes=function(){
             console.log(dataCode.match(codereg)[0].replace(/\"/g,""));
         }
     }
+    sendMes=sendMes.replace(/&nbsp;/g," ");
+    sendMes=sendMes.replace(/<br>/g,"\n");
+    sendMes=sendMes.replace(/<[^>]+>/g,"\n");
     console.log(sendMes);
+    return sendMes;
     ///<[^>]+>/g
     //console.log(str.match(reg));
     //console.log(reg.test(str));

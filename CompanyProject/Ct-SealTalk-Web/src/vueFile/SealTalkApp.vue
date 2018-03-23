@@ -4,18 +4,16 @@
 
     <form id="postForm" method="post"></form>
 
-    <van-nav-bar fixed="true" :title="title" ></van-nav-bar>
+    <van-nav-bar fixed="true" :title="title"  class="top" ></van-nav-bar>
 
     <div class="t-inputBody" id="t-inputBody" @click="closeEmoJiPlane">
-
-            
             <div v-for="item in chat.mesBody" :key="item.mesId" class="t-chat left" :class="[item.class]"  >
                 <div>
-                    <img src="../assets/testPic.jpg" class="t-chat-pic" :class="[item.class]"  />
+                    <img :src="item.userPic" class="t-chat-pic" :class="[item.class]"  />
                 </div>
-                <div class="t-chat-content" :class="[item.class]"  >
-                    <template v-if="item.mesType=='text'">
-                        {{item.content}}
+                <div class="t-chat-content" :class="[item.class]" >
+                    <template v-if="item.mesType=='text'" v-html="item.content">
+                      <div  v-html="item.content"></div>
                     </template> 
                     <template v-if="item.mesType=='image'">
                         <img @click="privewImg" :src="item.file" />
@@ -103,8 +101,9 @@
 
         </div>
     </van-actionsheet>
-    <input id="photo_camera" type="file" name="file"  capture="camera" hidden />
-    <input id="photo_list" type="file" name="file" accept="image/*"  hidden />
+ 
+    <input @change="photoSelectChange" id="photo_camera" type="file" name="file"  multiple="multiple" accept="image/*" capture="camera" hidden />
+    <input @change="photoSelectChange" id="photo_list" type="file" name="file" accept="image/*"  hidden />
 </div>
 </template>
 
@@ -124,8 +123,13 @@ var qqWechatEmotionParser=require('qq-wechat-emotion-parser');
 var sealTalkApi=require("../util/sealTalkApi");
 var range=require("../util/range");
 var emoji=require('../util/emoji');
+
 var RongIMLib=require("../util/RongIMLib-2.2.7.min");
+var RongIMEmoji=require("../util/RongEmoji-dev");
 var protobuf=require("../util/protobuf-2.2.7.min");
+var tools=require("../util/tools");
+
+
 
 
 
@@ -187,9 +191,16 @@ function ready(vueObj){
             console.log(message);
             switch(message.messageType){
                 case RongIMClient.MessageType.TextMessage:
-                    var hasHtml=document.getElementById("recMes").innerHTML;
-                    document.getElementById("recMes").innerHTML=hasHtml+"<div>"+
-                    message.content.content+"</div>";
+                    var mesBodyContent={
+                        mesId:tools.NewGuid(),
+                        mesIsRec:false,
+                        class:"right",
+                        mesType:"text",
+                        userPic:vueObj.chat.targetUser.pic,
+                        //file:message.content.content,
+                        content:qqWechatEmotionParser(message.content.content)
+                    };
+                    vueObj.chat.mesBody.push(mesBodyContent);
                     /*
                     显示消息方法： 
                     消息里是 原生emoji
@@ -201,6 +212,17 @@ function ready(vueObj){
                     // message.content.content 格式为 AMR 格式的 base64 码
                     break;
                 case RongIMClient.MessageType.ImageMessage:
+                    var mesBodyContent={
+                        mesId:tools.NewGuid(),
+                        mesIsRec:false,
+                        class:"right img",
+                        mesType:"image",
+                        userPic:vueObj.chat.targetUser.pic,
+                        file:"data:image/jpeg;base64,"+message.content.content,
+                        content:""
+                    };
+                    vueObj.chat.mesBody.push(mesBodyContent);
+
                    // message.content.content => 图片缩略图 base64。
                    // message.content.imageUri => 原图 URL。
                    break;
@@ -244,7 +266,7 @@ function ready(vueObj){
 
     RongIMClient.connect(token, {
         onSuccess: function(userId) {
-             Toast.clear();
+            Toast.clear();
             console.log("链接成功，用户id：" + userId);
             //sendMessage();
             //getConversationList();
@@ -286,6 +308,7 @@ function ready(vueObj){
 
 }
 
+
 export default {
   components:{
     [NavBar.name]: NavBar,
@@ -317,7 +340,7 @@ export default {
           show:true
       },
       emoJiOption:{
-          emoJiData:emoji.init(),
+          emoJiData: emoji.init(),
           show:false
       },
       chat:{
@@ -327,7 +350,17 @@ export default {
           inputRange:null,
           userId:"",
           targetId:"",
+          user:{
+              pic:"../assets/d_send.jpg"
+          },
+          targetUser:{
+              pic:"../assets/d_rec.jpg"
+          },
           mesBody:[]
+      },
+      currentFile:{
+          fileType:"",
+          file:""
       },
      rong:{
          _instance:null,
@@ -370,12 +403,14 @@ export default {
           console.log("UserId",data.Result);
           vueObj.chat.targetId=data.Result;
           vueObj.loading.message="获取联系人";
+          vueObj.title="与"+vueObj.chat.targetId+"聊天中";
           if(vueObj.chat.userId!==""&&vueObj.chat.targetId!=""){
                ready(vueObj);
-
+            
           }          
       });
     });
+   
 
   },
   methods:{
@@ -388,7 +423,9 @@ export default {
         this.actionPhotoOption.show=false;
     },
     showPhotoActionSelect:function(){
-        this.actionPhotoOption.show=true;
+        //this.actionPhotoOption.show=true;
+        //this.actionOption.show=false;
+        document.getElementById("photo_list").click();
         this.actionOption.show=false;
     },
     selectPhoto:function(){
@@ -400,7 +437,8 @@ export default {
         document.getElementById("photo_list").click();
     },
     showEmoJiPlane:function(){
-        if(this.emoJiOption.show==true){
+        if(this.emoJiOption.show==true
+        ){
             this.emoJiOption.show=false;
         }else{
             this.emoJiOption.show=true;
@@ -426,20 +464,24 @@ export default {
 
     },
     sendMes:function(e){
+         var sendMes=this.chat.inputRange.getMes();
+        if(sendMes==="请输入信息..."||sendMes===""){
+            Toast("请不要发送空消息！");
+            return;
+        }
+
         console.log(this.chat);
-        var sendMes=this.chat.inputRange.getMes();
+       
         var msg = new RongIMLib.TextMessage({content:sendMes,extra:"附加信息"});
         var conversationtype = RongIMLib.ConversationType.PRIVATE;
         var userId=this.chat.userId;
         var targetId = this.chat.targetId; //targetId; //"tester";
-        console.log(targetId);
+        var vueObj =this;
         var _instance=this.rong._instance;
         _instance.sendMessage(conversationtype, targetId, msg, {
                 onSuccess: function (message) {
 
-                    console.log(message);
-                    console.log(JSON.stringify(message, null, '\t'));
-                    sealTalkApi.sendMes(userId,"1708587","text",sendMes,function(data){
+                    sealTalkApi.sendMes(userId,"1708587","text",sendMes,"",function(data){
                         console.log("调用集团api返回的是",data);
                     });
                 },
@@ -449,30 +491,91 @@ export default {
                 }
         });
 
+        var mesBodyContent={
+            mesId:tools.NewGuid(),
+            mesIsRec:false,
+            class:"left",
+            mesType:"text",
+            userPic:vueObj.chat.user.pic,
+            content:qqWechatEmotionParser(sendMes)
+        };
 
-            /*
-             {
-                mesId:"1",
-                content:"这是一条测试信息",
-                mesType:"text",
-                mesIsRec:false,
-                time:"",
-                userPic:"",
-                class:"left"
-             },
-             {
-                mesId:"1",
-                content:"这是一条测试信息",
-                mesType:"image",
-                mesIsRec:false,
-                time:"",
-                file:"../assets/testPic.jpg",
-                userPic:"",
-                class:"right"
-             }
-             */
+        console.log("messbody",mesBodyContent);
+
+        this.chat.mesBody.push(mesBodyContent);
+        this.chat.inputRange.clear();
 
 
+    },
+    sendImgMes:function(){
+        
+        var currentFile= this.currentFile.file;
+        var vueObj=this;
+        setTimeout(function(){
+        tools.ImgToBase64(currentFile,320,function(imgbase64,imgBaseStr){
+
+        var content = {
+            imageUri: "http://rongcloud.cn/images/newVersion/log_wx.png", 
+            content: imgbase64
+            };
+        var msg = new RongIMLib.ImageMessage(content);
+        var conversationType = RongIMLib.ConversationType.PRIVATE;
+        var userId=vueObj.chat.userId;
+        var targetId = vueObj.chat.targetId; //targetId; //"tester";
+        var _instance=vueObj.rong._instance;
+        var start = new Date().getTime();
+
+        
+        _instance.sendMessage(conversationType, targetId, msg, {
+            onSuccess: function (message) {
+            
+                console.log("发送图片消息 成功",message,start);
+                sealTalkApi.sendMes(userId,"1708587","image",imgbase64,".jpg",function(data){
+                        console.log("调用集团api返回的是",data);
+                });
+
+
+            },
+            onError: function (errorCode,message) {
+                console.log("发送图片消息 失败",message,start);
+                if(error!=null){
+                    error.apply(this,success);
+                }
+            }
+        });
+        
+
+        var mesBodyContent={
+            mesId:tools.NewGuid(),
+            mesType:"image",
+            mesIsRec:false,
+            time:"",
+            file:imgBaseStr,
+            userPic:vueObj.chat.user.pic,
+            class:"left img"
+        }
+
+        vueObj.chat.mesBody.push(mesBodyContent);
+
+
+
+
+
+        });
+
+
+
+        },1000);
+
+        
+    },
+
+
+    photoSelectChange:function(e){
+        var currentDom=e.srcElement;
+        this.currentFile.fileType="image";
+        this.currentFile.file=currentDom.files[0];
+        this.sendImgMes();
     },
     privewImg:function(e){
         var currentDom=e.srcElement;
@@ -487,6 +590,12 @@ export default {
 
 
 <style>
+
+
+.top{
+    z-index:6!important;
+}
+
 body,html{
     height: 100%;
     color: #596978;
@@ -563,7 +672,7 @@ body,html{
 
 .t-control-emoji{
     font-size: 1.1em;
-    margin-top: 0.44em;
+    margin-top: 0.35em;
 }
 
 .van-icon{
@@ -580,9 +689,13 @@ body,html{
 
 .t-chat.right>div{
     float:right;
-    border-radius: 5px;
-    padding: 3px;
+    border-radius: 25px;
 
+
+}
+
+.t-chat.img{
+    border-radius: 5px;
 }
 
 .t-chat::after{
@@ -650,7 +763,7 @@ body,html{
 
 .t-chat-content.img{
     padding: 0.3em;
-    border-radius: 10px;
+    border-radius: 5px!important;
 }
 
 .t-chat-content img{
@@ -659,6 +772,8 @@ body,html{
     margin-left:3px;
     margin-right: 3px;
     border-radius: 2px;
+    position: relative;
+    z-index: 1;
 }
 
 .t-chat-pic.right{
@@ -700,7 +815,7 @@ body,html{
     max-height:150px; 
     */
     height:25px;
-    margin-top:8px; 
+    margin-top:10px; 
     margin-right:10px; 
     margin-left:5px; 
     font-size:14px; 
