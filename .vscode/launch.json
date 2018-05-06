@@ -9,7 +9,13 @@
             "type": "node",
             "request": "launch",
             "name": "启动程序",
-            "program": "${workspaceFolder}/NodeJsLearn\\基础\\module\\moduleBase.js"
+            //"program": "${workspaceFolder}/NodeJsLearn\\基础\\module\\moduleBase.js"
+            //"program": "${workspaceFolder}/JavaScriptLearn\\Js设计模式\\创建型设计模式\\简单工厂.js",
+            //"program": "${workspaceFolder}/JavaScriptLearn\\Js设计模式\\创建型设计模式\\工厂方法模式.js"
+            //"program": "${workspaceFolder}/JavaScriptLearn\\Js设计模式\\创建型设计模式\\抽象工厂.js"
+            //"program": "${workspaceFolder}/JavaScriptLearn\\Js设计模式\\创建型设计模式\\建造者模式.js"
+            //"program": "${workspaceFolder}/JavaScriptLearn\\Js设计模式\\创建型设计模式\\原型模式.js"
+            "program": "${workspaceFolder}/JavaScriptLearn\\Js设计模式\\创建型设计模式\\单例模式.js"
         }
     ]
 }
