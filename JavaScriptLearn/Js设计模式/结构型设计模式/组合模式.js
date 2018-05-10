@@ -42,6 +42,7 @@ class Content extends News{
 
     add(child){
         this.child.push(child);
+        return this;
     }
 
     getElement(){
@@ -50,13 +51,60 @@ class Content extends News{
 }
 
 var myNew=new Content("asenId","k");
-myNew.add("333");
-myNew.add("456");
+myNew.add("333").add({
+    "asen":"123", 
+    "age":1
+
+});
 
 console.log(myNew);
 console.log(myNew.child);
 
 
+class Form{
+    constructor(){
+        this.child=[];
+        this.element=null;
+    }
+
+    add(){
+        throw new Error("方法add必须实现");
+    }
+}
+
+class FormGroup extends Form{
+    constructor(){
+        super();
+    }
+    add(element){
+        this.child.push(element);
+        return this;
+    }
+}
+
+class FormItem extends Form{
+    constructor(){
+        super();
+    }
+    add(formControl){
+        
+    }
+}
+
+
+class FormControl{
+    constructor(){
+        this.name="";
+        this.type="";
+        
+    }
+}
+
+class input extends FormControl{
+    constructor(){
+        super();
+    }
+}
 
 
 
