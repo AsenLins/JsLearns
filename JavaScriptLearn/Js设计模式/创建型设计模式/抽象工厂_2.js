@@ -1,5 +1,5 @@
 /*抽象工厂*/
-class SuperHeroAbFactory{
+class SuperHeroAbstractFactory{
     superPower(){
         throw new Error("hero must have super power ");
     }
@@ -8,7 +8,7 @@ class SuperHeroAbFactory{
     }
 }
 
-class SuperManFactory extends SuperHeroAbFactory{
+class SuperManFactory extends SuperHeroAbstractFactory{
     constructor(name,power,skillName){
         super();
         this.name=name;
@@ -23,7 +23,7 @@ class SuperManFactory extends SuperHeroAbFactory{
     }
 }
 
-class WonderWomanFactory extends SuperHeroAbFactory{
+class WonderWomanFactory extends SuperHeroAbstractFactory{
     constructor(name,power,skillName){
         super();
         this.name=name;
