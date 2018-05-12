@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <div id="box">box1</div>
+    <div id="box2">box2</div>
+    <div id="box3">box3</div>
+</head>
+<body>
+    <script>
+        /*
+            在系统沿着多个维度变化的同时，又不增加其复杂度并已达到解耦。    
+            
+            桥接模式是把公用的方法封装，然后通过某个方法联系起来。
+
+            缺点：当然由于侨联的添加，有时也造成开发成本的增加。有时性能上也会受到影响。
+        */    
+        var box=document.getElementById("box");
+        var box2=document.getElementById("box2");
+
+        box.onclick=function(){
+            this.style.color="red";
+            this.style["font-size"]="16px";
+        }
+
+        box2.onclick=function(){
+            this.style.color="yellow";
+            this.style["font-size"]="20px";
+        };
+
+        /*使用桥接模式 */
+        function ChangeStyle(color,fontSize){
+            this.style.color=color;
+            this.style["font-size"]=fontSize;
+        }
+
+        var box3=document.getElementById("box3");
+        box3.onclick=function(){
+            /*桥接方法*/
+            ChangeStyle.call(this,"red","24px");
+        }
+
+
+
+        /*桥接模式 创建对象*/
+        var Power=function(powerName){
+            this.power=powerName;
+        }
+        Power.prototype={
+            usePower:function(){
+                console.log("use power is",this.power);
+            }
+        }
+
+
+        var Skill=function(skillName){
+            this.skill=skillName;
+        }
+        Skill.prototype={
+            useSkill:function(){
+                console.log("use Skill is",this.skill);
+            }
+        }
+
+        var SuperHero=function(name){
+            this.heroName=name;
+            this.superPower=new Power("fly");
+            this.skill=new Skill("attake");
+        }
+        SuperHero.prototype={
+            init:function(){
+                this.superPower.usePower();
+                this.skill.useSkill();
+            }
+        }
+
+        var hero=new SuperHero("superMan");
+        hero.init();
+        
+    </script>
+</body>
+</html>

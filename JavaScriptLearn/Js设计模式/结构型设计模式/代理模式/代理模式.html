@@ -1,0 +1,40 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+
+</head>
+<body>
+  <script>
+    /*
+    由于一个对象不能直接引用另一个对象，所以需要通过代理对象在这
+    两个对象之间起到中介的作用。   
+    
+    */
+ 
+    var imgLoad=function(src){
+        var img=new Image();
+        img.src=src;
+        return img;
+    }
+
+    /*
+    代理方法，图片懒加载，当加载完后才显示，当某天不需要懒加载时，完全就可以使用原来方法imgLoad。
+    */
+    var imgLazyLoad=function(src){
+        var img=new Image();
+        img.src=src;
+        img.onload=function(){
+            console.log("图片加载完成");
+            imgLoad(imgsrc);
+        }
+    }
+ 
+ </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+
+</head>
+
+<body>
+    <div id="box">click me</div>
+    <script>
+   /*
+    将一个类（对象）的接口（方法或者属性）转化成另外一个接口，
+    以满足用户需求，使类（对象）之间接口的不兼容问题通过适配器得以解决
+   */
+
+    /*适配框架，前提是越相似越好*/
+    var dom={
+        getId:function(id){
+            return document.getElementById(id);
+        }
+    }
+    console.log("box is",dom.getId("box"));
+
+    /*框架的适配器*/
+    dom.getId=function(id){
+        return document.querySelector("#"+id);
+    }
+
+    console.log("box is",dom.getId("box"));
+
+
+    /*参数适配器*/
+    function setFn(option){
+        var optionAdapter={
+            color:"green",
+            size:"16px"
+        }
+
+        for(var key in option){
+            optionAdapter[key]=option[key]||optionAdapter[key];
+        }
+
+        return optionAdapter;
+    }
+
+    var obj=setFn({
+        id:"173",
+        type:"input",
+        color:"white"
+    })
+    console.log("obj is",obj);
+
+
+    /*接收后端数据的适配器
+      用于获取和解耦数据获取的方法.
+
+
+      缺点：包装的适配器代码增加了一些资源开销。
+    */
+
+    function dataAdapter(data){
+           return  {
+               "name":data["name"],
+               "age":data["age"],
+               "gender":data["gender"]
+           }    
+    }
+
+    function getData(){
+        var testData=dataAdapter({
+            name:"Asen",
+            age:12,
+            size:16,
+            gender:"man",
+            job:"IT"
+        });
+
+
+    }
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> </title>
+    <div id="Box">click me</div>
+</head>
+
+<body>
+    <script>
+        /*
+        为一组复杂的子系统接口提供一个更高级的统一接口，通过这个接口使得对子系统接口的访问更容易。
+        在 JavaScript 中有时也会用于对底层结构兼容性做统一封装来简化用户使用。
+
+        缺点：增加了一些资源开销以及程序的复杂度
+
+
+        */
+        function addEvent(dom,bindEvent,fn){
+            if(document.addEventListener){
+                dom.addEventListener(bindEvent,fn);
+            }else if(document.attachEvent,bindEvent,fn){
+                dom.attachEvent('on'+bindEvent,fn);
+            }else{
+                dom['on'+bindEvent]=fn;
+            }
+        }
+        var Box=document.getElementById("Box");
+        addEvent(Box,"click",function(){
+            alert("you click");
+
+        });
+
+
+        /*外观模式简化调用接口复杂度*/
+        var dom={
+            get:function(id){
+                return document.getElementById(id);
+            },
+            css:function(dom,css){
+                dom.style.cssText=css;
+            }
+        }
+        var box=dom.get("Box");
+        dom.css(box,"background-color:gray;");
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    
+</head>
+<body>
+    <div id="box">click me</div>
+    <script>
+    /*
+    在不改变原对象的基础上，通过对其进行包装拓展（添加属性
+    或者方法）使原有对象可以满足用户的更复杂需求（通常用在在已有方法下扩展）   
+
+    装饰者对对象的拓展是一种良性拓展，不用了解其具体实现，只是在外部进行了一次封装拓展，这又是对原有功能完整性的一种保护
+
+    
+    */      
+   
+    document.getElementById("box").onclick=function(){
+        alert("i am click");
+    };
+
+    function Decorator(dom,fn){
+        if(dom.onclick!=undefined){
+            var oldFn=dom.onclick;
+
+            dom.onclick=function(){
+                oldFn();
+                fn();
+            }
+        }
+    }
+
+    var box=document.getElementById("box");
+    Decorator(box,function(){
+        alert("i am click2");
+    });
+
+
+    
+    
+    </script>
+</body>
+</html>

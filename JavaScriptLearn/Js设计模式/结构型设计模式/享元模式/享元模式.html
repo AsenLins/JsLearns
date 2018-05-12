@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+
+</head>
+<body>
+    <script>
+    /*
+        运用共享技术有效地支持大量的细粒度的对象，避免对象间拥有
+        相同内容造成多余的开销。 
+    */    
+
+    /*享元模式 减少开销*/
+    var FlyweightObj={
+        domArray:[],
+        get:function(index){
+            if(this.domArray[index]==undefined){
+               
+                var dom=document.createElement("div");
+                this.domArray.push(dom);
+                console.log("dom is create and push");
+            }
+            return this.domArray[index]
+        }
+    }
+
+    console.log(FlyweightObj.get(1));
+    console.log(FlyweightObj.get(1));
+    console.log(FlyweightObj.get(2));
+    console.log(FlyweightObj.get(2));
+
+
+
+
+
+
+    /*享元模式 公用对象，减少开销*/
+    var Move={
+        moveX:function(x){
+            this.x=x;
+        },
+        moveY:function(y){
+            this.y=y;
+        }
+    }
+    
+    function SuperMan(){
+
+        this.name="superMan";
+        this.x=10;
+        this.y=20;
+    }
+    SuperMan.prototype=Move;
+  
+    var superMan=new SuperMan();
+    console.log(superMan);
+  
+    console.log(superMan.Move);
+    superMan.moveX(30);
+    superMan.moveY(40);
+
+    console.log("superMan",superMan);
+
+
+    function SuperWomen(){
+
+        this.name="superMan";
+        this.x=10;
+        this.y=20;
+    }
+    SuperWomen.prototype=Move;
+
+    var superWomen=new SuperWomen();
+   
+    superWomen.moveX(30);
+    superWomen.moveY(40);
+    console.log("superWomen",superWomen);
+            
+    </script>
+</body>
+</html>
